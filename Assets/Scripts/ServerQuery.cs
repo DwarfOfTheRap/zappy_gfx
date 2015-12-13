@@ -43,6 +43,11 @@ public class ServerQuery : MonoBehaviour {
 		return "msz\n";
 	}
 
+	public void SendMapSizeQuery()
+	{
+		ClientScript.instance.SendToServer (GetMapSizeString ());
+	}
+
 	public string GetSquareContentString(int x, int y)
 	{
 		if (x < 0 || y < 0)
@@ -50,9 +55,19 @@ public class ServerQuery : MonoBehaviour {
 		return "bct " + x + " " + y + "\n";
 	}
 
+	public void SendSquareContentQuery(int x, int y)
+	{
+		ClientScript.instance.SendToServer (GetSquareContentString(x, y));
+	}
+
 	public string GetAllSquaresString()
 	{
 		return "mct\n";
+	}
+
+	public void SendAllSquaresQuery()
+	{
+		ClientScript.instance.SendToServer (GetAllSquaresString ());
 	}
 
 	public string GetTeamNamesString()
@@ -60,30 +75,55 @@ public class ServerQuery : MonoBehaviour {
 		return "tna\n";
 	}
 
-	public string GetPlayerPosition(int n)
+	public void SendTeamNamesQuery()
+	{
+		ClientScript.instance.SendToServer (GetTeamNamesString());
+	}
+
+	public string GetPlayerPositionString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
 		return "ppo #" + n + "\n";
 	}
 
-	public string GetPlayerLevel(int n)
+	public void SendPlayerPositionQuery(int n)
+	{
+		ClientScript.instance.SendToServer (GetPlayerPositionString(n));
+	}
+
+	public string GetPlayerLevelString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
 		return "plv #" + n + "\n";
 	}
 
-	public string GetPlayerInventory(int n)
+	public void SendPlayerLevelQuery(int n)
+	{
+		ClientScript.instance.SendToServer (GetPlayerLevelString(n));
+	}
+
+	public string GetPlayerInventoryString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
 		return "pin #" + n + "\n";
 	}
 
+	public void SendPlayerInventoryQuery(int n)
+	{
+		ClientScript.instance.SendToServer (GetPlayerInventoryString (n));
+	}
+
 	public string GetCurrentTimeUnitString()
 	{
 		return "sgt\n";
+	}
+
+	public void SendCurrentTimeUnitQuery()
+	{
+		ClientScript.instance.SendToServer (GetCurrentTimeUnitString ());
 	}
 
 	public string GetTimeUnitChangeString(int t)
@@ -92,14 +132,19 @@ public class ServerQuery : MonoBehaviour {
 			throw new NegativeTimeUnitException("Negative Time Unit.");
 		return "sst " + t + "\n";
 	}
-	
-	public void GetSquareContent(int x, int y)
+
+	public void SendTimeUnitChangeQuery(int t)
 	{
-		// SendToSocket(GetSquareContentString());
+		ClientScript.instance.SendToServer (GetTimeUnitChangeString (t));
 	}
 
-	public void GetMapSize()
+	public string GetWelcomeMessageString()
 	{
-		// SendToSocket(GetMapSizeString(());
+		return "GRAPHIC\n";
+	}
+
+	public void SendWelcomeMessage()
+	{
+		ClientScript.instance.SendToServer(GetWelcomeMessageString());
 	}
 }

@@ -105,108 +105,108 @@ public class ServerQueryTests{
 
 	[Test]
 	[ExpectedException(typeof(ServerQuery.NegativePlayerIndexException))]
-	public void GetPlayerPosition_Negative_Index()
+	public void GetPlayerPositionString_Negative_Index()
 	{
 		// Arrange
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		// Act
-		sq.GetPlayerPosition(-1);
+		sq.GetPlayerPositionString(-1);
 	}
 
 	[Test]
-	public void GetPlayerPosition_Zero_Index()
+	public void GetPlayerPositionString_Zero_Index()
 	{
 		// Arrange
 		string expected_result = "ppo #0\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerPosition(0);
+		result = sq.GetPlayerPositionString(0);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
 
 	[Test]
-	public void GetPlayerPosition_MaxInt_Index()
+	public void GetPlayerPositionString_MaxInt_Index()
 	{
 		// Arrange
 		string expected_result = "ppo #" + int.MaxValue + "\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerPosition(int.MaxValue);
+		result = sq.GetPlayerPositionString(int.MaxValue);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
 
 	[Test]
 	[ExpectedException(typeof(ServerQuery.NegativePlayerIndexException))]
-	public void GetPlayerLevel_Negative_Index()
+	public void GetPlayerLevelString_Negative_Index()
 	{
 		// Arrange
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		// Act
-		sq.GetPlayerLevel(-1);
+		sq.GetPlayerLevelString(-1);
 	}
 	
 	[Test]
-	public void GetPlayerLevel_Zero_Index()
+	public void GetPlayerLevelString_Zero_Index()
 	{
 		// Arrange
 		string expected_result = "plv #0\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerLevel(0);
+		result = sq.GetPlayerLevelString(0);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
 	
 	[Test]
-	public void GetPlayerLevel_MaxInt_Index()
+	public void GetPlayerLevelString_MaxInt_Index()
 	{
 		// Arrange
 		string expected_result = "plv #" + int.MaxValue + "\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerLevel(int.MaxValue);
+		result = sq.GetPlayerLevelString(int.MaxValue);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
 
 	[Test]
 	[ExpectedException(typeof(ServerQuery.NegativePlayerIndexException))]
-	public void GetPlayerInventory_Negative_Index()
+	public void GetPlayerInventoryString_Negative_Index()
 	{
 		// Arrange
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		// Act
-		sq.GetPlayerInventory(-1);
+		sq.GetPlayerInventoryString(-1);
 	}
 	
 	[Test]
-	public void GetPlayerInventory_Zero_Index()
+	public void GetPlayerInventoryString_Zero_Index()
 	{
 		// Arrange
 		string expected_result = "pin #0\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerInventory(0);
+		result = sq.GetPlayerInventoryString(0);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
 	
 	[Test]
-	public void GetPlayerInventory_MaxInt_Index()
+	public void GetPlayerInventoryString_MaxInt_Index()
 	{
 		// Arrange
 		string expected_result = "pin #" + int.MaxValue + "\n";
 		ServerQuery sq = Substitute.For<ServerQuery> ();
 		string result;
 		// Act
-		result = sq.GetPlayerInventory(int.MaxValue);
+		result = sq.GetPlayerInventoryString(int.MaxValue);
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
@@ -256,6 +256,19 @@ public class ServerQueryTests{
 		string result;
 		// Act
 		result = sq.GetTimeUnitChangeString(int.MaxValue);
+		// Assert
+		Assert.AreEqual (expected_result, result);
+	}
+
+	[Test]
+	public void GetWelcomeMessageString_Correct_String()
+	{	
+		// Arrange
+		string expected_result = "GRAPHIC\n";
+		ServerQuery sq = Substitute.For<ServerQuery> ();
+		string result;
+		// Act
+		result = sq.GetWelcomeMessageString ();
 		// Assert
 		Assert.AreEqual (expected_result, result);
 	}
