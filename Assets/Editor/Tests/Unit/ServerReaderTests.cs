@@ -393,4 +393,45 @@ public class ServerReaderTests {
 		Assert.AreEqual (test6_expected_result, test6_result);
 		Assert.AreEqual (test7_expected_result, test7_result);
 	}
+
+	[Test]
+	public void IsPlayerPositionString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "ppo #0 0 0 1\n";
+		string test2_string = "ppo #99999 99999 99999 4\n";
+		string test3_string = "ppo #0 0 0 5";
+		string test4_string = "ppo #0 0 0 0\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "ppo #1\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerPositionString(test1_string);
+		bool test2_result = sr.IsPlayerPositionString(test2_string);
+		bool test3_result = sr.IsPlayerPositionString(test3_string);
+		bool test4_result = sr.IsPlayerPositionString(test4_string);
+		bool test5_result = sr.IsPlayerPositionString(test5_string);
+		bool test6_result = sr.IsPlayerPositionString(test6_string);
+		bool test7_result = sr.IsPlayerPositionString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
 }

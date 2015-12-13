@@ -60,4 +60,9 @@ public class ServerReader : MonoBehaviour {
 	{
 		return Regex.IsMatch (serverMessage, @"pic " + X + " " + Y + " " + L + "( #" + n + ")+\n$");
 	}
+
+	public bool IsPlayerPositionString(string serverMessage)
+	{
+		return Regex.IsMatch(serverMessage, @"ppo #" + n + " " + X + " " + Y + " " + O + "\n$");
+	}
 }
