@@ -16,14 +16,74 @@ public class ServerReader : MonoBehaviour {
 	private string M = "\"[^\"]*\"";
 	private string i = @"[0-6]";
 
+	public bool IsMapSizeString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"msz " + X + " " + Y + "\n$");
+	}
+
+	public bool IsSquareContentString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"bct " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "\n$");
+	}
+
+	public bool IsTeamNamesString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"tna " + N + "\n$");
+	}
+
 	public bool IsPlayerConnectionString(string serverMessage)
 	{
 		return Regex.IsMatch (serverMessage, @"pnw #" + n + " " + X + " " + Y + " " + O + " " + L + " " + N + "\n$");
 	}
-
-	public bool IsGameOverString(string serverMessage)
+	
+	public bool IsPlayerPositionString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"seg " + N + "\n$");
+		return Regex.IsMatch(serverMessage, @"ppo #" + n + " " + X + " " + Y + " " + O + "\n$");
+	}
+
+	public bool IsPlayerLevelString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"plv #" + n + " " + L + "\n$");
+	}
+
+	public bool IsPlayerInventoryString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pin #" + n + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "\n$");
+	}
+	
+	public bool IsPlayerExpulseString(string serverMessage)
+	{
+		return Regex.IsMatch(serverMessage, @"pex #" + n + "\n$");
+	}
+	
+	public bool IsPlayerBroadcastString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pbc #" + n + " " + M + "\n$");
+	}
+
+	public bool IsPlayerIncantationString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pic " + X + " " + Y + " " + L + "( #" + n + ")+\n$");
+	}
+
+	public bool IsEndOfIncantationString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pie " + X + " " + Y + " " + R + "\n$");
+	}
+
+	public bool IsPlayerForkString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pfk #" + n + "\n$");
+	}
+	
+	public bool IsPlayerThrowResourceString(string serverMessage)
+	{
+		return Regex.IsMatch(serverMessage, @"pdr #" + n + " " + i + "\n$");
+	}
+
+	public bool IsPlayerTakeResourceString(string serverMessage)
+	{
+		return Regex.IsMatch (serverMessage, @"pgt #" + n + " " + i + "\n$");
 	}
 
 	public bool IsPlayerDeathString(string serverMessage)
@@ -31,9 +91,9 @@ public class ServerReader : MonoBehaviour {
 		return Regex.IsMatch (serverMessage, @"pdi #" + n + "\n$");
 	}
 
-	public bool IsRottenEggString(string serverMessage)
+	public bool IsEndOfForkString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"edi #" + e + "\n$");
+		return Regex.IsMatch (serverMessage, @"enw #" + e + " #" + n + " " + X + " " + Y + "\n$");
 	}
 
 	public bool IsHatchedEggString(string serverMessage)
@@ -41,28 +101,38 @@ public class ServerReader : MonoBehaviour {
 		return Regex.IsMatch (serverMessage, @"eht #" + e + "\n$");
 	}
 
-	public bool IsEndOfForkString(string serverMessage)
+	public bool IsPlayerToEggConnectionString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"enw #" + e + " #" + n + " " + X + " " + Y + "\n$");
+		return Regex.IsMatch (serverMessage, @"ebo #" + e + "\n$");
 	}
 
-	public bool IsForkString(string serverMessage)
+	public bool IsRottenEggString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"pfk #" + n + "\n$");
+		return Regex.IsMatch (serverMessage, @"edi #" + e + "\n$");
 	}
 
-	public bool IsBroadcastMessageString(string serverMessage)
+	public bool	IsTimeUntString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"pbc #" + n + " " + M + "\n$");
+		return Regex.IsMatch (serverMessage, @"sgt #" + T + "\n$");
 	}
 
-	public bool IsIncantationString(string serverMessage)
+	public bool IsGameOverString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"pic " + X + " " + Y + " " + L + "( #" + n + ")+\n$");
+		return Regex.IsMatch (serverMessage, @"seg " + N + "\n$");
 	}
 
-	public bool IsPlayerPositionString(string serverMessage)
+	public bool IsServerMessageString(string serverMessage)
 	{
-		return Regex.IsMatch(serverMessage, @"ppo #" + n + " " + X + " " + Y + " " + O + "\n$");
+		return Regex.IsMatch (serverMessage, @"smg " + M + "\n$");
+	}
+
+	public bool IsUnknownCommandString(string serverMessage)
+	{
+		return serverMessage == "suc\n";
+	}
+
+	public bool IsWrongParameterForCommand(string serverMessage)
+	{
+		return serverMessage == "sbp\n";
 	}
 }

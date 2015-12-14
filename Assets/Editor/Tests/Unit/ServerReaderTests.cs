@@ -5,6 +5,112 @@ using System.Collections;
 
 [TestFixture]
 public class ServerReaderTests {
+
+	[Test]
+	public void IsMapSizeString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsMapSizeString("msz 0 0\n");
+		bool test2_result = sr.IsMapSizeString("msz 99999 99999\n");
+		bool test3_result = sr.IsMapSizeString("msz -1 0\n");
+		bool test4_result = sr.IsMapSizeString("msz 0 -1\n");
+		bool test5_result = sr.IsMapSizeString("msz\n");
+		bool test6_result = sr.IsMapSizeString("msz 0\n");
+		bool test7_result = sr.IsMapSizeString("mgz 0 0\n");
+		bool test8_result = sr.IsMapSizeString("");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsSquareContentString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = true;
+		bool test4_expected_result = false;
+		bool test5_expected_result = true;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsSquareContentString("bct 0 0 0 0 0 0 0 0 0\n");
+		bool test2_result = sr.IsSquareContentString("bct 9999 9999 6 6 6 6 6 6 6\n");
+		bool test3_result = sr.IsSquareContentString("bct 9999 9999 9999 9999 9999 9999 9999 9999 9999\n");
+		bool test4_result = sr.IsSquareContentString("bct 0 0 0 0 0 0 0 0\n");
+		bool test5_result = sr.IsSquareContentString("bct 1 2 3 4 5 6 7 8 9\n");
+		bool test6_result = sr.IsSquareContentString("bct -1 0 1 2 3 4 5 6 7 8\n");
+		bool test7_result = sr.IsSquareContentString("bct\n");
+		bool test8_result = sr.IsSquareContentString("");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsTeamNamesString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = true;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsTeamNamesString("tna bidule\n");
+		bool test2_result = sr.IsTeamNamesString("tna Thequickbrownfoxjumpsoverthelazydog\n");
+		bool test3_result = sr.IsTeamNamesString("tna \n");
+		bool test4_result = sr.IsTeamNamesString("tna 01234567890123456789\n");
+		bool test5_result = sr.IsTeamNamesString("tna\n");
+		bool test6_result = sr.IsTeamNamesString("");
+		bool test7_result = sr.IsTeamNamesString("tna");
+		bool test8_result = sr.IsTeamNamesString("tna ---\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
 	[Test]
 	public void IsPlayerConnectionString_Regex_Testing()
 	{
@@ -66,6 +172,252 @@ public class ServerReaderTests {
 		Assert.AreEqual (test12_expected_result, test12_result);
 	}
 
+	[Test]
+	public void IsPlayerPositionString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "ppo #0 0 0 1\n";
+		string test2_string = "ppo #99999 99999 99999 4\n";
+		string test3_string = "ppo #0 0 0 5";
+		string test4_string = "ppo #0 0 0 0\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "ppo #1\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerPositionString(test1_string);
+		bool test2_result = sr.IsPlayerPositionString(test2_string);
+		bool test3_result = sr.IsPlayerPositionString(test3_string);
+		bool test4_result = sr.IsPlayerPositionString(test4_string);
+		bool test5_result = sr.IsPlayerPositionString(test5_string);
+		bool test6_result = sr.IsPlayerPositionString(test6_string);
+		bool test7_result = sr.IsPlayerPositionString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsPlayerLevelString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "plv #0 1\n";
+		string test2_string = "plv #99999 8\n";
+		string test3_string = "plv #0 0";
+		string test4_string = "plv #0 9\n";
+		string test5_string = "plv #-1 1";
+		string test6_string = "";
+		string test7_string = "plv";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerLevelString(test1_string);
+		bool test2_result = sr.IsPlayerLevelString(test2_string);
+		bool test3_result = sr.IsPlayerLevelString(test3_string);
+		bool test4_result = sr.IsPlayerLevelString(test4_string);
+		bool test5_result = sr.IsPlayerLevelString(test5_string);
+		bool test6_result = sr.IsPlayerLevelString(test6_string);
+		bool test7_result = sr.IsPlayerLevelString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsPlayerInventoryString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		
+		string test1_string = "pin #0 0 0 0 0 0 0 0 0 0\n";
+		string test2_string = "pin #9999 9999 9999 9999 9999 9999 9999 9999 9999 9999\n";
+		string test3_string = "pin #-1 0 0 0 0 0 0 0 0 0\n";
+		string test4_string = "pin #0 -1 0 0 0 0 0 0 0 0\n";
+		string test5_string = "pin #0 0 -1 0 0 0 0 0 0 0\n";
+		string test6_string = "pin #0 0 0 0 0 0 0 0 0";
+		string test7_string = "pin\n";
+		string test8_string = "";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerInventoryString(test1_string);
+		bool test2_result = sr.IsPlayerInventoryString(test2_string);
+		bool test3_result = sr.IsPlayerInventoryString(test3_string);
+		bool test4_result = sr.IsPlayerInventoryString(test4_string);
+		bool test5_result = sr.IsPlayerInventoryString(test5_string);
+		bool test6_result = sr.IsPlayerInventoryString(test6_string);
+		bool test7_result = sr.IsPlayerInventoryString(test7_string);
+		bool test8_result = sr.IsPlayerInventoryString(test8_string);
+
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsPlayerExpulseString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerExpulseString("pex #0\n");
+		bool test2_result = sr.IsPlayerExpulseString("pex #9999\n");
+		bool test3_result = sr.IsPlayerExpulseString("pex #-1\n");
+		bool test4_result = sr.IsPlayerExpulseString("pex #\n");
+		bool test5_result = sr.IsPlayerExpulseString("pex\n");
+		bool test6_result = sr.IsPlayerExpulseString("");
+		bool test7_result = sr.IsPlayerExpulseString("pox #0");
+		bool test8_result = sr.IsPlayerExpulseString("tna ---\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsPlayerBroadcastString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = true;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "pbc #0 \"\"\n";
+		string test2_string = "pbc #99999 \"The Quick Brown Fox Jumps Over The Lazy Dog\nAnd that's pretty much all\"\n";
+		string test3_string = "pbc #5 \"Test\"\n";
+		string test4_string = "pbc #-1 \"Test\"\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "pbc #1\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerBroadcastString(test1_string);
+		bool test2_result = sr.IsPlayerBroadcastString(test2_string);
+		bool test3_result = sr.IsPlayerBroadcastString(test3_string);
+		bool test4_result = sr.IsPlayerBroadcastString(test4_string);
+		bool test5_result = sr.IsPlayerBroadcastString(test5_string);
+		bool test6_result = sr.IsPlayerBroadcastString(test6_string);
+		bool test7_result = sr.IsPlayerBroadcastString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsPlayerIncantationString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = true;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "pic 0 0 1 #0\n";
+		string test2_string = "pic 99999 99999 8 #0 #1 #2 #3 #4 #5 #6 #7 #8 #9 #10\n";
+		string test3_string = "pic 99999 99999 8";
+		string test4_string = "pic 5 5 5 #5 #5 #5 #5 #5\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "pic #1\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerIncantationString(test1_string);
+		bool test2_result = sr.IsPlayerIncantationString(test2_string);
+		bool test3_result = sr.IsPlayerIncantationString(test3_string);
+		bool test4_result = sr.IsPlayerIncantationString(test4_string);
+		bool test5_result = sr.IsPlayerIncantationString(test5_string);
+		bool test6_result = sr.IsPlayerIncantationString(test6_string);
+		bool test7_result = sr.IsPlayerIncantationString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+
+	/*
 	[Test]
 	public void IsGameOverString_Regex_Testing()
 	{
@@ -310,128 +662,5 @@ public class ServerReaderTests {
 		Assert.AreEqual (test5_expected_result, test5_result);
 		Assert.AreEqual (test6_expected_result, test6_result);
 		Assert.AreEqual (test7_expected_result, test7_result);
-	}
-
-	[Test]
-	public void IsBroadcastMessageString_Regex_Testing()
-	{
-		//Arrange
-		bool test1_expected_result = true;
-		bool test2_expected_result = true;
-		bool test3_expected_result = true;
-		bool test4_expected_result = false;
-		bool test5_expected_result = false;
-		bool test6_expected_result = false;
-		bool test7_expected_result = false;
-		
-		string test1_string = "pbc #0 \"\"\n";
-		string test2_string = "pbc #99999 \"The Quick Brown Fox Jumps Over The Lazy Dog\nAnd that's pretty much all\"\n";
-		string test3_string = "pbc #5 \"Test\"\n";
-		string test4_string = "pbc #-1 \"Test\"\n";
-		string test5_string = "";
-		string test6_string = "string\n";
-		string test7_string = "pbc #1\n";
-		
-		ServerReader sr = Substitute.For<ServerReader>();
-		
-		// Act
-		bool test1_result = sr.IsBroadcastMessageString(test1_string);
-		bool test2_result = sr.IsBroadcastMessageString(test2_string);
-		bool test3_result = sr.IsBroadcastMessageString(test3_string);
-		bool test4_result = sr.IsBroadcastMessageString(test4_string);
-		bool test5_result = sr.IsBroadcastMessageString(test5_string);
-		bool test6_result = sr.IsBroadcastMessageString(test6_string);
-		bool test7_result = sr.IsBroadcastMessageString(test7_string);
-		
-		// Assert
-		Assert.AreEqual (test1_expected_result, test1_result);
-		Assert.AreEqual (test2_expected_result, test2_result);
-		Assert.AreEqual (test3_expected_result, test3_result);
-		Assert.AreEqual (test4_expected_result, test4_result);
-		Assert.AreEqual (test5_expected_result, test5_result);
-		Assert.AreEqual (test6_expected_result, test6_result);
-		Assert.AreEqual (test7_expected_result, test7_result);
-	}
-
-	[Test]
-	public void IsIncantationString_Regex_Testing()
-	{
-		//Arrange
-		bool test1_expected_result = true;
-		bool test2_expected_result = true;
-		bool test3_expected_result = false;
-		bool test4_expected_result = true;
-		bool test5_expected_result = false;
-		bool test6_expected_result = false;
-		bool test7_expected_result = false;
-		
-		string test1_string = "pic 0 0 1 #0\n";
-		string test2_string = "pic 99999 99999 8 #0 #1 #2 #3 #4 #5 #6 #7 #8 #9 #10\n";
-		string test3_string = "pic 99999 99999 8";
-		string test4_string = "pic 5 5 5 #5 #5 #5 #5 #5\n";
-		string test5_string = "";
-		string test6_string = "string\n";
-		string test7_string = "pic #1\n";
-		
-		ServerReader sr = Substitute.For<ServerReader>();
-		
-		// Act
-		bool test1_result = sr.IsIncantationString(test1_string);
-		bool test2_result = sr.IsIncantationString(test2_string);
-		bool test3_result = sr.IsIncantationString(test3_string);
-		bool test4_result = sr.IsIncantationString(test4_string);
-		bool test5_result = sr.IsIncantationString(test5_string);
-		bool test6_result = sr.IsIncantationString(test6_string);
-		bool test7_result = sr.IsIncantationString(test7_string);
-		
-		// Assert
-		Assert.AreEqual (test1_expected_result, test1_result);
-		Assert.AreEqual (test2_expected_result, test2_result);
-		Assert.AreEqual (test3_expected_result, test3_result);
-		Assert.AreEqual (test4_expected_result, test4_result);
-		Assert.AreEqual (test5_expected_result, test5_result);
-		Assert.AreEqual (test6_expected_result, test6_result);
-		Assert.AreEqual (test7_expected_result, test7_result);
-	}
-
-	[Test]
-	public void IsPlayerPositionString_Regex_Testing()
-	{
-		//Arrange
-		bool test1_expected_result = true;
-		bool test2_expected_result = true;
-		bool test3_expected_result = false;
-		bool test4_expected_result = false;
-		bool test5_expected_result = false;
-		bool test6_expected_result = false;
-		bool test7_expected_result = false;
-		
-		string test1_string = "ppo #0 0 0 1\n";
-		string test2_string = "ppo #99999 99999 99999 4\n";
-		string test3_string = "ppo #0 0 0 5";
-		string test4_string = "ppo #0 0 0 0\n";
-		string test5_string = "";
-		string test6_string = "string\n";
-		string test7_string = "ppo #1\n";
-		
-		ServerReader sr = Substitute.For<ServerReader>();
-		
-		// Act
-		bool test1_result = sr.IsPlayerPositionString(test1_string);
-		bool test2_result = sr.IsPlayerPositionString(test2_string);
-		bool test3_result = sr.IsPlayerPositionString(test3_string);
-		bool test4_result = sr.IsPlayerPositionString(test4_string);
-		bool test5_result = sr.IsPlayerPositionString(test5_string);
-		bool test6_result = sr.IsPlayerPositionString(test6_string);
-		bool test7_result = sr.IsPlayerPositionString(test7_string);
-		
-		// Assert
-		Assert.AreEqual (test1_expected_result, test1_result);
-		Assert.AreEqual (test2_expected_result, test2_result);
-		Assert.AreEqual (test3_expected_result, test3_result);
-		Assert.AreEqual (test4_expected_result, test4_result);
-		Assert.AreEqual (test5_expected_result, test5_result);
-		Assert.AreEqual (test6_expected_result, test6_result);
-		Assert.AreEqual (test7_expected_result, test7_result);
-	}
+	}*/
 }
