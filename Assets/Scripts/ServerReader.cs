@@ -10,7 +10,7 @@ public class ServerReader : MonoBehaviour {
 	private string O = @"[1-4]";
 	private string L = @"[1-8]";
 	private string e = @"[0-9]+";
-	private string T = @"[0-9]+";
+	private string T = @"([1-9]|[0-9]{2,})";
 	private string N = @"\w+";
 	private string R = @"[0-1]";
 	private string M = "\"[^\"]*\"";
@@ -111,9 +111,9 @@ public class ServerReader : MonoBehaviour {
 		return Regex.IsMatch (serverMessage, @"edi #" + e + "\n$");
 	}
 
-	public bool	IsTimeUntString(string serverMessage)
+	public bool	IsTimeUnitString(string serverMessage)
 	{
-		return Regex.IsMatch (serverMessage, @"sgt #" + T + "\n$");
+		return Regex.IsMatch (serverMessage, @"sgt " + T + "\n$");
 	}
 
 	public bool IsGameOverString(string serverMessage)
@@ -131,7 +131,7 @@ public class ServerReader : MonoBehaviour {
 		return serverMessage == "suc\n";
 	}
 
-	public bool IsWrongParameterForCommand(string serverMessage)
+	public bool IsWrongParametersString(string serverMessage)
 	{
 		return serverMessage == "sbp\n";
 	}

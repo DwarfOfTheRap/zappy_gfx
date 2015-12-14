@@ -5,7 +5,6 @@ using System.Collections;
 
 [TestFixture]
 public class ServerReaderTests {
-
 	[Test]
 	public void IsMapSizeString_Regex_Testing()
 	{
@@ -416,10 +415,54 @@ public class ServerReaderTests {
 		Assert.AreEqual (test7_expected_result, test7_result);
 	}
 
-
-	/*
+	
 	[Test]
-	public void IsGameOverString_Regex_Testing()
+	public void IsEndOfIncantationString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		
+		string test1_string = "pie 0 0 0\n";
+		string test2_string = "pie 99999 99999 1\n";
+		string test3_string = "pie 99999 99999 2";
+		string test4_string = "pie -1 99999 1\n";
+		string test5_string = "pie\n";
+		string test6_string = "";
+		string test7_string = "string\n";
+		string test8_string = "pic 0 0 0\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsEndOfIncantationString(test1_string);
+		bool test2_result = sr.IsEndOfIncantationString(test2_string);
+		bool test3_result = sr.IsEndOfIncantationString(test3_string);
+		bool test4_result = sr.IsEndOfIncantationString(test4_string);
+		bool test5_result = sr.IsEndOfIncantationString(test5_string);
+		bool test6_result = sr.IsEndOfIncantationString(test6_string);
+		bool test7_result = sr.IsEndOfIncantationString(test7_string);
+		bool test8_result = sr.IsEndOfIncantationString(test8_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsPlayerForkString_Regex_Testing()
 	{
 		//Arrange
 		bool test1_expected_result = true;
@@ -429,26 +472,26 @@ public class ServerReaderTests {
 		bool test5_expected_result = false;
 		bool test6_expected_result = false;
 		bool test7_expected_result = false;
-
-		string test1_string = "seg 0\n";
-		string test2_string = "seg 99999\n";
-		string test3_string = "seg Thequickbrownfoxjumpsoverthelazydog\n";
-		string test4_string = "seg Thequickbrownfoxjumpsoverthelazydog\nwrtwrtw";
+		
+		string test1_string = "pfk #0\n";
+		string test2_string = "pfk #99999\n";
+		string test3_string = "pfk #5\n";
+		string test4_string = "pfk #-1\n";
 		string test5_string = "";
 		string test6_string = "string\n";
-		string test7_string = "seg \n";
-
+		string test7_string = "pfk #\n";
+		
 		ServerReader sr = Substitute.For<ServerReader>();
-
+		
 		// Act
-		bool test1_result = sr.IsGameOverString(test1_string);
-		bool test2_result = sr.IsGameOverString(test2_string);
-		bool test3_result = sr.IsGameOverString(test3_string);
-		bool test4_result = sr.IsGameOverString(test4_string);
-		bool test5_result = sr.IsGameOverString(test5_string);
-		bool test6_result = sr.IsGameOverString(test6_string);
-		bool test7_result = sr.IsGameOverString(test7_string);
-
+		bool test1_result = sr.IsPlayerForkString(test1_string);
+		bool test2_result = sr.IsPlayerForkString(test2_string);
+		bool test3_result = sr.IsPlayerForkString(test3_string);
+		bool test4_result = sr.IsPlayerForkString(test4_string);
+		bool test5_result = sr.IsPlayerForkString(test5_string);
+		bool test6_result = sr.IsPlayerForkString(test6_string);
+		bool test7_result = sr.IsPlayerForkString(test7_string);
+		
 		// Assert
 		Assert.AreEqual (test1_expected_result, test1_result);
 		Assert.AreEqual (test2_expected_result, test2_result);
@@ -457,6 +500,76 @@ public class ServerReaderTests {
 		Assert.AreEqual (test5_expected_result, test5_result);
 		Assert.AreEqual (test6_expected_result, test6_result);
 		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsPlayerThrowResourceString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerThrowResourceString("pdr #0 0\n");
+		bool test2_result = sr.IsPlayerThrowResourceString("pdr #9999 0\n");
+		bool test3_result = sr.IsPlayerThrowResourceString("pdr #9999 7\n");
+		bool test4_result = sr.IsPlayerThrowResourceString("pdr #9999 -1\n");
+		bool test5_result = sr.IsPlayerThrowResourceString("pdr #9999\n");
+		bool test6_result = sr.IsPlayerThrowResourceString("pdr\n");
+		bool test7_result = sr.IsPlayerThrowResourceString("");
+		bool test8_result = sr.IsPlayerThrowResourceString("ptdr #0 0\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsPlayerTakeResourceString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerTakeResourceString("pgt #0 0\n");
+		bool test2_result = sr.IsPlayerTakeResourceString("pgt #9999 0\n");
+		bool test3_result = sr.IsPlayerTakeResourceString("pgt #9999 7\n");
+		bool test4_result = sr.IsPlayerTakeResourceString("pgt #9999 -1\n");
+		bool test5_result = sr.IsPlayerTakeResourceString("pgt #9999\n");
+		bool test6_result = sr.IsPlayerTakeResourceString("pgt\n");
+		bool test7_result = sr.IsPlayerTakeResourceString("");
+		bool test8_result = sr.IsPlayerTakeResourceString("cgt #0 0\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
 	}
 
 	[Test]
@@ -489,88 +602,6 @@ public class ServerReaderTests {
 		bool test5_result = sr.IsPlayerDeathString(test5_string);
 		bool test6_result = sr.IsPlayerDeathString(test6_string);
 		bool test7_result = sr.IsPlayerDeathString(test7_string);
-		
-		// Assert
-		Assert.AreEqual (test1_expected_result, test1_result);
-		Assert.AreEqual (test2_expected_result, test2_result);
-		Assert.AreEqual (test3_expected_result, test3_result);
-		Assert.AreEqual (test4_expected_result, test4_result);
-		Assert.AreEqual (test5_expected_result, test5_result);
-		Assert.AreEqual (test6_expected_result, test6_result);
-		Assert.AreEqual (test7_expected_result, test7_result);
-	}
-
-	[Test]
-	public void IsRottenEggString_Regex_Testing()
-	{
-		//Arrange
-		bool test1_expected_result = true;
-		bool test2_expected_result = true;
-		bool test3_expected_result = true;
-		bool test4_expected_result = false;
-		bool test5_expected_result = false;
-		bool test6_expected_result = false;
-		bool test7_expected_result = false;
-		
-		string test1_string = "edi #0\n";
-		string test2_string = "edi #99999\n";
-		string test3_string = "edi #5\n";
-		string test4_string = "edi #-1\n";
-		string test5_string = "";
-		string test6_string = "string\n";
-		string test7_string = "edi #\n";
-		
-		ServerReader sr = Substitute.For<ServerReader>();
-		
-		// Act
-		bool test1_result = sr.IsRottenEggString(test1_string);
-		bool test2_result = sr.IsRottenEggString(test2_string);
-		bool test3_result = sr.IsRottenEggString(test3_string);
-		bool test4_result = sr.IsRottenEggString(test4_string);
-		bool test5_result = sr.IsRottenEggString(test5_string);
-		bool test6_result = sr.IsRottenEggString(test6_string);
-		bool test7_result = sr.IsRottenEggString(test7_string);
-		
-		// Assert
-		Assert.AreEqual (test1_expected_result, test1_result);
-		Assert.AreEqual (test2_expected_result, test2_result);
-		Assert.AreEqual (test3_expected_result, test3_result);
-		Assert.AreEqual (test4_expected_result, test4_result);
-		Assert.AreEqual (test5_expected_result, test5_result);
-		Assert.AreEqual (test6_expected_result, test6_result);
-		Assert.AreEqual (test7_expected_result, test7_result);
-	}
-
-	[Test]
-	public void IsHatchedEggString_Regex_Testing()
-	{
-		//Arrange
-		bool test1_expected_result = true;
-		bool test2_expected_result = true;
-		bool test3_expected_result = true;
-		bool test4_expected_result = false;
-		bool test5_expected_result = false;
-		bool test6_expected_result = false;
-		bool test7_expected_result = false;
-
-		string test1_string = "eht #0\n";
-		string test2_string = "eht #99999\n";
-		string test3_string = "eht #5\n";
-		string test4_string = "eht #-1\n";
-		string test5_string = "";
-		string test6_string = "string\n";
-		string test7_string = "eht #\n";
-		
-		ServerReader sr = Substitute.For<ServerReader>();
-		
-		// Act
-		bool test1_result = sr.IsHatchedEggString(test1_string);
-		bool test2_result = sr.IsHatchedEggString(test2_string);
-		bool test3_result = sr.IsHatchedEggString(test3_string);
-		bool test4_result = sr.IsHatchedEggString(test4_string);
-		bool test5_result = sr.IsHatchedEggString(test5_string);
-		bool test6_result = sr.IsHatchedEggString(test6_string);
-		bool test7_result = sr.IsHatchedEggString(test7_string);
 		
 		// Assert
 		Assert.AreEqual (test1_expected_result, test1_result);
@@ -624,7 +655,7 @@ public class ServerReaderTests {
 	}
 
 	[Test]
-	public void IsForkString_Regex_Testing()
+	public void IsHatchedEggString_Regex_Testing()
 	{
 		//Arrange
 		bool test1_expected_result = true;
@@ -635,24 +666,24 @@ public class ServerReaderTests {
 		bool test6_expected_result = false;
 		bool test7_expected_result = false;
 		
-		string test1_string = "pfk #0\n";
-		string test2_string = "pfk #99999\n";
-		string test3_string = "pfk #5\n";
-		string test4_string = "pfk #-1\n";
+		string test1_string = "eht #0\n";
+		string test2_string = "eht #99999\n";
+		string test3_string = "eht #5\n";
+		string test4_string = "eht #-1\n";
 		string test5_string = "";
 		string test6_string = "string\n";
-		string test7_string = "pfk #\n";
+		string test7_string = "eht #\n";
 		
 		ServerReader sr = Substitute.For<ServerReader>();
 		
 		// Act
-		bool test1_result = sr.IsForkString(test1_string);
-		bool test2_result = sr.IsForkString(test2_string);
-		bool test3_result = sr.IsForkString(test3_string);
-		bool test4_result = sr.IsForkString(test4_string);
-		bool test5_result = sr.IsForkString(test5_string);
-		bool test6_result = sr.IsForkString(test6_string);
-		bool test7_result = sr.IsForkString(test7_string);
+		bool test1_result = sr.IsHatchedEggString(test1_string);
+		bool test2_result = sr.IsHatchedEggString(test2_string);
+		bool test3_result = sr.IsHatchedEggString(test3_string);
+		bool test4_result = sr.IsHatchedEggString(test4_string);
+		bool test5_result = sr.IsHatchedEggString(test5_string);
+		bool test6_result = sr.IsHatchedEggString(test6_string);
+		bool test7_result = sr.IsHatchedEggString(test7_string);
 		
 		// Assert
 		Assert.AreEqual (test1_expected_result, test1_result);
@@ -662,5 +693,269 @@ public class ServerReaderTests {
 		Assert.AreEqual (test5_expected_result, test5_result);
 		Assert.AreEqual (test6_expected_result, test6_result);
 		Assert.AreEqual (test7_expected_result, test7_result);
-	}*/
+	}
+
+	[Test]
+	public void IsPlayerToEggConnectionString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = true;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsPlayerToEggConnectionString("ebo #0\n");
+		bool test2_result = sr.IsPlayerToEggConnectionString("ebo #9999\n");
+		bool test3_result = sr.IsPlayerToEggConnectionString("ebo #-1\n");
+		bool test4_result = sr.IsPlayerToEggConnectionString("ebo #123456789\n");
+		bool test5_result = sr.IsPlayerToEggConnectionString("ebo\n");
+		bool test6_result = sr.IsPlayerToEggConnectionString("ebo #\n");
+		bool test7_result = sr.IsPlayerToEggConnectionString("");
+		bool test8_result = sr.IsPlayerToEggConnectionString("hbo #0\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsRottenEggString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = true;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "edi #0\n";
+		string test2_string = "edi #99999\n";
+		string test3_string = "edi #5\n";
+		string test4_string = "edi #-1\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "edi #\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsRottenEggString(test1_string);
+		bool test2_result = sr.IsRottenEggString(test2_string);
+		bool test3_result = sr.IsRottenEggString(test3_string);
+		bool test4_result = sr.IsRottenEggString(test4_string);
+		bool test5_result = sr.IsRottenEggString(test5_string);
+		bool test6_result = sr.IsRottenEggString(test6_string);
+		bool test7_result = sr.IsRottenEggString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsTimeUnitString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = false;
+		bool test4_expected_result = true;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsTimeUnitString("sgt 1\n");
+		bool test2_result = sr.IsTimeUnitString("sgt 9999\n");
+		bool test3_result = sr.IsTimeUnitString("sgt 0\n");
+		bool test4_result = sr.IsTimeUnitString("sgt 4000\n");
+		bool test5_result = sr.IsTimeUnitString("sgt\n");
+		bool test6_result = sr.IsTimeUnitString("sgt wegij\n");
+		bool test7_result = sr.IsTimeUnitString("");
+		bool test8_result = sr.IsTimeUnitString("cgt 1\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsGameOverString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = true;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "seg 0\n";
+		string test2_string = "seg 99999\n";
+		string test3_string = "seg Thequickbrownfoxjumpsoverthelazydog\n";
+		string test4_string = "seg Thequickbrownfoxjumpsoverthelazydog\nwrtwrtw";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "seg \n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsGameOverString(test1_string);
+		bool test2_result = sr.IsGameOverString(test2_string);
+		bool test3_result = sr.IsGameOverString(test3_string);
+		bool test4_result = sr.IsGameOverString(test4_string);
+		bool test5_result = sr.IsGameOverString(test5_string);
+		bool test6_result = sr.IsGameOverString(test6_string);
+		bool test7_result = sr.IsGameOverString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	
+	[Test]
+	public void IsServerMessageString_Regex_Testing()
+	{
+		//Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = true;
+		bool test3_expected_result = true;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		
+		string test1_string = "smg \"\"\n";
+		string test2_string = "smg \"The Quick Brown Fox Jumps Over The Lazy Dog\nAnd that's pretty much all\"\n";
+		string test3_string = "smg \"Test\"\n";
+		string test4_string = "smg #-1 \"Test\"\n";
+		string test5_string = "";
+		string test6_string = "string\n";
+		string test7_string = "msg \"Test\"\n";
+		
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsServerMessageString(test1_string);
+		bool test2_result = sr.IsServerMessageString(test2_string);
+		bool test3_result = sr.IsServerMessageString(test3_string);
+		bool test4_result = sr.IsServerMessageString(test4_string);
+		bool test5_result = sr.IsServerMessageString(test5_string);
+		bool test6_result = sr.IsServerMessageString(test6_string);
+		bool test7_result = sr.IsServerMessageString(test7_string);
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+	}
+
+	[Test]
+	public void IsUnknownCommandString_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = false;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsUnknownCommandString("suc\n");
+		bool test2_result = sr.IsUnknownCommandString("\n");
+		bool test3_result = sr.IsUnknownCommandString("soc\n");
+		bool test4_result = sr.IsUnknownCommandString("wefwefwefwe\n");
+		bool test5_result = sr.IsUnknownCommandString("suc");
+		bool test6_result = sr.IsUnknownCommandString("suc\nsuc\nsuc\n");
+		bool test7_result = sr.IsUnknownCommandString("");
+		bool test8_result = sr.IsUnknownCommandString("sbp\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
+
+	[Test]
+	public void IsWrongParameters_Regex_Testing()
+	{
+		// Arrange
+		bool test1_expected_result = true;
+		bool test2_expected_result = false;
+		bool test3_expected_result = false;
+		bool test4_expected_result = false;
+		bool test5_expected_result = false;
+		bool test6_expected_result = false;
+		bool test7_expected_result = false;
+		bool test8_expected_result = false;
+		ServerReader sr = Substitute.For<ServerReader>();
+		
+		// Act
+		bool test1_result = sr.IsWrongParametersString("sbp\n");
+		bool test2_result = sr.IsWrongParametersString("\n");
+		bool test3_result = sr.IsWrongParametersString("soc\n");
+		bool test4_result = sr.IsWrongParametersString("wefwefwefwe\n");
+		bool test5_result = sr.IsWrongParametersString("suc");
+		bool test6_result = sr.IsWrongParametersString("suc\nsuc\nsuc\n");
+		bool test7_result = sr.IsWrongParametersString("");
+		bool test8_result = sr.IsWrongParametersString("suc\n");
+		
+		// Assert
+		Assert.AreEqual (test1_expected_result, test1_result);
+		Assert.AreEqual (test2_expected_result, test2_result);
+		Assert.AreEqual (test3_expected_result, test3_result);
+		Assert.AreEqual (test4_expected_result, test4_result);
+		Assert.AreEqual (test5_expected_result, test5_result);
+		Assert.AreEqual (test6_expected_result, test6_result);
+		Assert.AreEqual (test7_expected_result, test7_result);
+		Assert.AreEqual (test8_expected_result, test8_result);
+	}
 }
