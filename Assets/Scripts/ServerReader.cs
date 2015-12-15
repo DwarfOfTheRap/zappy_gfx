@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public class ServerReader : MonoBehaviour {
+public class ServerReader {
 	private string X = @"[0-9]+";
 	private string Y = @"[0-9]+";
 	private string q = @"[0-9]+";

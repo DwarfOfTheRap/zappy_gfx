@@ -2,13 +2,12 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class PlayerScript : MonoBehaviour {
 	public int			index;
 	public float		speed = 1.0f;
 	public bool 		isIncantating { get; private set; }
 	private Vector2		positionIndex;
-	private Vector3		destination;
+	public Vector3		destination;
 
 	void Start()
 	{
@@ -17,14 +16,15 @@ public class PlayerScript : MonoBehaviour {
 	public void Incantate()
 	{
 		isIncantating = true;
-		GetComponent<Animator>().SetBool ("Incantation", true);
+		GetComponent<Animator>().SetBool ("Incante", true);
 	}
 
 	public void SetPosition(int x, int y)
 	{
 		if (this.positionIndex.x != x || this.positionIndex.y != y)
 		{
-			destination = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
+			Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
+			destination = new Vector3(tmp.x, transform.position.y, tmp.z);
 		}
 		this.positionIndex.x = x;
 		this.positionIndex.y = y;
@@ -54,9 +54,7 @@ public class PlayerScript : MonoBehaviour {
 	void GoToDestination()
 	{
 		int orientation = GetDirection ();
-		GetComponent<Animator>().SetBool ("Walking", (this.transform.position != destination));
-		if (orientation != 0)
-			GetComponent<Animator>().SetInteger("Orientation", orientation);
+		GetComponent<Animator>().SetBool ("Walk", (this.transform.position != destination));
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
 	}
 	
