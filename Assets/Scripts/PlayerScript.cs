@@ -2,73 +2,64 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour {
-	public int			index;
-	public float		speed = 1.0f;
-	public bool 		isIncantating { get; private set; }
-	private Vector2		positionIndex;
-	public Vector3		destination;
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
+	public PlayerController controller;
 
-	void Start()
+	private Vector3			destination;
+
+	private void OnEnable()
 	{
-		destination = this.transform.position;
+		controller.SetAnimatorController(this);
+		controller.SetPlayerMovementController(this);
+		this.destination = this.transform.position;
 	}
 
-	public void Incantate()
+	#region IAnimatorController implementation
+
+	public void SetBool (string name, bool value)
 	{
-		isIncantating = true;
-		GetComponent<Animator>().SetBool ("Incante", true);
+		GetComponent<Animator>().SetBool (name, value);
 	}
 
-	public void StopIncantating()
+	public void SetFloat (string name, float value)
 	{
-		if (isIncantating) {
-			GetComponent<Animator> ().SetBool ("Incante", false);
-			isIncantating = false;
-		}
+		GetComponent<Animator>().SetFloat (name, value);
 	}
 
-	public void SetPosition(int x, int y)
+	public void SetInteger (string name, int value)
 	{
-		if (this.positionIndex.x != x || this.positionIndex.y != y)
-		{
-			Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
-			destination = new Vector3(tmp.x, transform.position.y, tmp.z);
-		}
-		this.positionIndex.x = x;
-		this.positionIndex.y = y;
+		GetComponent<Animator>().SetInteger (name, value);
 	}
 
-	int GetDirection()
+	public void SetTrigger (string name)
 	{
-		if (this.transform.position == destination)
-			return 0;
-		Vector3 heading = destination - transform.position;
-		Vector3 direction = heading / heading.magnitude;
-		float absx = Mathf.Abs (direction.x);
-		float absy = Mathf.Abs (direction.y);
-		Debug.Log (direction);
-
-		if (absx > absy && direction.x <= 0)
-			return 4;
-		if (absx > absy && direction.x > 0)
-			return 2;
-		if (absx <= absy && direction.y <= 0)
-			return 3;
-		if (absx <= absy && direction.y > 0)
-			return 1;
-		return 0;
+		GetComponent<Animator>().SetTrigger (name);
 	}
 
-	void GoToDestination()
+	#endregion
+
+	#region IPlayerMovementController implementation
+
+	public bool IsMoving ()
 	{
-		int orientation = GetDirection ();
-		GetComponent<Animator>().SetBool ("Walk", (this.transform.position != destination));
+		return this.transform.position != controller.destination;
+	}
+
+	public void SetDestination (int x, int y)
+	{
+		Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
+		destination = new Vector3(tmp.x, transform.position.y, tmp.z);
+	}
+
+	public void MoveToDestination (float speed)
+	{
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
 	}
-	
+
+	#endregion
+
 	void Update()
 	{
-		GoToDestination ();
+		controller.Update ();
 	}
 }
