@@ -444,9 +444,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07f2709a9615647019917f6e0c06bd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
-  speed: 1
-  destination: {x: 0, y: 0, z: 0}
+  controller:
+    index: 0
+    speed: 1
+    destination: {x: 0, y: 0, z: 0}
 --- !u!1 &1649050038
 GameObject:
   m_ObjectHideFlags: 0
