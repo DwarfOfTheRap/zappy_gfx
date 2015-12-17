@@ -13,10 +13,19 @@ public class PlayerScript : MonoBehaviour {
 	{
 		destination = this.transform.position;
 	}
+
 	public void Incantate()
 	{
 		isIncantating = true;
 		GetComponent<Animator>().SetBool ("Incante", true);
+	}
+
+	public void StopIncantating()
+	{
+		if (isIncantating) {
+			GetComponent<Animator> ().SetBool ("Incante", false);
+			isIncantating = false;
+		}
 	}
 
 	public void SetPosition(int x, int y)
