@@ -9,10 +9,23 @@ public class PlayerControllerTest : MonoBehaviour {
 	public void Incantate_Test()
 	{
 		// Arrange
-		v
+		var animatorController = GetAnimatorControllerMock();
+		var controller = GetPlayerControllerMock (animatorController);
 		// Act
-
+		controller.Incantate();
 		// Assert
+		animatorController.Received().SetBool ("Incantate", true);
+	}
+
+	public void StopIncantating_Test()
+	{
+		// Arrange
+		var animatorController = GetAnimatorControllerMock ();
+		var controller = GetPlayerControllerMock (animatorController);
+		// Act
+		controller.StopIncantating();
+		// Assert
+		animatorController.Received ().SetBool ("Incantate", false);
 	}
 
 	public IPlayerMovementController GetPlayerMovementControllerMock()
@@ -20,8 +33,8 @@ public class PlayerControllerTest : MonoBehaviour {
 		return Substitute.For<IPlayerMovementController>();
 	}
 
-	public IAnimatorController GetAnimatorControllerMock()
-	{
+	public IAnimatorController GetAnimatorControllerMock(){
+		return Substitute.For<IAnimatorController>();
 	}
 
 	public PlayerController GetPlayerControllerMock(IPlayerMovementController movementController)

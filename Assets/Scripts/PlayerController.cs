@@ -2,6 +2,14 @@
 using System.Collections;
 using System;
 
+public enum Orientation {
+	NORTH = 1,
+	EAST = 2,
+	SOUTH = 3,
+	WEST = 4,
+	NONE = 0
+}
+
 [Serializable]
 public class PlayerController {
 	public int			index;
@@ -41,6 +49,42 @@ public class PlayerController {
 			playerMovementController.SetDestination (x, y);
 		this.positionIndex.x = x;
 		this.positionIndex.y = y;
+	}
+
+	Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
+	{
+		if (position == destination)
+			return Orientation.NONE;
+		Vector3 heading = destination - position;
+		Vector3 direction = heading / heading.magnitude;
+		float absx = Mathf.Abs (direction.x);
+		float absy = Mathf.Abs (direction.y);
+		Debug.Log (direction);
+		
+		if (absx > absy && direction.x <= 0)
+			return Orientation.WEST;
+		if (absx > absy && direction.x > 0)
+			return Orientation.EAST;
+		if (absx <= absy && direction.y <= 0)
+			return Orientation.SOUTH;
+		if (absx <= absy && direction.y > 0)
+			return Orientation.NORTH;
+		return Orientation.NONE;
+	}
+
+	Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
+	{
+		int destinationInt = (int)destinationOrientation;
+		int playerOrientationInt = (int)playerOrientation;
+		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 0)
+			return Orientation.NORTH;
+		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 1)
+			return Orientation.EAST;
+		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 2)
+			return Orientation.SOUTH;
+		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 3)
+			return Orientation.WEST;
+		return Orientation.NONE;
 	}
 
 	void GoToDestination()

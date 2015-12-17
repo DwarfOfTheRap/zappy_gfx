@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-public class ServerQuery : MonoBehaviour {
+public class ServerQuery {
 	public class ServerQueryException : Exception
 	{
 		public ServerQueryException(){}
@@ -29,13 +29,6 @@ public class ServerQuery : MonoBehaviour {
 		public NegativeTimeUnitException() {}
 		
 		public NegativeTimeUnitException(string message) : base(message) {}
-	}
-	
-	public static ServerQuery	instance;
-
-	void Start()
-	{
-		instance = this;
 	}
 
 	public string GetMapSizeString()

@@ -47,7 +47,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	public void SetDestination (int x, int y)
 	{
-		Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
+		Vector3 tmp = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetPosition();
 		destination = new Vector3(tmp.x, transform.position.y, tmp.z);
 	}
 
