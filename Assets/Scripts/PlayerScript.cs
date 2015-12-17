@@ -32,8 +32,8 @@ public class PlayerScript : MonoBehaviour {
 	{
 		if (this.positionIndex.x != x || this.positionIndex.y != y)
 		{
-			Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
-			destination = new Vector3(tmp.x, transform.position.y, tmp.z);
+			//Vector3 tmp = GameManagerScript.instance.grid.GetSquare (x, y).transform.position;
+			//destination = new Vector3(tmp.x, transform.position.y, tmp.z);
 		}
 		this.positionIndex.x = x;
 		this.positionIndex.y = y;
