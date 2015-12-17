@@ -40,7 +40,7 @@ public class TCPConnection : MonoBehaviour {
 	//send message to server
 	public void writeSocket(string message) {
 		if (!socketReady)
-			return;
+			return ;
 		writer.Write(message);
 		writer.Flush();
 	}
@@ -59,7 +59,7 @@ public class TCPConnection : MonoBehaviour {
 	//disconnect from the socket
 	public void closeSocket() {
 		if (!socketReady)
-			return;
+			return ;
 		writer.Close();
 		reader.Close();
 		mySocket.Close();
