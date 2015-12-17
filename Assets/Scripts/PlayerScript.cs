@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
 	public PlayerController controller;
 
-	private Vector3			destination;
+	public Vector3			destination;
 
 	private void OnEnable()
 	{
@@ -60,6 +60,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	void Update()
 	{
-		controller.Update ();
+		controller.Update (this.transform.position, destination);
 	}
 }

@@ -17,6 +17,7 @@ public class PlayerController {
 	public bool 		isIncantating { get; private set; }
 	private Vector2		positionIndex;
 	public Vector3		destination;
+	public Orientation	playerOrientation;
 	
 	private IAnimatorController	animatorController;
 	private IPlayerMovementController playerMovementController;
@@ -40,7 +41,7 @@ public class PlayerController {
 	public void StopIncantating()
 	{
 		isIncantating = false;
-		animatorController.SetBool("Incante", false);
+		animatorController.SetBool("Incantate", false);
 	}
 
 	public void SetPosition(int x, int y)
@@ -87,13 +88,16 @@ public class PlayerController {
 		return Orientation.NONE;
 	}
 
-	void GoToDestination()
+	void GoToDestination(Orientation animationOrientation)
 	{
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
+		animatorController.SetInteger ("Orientation", (int)animationOrientation);
+		playerMovementController.MoveToDestination (speed);
 	}
 	
-	public void Update()
+	public void Update(Vector3 position, Vector3 destination)
 	{
-		GoToDestination ();
+		Orientation animationOrientation = GetAnimationOrientation (GetDestinationOrientation(position, destination), playerOrientation);
+		GoToDestination (animationOrientation);
 	}
 }
