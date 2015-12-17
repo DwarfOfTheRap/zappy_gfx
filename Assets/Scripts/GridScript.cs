@@ -18,6 +18,7 @@ public class GridScript : MonoBehaviour {
 	}
 
 	public GameObject GridSquarePrefab;
+	public GameObject GridSquarePrefab2;
 	public GameObject[] grid { get ; private set; }
 	private int			height;
 	private int			width;
@@ -27,10 +28,10 @@ public class GridScript : MonoBehaviour {
 	void Start()
 	{
 		if (startHeight != 0 && startWidth != 0)
-			init (startHeight, startWidth);
+			Init (startHeight, startWidth);
 	}
 
-	public void clearGrid()
+	public void ClearGrid()
 	{
 		if (grid == null)
 			return ;
@@ -50,25 +51,28 @@ public class GridScript : MonoBehaviour {
 		return grid[x * height + y];
 	}
 
-	public void init(int width, int height)
+	public void Init(int width, int height)
 	{
-		float sizex;
-		float sizey;
-		float sizez;
-		clearGrid ();
+		ClearGrid ();
 		this.width = width;
 		this.height = height;
 		grid = new GameObject[width * height];
+
+		float sizex;
+		float sizey;
+		float sizez;
 		GameObject clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
 		sizex = clone.GetComponent<Renderer>().bounds.size.x;
 		sizey = clone.GetComponent<Renderer>().bounds.size.y;
 		sizez = clone.GetComponent<Renderer>().bounds.size.z;
 		Destroy(clone);
+
+		GameObject[] squareToPlace = {GridSquarePrefab, GridSquarePrefab2};
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)
 			{
-				clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
+				clone = GameObject.Instantiate (squareToPlace[(i + j) % 2 == 0 ? 1 : 0]) as GameObject;
 				clone.transform.SetParent (this.transform);
 				clone.transform.localPosition = new Vector3(i * sizex, -sizey / 2.0f, j * sizez);
 				grid[i * height + j] = clone;
