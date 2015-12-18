@@ -11,6 +11,13 @@ public class GridController {
 		
 		public GridOutOfBoundsException(string message) : base(message) {}
 	}
+
+	public class GridIllegalIndexException : Exception
+	{
+		public GridIllegalIndexException(){}
+
+		public GridIllegalIndexException (string message) : base(message) {}
+	}
 	
 	public class GridNotInitializedException : Exception
 	{
@@ -25,7 +32,6 @@ public class GridController {
 	private int			width;
 	public	int			startHeight;
 	public	int			startWidth;
-	public	int			switchInt = 0;
 
 	private ISquareInstantiationController squareInstantiationController;
 
@@ -40,15 +46,13 @@ public class GridController {
 			Init (startHeight, startWidth);
 	}
 	
-	public void ClearGrid()
+	public ISquare[] ClearGrid(ISquare[] grid)
 	{
 		if (grid == null)
-			return ;
+			return null;
 		for (int i = 0; i < grid.Length; i++)
-		{
 			grid[i].Destroy();
-			grid[i] = null;
-		}
+		return null;
 	}
 	
 	public ISquare GetSquare(int x, int y)
@@ -62,7 +66,9 @@ public class GridController {
 	
 	public void Init(int width, int height)
 	{
-		ClearGrid ();
+		if (width < 0 || height < 0 || width * height > int.MaxValue)
+			throw new GridIllegalIndexException ("Index is out of range of the grid with width = " + width + " and height = " + height + ".");
+		grid = ClearGrid (grid);
 		this.width = width;
 		this.height = height;
 		grid = new ISquare[width * height];
@@ -70,20 +76,23 @@ public class GridController {
 		float sizex;
 		float sizey;
 		float sizez;
-		ISquare clone = squareInstantiationController.Instantiate (switchInt);
+		ISquare clone = squareInstantiationController.Instantiate (0);
 		sizex = clone.GetBoundX();
 		sizey = clone.GetBoundY();
 		sizez = clone.GetBoundZ();
 		clone.Destroy();
 
+		int switchInt = 0;
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)
-			{
+			{	
 				clone = squareInstantiationController.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
 				switchInt ^= 1;
 				grid[i * height + j] = clone;
 			}
+			if (height % 2 == 0)
+				switchInt ^= 1;
 		}
 	}
 

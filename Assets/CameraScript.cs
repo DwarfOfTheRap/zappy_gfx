@@ -24,7 +24,7 @@ public class CameraScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (grid.Length != 0)
+		if (grid != null && grid.Length != 0)
 		{
 			// Position the camera in the center.
 			Vector3 newCameraPos = Camera.main.transform.position;
