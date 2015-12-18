@@ -11,7 +11,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 	{
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
-		this.destination = this.transform.position;
 	}
 
 	#region IAnimatorController implementation
@@ -42,7 +41,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	public bool IsMoving ()
 	{
-		return this.transform.position != controller.destination;
+		return this.transform.position != destination;
 	}
 
 	public void SetDestination (int x, int y)

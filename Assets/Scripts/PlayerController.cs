@@ -16,7 +16,6 @@ public class PlayerController {
 	public float		speed = 1.0f;
 	public bool 		isIncantating { get; private set; }
 	private Vector2		positionIndex;
-	public Vector3		destination;
 	public Orientation	playerOrientation;
 	
 	private IAnimatorController	animatorController;
@@ -52,7 +51,7 @@ public class PlayerController {
 		this.positionIndex.y = y;
 	}
 
-	Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
+	public Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
 	{
 		if (position == destination)
 			return Orientation.NONE;
@@ -60,7 +59,6 @@ public class PlayerController {
 		Vector3 direction = heading / heading.magnitude;
 		float absx = Mathf.Abs (direction.x);
 		float absy = Mathf.Abs (direction.y);
-		Debug.Log (direction);
 		
 		if (absx > absy && direction.x <= 0)
 			return Orientation.WEST;
@@ -73,22 +71,22 @@ public class PlayerController {
 		return Orientation.NONE;
 	}
 
-	Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
+	public Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
 	{
 		int destinationInt = (int)destinationOrientation;
 		int playerOrientationInt = (int)playerOrientation;
-		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 0)
+		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 0)
 			return Orientation.NORTH;
-		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 1)
+		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 1)
 			return Orientation.EAST;
-		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 2)
+		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 2)
 			return Orientation.SOUTH;
-		if (4 + Mathf.Abs (destinationInt - playerOrientationInt) % 4 == 3)
+		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 3)
 			return Orientation.WEST;
 		return Orientation.NONE;
 	}
 
-	void GoToDestination(Orientation animationOrientation)
+	public void GoToDestination(Orientation animationOrientation)
 	{
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
