@@ -1,8 +1,10 @@
-language: objective-c
 sudo: required
 dist: trusty
+language: objective-c
+
 install: Scripts/install.sh
 script: Scripts/build.sh
+
 os:
   - osx
   - linux
