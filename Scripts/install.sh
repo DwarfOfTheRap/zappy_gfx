@@ -11,5 +11,5 @@ echo 'Installing Unity.pkg'
 if [[ ${TRAVIS_OS_NAME} == osx ]]; then
     sudo installer -dumplog -package Unity.pkg -target /
 else
-    sudo apt-get update && sudo apt-get install -y unity
+    sudo apt-get update -qq && sudo apt-get install -y unity
 fi
