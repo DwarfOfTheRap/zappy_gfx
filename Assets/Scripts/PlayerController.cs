@@ -14,10 +14,11 @@ public enum Orientation {
 public class PlayerController {
 	public int			index;
 	public float		speed = 1.0f;
+	public float		rotSpeed = 1.0f;
 	public bool 		isIncantating { get; private set; }
 	private Vector2		positionIndex;
 	private Quaternion	rotation;
-	public Orientation	playerOrientation;
+	public Orientation	playerOrientation { get; private set; }
 	
 	private IAnimatorController	animatorController;
 	private IPlayerMovementController playerMovementController;
@@ -52,21 +53,22 @@ public class PlayerController {
 		this.positionIndex.y = y;
 	}
 
-	private void SetRotation(Orientation playerOrientation)
+	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
+		this.playerOrientation = playerOrientation;
 		switch (playerOrientation)
 		{
 			case Orientation.NORTH:
-				rotation = Quaternion.Euler (new Vector3(0, 0, 0));
+				rotation = Quaternion.Euler (0, 0, 0);
 				break;
 			case Orientation.EAST:
-				rotation = Quaternion.Euler (new Vector3(0, 90, 0));
+				rotation = Quaternion.Euler (0, 90, 0);
 				break;
 			case Orientation.SOUTH:
-				rotation = Quaternion.Euler (new Vector3(0, 180, 0));
+				rotation = Quaternion.Euler (0, 180, 0);
 				break;
 			case Orientation.WEST:
-				rotation = Quaternion.Euler (new Vector3(0, 270, 0));
+				rotation = Quaternion.Euler (0, 270, 0);
 				break;
 		}
 	}
@@ -112,13 +114,12 @@ public class PlayerController {
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		playerMovementController.MoveToDestination (speed);
-		playerMovementController.MoveTo
+		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
 	
 	public void Update(Vector3 position, Vector3 destination)
 	{
 		Orientation animationOrientation = GetAnimationOrientation (GetDestinationOrientation(position, destination), playerOrientation);
-		SetRotation (this.playerOrientation);
 		GoToDestination (animationOrientation);
 	}
 }

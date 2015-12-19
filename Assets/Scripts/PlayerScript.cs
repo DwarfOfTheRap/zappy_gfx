@@ -6,11 +6,13 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 	public PlayerController controller;
 
 	public Vector3			destination;
+	public Orientation		orientation;
 
 	private void OnEnable()
 	{
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
+		controller.SetPlayerOrientation(orientation);
 	}
 
 	#region IAnimatorController implementation

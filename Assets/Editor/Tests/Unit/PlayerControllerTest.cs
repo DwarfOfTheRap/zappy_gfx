@@ -195,6 +195,62 @@ public class PlayerControllerTest : MonoBehaviour {
 		movementController.Received ().MoveToDestination (Arg.Any<float>());
 	}
 
+	[Test]
+	public void MoveToRotation_Test_North()
+	{
+		// Arrange
+		var movementController = GetPlayerMovementControllerMock();
+		var animatorController = GetAnimatorControllerMock ();
+		var controller = GetPlayerControllerMock (animatorController, movementController);
+		// Act
+		controller.SetPlayerOrientation(Orientation.NORTH);
+		controller.GoToDestination (Orientation.NORTH);
+		// Assert
+		movementController.Received ().MoveToRotation (Quaternion.Euler(0, 0, 0), Arg.Any<float>());
+	}
+	
+	[Test]
+	public void MoveToRotation_Test_East()
+	{
+		// Arrange
+		var movementController = GetPlayerMovementControllerMock();
+		var animatorController = GetAnimatorControllerMock ();
+		var controller = GetPlayerControllerMock (animatorController, movementController);
+		// Act
+		controller.SetPlayerOrientation(Orientation.EAST);
+		controller.GoToDestination (Orientation.NORTH);
+		// Assert
+		movementController.Received ().MoveToRotation (Quaternion.Euler(0, 90, 0), Arg.Any<float>());
+	}
+	
+	[Test]
+	public void MoveToRotation_Test_South()
+	{
+		// Arrange
+		var movementController = GetPlayerMovementControllerMock();
+		var animatorController = GetAnimatorControllerMock ();
+		var controller = GetPlayerControllerMock (animatorController, movementController);
+		// Act
+		controller.SetPlayerOrientation(Orientation.SOUTH);
+		controller.GoToDestination (Orientation.NORTH);
+		// Assert
+		movementController.Received ().MoveToRotation (Quaternion.Euler(0, 180, 0), Arg.Any<float>());
+	}
+	
+	[Test]
+	public void MoveToRotation_Test_West()
+	{
+		// Arrange
+		var movementController = GetPlayerMovementControllerMock();
+		var animatorController = GetAnimatorControllerMock ();
+		var controller = GetPlayerControllerMock (animatorController, movementController);
+		// Act
+		controller.SetPlayerOrientation(Orientation.WEST);
+		controller.GoToDestination (Orientation.NORTH);
+		// Assert
+		movementController.Received ().MoveToRotation (Quaternion.Euler(0, 270, 0), Arg.Any<float>());;
+	}
+
 	public IPlayerMovementController GetPlayerMovementControllerMock()
 	{
 		return Substitute.For<IPlayerMovementController>();
