@@ -8,4 +8,8 @@ echo 'Downloading from http://netstorage.unity3d.com/unity/3757309da7e7/MacEdito
 curl -o Unity.pkg http://netstorage.unity3d.com/unity/3757309da7e7/MacEditorInstaller/Unity-5.2.2f1.pkg
 
 echo 'Installing Unity.pkg'
-sudo installer -dumplog -package Unity.pkg -target /
+if [[ ${TRAVIS_OS_NAME} == osx ]]; then
+    sudo installer -dumplog -package Unity.pkg -target /
+else
+    sudo apt-get update && sudo apt-get install unity
+fi
