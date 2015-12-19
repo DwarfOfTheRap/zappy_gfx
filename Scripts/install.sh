@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 
 # Example install script for Unity3D project. See the entire example: https://github.com/JonathanPorta/ci-build
 
@@ -11,5 +11,5 @@ echo 'Installing Unity.pkg'
 if [[ ${TRAVIS_OS_NAME} == osx ]]; then
     sudo installer -dumplog -package Unity.pkg -target /
 else
-    sudo apt-get update && sudo apt-get install unity
+    sudo apt-get update && sudo apt-get install -y unity
 fi
