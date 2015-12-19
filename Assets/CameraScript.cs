@@ -17,9 +17,9 @@ public class CameraScript : MonoBehaviour {
 	private ISquare[] grid;
 
 	void Start() {
-		grid = GameManagerScript.instance.grid.controller.grid;
 		aspectRatio = Screen.width / Screen.height;
 		tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
+		grid = GameManagerScript.instance.grid.controller.grid;
 	}
 
 	// Update is called once per frame

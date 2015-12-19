@@ -80,7 +80,7 @@ public class GridController {
 		sizex = clone.GetBoundX();
 		sizey = clone.GetBoundY();
 		sizez = clone.GetBoundZ();
-		clone.Destroy();
+		clone.DestroyImmediate ();
 
 		int switchInt = 0;
 		for (int i = 0; i < width; i++)

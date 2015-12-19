@@ -27,6 +27,11 @@ public class SquareScript : MonoBehaviour, ISquare
 	{
 		Destroy (gameObject);
 	}
+
+	public void DestroyImmediate()
+	{
+		DestroyImmediate (gameObject);
+	}
 }
 
 public interface ISquare
@@ -36,4 +41,5 @@ public interface ISquare
 	float GetBoundY();
 	float GetBoundZ();
 	void Destroy();
+	void DestroyImmediate();
 }
