@@ -190,7 +190,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Act
 		controller.GoToDestination (Orientation.WEST);
 		// Assert
-		animatorController.Received ().SetBool ("Walk", false);
+		animatorController.Received ().SetBool ("Walk", true);
 		animatorController.Received ().SetInteger ("Orientation", 4);
 		movementController.Received ().MoveToDestination (Arg.Any<float>());
 	}
