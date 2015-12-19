@@ -14,12 +14,8 @@ if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
         -logFile `pwd`/unity.log \
         -projectPath `pwd` \
         -executeMethod UnityTest.Batch.RunUnitTests \
-        -executeMethod UnityTest.Batch.RunIntegrationTests \
-        -testscenes=PlayerTestScene
         -quit
-    if [[ $? -ne 0 ]]; then
-        fail=1
-    fi
+        fail=$?
 elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
     echo "Attempting to build $project for Linux"
     /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -29,16 +25,9 @@ elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
         -logFile `pwd`/unity.log \
         -projectPath `pwd` \
         -executeMethod UnityTest.Batch.RunUnitTests \
-        -executeMethod UnityTest.Batch.RunIntegrationTests \
-        -testscenes=PlayerTestScene
         -quit
-    if [[ $? -ne 0 ]]; then
-        fail=1
-    fi
+        fail=$?
 fi
-
 echo 'Logs from build'
 cat `pwd`/unity.log
-if [[ $fail -eq 1 ]]; then
-    exit 1
-fi
+exit $fail
