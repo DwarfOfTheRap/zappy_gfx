@@ -55,10 +55,15 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
 	}
 
+	public void MoveToRotation (Quaternion rotation, float rotSpeed)
+	{
+		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed);
+	}
+
 	#endregion
 
 	void Update()
 	{
-		controller.Update (this.transform.position, destination);
+		controller.Update (this.transform.position, this.destination);
 	}
 }

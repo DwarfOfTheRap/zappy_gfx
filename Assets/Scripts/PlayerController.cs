@@ -16,6 +16,7 @@ public class PlayerController {
 	public float		speed = 1.0f;
 	public bool 		isIncantating { get; private set; }
 	private Vector2		positionIndex;
+	private Quaternion	rotation;
 	public Orientation	playerOrientation;
 	
 	private IAnimatorController	animatorController;
@@ -51,6 +52,26 @@ public class PlayerController {
 		this.positionIndex.y = y;
 	}
 
+	private void SetRotation(Orientation playerOrientation)
+	{
+		switch (playerOrientation)
+		{
+			case Orientation.NORTH:
+				rotation = Quaternion.Euler (new Vector3(0, 0, 0));
+				break;
+			case Orientation.EAST:
+				rotation = Quaternion.Euler (new Vector3(0, 90, 0));
+				break;
+			case Orientation.SOUTH:
+				rotation = Quaternion.Euler (new Vector3(0, 180, 0));
+				break;
+			case Orientation.WEST:
+				rotation = Quaternion.Euler (new Vector3(0, 270, 0));
+				break;
+		}
+	}
+	
+
 	public Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
 	{
 		if (position == destination)
@@ -58,15 +79,15 @@ public class PlayerController {
 		Vector3 heading = destination - position;
 		Vector3 direction = heading / heading.magnitude;
 		float absx = Mathf.Abs (direction.x);
-		float absy = Mathf.Abs (direction.y);
+		float absz = Mathf.Abs (direction.z);
 		
-		if (absx > absy && direction.x <= 0)
+		if (absx > absz && direction.x <= 0)
 			return Orientation.WEST;
-		if (absx > absy && direction.x > 0)
+		if (absx > absz && direction.x > 0)
 			return Orientation.EAST;
-		if (absx <= absy && direction.y <= 0)
+		if (absx <= absz && direction.z <= 0)
 			return Orientation.SOUTH;
-		if (absx <= absy && direction.y > 0)
+		if (absx <= absz && direction.z > 0)
 			return Orientation.NORTH;
 		return Orientation.NONE;
 	}
@@ -91,11 +112,13 @@ public class PlayerController {
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		playerMovementController.MoveToDestination (speed);
+		playerMovementController.MoveTo
 	}
 	
 	public void Update(Vector3 position, Vector3 destination)
 	{
 		Orientation animationOrientation = GetAnimationOrientation (GetDestinationOrientation(position, destination), playerOrientation);
+		SetRotation (this.playerOrientation);
 		GoToDestination (animationOrientation);
 	}
 }

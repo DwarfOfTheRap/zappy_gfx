@@ -438,6 +438,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
   m_IsPrefabParent: 0
@@ -674,6 +678,10 @@ Prefab:
     - target: {fileID: 400000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
       propertyPath: m_LocalScale.z
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc633396b5f95da4b916357a5508ee4f, type: 3}
@@ -1650,7 +1658,7 @@ MonoBehaviour:
   compareToType: 1
   other: {fileID: 0}
   otherPropertyPath: 
-  constantValueGeneric: 0
+  constantValueGeneric: 1
 --- !u!1 &1446510560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,8 +1784,8 @@ GameObject:
   - 95: {fileID: 1508242205}
   - 114: {fileID: 1508242203}
   - 114: {fileID: 1508242202}
-  - 114: {fileID: 1508242206}
   - 114: {fileID: 1508242204}
+  - 114: {fileID: 1508242206}
   m_Layer: 0
   m_Name: PA_Warrior
   m_TagString: Untagged
@@ -1887,7 +1895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationName: Walk_Forward
-  animationIsPlaying: 1
+  animationIsPlaying: 0
 --- !u!1 &1560455599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,7 +2513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1817209132
 Transform:
   m_ObjectHideFlags: 0
@@ -2680,8 +2688,8 @@ GameObject:
   - 95: {fileID: 1953261351}
   - 114: {fileID: 1953261350}
   - 114: {fileID: 1953261349}
-  - 114: {fileID: 1953261353}
   - 114: {fileID: 1953261352}
+  - 114: {fileID: 1953261353}
   m_Layer: 0
   m_Name: PA_Warrior
   m_TagString: Untagged

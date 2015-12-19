@@ -65,9 +65,9 @@ public class PlayerControllerTest : MonoBehaviour {
 		Orientation expected_result4 = Orientation.WEST;
 		// Act
 		Orientation result0 = controller.GetDestinationOrientation (Vector3.zero, Vector3.zero);
-		Orientation result1 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(0, 1, 0));
+		Orientation result1 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(0, 0, 1));
 		Orientation result2 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(1, 0, 0));
-		Orientation result3 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(0, -1, 0));
+		Orientation result3 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(0, 0, -1));
 		Orientation result4 = controller.GetDestinationOrientation (Vector3.zero, new Vector3(-1, 0, 0));
 
 		// Assert
