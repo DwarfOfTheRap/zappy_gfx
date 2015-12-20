@@ -2,77 +2,68 @@
 using System;
 using System.Collections;
 
-public class GridScript : MonoBehaviour {
-	public class GridOutOfBoundsException : Exception
+public class SquareScript : MonoBehaviour, ISquare
+{
+	public Vector3 GetPosition ()
 	{
-		public GridOutOfBoundsException(){}
-
-		public GridOutOfBoundsException(string message) : base(message) {}
+		return transform.position;
 	}
 
-	public class GridNotInitializedException : Exception
+	public float GetBoundX ()
 	{
-		public GridNotInitializedException(){}
-
-		public GridNotInitializedException(string message) : base(message) {}
+		return GetComponent<Renderer>().bounds.size.x;
 	}
 
-	public GameObject GridSquarePrefab;
-	public GameObject[] grid { get ; private set; }
-	private int			height;
-	private int			width;
-	public	int			startHeight;
-	public	int			startWidth;
-
-	void Start()
+	public float GetBoundY ()
 	{
-		if (startHeight != 0 && startWidth != 0)
-			init (startHeight, startWidth);
+		return GetComponent<Renderer>().bounds.size.y;
 	}
 
-	public void clearGrid()
+	public float GetBoundZ ()
 	{
-		if (grid == null)
-			return ;
-		for (int i = 0; i < grid.Length; i++)
-		{
-			Destroy (grid[i]);
-			grid[i] = null;
-		}
+		return GetComponent<Renderer>().bounds.size.z;
 	}
 
-	public GameObject GetSquare(int x, int y)
+	public void Destroy ()
 	{
-		if (grid == null)
-			throw new GridNotInitializedException("Tried to access the grid while it's not initialized yet.");
-		if ((x * height + y) < 0 || (x * height + y) >= grid.Length)
-			throw new GridOutOfBoundsException("Out of bounds with X = " + x + " and Y = " + y + ".");
-		return grid[x * height + y];
+		Destroy (this);
+	}
+}
+
+public interface ISquare
+{
+	Vector3 GetPosition();
+	float GetBoundX();
+	float GetBoundY();
+	float GetBoundZ();
+	void Destroy();
+}
+
+public class GridScript : MonoBehaviour, ISquareInstantiationController {
+
+	public SquareScript[] prefabs = new SquareScript[2];
+	public GridController controller;
+
+	void OnEnable()
+	{
+		controller.SetSquareInstantiationController (this);
+		controller.Start ();
 	}
 
-	public void init(int width, int height)
+	#region ISquareInstantiationController implementation
+
+	public ISquare Instantiate (int index)
 	{
-		float sizex;
-		float sizey;
-		float sizez;
-		clearGrid ();
-		this.width = width;
-		this.height = height;
-		grid = new GameObject[width * height];
-		GameObject clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
-		sizex = clone.GetComponent<Renderer>().bounds.size.x;
-		sizey = clone.GetComponent<Renderer>().bounds.size.y;
-		sizez = clone.GetComponent<Renderer>().bounds.size.z;
-		Destroy(clone);
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
-				clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
-				clone.transform.SetParent (this.transform);
-				clone.transform.localPosition = new Vector3(i * sizex, -sizey / 2.0f, j * sizez);
-				grid[i * height + j] = clone;
-			}
-		}
+		return GameObject.Instantiate (prefabs[index]) as SquareScript;
 	}
+
+	public ISquare Instantiate (int index, Vector3 position)
+	{
+		SquareScript clone = GameObject.Instantiate (prefabs[index]) as SquareScript;
+		clone.transform.SetParent (this.transform);
+		clone.transform.localPosition = position;
+		return clone;
+	}
+
+	#endregion
 }
