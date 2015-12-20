@@ -2,48 +2,11 @@
 using System;
 using System.Collections;
 
-public class SquareScript : MonoBehaviour, ISquare
-{
-	public Vector3 GetPosition ()
-	{
-		return transform.position;
-	}
-
-	public float GetBoundX ()
-	{
-		return GetComponent<Renderer>().bounds.size.x;
-	}
-
-	public float GetBoundY ()
-	{
-		return GetComponent<Renderer>().bounds.size.y;
-	}
-
-	public float GetBoundZ ()
-	{
-		return GetComponent<Renderer>().bounds.size.z;
-	}
-
-	public void Destroy ()
-	{
-		Destroy (this);
-	}
-}
-
-public interface ISquare
-{
-	Vector3 GetPosition();
-	float GetBoundX();
-	float GetBoundY();
-	float GetBoundZ();
-	void Destroy();
-}
-
 public class GridScript : MonoBehaviour, ISquareInstantiationController {
 
 	public SquareScript[] prefabs = new SquareScript[2];
 	public GridController controller;
-
+	
 	void OnEnable()
 	{
 		controller.SetSquareInstantiationController (this);
@@ -64,6 +27,6 @@ public class GridScript : MonoBehaviour, ISquareInstantiationController {
 		clone.transform.localPosition = position;
 		return clone;
 	}
-
+	
 	#endregion
 }
