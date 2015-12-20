@@ -12,11 +12,11 @@ public class GridController {
 		public GridOutOfBoundsException(string message) : base(message) {}
 	}
 
-	public class GridIllegalIndexException : Exception
+	public class GridIllegalSizeException : Exception
 	{
-		public GridIllegalIndexException(){}
+		public GridIllegalSizeException(){}
 
-		public GridIllegalIndexException (string message) : base(message) {}
+		public GridIllegalSizeException (string message) : base(message) {}
 	}
 	
 	public class GridNotInitializedException : Exception
@@ -66,23 +66,26 @@ public class GridController {
 	
 	public void Init(int width, int height)
 	{
-		if (width < 0 || height < 0 || width * height > int.MaxValue)
-			throw new GridIllegalIndexException ("Index is out of range of the grid with width = " + width + " and height = " + height + ".");
+		float sizex;
+		float sizey;
+		float sizez;
+		ISquare clone;
+		int switchInt = 0;
+
+		if (width < 10 || height < 10 || width > 50 || height > 50)
+			throw new GridIllegalSizeException ("Incorrect grid size with width = " + width + " and height = " + height + ".");
 		grid = ClearGrid (grid);
 		this.width = width;
 		this.height = height;
 		grid = new ISquare[width * height];
 		
-		float sizex;
-		float sizey;
-		float sizez;
-		ISquare clone = squareInstantiationController.Instantiate (0);
+		clone = squareInstantiationController.Instantiate (0);
 		sizex = clone.GetBoundX();
 		sizey = clone.GetBoundY();
 		sizez = clone.GetBoundZ();
 		clone.DestroyImmediate ();
 
-		int switchInt = 0;
+
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)

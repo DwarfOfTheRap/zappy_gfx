@@ -127,7 +127,7 @@ public class GridTests {
 	}
 
 	[Test]
-	[ExpectedException(typeof(GridController.GridIllegalIndexException))]
+	[ExpectedException(typeof(GridController.GridIllegalSizeException))]
 	public void Init_Negative_Grid_Size ()
 	{
 		//Arrange
