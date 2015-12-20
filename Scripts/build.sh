@@ -32,7 +32,6 @@ elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
         -quit
     fail=$?
 fi
-
 echo 'Logs from build'
 cat `pwd`/unity.log
 exit $fail
