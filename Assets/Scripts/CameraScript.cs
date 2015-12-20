@@ -17,14 +17,14 @@ public class CameraScript : MonoBehaviour {
 	private ISquare[] grid;
 
 	void Start() {
-		grid = GameManagerScript.instance.grid.controller.grid;
 		aspectRatio = Screen.width / Screen.height;
 		tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
+		grid = GameManagerScript.instance.grid.controller.grid;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (grid.Length != 0)
+		if (grid != null && grid.Length != 0)
 		{
 			// Position the camera in the center.
 			Vector3 newCameraPos = Camera.main.transform.position;
