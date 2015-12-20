@@ -3,11 +3,19 @@ using System;
 using System.Collections;
 
 public class GridScript : MonoBehaviour {
+
 	public class GridOutOfBoundsException : Exception
 	{
 		public GridOutOfBoundsException(){}
 
 		public GridOutOfBoundsException(string message) : base(message) {}
+	}
+
+	class GridIncorrectSizeException : Exception
+	{
+		public GridIncorrectSizeException (){}
+
+		public GridIncorrectSizeException (string message) : base(message) {}
 	}
 
 	public class GridNotInitializedException : Exception
@@ -19,10 +27,11 @@ public class GridScript : MonoBehaviour {
 
 	public GameObject GridSquarePrefab;
 	public GameObject[] grid { get ; private set; }
-	private int			height;
-	private int			width;
 	public	int			startHeight;
 	public	int			startWidth;
+
+	private int			height;
+	private int			width;
 
 	void Start()
 	{
@@ -55,15 +64,22 @@ public class GridScript : MonoBehaviour {
 		float sizex;
 		float sizey;
 		float sizez;
-		clearGrid ();
+		GameObject clone;
+
+		if (width < 10 || width > 50 || height < 10 || height > 50)
+			throw new GridIncorrectSizeException ("The grid will have an improper size with width = " + width + " and height = " + height + ".");
 		this.width = width;
 		this.height = height;
+
+		clearGrid ();
 		grid = new GameObject[width * height];
-		GameObject clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
+
+		clone = GameObject.Instantiate (GridSquarePrefab) as GameObject;
 		sizex = clone.GetComponent<Renderer>().bounds.size.x;
 		sizey = clone.GetComponent<Renderer>().bounds.size.y;
 		sizez = clone.GetComponent<Renderer>().bounds.size.z;
 		Destroy(clone);
+
 		for (int i = 0; i < width; i++)
 		{
 			for (int j = 0; j < height; j++)
