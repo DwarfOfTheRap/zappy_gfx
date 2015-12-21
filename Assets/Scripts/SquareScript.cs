@@ -4,7 +4,14 @@ using System.Collections.Generic;
 
 public class SquareScript : MonoBehaviour, ISquare
 {
+	private Material standardMaterial;
+	public Material highlightedMaterial;
 	public SquareContent resources;
+
+	void Start ()
+	{
+		standardMaterial = GetComponent<MeshRenderer> ().material;
+	}
 
 	public Vector3 GetPosition ()
 	{
@@ -40,6 +47,16 @@ public class SquareScript : MonoBehaviour, ISquare
 	{
 		return resources;
 	}
+
+	public void Highlighted()
+	{
+		gameObject.GetComponent<MeshRenderer> ().material = highlightedMaterial;
+	}
+
+	public void Standard()
+	{
+		gameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
+	}
 }
 
 [System.Serializable]
@@ -64,4 +81,6 @@ public interface ISquare
 	void Destroy();
 	void DestroyImmediate();
 	SquareContent GetResources();
+	void Highlighted();
+	void Standard();
 }

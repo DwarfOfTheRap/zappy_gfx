@@ -4,11 +4,6 @@ using System.Collections;
 
 public class SquareInfoScript : MonoBehaviour {
 
-	public Material highlightedMaterial;
-	public Material standardMaterial;
-	public Material highlightedMaterial2;
-	public Material standardMaterial2;
-	public GameObject associatedGameObject;
 	public ISquare square;
 	public Text linemate;
 	public Text deraumere;
@@ -22,18 +17,21 @@ public class SquareInfoScript : MonoBehaviour {
 	void CheckInput()
 	{
 		if (Input.GetMouseButtonUp (0)) {
+			if (square != null)
+				square.Standard();
 			square = OnLeftMouseClick (Input.mousePosition);
+
 		}
 		if (Input.GetMouseButtonUp (1)) {
 			GetComponent<CanvasGroup> ().alpha = 0;
-			if (associatedGameObject != null)
-				associatedGameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
-			associatedGameObject = null;
+			square.Standard();
+			square = null;
 		}
 	}
 
 	public ISquare OnLeftMouseClick(Vector3 target)
 	{
+		ISquare square = null;
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay(target);
 		if (Physics.Raycast(ray, out hit))
@@ -41,20 +39,12 @@ public class SquareInfoScript : MonoBehaviour {
 			if (hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2")
 			{
 				GetComponent<CanvasGroup> ().alpha = 1;
-				ISquare square = hit.collider.gameObject.GetComponent<SquareScript>() as ISquare;
-				associatedGameObject = hit.collider.gameObject;
+				square = hit.collider.gameObject.GetComponent<SquareScript>() as ISquare;
+				square.Highlighted();
 				return square;
 			}
-			if (hit.collider.gameObject.tag == "Floor1")
-				associatedGameObject.GetComponent<MeshRenderer>().material = highlightedMaterial;
-			if (hit.collider.gameObject.tag == "Floor2")
-				associatedGameObject.GetComponent<MeshRenderer>().material = highlightedMaterial2;
 		}
 		GetComponent<CanvasGroup> ().alpha = 0;
-		if (associatedGameObject != null) {
-			associatedGameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
-			associatedGameObject = null;
-		}
 		return null;
 	}
 
