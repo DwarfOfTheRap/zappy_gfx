@@ -63,6 +63,8 @@ public class PlayerController {
 		ISquare square = gridController.GetSquare (x, y);
 		if (this.currentSquare != square)
 		{
+			if (currentSquare != null)
+				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
 			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}
@@ -86,6 +88,23 @@ public class PlayerController {
 			case Orientation.WEST:
 				rotation = Quaternion.Euler (0, 270, 0);
 				break;
+		}
+	}
+
+	public Vector2 GetDirectionVector(Orientation orientation)
+	{
+		switch (playerOrientation)
+		{
+			case Orientation.NORTH:
+				return Vector2.up;
+			case Orientation.EAST:
+				return Vector2.right;
+			case Orientation.SOUTH:
+				return Vector2.down;
+			case Orientation.WEST:
+				return Vector2.left;
+			default:
+				return Vector2.zero;
 		}
 	}
 	
