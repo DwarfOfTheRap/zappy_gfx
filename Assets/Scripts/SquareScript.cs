@@ -4,22 +4,7 @@ using System.Collections.Generic;
 
 public class SquareScript : MonoBehaviour, ISquare
 {
-	public Dictionary<SquareContent, int>	resources;
-
-	void Start()
-	{
-		resources = new Dictionary<SquareContent, int> ()
-		{
-			{SquareContent.NOURRITURE, 0},
-			{SquareContent.LINEMATE, 0},
-			{SquareContent.DERAUMERE, 0},
-			{SquareContent.SIBUR, 0},
-			{SquareContent.MENDIANE, 0},
-			{SquareContent.PHIRAS, 0},
-			{SquareContent.THYSTAME, 0},
-			{SquareContent.PLAYERS, 0}
-		};
-	}
+	public SquareContent resources;
 
 	public Vector3 GetPosition ()
 	{
@@ -51,22 +36,23 @@ public class SquareScript : MonoBehaviour, ISquare
 		DestroyImmediate (gameObject);
 	}
 
-	public Dictionary<SquareContent, int> GetResources ()
+	public SquareContent GetResources ()
 	{
 		return resources;
 	}
 }
 
-public enum SquareContent
+[System.Serializable]
+public class SquareContent
 {
-	NOURRITURE,
-	LINEMATE,
-	DERAUMERE,
-	SIBUR,
-	MENDIANE,
-	PHIRAS,
-	THYSTAME,
-	PLAYERS
+	public uint nourriture;
+	public uint linemate;
+	public uint deraumere;
+	public uint sibur;
+	public uint mendiane;
+	public uint phiras;
+	public uint thystame;
+	public List<PlayerController> players;
 }
 
 public interface ISquare
@@ -77,5 +63,5 @@ public interface ISquare
 	float GetBoundZ();
 	void Destroy();
 	void DestroyImmediate();
-	Dictionary<SquareContent, int> GetResources();
+	SquareContent GetResources();
 }
