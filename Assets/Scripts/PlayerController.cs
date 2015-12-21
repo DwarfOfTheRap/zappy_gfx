@@ -16,6 +16,7 @@ public class PlayerController {
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
 	public bool 		isIncantating { get; private set; }
+	public bool			dead { get; private set; }
 	private Vector2		positionIndex;
 	private Quaternion	rotation;
 	public Orientation	playerOrientation { get; private set; }
@@ -43,6 +44,17 @@ public class PlayerController {
 	{
 		isIncantating = false;
 		animatorController.SetBool("Incantate", false);
+	}
+
+	public void Die()
+	{
+		dead = true;
+		animatorController.SetTrigger ("Death");
+	}
+
+	public void Expulse()
+	{
+		animatorController.SetTrigger ("Expulse");
 	}
 
 	public void SetPosition(int x, int y)
@@ -116,10 +128,16 @@ public class PlayerController {
 		playerMovementController.MoveToDestination (speed);
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
-	
-	public void Update(Vector3 position, Vector3 destination)
+
+	private void Move(Vector3 position, Vector3 destination)
 	{
 		Orientation animationOrientation = GetAnimationOrientation (GetDestinationOrientation(position, destination), playerOrientation);
 		GoToDestination (animationOrientation);
+	}
+	
+	public void Update(Vector3 position, Vector3 destination)
+	{
+		if (!dead)
+			Move (position, destination);
 	}
 }
