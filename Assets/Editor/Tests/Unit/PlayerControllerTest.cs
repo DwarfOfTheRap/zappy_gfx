@@ -42,7 +42,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Act
 		controller.SetPosition (0, 0, gridcontroller);
 		// Assert
-		movementController.DidNotReceive().SetDestination (new Vector3(0, 0, 0));
+		movementController.DidNotReceive().SetDestination (Arg.Any<Vector3>());
 	}
 
 	[Test]
