@@ -35,10 +35,14 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var controller = GetPlayerControllerMock (movementController);
+		var gridcontroller = GetGridControllerMock ();
+		var square = GetSquareMock ();
+		square.GetPosition ().Returns (new Vector3(0, 0, 0));
+		gridcontroller.GetSquare (0, 0).Returns(square);
 		// Act
-		controller.SetPosition (0, 0);
+		controller.SetPosition (0, 0, gridcontroller);
 		// Assert
-		movementController.DidNotReceive().SetDestination (Arg.Any<int>(), Arg.Any<int>());
+		movementController.DidNotReceive().SetDestination (new Vector3(0, 0, 0));
 	}
 
 	[Test]
@@ -47,10 +51,14 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var controller = GetPlayerControllerMock (movementController);
+		var gridcontroller = GetGridControllerMock ();
+		var square = GetSquareMock ();
+		square.GetPosition ().Returns (new Vector3(3, 3, 3));
+		gridcontroller.GetSquare (3, 3).Returns(square);
 		// Act
-		controller.SetPosition (3, 3);
+		controller.SetPosition (3, 3, gridcontroller);
 		// Assert
-		movementController.Received ().SetDestination (3, 3);
+		movementController.Received ().SetDestination (new Vector3(3, 3, 3));
 	}
 
 	[Test]
@@ -147,7 +155,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Assert
 		animatorController.Received ().SetBool ("Walk", true);
 		animatorController.Received ().SetInteger ("Orientation", 1);
-		movementController.Received ().MoveToDestination (Arg.Any<float>());
+		movementController.Received ().MoveToDestination (Arg.Any<Vector3>(), Arg.Any<float>());
 	}
 
 	[Test]
@@ -162,7 +170,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Assert
 		animatorController.Received ().SetBool ("Walk", true);
 		animatorController.Received ().SetInteger ("Orientation", 2);
-		movementController.Received ().MoveToDestination (Arg.Any<float>());
+		movementController.Received ().MoveToDestination (Arg.Any<Vector3>(), Arg.Any<float>());
 	}
 
 	[Test]
@@ -177,7 +185,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Assert
 		animatorController.Received ().SetBool ("Walk", true);
 		animatorController.Received ().SetInteger ("Orientation", 3);
-		movementController.Received ().MoveToDestination (Arg.Any<float>());
+		movementController.Received ().MoveToDestination (Arg.Any<Vector3>(), Arg.Any<float>());
 	}
 
 	[Test]
@@ -192,7 +200,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Assert
 		animatorController.Received ().SetBool ("Walk", true);
 		animatorController.Received ().SetInteger ("Orientation", 4);
-		movementController.Received ().MoveToDestination (Arg.Any<float>());
+		movementController.Received ().MoveToDestination (Arg.Any<Vector3>(), Arg.Any<float>());
 	}
 
 	[Test]
@@ -258,6 +266,16 @@ public class PlayerControllerTest : MonoBehaviour {
 
 	public IAnimatorController GetAnimatorControllerMock(){
 		return Substitute.For<IAnimatorController>();
+	}
+
+	public GridController GetGridControllerMock()
+	{
+		return Substitute.For<GridController>();
+	}
+
+	public ISquare GetSquareMock()
+	{
+		return Substitute.For<ISquare>();
 	}
 
 	public PlayerController GetPlayerControllerMock()

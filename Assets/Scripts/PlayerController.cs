@@ -19,6 +19,7 @@ public class PlayerController {
 	public bool			dead { get; private set; }
 	private Vector2		positionIndex;
 	private Quaternion	rotation;
+	public Vector3		destination { get; private set; }
 	public Orientation	playerOrientation { get; private set; }
 	
 	private IAnimatorController	animatorController;
@@ -57,10 +58,13 @@ public class PlayerController {
 		animatorController.SetTrigger ("Expulse");
 	}
 
-	public void SetPosition(int x, int y)
+	public void SetPosition(int x, int y, GridController gridController)
 	{
 		if (this.positionIndex.x != x || this.positionIndex.y != y)
-			playerMovementController.SetDestination (x, y);
+		{
+			Vector3 tmp = gridController.GetSquare (x, y).GetPosition ();
+			destination = playerMovementController.SetDestination (tmp);
+		}
 		this.positionIndex.x = x;
 		this.positionIndex.y = y;
 	}
@@ -125,7 +129,7 @@ public class PlayerController {
 	{
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
-		playerMovementController.MoveToDestination (speed);
+		playerMovementController.MoveToDestination (destination, speed);
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface IPlayerMovementController {
 	bool IsMoving();
-	void MoveToDestination(float speed);
+	void MoveToDestination(Vector3 destination, float speed);
 	void MoveToRotation(Quaternion rotation, float rotSpeed);
-	void SetDestination(int x, int y);
+	Vector3 SetDestination(Vector3 destination);
 }

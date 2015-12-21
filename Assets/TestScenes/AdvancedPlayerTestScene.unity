@@ -612,8 +612,25 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   checkMethods: 1
-  m_ActionBase: {fileID: 604478368}
+  m_ActionBase: {fileID: 217515284}
   checksPerformed: 0
+--- !u!114 &217515284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 215650943}
+  thisPropertyPath: AnimationTestScript.animationIsPlaying
+  compareToType: 1
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 1
 --- !u!1 &219512602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,23 +2102,6 @@ Transform:
   - {fileID: 1761397430}
   m_Father: {fileID: 1133057905}
   m_RootOrder: 0
---- !u!114 &604478368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  go: {fileID: 215650943}
-  thisPropertyPath: AnimationTestScript.animationIsPlaying
-  compareToType: 1
-  other: {fileID: 0}
-  otherPropertyPath: 
-  constantValueGeneric: 1
 --- !u!1 &630228983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,7 +2467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &793846542
 Transform:
   m_ObjectHideFlags: 0

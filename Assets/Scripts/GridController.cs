@@ -55,7 +55,7 @@ public class GridController {
 		return null;
 	}
 	
-	public ISquare GetSquare(int x, int y)
+	public virtual ISquare GetSquare(int x, int y)
 	{
 		if (grid == null)
 			throw new GridNotInitializedException("Tried to access the grid while it's not initialized yet.");

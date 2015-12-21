@@ -46,13 +46,12 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 		return this.transform.position != destination;
 	}
 
-	public void SetDestination (int x, int y)
+	public Vector3 SetDestination (Vector3 destination)
 	{
-		Vector3 tmp = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetPosition();
-		destination = new Vector3(tmp.x, transform.position.y, tmp.z);
+		return new Vector3(destination.x, transform.position.y, destination.z);
 	}
 
-	public void MoveToDestination (float speed)
+	public void MoveToDestination (Vector3 destination, float speed)
 	{
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
 	}
