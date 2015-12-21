@@ -17,7 +17,7 @@ public class PlayerController {
 	public float		rotSpeed = 1.0f;
 	public bool 		isIncantating { get; private set; }
 	public bool			dead { get; private set; }
-	private Vector2		positionIndex;
+	private ISquare		currentSquare;
 	private Quaternion	rotation;
 	public Vector3		destination { get; private set; }
 	public Orientation	playerOrientation { get; private set; }
@@ -60,13 +60,13 @@ public class PlayerController {
 
 	public void SetPosition(int x, int y, GridController gridController)
 	{
-		if (this.positionIndex.x != x || this.positionIndex.y != y)
+		ISquare square = gridController.GetSquare (x, y);
+		if (this.currentSquare != square)
 		{
-			Vector3 tmp = gridController.GetSquare (x, y).GetPosition ();
-			destination = playerMovementController.SetDestination (tmp);
+			square.GetResources ().players.Add(this);
+			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}
-		this.positionIndex.x = x;
-		this.positionIndex.y = y;
+		currentSquare = square;
 	}
 
 	public void SetPlayerOrientation(Orientation playerOrientation)

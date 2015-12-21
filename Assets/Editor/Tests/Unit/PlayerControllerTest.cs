@@ -38,11 +38,12 @@ public class PlayerControllerTest : MonoBehaviour {
 		var gridcontroller = GetGridControllerMock ();
 		var square = GetSquareMock ();
 		square.GetPosition ().Returns (new Vector3(0, 0, 0));
+		square.GetResources ().Returns (new SquareContent());
 		gridcontroller.GetSquare (0, 0).Returns(square);
 		// Act
 		controller.SetPosition (0, 0, gridcontroller);
 		// Assert
-		movementController.DidNotReceive().SetDestination (Arg.Any<Vector3>());
+		movementController.Received ().SetDestination (new Vector3(0, 0, 0));
 	}
 
 	[Test]

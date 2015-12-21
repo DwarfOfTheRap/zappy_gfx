@@ -52,7 +52,7 @@ public class SquareContent
     public uint mendiane;
     public uint phiras;
     public uint thystame;
-    public List<PlayerController> players;
+    public List<PlayerController> players = new List<PlayerController>();
 }
 
 public interface ISquare
