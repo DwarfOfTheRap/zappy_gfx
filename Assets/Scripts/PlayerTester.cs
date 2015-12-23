@@ -7,8 +7,10 @@ public class PlayerTester : MonoBehaviour {
 	public PlayerTest		orientationTest;
 	public PlayerTest		incantateTest;
 	public PlayerTest		incantate_stopTest;
+	public PlayerTest		setDestinationTest;
 	public delegate void	TestMethod();
 	public Orientation		orientation;
+	public SquareScript		destinationSquare;
 
 	void Start()
 	{
@@ -25,6 +27,8 @@ public class PlayerTester : MonoBehaviour {
 			StartCoroutine (WaitForTest (incantateTest, TestIncantate));
 		if (incantate_stopTest.enabled)
 			StartCoroutine (WaitForTest (incantate_stopTest, TestIncantateStop));
+		if (setDestinationTest.enabled)
+			StartCoroutine (WaitForTest (setDestinationTest, TestDestination));
 	}
 
 	void TestOrientation ()
@@ -45,6 +49,11 @@ public class PlayerTester : MonoBehaviour {
 	void TestIncantateStop()
 	{
 		GetComponent<PlayerScript>().controller.StopIncantating ();
+	}
+
+	void TestDestination()
+	{
+		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare);
 	}
 
 	IEnumerator WaitForTest(PlayerTest test, TestMethod method)

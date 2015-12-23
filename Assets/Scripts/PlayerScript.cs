@@ -5,7 +5,6 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
 	public PlayerController controller;
 
-	public Vector3			destination;
 	public Orientation		orientation;
 
 	private void OnEnable()
@@ -41,7 +40,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	#region IPlayerMovementController implementation
 
-	public bool IsMoving ()
+	public bool IsMoving (Vector3 destination)
 	{
 		return this.transform.position != destination;
 	}
@@ -65,6 +64,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	void Update()
 	{
-		controller.Update (this.transform.position, this.destination);
+		controller.Update (this.transform.position);
 	}
 }

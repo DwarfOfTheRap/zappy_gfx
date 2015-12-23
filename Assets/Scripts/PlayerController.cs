@@ -2,14 +2,6 @@
 using System.Collections;
 using System;
 
-public enum Orientation {
-	NORTH = 1,
-	EAST = 2,
-	SOUTH = 3,
-	WEST = 4,
-	NONE = 0
-}
-
 [Serializable]
 public class PlayerController {
 	public int			index;
@@ -58,9 +50,8 @@ public class PlayerController {
 		animatorController.SetTrigger ("Expulse");
 	}
 
-	public void SetPosition(int x, int y, GridController gridController)
+	public void SetDestination(ISquare square)
 	{
-		ISquare square = gridController.GetSquare (x, y);
 		if (this.currentSquare != square)
 		{
 			if (currentSquare != null)
@@ -71,96 +62,39 @@ public class PlayerController {
 		currentSquare = square;
 	}
 
+	public void SetPosition(int x, int y, GridController gridController)
+	{
+		try
+		{
+			ISquare square = gridController.GetSquare (x, y);
+			SetDestination (square);
+		}
+		catch (GridController.GridOutOfBoundsException)
+		{
+			return ;
+		}
+	}
+
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
 		this.playerOrientation = playerOrientation;
-		switch (playerOrientation)
-		{
-			case Orientation.NORTH:
-				rotation = Quaternion.Euler (0, 0, 0);
-				break;
-			case Orientation.EAST:
-				rotation = Quaternion.Euler (0, 90, 0);
-				break;
-			case Orientation.SOUTH:
-				rotation = Quaternion.Euler (0, 180, 0);
-				break;
-			case Orientation.WEST:
-				rotation = Quaternion.Euler (0, 270, 0);
-				break;
-		}
-	}
-
-	public Vector2 GetDirectionVector(Orientation orientation)
-	{
-		switch (playerOrientation)
-		{
-			case Orientation.NORTH:
-				return Vector2.up;
-			case Orientation.EAST:
-				return Vector2.right;
-			case Orientation.SOUTH:
-				return Vector2.down;
-			case Orientation.WEST:
-				return Vector2.left;
-			default:
-				return Vector2.zero;
-		}
-	}
-	
-
-	public Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
-	{
-		if (position == destination)
-			return Orientation.NONE;
-		Vector3 heading = destination - position;
-		Vector3 direction = heading / heading.magnitude;
-		float absx = Mathf.Abs (direction.x);
-		float absz = Mathf.Abs (direction.z);
-		
-		if (absx > absz && direction.x <= 0)
-			return Orientation.WEST;
-		if (absx > absz && direction.x > 0)
-			return Orientation.EAST;
-		if (absx <= absz && direction.z <= 0)
-			return Orientation.SOUTH;
-		if (absx <= absz && direction.z > 0)
-			return Orientation.NORTH;
-		return Orientation.NONE;
-	}
-
-	public Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
-	{
-		int destinationInt = (int)destinationOrientation;
-		int playerOrientationInt = (int)playerOrientation;
-		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 0)
-			return Orientation.NORTH;
-		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 1)
-			return Orientation.EAST;
-		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 2)
-			return Orientation.SOUTH;
-		if ((4 + (destinationInt - playerOrientationInt)) % 4 == 3)
-			return Orientation.WEST;
-		return Orientation.NONE;
+		this.rotation = OrientationManager.GetRotation(playerOrientation);
 	}
 
 	public void GoToDestination(Orientation animationOrientation)
 	{
-		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
+		animatorController.SetBool ("Walk", playerMovementController.IsMoving(this.destination));
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		playerMovementController.MoveToDestination (destination, speed);
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
-
-	private void Move(Vector3 position, Vector3 destination)
-	{
-		Orientation animationOrientation = GetAnimationOrientation (GetDestinationOrientation(position, destination), playerOrientation);
-		GoToDestination (animationOrientation);
-	}
 	
-	public void Update(Vector3 position, Vector3 destination)
+	public void Update(Vector3 position)
 	{
 		if (!dead)
-			Move (position, destination);
+		{
+			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
+			GoToDestination (animationOrientation);
+		}
 	}
 }
