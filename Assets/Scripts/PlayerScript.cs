@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
 	public PlayerController controller;
-
+	public PlayerLegsScript[] legs;
 	public Orientation		orientation;
 
 	private void OnEnable()
@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetPlayerOrientation(orientation);
+		legs = GetComponentsInChildren<PlayerLegsScript>();
 	}
 
 	#region IAnimatorController implementation
@@ -58,6 +59,18 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 	public void MoveToRotation (Quaternion rotation, float rotSpeed)
 	{
 		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed);
+	}
+
+	public void StopExpulsion()
+	{
+		foreach (PlayerLegsScript leg in legs)
+			leg.DisableSparksAnimation();
+	} 
+
+	public void Expulsed(Orientation orientation)
+	{
+		foreach (PlayerLegsScript leg in legs)
+			leg.EnableSparksAnimation(orientation);
 	}
 
 	#endregion

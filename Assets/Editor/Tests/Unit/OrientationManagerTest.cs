@@ -30,6 +30,30 @@ public class OrientationManagerTest {
 	}
 
 	[Test]
+	public void GetOppositeOrientation_Test_Orientation()
+	{
+		// Arrange
+		Orientation expected_result0 = Orientation.NONE;
+		Orientation expected_result1 = Orientation.NORTH;
+		Orientation expected_result2 = Orientation.EAST;
+		Orientation expected_result3 = Orientation.SOUTH;
+		Orientation expected_result4 = Orientation.WEST;
+		// Act
+		Orientation result0 = OrientationManager.Opposite (Orientation.NONE);
+		Orientation result1 = OrientationManager.Opposite (Orientation.SOUTH);
+		Orientation result2 = OrientationManager.Opposite (Orientation.WEST);
+		Orientation result3 = OrientationManager.Opposite (Orientation.NORTH);
+		Orientation result4 = OrientationManager.Opposite (Orientation.EAST);
+		
+		// Assert
+		Assert.AreEqual (expected_result0, result0);
+		Assert.AreEqual (expected_result1, result1);
+		Assert.AreEqual (expected_result2, result2);
+		Assert.AreEqual (expected_result3, result3);
+		Assert.AreEqual (expected_result4, result4);
+	}
+
+	[Test]
 	public void GetDirectionVector_Test_Orientation()
 	{
 		// Arrange
