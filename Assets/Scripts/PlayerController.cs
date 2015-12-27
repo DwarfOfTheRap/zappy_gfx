@@ -4,10 +4,11 @@ using System;
 
 [Serializable]
 public class PlayerController {
+	public int			level;
 	public int			index;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
-
+	
 	private ISquare		currentSquare;
 	private Quaternion	rotation;
 	private bool		expulsed;

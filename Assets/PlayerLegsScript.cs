@@ -4,8 +4,9 @@ using System.Collections;
 public class PlayerLegsScript : MonoBehaviour {
 	ParticleSystem trailSparks;
 	// Use this for initialization
-	void Start () {
+	void Awake() {
 		trailSparks = GetComponentInChildren<ParticleSystem>();
+		Debug.Log (trailSparks);
 	}
 
 	public void DisableSparksAnimation()
