@@ -16,7 +16,7 @@ public class CameraScript : MonoBehaviour {
 	private float tanFov;
 	private ISquare[] grid;
 
-	void Start() {
+/*	void Awake() {
 		aspectRatio = Screen.width / Screen.height;
 		tanFov = Mathf.Tan(Mathf.Deg2Rad * Camera.main.fieldOfView / 2.0f);
 		grid = GameManagerScript.instance.grid.controller.grid;
@@ -45,4 +45,5 @@ public class CameraScript : MonoBehaviour {
 			this.transform.position = middlePoint + dir * (cameraDistance + DISTANCE_MARGIN);
 		}
 	}
+*/
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -50,7 +50,7 @@ public class GridTests {
 		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		ISquareInstantiationController sic;
+		IGrid sic;
 		ISquare result;
 		ISquare expected_result;
 		//Act
@@ -80,7 +80,7 @@ public class GridTests {
 		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		ISquareInstantiationController sic;
+		IGrid sic;
 		//Act
 		sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
@@ -95,7 +95,7 @@ public class GridTests {
 		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
+		IGrid sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
@@ -114,7 +114,7 @@ public class GridTests {
 		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
+		IGrid sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
@@ -134,7 +134,7 @@ public class GridTests {
 		GridController gc = new GridController ();
 		int height = -10;
 		int width = 10;
-		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
+		IGrid sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
@@ -146,8 +146,8 @@ public class GridTests {
 		return Substitute.For<ISquare> ();
 	}
 
-	private ISquareInstantiationController GetMockSquareInstantiationController ()
+	private IGrid GetMockSquareInstantiationController ()
 	{
-		return Substitute.For<ISquareInstantiationController> ();
+		return Substitute.For<IGrid> ();
 	}
 }

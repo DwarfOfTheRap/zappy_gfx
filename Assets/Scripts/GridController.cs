@@ -33,9 +33,9 @@ public class GridController {
 	public	int			startHeight;
 	public	int			startWidth;
 
-	private ISquareInstantiationController squareInstantiationController;
+	private IGrid squareInstantiationController;
 
-	public void SetSquareInstantiationController (ISquareInstantiationController squareInstantiationController)
+	public void SetSquareInstantiationController (IGrid squareInstantiationController)
 	{
 		this.squareInstantiationController = squareInstantiationController;
 	}
@@ -97,6 +97,7 @@ public class GridController {
 			if (height % 2 == 0)
 				switchInt ^= 1;
 		}
+		squareInstantiationController.InitTeleporters (sizex, sizey, sizez, width, height);
 	}
 
 }
