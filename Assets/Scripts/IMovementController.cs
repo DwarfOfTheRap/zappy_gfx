@@ -8,4 +8,5 @@ public interface IPlayerMovementController {
 	void Expulsed(Orientation orientation);
 	void StopExpulsion();
 	Vector3 SetDestination(Vector3 destination);
+	void SetPosition (Vector3 vector3);
 }

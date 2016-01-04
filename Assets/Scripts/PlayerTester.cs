@@ -8,10 +8,13 @@ public class PlayerTester : MonoBehaviour {
 	public PlayerTest		incantateTest;
 	public PlayerTest		incantate_stopTest;
 	public PlayerTest		setDestinationTest;
+	public PlayerTest		setDestinationTestLegit;
 	public PlayerTest		expulsedTest;
 	public delegate void	TestMethod();
 	public Orientation		orientation;
 	public SquareScript		destinationSquare;
+	public int[]			destinationVector;
+	public int[]			initVector;
 
 	void Start()
 	{
@@ -32,6 +35,8 @@ public class PlayerTester : MonoBehaviour {
 			StartCoroutine (WaitForTest (setDestinationTest, TestDestination));
 		if (expulsedTest.enabled)
 			StartCoroutine (WaitForTest (expulsedTest, TestExpulsed));
+		if (setDestinationTestLegit.enabled)
+			StartCoroutine (WaitForTest (setDestinationTestLegit, TestDestinationLegit));
 	}
 
 	void TestOrientation ()
@@ -57,6 +62,12 @@ public class PlayerTester : MonoBehaviour {
 	void TestDestination()
 	{
 		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare, null);
+	}
+
+	void TestDestinationLegit()
+	{
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
 	}
 
 	void TestExpulsed ()

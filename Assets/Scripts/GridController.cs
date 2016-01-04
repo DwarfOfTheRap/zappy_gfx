@@ -63,6 +63,20 @@ public class GridController {
 			throw new GridOutOfBoundsException("Out of bounds with X = " + x + " and Y = " + y + ".");
 		return grid[x * height + y];
 	}
+
+	public Vector3 GetNearestTeleport (Vector3 distance, Vector3 currentPosition)
+	{
+		if (distance.x > distance.z && distance.x > 0)
+			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.WEST).x, currentPosition.y, currentPosition.z);
+		else if (distance.x > distance.z && distance.x <= 0)
+			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.EAST).x, currentPosition.y, currentPosition.z);
+		else if (distance.x <= distance.z && distance.z > 0)
+			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition (Orientation.SOUTH).z);
+		else if (distance.x <= distance.z && distance.z <= 0)
+			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition(Orientation.NORTH).z);
+		else
+			return Vector3.zero;
+	}
 	
 	public void Init(int width, int height)
 	{

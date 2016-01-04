@@ -69,6 +69,21 @@ public class PlayerController {
 		playerMovementController.StopExpulsion();
 	}
 
+	public void Init(int x, int y, GridController gridController)
+	{
+		try
+		{
+			ISquare square = gridController.GetSquare (x, y);
+			this.currentSquare = square;
+			playerMovementController.SetPosition(square.GetPosition());
+			destination = playerMovementController.SetDestination (square.GetPosition ());
+		}
+		catch (GridController.GridOutOfBoundsException)
+		{
+			return ;
+		}
+	}
+
 	public void SetDestination(ISquare square, GridController gridController)
 	{
 		if (this.currentSquare != square)
@@ -77,8 +92,8 @@ public class PlayerController {
 				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
 			Vector3 distance = square.GetPosition () - currentSquare.GetPosition ();
-			if (gridController != null && Mathf.Abs (distance.x) > gridController.width || Mathf.Abs (distance.z) > gridController.height)
-
+			if (gridController != null && Mathf.Abs (distance.x) > gridController.width / 2 || Mathf.Abs (distance.z) > gridController.height / 2)
+				teleportDestination = gridController.GetNearestTeleport(distance, destination);
 			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}
 		currentSquare = square;
@@ -107,7 +122,10 @@ public class PlayerController {
 	{
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving(this.destination) && !expulsed);
 		animatorController.SetInteger ("Orientation", (int)animationOrientation);
-		playerMovementController.MoveToDestination (destination, speed);
+		if (teleportDestination != Vector3.zero)
+			playerMovementController.MoveToDestination (teleportDestination, speed);
+		else
+			playerMovementController.MoveToDestination (destination, speed);
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
 	

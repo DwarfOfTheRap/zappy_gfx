@@ -51,6 +51,11 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 		return new Vector3(destination.x, transform.position.y, destination.z);
 	}
 
+	public void SetPosition (Vector3 vector3)
+	{
+		this.transform.position = new Vector3(vector3.x, this.transform.position.y, vector3.z);
+	}
+
 	public void MoveToDestination (Vector3 destination, float speed)
 	{
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);

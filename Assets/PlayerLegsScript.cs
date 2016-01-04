@@ -6,7 +6,6 @@ public class PlayerLegsScript : MonoBehaviour {
 	// Use this for initialization
 	void Awake() {
 		trailSparks = GetComponentInChildren<ParticleSystem>();
-		Debug.Log (trailSparks);
 	}
 
 	public void DisableSparksAnimation()

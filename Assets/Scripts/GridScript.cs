@@ -30,6 +30,16 @@ public class GridScript : MonoBehaviour, IGrid {
 		return clone;
 	}
 
+	public Vector3 GetTeleporterPosition(Orientation orientation)
+	{
+		foreach (TeleportScript teleporter in teleporters)
+		{
+			if (teleporter.teleportOrientation == orientation)
+				return teleporter.transform.position;
+		}
+		return Vector3.zero;
+	}
+
 	public void InitTeleporters (float sizex, float sizey, float sizez, int width, int height)
 	{
 		float maxX = width * sizex;

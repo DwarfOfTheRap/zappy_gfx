@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 447850}
   - 65: {fileID: 6527308}
   - 114: {fileID: 11484326}
+  - 54: {fileID: 5487620}
   m_Layer: 0
   m_Name: TeleportEast
   m_TagString: Untagged
@@ -43,6 +44,7 @@ GameObject:
   - 4: {fileID: 497812}
   - 65: {fileID: 6530974}
   - 114: {fileID: 11451270}
+  - 54: {fileID: 5408614}
   m_Layer: 0
   m_Name: TeleportWest
   m_TagString: Untagged
@@ -60,6 +62,7 @@ GameObject:
   - 4: {fileID: 436780}
   - 65: {fileID: 6536852}
   - 114: {fileID: 11438114}
+  - 54: {fileID: 5490384}
   m_Layer: 0
   m_Name: TeleportSouth
   m_TagString: Untagged
@@ -77,6 +80,7 @@ GameObject:
   - 4: {fileID: 479556}
   - 65: {fileID: 6558694}
   - 114: {fileID: 11424240}
+  - 54: {fileID: 5420032}
   m_Layer: 0
   m_Name: TeleportNorth
   m_TagString: Untagged
@@ -115,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.76837015, y: -8.29304695, z: -.772460938}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 479556}
@@ -148,6 +152,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 460296}
   m_RootOrder: 3
+--- !u!54 &5408614
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151666}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5420032
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190306}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5487620
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 138138}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &5490384
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181274}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &6527308
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -155,7 +219,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138138}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -167,7 +231,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151666}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -179,7 +243,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181274}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -191,7 +255,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190306}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -207,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8b1f7c276ec4f05988719f21f0d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 11438114}
   teleportOrientation: 1
+  destination: {fileID: 0}
 --- !u!114 &11437366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -238,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8b1f7c276ec4f05988719f21f0d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 11424240}
   teleportOrientation: 3
+  destination: {fileID: 0}
 --- !u!114 &11451270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,8 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8b1f7c276ec4f05988719f21f0d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 11484326}
   teleportOrientation: 4
+  destination: {fileID: 0}
 --- !u!114 &11484326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,15 +328,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8b1f7c276ec4f05988719f21f0d282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 11451270}
   teleportOrientation: 2
+  destination: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151142}

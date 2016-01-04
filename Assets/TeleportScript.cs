@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(BoxCollider))]
 public class TeleportScript : MonoBehaviour {
 	public Orientation		teleportOrientation;
 	public GameObject		destination;
+	public List<GameObject>	disabled;
 
 	void Start()
 	{
@@ -25,18 +27,30 @@ public class TeleportScript : MonoBehaviour {
 
 		}
 	}
+
 	void OnTriggerEnter(Collider col)
 	{
-		Vector3 distance = col.transform.position - destination.transform.position;
-
-		switch (teleportOrientation)
+		if (col.tag == "Player" && disabled.Find (x => x == col.gameObject) == null)
 		{
-			case Orientation.EAST: case Orientation.WEST:
-				col.transform.position = distance + new Vector3(destination.transform.position.x, col.transform.position.y, col.transform.position.y);
-				break;
-			case Orientation.NORTH: case Orientation.SOUTH:
-				col.transform.position = distance + new Vector3(col.transform.position.x, col.transform.position.y, destination.transform.position.z);
-				break;
+			Vector3 distance = col.transform.position - transform.position;
+			switch (teleportOrientation)
+			{
+				case Orientation.EAST: case Orientation.WEST:
+					col.GetComponent<PlayerScript>().controller.teleportDestination = Vector3.zero;
+					col.transform.position = new Vector3(destination.transform.position.x - distance.x, col.transform.position.y, col.transform.position.z);
+					destination.GetComponent<TeleportScript>().disabled.Add(col.gameObject);
+					break;
+				case Orientation.NORTH: case Orientation.SOUTH:
+					col.GetComponent<PlayerScript>().controller.teleportDestination = Vector3.zero;
+					col.transform.position = new Vector3(col.transform.position.x, col.transform.position.y, destination.transform.position.z - distance.z);
+					destination.GetComponent<TeleportScript>().disabled.Add(col.gameObject);
+					break;
+			}
 		}
+	}
+
+	void OnTriggerExit(Collider col)
+	{
+		disabled.Remove (col.gameObject);
 	}
 }
