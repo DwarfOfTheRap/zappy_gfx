@@ -28,8 +28,8 @@ public class GridController {
 
 	public ISquare[] grid { get ; private set; }
 
-	private int			height;
-	private int			width;
+	public int 			height { get; private set; }
+	public int			width { get; private set; }
 	public	int			startHeight;
 	public	int			startWidth;
 

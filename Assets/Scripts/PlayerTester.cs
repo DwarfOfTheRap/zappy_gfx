@@ -56,12 +56,12 @@ public class PlayerTester : MonoBehaviour {
 
 	void TestDestination()
 	{
-		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare);
+		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare, null);
 	}
 
 	void TestExpulsed ()
 	{
-		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare);
+		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare, null);
 		GetComponent<PlayerScript>().controller.BeExpulsed (orientation);
 	}
 

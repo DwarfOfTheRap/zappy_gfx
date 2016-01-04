@@ -16,6 +16,7 @@ public class PlayerController {
 	public bool 		isIncantating { get; private set; }
 	public bool			dead { get; private set; }
 	public Vector3		destination { get; private set; }
+	public Vector3		teleportDestination;
 	public Orientation	playerOrientation { get; private set; }
 	
 	private IAnimatorController	animatorController;
@@ -68,13 +69,16 @@ public class PlayerController {
 		playerMovementController.StopExpulsion();
 	}
 
-	public void SetDestination(ISquare square)
+	public void SetDestination(ISquare square, GridController gridController)
 	{
 		if (this.currentSquare != square)
 		{
 			if (currentSquare != null)
 				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
+			Vector3 distance = square.GetPosition () - currentSquare.GetPosition ();
+			if (gridController != null && Mathf.Abs (distance.x) > gridController.width || Mathf.Abs (distance.z) > gridController.height)
+
 			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}
 		currentSquare = square;
@@ -85,7 +89,7 @@ public class PlayerController {
 		try
 		{
 			ISquare square = gridController.GetSquare (x, y);
-			SetDestination (square);
+			SetDestination (square, gridController);
 		}
 		catch (GridController.GridOutOfBoundsException)
 		{

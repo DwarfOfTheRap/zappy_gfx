@@ -136,6 +136,23 @@ MonoBehaviour:
   platformsToIgnore: []
   dynamic: 0
   dynamicTypeName: 
+--- !u!114 &293489621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902961c69f102f4409c29b9e54258701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 1259340449}
+  thisPropertyPath: TeleportScript.destination
+  compareToType: 0
+  other: {fileID: 515852223}
+  otherPropertyPath: gameObject
+  compareType: 0
 --- !u!114 &322004104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,6 +195,27 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 138138, guid: eb9761b693ad44ba8bc06d3ac1385658, type: 2}
   m_PrefabInternal: {fileID: 1936048786}
+--- !u!114 &404286228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 404286227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 1
+  repeatCheckTime: 1
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 2
+  m_ActionBase: {fileID: 0}
+  checksPerformed: 0
 --- !u!114 &404286231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +476,27 @@ Camera:
 GameObject:
   m_PrefabParentObject: {fileID: 181274, guid: eb9761b693ad44ba8bc06d3ac1385658, type: 2}
   m_PrefabInternal: {fileID: 1936048786}
+--- !u!114 &515852224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 515852223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 1
+  repeatCheckTime: 1
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 2
+  m_ActionBase: {fileID: 1378072800}
+  checksPerformed: 0
 --- !u!114 &515852227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -869,6 +928,27 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 190306, guid: eb9761b693ad44ba8bc06d3ac1385658, type: 2}
   m_PrefabInternal: {fileID: 1936048786}
+--- !u!114 &1259340450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1259340449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 1
+  repeatCheckTime: 0
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 1
+  m_ActionBase: {fileID: 293489621}
+  checksPerformed: 0
 --- !u!114 &1259340453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,6 +1068,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sttPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &1378072800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  go: {fileID: 515852223}
+  thisPropertyPath: gameObject.activeSelf
+  compareToType: 0
+  other: {fileID: 0}
+  otherPropertyPath: 
+  constantValueGeneric: 0
 --- !u!1 &1446510560
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1562548819
 Transform:
   m_ObjectHideFlags: 0
@@ -1302,6 +1399,27 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 151666, guid: eb9761b693ad44ba8bc06d3ac1385658, type: 2}
   m_PrefabInternal: {fileID: 1936048786}
+--- !u!114 &1595481614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1595481613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAfterTime: 1
+  repeatCheckTime: 1
+  repeatEveryTime: 1
+  checkAfterFrames: 1
+  repeatCheckFrame: 1
+  repeatEveryFrame: 1
+  hasFailed: 0
+  checkMethods: 2
+  m_ActionBase: {fileID: 0}
+  checksPerformed: 0
 --- !u!114 &1595481615
 MonoBehaviour:
   m_ObjectHideFlags: 0
