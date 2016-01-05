@@ -153,7 +153,7 @@ GameObject:
   - 54: {fileID: 5410852}
   - 65: {fileID: 6550614}
   - 114: {fileID: 11450016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PA_Warrior
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -5534,7 +5534,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 117036}
