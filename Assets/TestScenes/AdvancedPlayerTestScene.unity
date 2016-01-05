@@ -619,9 +619,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!114 &215650946
@@ -650,11 +652,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 1
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &215650948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,7 +794,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 127272, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_Name
@@ -987,7 +995,8 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11450016, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &277718841
@@ -1218,9 +1227,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!114 &317268594
@@ -1270,11 +1281,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 1
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &317268596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1649,9 +1666,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 1
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 1
 --- !u!114 &406709078
@@ -1735,11 +1754,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 1
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 0
   destinationSquare: {fileID: 2052855233}
+  originSquare: {fileID: 1531778021}
+  destinationVector: 
+  initVector: 
 --- !u!1 &412337361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1977,9 +2002,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 1
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 1
 --- !u!114 &457402897
@@ -2063,11 +2090,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 1
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 0
   destinationSquare: {fileID: 500092751}
+  originSquare: {fileID: 1531778021}
+  destinationVector: 
+  initVector: 
 --- !u!1 &467618756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,7 +2221,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 127272, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_Name
@@ -2393,7 +2426,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 127272, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_Name
@@ -2687,11 +2720,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 1
     time: 0
   orientation: 3
   destinationSquare: {fileID: 335898317}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &671925777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2806,11 +2845,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 1
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &680183246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2844,9 +2889,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!95 &680183248
@@ -3669,11 +3716,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 1
     time: 0
   orientation: 4
   destinationSquare: {fileID: 1249963565}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &955166983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3901,7 +3954,8 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11450016, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &1001794029
@@ -4148,9 +4202,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!114 &1040857282
@@ -4179,11 +4235,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 4
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!1 &1049447781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4459,11 +4521,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 1
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &1078593077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4476,9 +4544,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!114 &1078593078
@@ -4611,11 +4681,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 1
     time: 0
   orientation: 1
   destinationSquare: {fileID: 2051870425}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!1 &1101959307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,7 +5012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1151291961
 Transform:
   m_ObjectHideFlags: 0
@@ -5037,9 +5113,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!95 &1152659849
@@ -5086,11 +5164,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 3
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!1 &1169066440
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,11 +5413,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 1
     time: 0
   orientation: 2
   destinationSquare: {fileID: 1634353844}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!114 &1225034598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5520,9 +5610,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 500
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 0
 --- !u!95 &1266922629
@@ -5569,11 +5661,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 0
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 2
   destinationSquare: {fileID: 0}
+  originSquare: {fileID: 0}
+  destinationVector: 
+  initVector: 
 --- !u!1001 &1292592559
 Prefab:
   m_ObjectHideFlags: 0
@@ -6193,7 +6291,8 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11450016, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1466136883
@@ -6366,9 +6465,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 1
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 1
 --- !u!114 &1508242204
@@ -6449,11 +6550,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 1
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 0
   destinationSquare: {fileID: 244324754}
+  originSquare: {fileID: 1531778021}
+  destinationVector: 
+  initVector: 
 --- !u!1 &1509873299
 GameObject:
   m_ObjectHideFlags: 0
@@ -6482,6 +6589,62 @@ Transform:
   - {fileID: 381031616}
   m_Father: {fileID: 202730937}
   m_RootOrder: 1
+--- !u!1001 &1531778019
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1817209132}
+    m_Modifications:
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 127272, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+      propertyPath: m_Name
+      value: Floor1-0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!4 &1531778020 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
+  m_PrefabInternal: {fileID: 1531778019}
+--- !u!114 &1531778021 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11405190, guid: 2b9fb187a60e24bccb434df484848b8e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1531778019}
+  m_Script: {fileID: 11500000, guid: f20d10d7741e2482394bb832a1f2b857, type: 3}
 --- !u!1 &1542782098
 GameObject:
   m_ObjectHideFlags: 0
@@ -7504,6 +7667,7 @@ Transform:
   - {fileID: 1953261347}
   - {fileID: 1508242201}
   - {fileID: 406709075}
+  - {fileID: 1531778020}
   - {fileID: 500092750}
   - {fileID: 568436745}
   - {fileID: 244324753}
@@ -7897,9 +8061,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
+    level: 0
     index: 0
     speed: 5
     rotSpeed: 1
+    teleportDestination: {x: 0, y: 0, z: 0}
   legs: []
   orientation: 1
 --- !u!95 &1953261351
@@ -7980,11 +8146,17 @@ MonoBehaviour:
   setDestinationTest:
     enabled: 1
     time: 0
+  setDestinationTestLegit:
+    enabled: 0
+    time: 0
   expulsedTest:
     enabled: 0
     time: 0
   orientation: 0
   destinationSquare: {fileID: 568436746}
+  originSquare: {fileID: 1531778021}
+  destinationVector: 
+  initVector: 
 --- !u!1001 &1961607401
 Prefab:
   m_ObjectHideFlags: 0
@@ -8080,7 +8252,8 @@ Prefab:
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11450016, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 0e8abfef1205840b2918ac3a57162d79, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1972481429
@@ -8287,7 +8460,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 474050, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 127272, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
       propertyPath: m_Name

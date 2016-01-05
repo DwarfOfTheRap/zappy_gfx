@@ -9,7 +9,7 @@ public class PlayerController {
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
 	
-	private ISquare		currentSquare;
+	public	ISquare		currentSquare;
 	private Quaternion	rotation;
 	private bool		expulsed;
 
@@ -91,8 +91,8 @@ public class PlayerController {
 			if (currentSquare != null)
 				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
-			Vector3 distance = square.GetPosition () - currentSquare.GetPosition ();
-			if (gridController != null && Mathf.Abs (distance.x) > gridController.width / 2 || Mathf.Abs (distance.z) > gridController.height / 2)
+			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
+			if (gridController != null && (Mathf.Abs (distance.x) > gridController.width / 2 || Mathf.Abs (distance.z) > gridController.height / 2))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
 			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}

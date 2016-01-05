@@ -13,6 +13,7 @@ public class PlayerTester : MonoBehaviour {
 	public delegate void	TestMethod();
 	public Orientation		orientation;
 	public SquareScript		destinationSquare;
+	public SquareScript		originSquare;
 	public int[]			destinationVector;
 	public int[]			initVector;
 
