@@ -67,7 +67,7 @@ public class PlayerTester : MonoBehaviour {
 
 	void TestDestinationLegit()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, null, GameManagerScript.instance.grid.controller);
 		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
 	}
 

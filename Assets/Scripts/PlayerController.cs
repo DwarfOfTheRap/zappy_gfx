@@ -8,6 +8,7 @@ public class PlayerController {
 	public int			index;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
+	public Team			team;
 	
 	public	ISquare		currentSquare;
 	private Quaternion	rotation;
@@ -69,7 +70,7 @@ public class PlayerController {
 		playerMovementController.StopExpulsion();
 	}
 
-	public void Init(int x, int y, GridController gridController)
+	public void Init(int x, int y, Orientation orientation, int level, int index, Team team, GridController gridController)
 	{
 		try
 		{
@@ -77,6 +78,8 @@ public class PlayerController {
 			this.currentSquare = square;
 			playerMovementController.SetPosition(square.GetPosition());
 			destination = playerMovementController.SetDestination (square.GetPosition ());
+			this.index = index;
+			this.SetPlayerOrientation (orientation);
 		}
 		catch (GridController.GridOutOfBoundsException)
 		{

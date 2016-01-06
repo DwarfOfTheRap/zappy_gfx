@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerManager {
 	public class PlayerNotFoundException : Exception
@@ -10,14 +11,23 @@ public class PlayerManager {
 
 		public PlayerNotFoundException(string message) : base(message) {}
 	}
-	private Dictionary<int, PlayerController> players;
-	private GridController gridController;
-
-	private PlayerManager() {}
-
-	public PlayerManager(GridController gridController)
+	public class TwoPlayersWithTheSameIndexException : Exception
 	{
-		this.players = new Dictionary<int, PlayerController>();
+		public TwoPlayersWithTheSameIndexException() {}
+		
+		public TwoPlayersWithTheSameIndexException(string message) : base(message) {}
+	}
+	private List<PlayerController>			players;
+	public GridController					gridController { get; private set; }
+	public TeamManager						teamManager { get; private set; }
+	public IPlayerInstantiationController	pic { get; private set; }
+
+	PlayerManager(){}
+
+	public PlayerManager(GridController gridController, TeamManager teamManager, IPlayerInstantiationController pic)
+	{
+		this.players = new List<PlayerController>();
+		this.pic = pic;
 		this.gridController = gridController;
 	}
 
@@ -25,7 +35,7 @@ public class PlayerManager {
 	{
 		try
 		{
-			return players[n];
+			return players.Find(x => x.index == n);
 		}
 		catch (Exception)
 		{
@@ -34,7 +44,12 @@ public class PlayerManager {
 	}
 	public PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
 	{
-		throw new NotImplementedException();
+		PlayerController controller = pic.Instantiate();
+		if (players.Find (pl => pl.index == n) != null)
+			throw new TwoPlayersWithTheSameIndexException();
+		controller.Init (x, y, o, l, n, teamManager.FindTeam(name), gridController);
+		players.Add (controller);
+		return controller;
 	}
 
 	public PlayerController SetPlayerPosition(int n, int x, int y, Orientation o)
