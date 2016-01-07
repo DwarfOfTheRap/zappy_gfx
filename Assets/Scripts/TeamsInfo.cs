@@ -7,75 +7,22 @@ using System;
 public class TeamsInfo : MonoBehaviour {
 
 	public List<Team> 		teams;
-	public Font				font;
+	public GameObject		prefab;
 
-	void CreateTeamDetailsButton (GameObject buttonObject, Team team)
-	{
-		buttonObject.AddComponent<RectTransform> ();
-		buttonObject.AddComponent<CanvasRenderer> ();
-		buttonObject.AddComponent<Image> ();
-
-		Button button = buttonObject.AddComponent<Button> ();
-
-		LayoutElement layoutElem = buttonObject.AddComponent<LayoutElement> ();
-		layoutElem.preferredHeight = 15;
-		layoutElem.flexibleWidth = 1;
-
-		HorizontalLayoutGroup hLayout = buttonObject.AddComponent<HorizontalLayoutGroup> ();
-		hLayout.padding.right = 32;
-	}
-
-	void CreateTeamNameTextArea (GameObject buttonObject, Team team)
-	{
-		GameObject teamName = new GameObject (team.name);
-		teamName.AddComponent<RectTransform> ();
-		teamName.AddComponent<CanvasRenderer> ();
-
-		Text text = teamName.AddComponent<Text> ();
-		text.text = team.name;
-		text.font = font;
-		text.fontSize = 8;
-		text.alignment = TextAnchor.MiddleLeft;
-		text.resizeTextForBestFit = true;
-		text.resizeTextMinSize = 6;
-		text.resizeTextMaxSize = 8;
-		text.color = team.color;
-	}
-
-	void CreateTeamCompletionTextArea (GameObject buttonObject, Team team)
-	{
-		GameObject teamCompletion = new GameObject (team.name);
-		LayoutElement layoutElem = teamCompletion.AddComponent<LayoutElement> ();
-		layoutElem.ignoreLayout = true;
-
-		RectTransform trans = teamCompletion.AddComponent<RectTransform> ();
-		trans.anchorMin = new Vector2 (0.725f, 0.0f);
-		trans.anchorMax = new Vector2 (1.0f, 1.0f);
-		trans.pivot = new Vector2 (0.5f, 0.5f);
-
-		teamCompletion.AddComponent<CanvasRenderer> ();
-		
-		Text text = teamCompletion.AddComponent<Text> ();
-		text.font = font;
-		text.fontSize = 8;
-		text.alignment = TextAnchor.MiddleRight;
-		text.resizeTextForBestFit = true;
-		text.resizeTextMinSize = 6;
-		text.resizeTextMaxSize = 8;
-		text.color = new Color(255.0f, 255.0f, 255.0f, 255.0f);
-
-		TeamCompletion script = teamCompletion.AddComponent<TeamCompletion> ();
-		script.team = team;
-		script.text = text;
-	}
-	
 	// Use this for initialization
 	void Start () {
-		foreach(Team team in teams) {
-			GameObject buttonObject = new GameObject(team.name);
-			CreateTeamDetailsButton(buttonObject, team);
-			CreateTeamNameTextArea(buttonObject, team);
-			CreateTeamCompletionTextArea(buttonObject, team);
+		if (teams != null) {
+			foreach (Team team in teams) {
+				GameObject buttonObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+				buttonObject.transform.SetParent(this.gameObject.transform);
+				Text[] texts = buttonObject.gameObject.GetComponentsInChildren<Text> ();
+				texts[0].text = team.name;
+				texts[0].color = team.color;
+				texts[1].gameObject.GetComponent<TeamCompletion> ().team = team;
+				texts[1].gameObject.GetComponent<TeamCompletion> ().text = texts[1];
+				buttonObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+				buttonObject.name = team.name;
+			}
 		}
 	}
 	

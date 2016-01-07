@@ -10,16 +10,17 @@ public class TeamCompletion : MonoBehaviour {
 
 	string GetTeamCompletion ()
 	{
-		PlayerController[] players = PlayerManager.instance.GetPlayersInTeam(team);
-		Array.Sort (players, new Comparison<PlayerController> ((x, y) => y.level.CompareTo (x.level)));
-		
+		PlayerController[] players = GameManagerScript.instance.playerManager.GetPlayersInTeam(team);
 		float average = 0.0f;
-		for (int i = 0; i < 6; ++i) {
-			average += players[i].level;
-		}
-		average /= 6;
-		average = (average * 100) / 8;
 		
+		if (players != null) {
+			Array.Sort (players, new Comparison<PlayerController> ((x, y) => y.level.CompareTo (x.level)));
+			for (int i = 0; i < 6; ++i) {
+				average += players [i].level;
+			}
+			average /= 6;
+			average = (average * 100) / 8;
+		}
 		return (average.ToString () + "%");
 	}
 
