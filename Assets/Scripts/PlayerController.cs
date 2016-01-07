@@ -2,17 +2,10 @@
 using System.Collections;
 using System;
 
-public enum Orientation {
-	NORTH = 1,
-	EAST = 2,
-	SOUTH = 3,
-	WEST = 4,
-	NONE = 0
-}
-
 [Serializable]
 public class PlayerController {
 	public int			index;
+	public Team			team;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
 	public bool 		isIncantating { get; private set; }
@@ -22,29 +15,29 @@ public class PlayerController {
 	
 	private IAnimatorController	animatorController;
 	private IPlayerMovementController playerMovementController;
-
+	
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
 		this.animatorController = animatorController;
 	}
-
+	
 	public void SetPlayerMovementController(IPlayerMovementController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
 	}
-
+	
 	public void Incantate()
 	{
 		isIncantating = true;
 		animatorController.SetBool ("Incantate", true);
 	}
-
+	
 	public void StopIncantating()
 	{
 		isIncantating = false;
 		animatorController.SetBool("Incantate", false);
 	}
-
+	
 	public void SetPosition(int x, int y)
 	{
 		if (this.positionIndex.x != x || this.positionIndex.y != y)
@@ -52,28 +45,28 @@ public class PlayerController {
 		this.positionIndex.x = x;
 		this.positionIndex.y = y;
 	}
-
+	
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
 		this.playerOrientation = playerOrientation;
 		switch (playerOrientation)
 		{
-			case Orientation.NORTH:
-				rotation = Quaternion.Euler (0, 0, 0);
-				break;
-			case Orientation.EAST:
-				rotation = Quaternion.Euler (0, 90, 0);
-				break;
-			case Orientation.SOUTH:
-				rotation = Quaternion.Euler (0, 180, 0);
-				break;
-			case Orientation.WEST:
-				rotation = Quaternion.Euler (0, 270, 0);
-				break;
+		case Orientation.NORTH:
+			rotation = Quaternion.Euler (0, 0, 0);
+			break;
+		case Orientation.EAST:
+			rotation = Quaternion.Euler (0, 90, 0);
+			break;
+		case Orientation.SOUTH:
+			rotation = Quaternion.Euler (0, 180, 0);
+			break;
+		case Orientation.WEST:
+			rotation = Quaternion.Euler (0, 270, 0);
+			break;
 		}
 	}
 	
-
+	
 	public Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
 	{
 		if (position == destination)
@@ -93,7 +86,7 @@ public class PlayerController {
 			return Orientation.NORTH;
 		return Orientation.NONE;
 	}
-
+	
 	public Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
 	{
 		int destinationInt = (int)destinationOrientation;
@@ -108,7 +101,7 @@ public class PlayerController {
 			return Orientation.WEST;
 		return Orientation.NONE;
 	}
-
+	
 	public void GoToDestination(Orientation animationOrientation)
 	{
 		animatorController.SetBool ("Walk", playerMovementController.IsMoving ());
