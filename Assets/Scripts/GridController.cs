@@ -86,7 +86,7 @@ public class GridController {
 	{
 		for (int i = 1; i <= level; i++)
 		{
-			int count = ((level - 1) * 2) + 1;
+			int count = ((i - 1) * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y + i) + height) % height));
 		}
@@ -96,7 +96,7 @@ public class GridController {
 	{
 		for (int i = 1; i <= level; i++)
 		{
-			int count = ((level - 1) * 2) + 1;
+			int count = ((i - 1) * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y - i) + height) % height));
 		}
@@ -106,7 +106,7 @@ public class GridController {
 	{
 		for (int i = 1; i <= level; i++)
 		{
-			int count = ((level - 1) * 2) + 1;
+			int count = ((i - 1) * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x + i) + width) % width, ((y - count / 2 + j) + height) % height));
 		}
@@ -116,7 +116,7 @@ public class GridController {
 	{
 		for (int i = 1; i <= level; i++)
 		{
-			int count = ((level - 1) * 2) + 1;
+			int count = ((i - 1) * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - i) + width) % width, ((y - count / 2 + j) + height) % height));
 		}

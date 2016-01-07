@@ -2,6 +2,7 @@ using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
+using System.Collections.Generic;
 
 [TestFixture]
 public class GridTests {
@@ -139,6 +140,148 @@ public class GridTests {
 		//Act
 		gc.Init (width, height);
 		//Assert
+	}
+
+	[Test]
+	public void GetVision_Level1_Basic_Tests()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+
+		// Assert
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.EAST, 1)[0], gc.GetSquare (6, 5));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.WEST, 1)[0], gc.GetSquare (4, 5));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.SOUTH, 1)[0], gc.GetSquare (5, 4));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.NORTH, 1)[0], gc.GetSquare (5, 6));
+	}
+
+	[Test]
+	public void GetVision_Level1_Modulo_Tests()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.EAST, 1)[0], gc.GetSquare (0, 1));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.WEST, 1)[0], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.SOUTH, 1)[0], gc.GetSquare (9, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.NORTH, 1)[0], gc.GetSquare (1, 0));
+			
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.EAST, 1)[0], gc.GetSquare (9, 0));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.WEST, 1)[0], gc.GetSquare (9, 8));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.SOUTH, 1)[0], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.NORTH, 1)[0], gc.GetSquare (8, 9));
+	}
+
+	[Test]
+	public void GetVision_Level3_North()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+
+		// Act
+		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.NORTH, 3));
+
+		// Arrange
+		Assert.AreEqual (9, lst.Count);
+		Assert.AreSame (gc.GetSquare (0, 1), lst.Find(x => x == gc.GetSquare (0, 1)));
+		Assert.AreSame (gc.GetSquare (0, 2), lst.Find(x => x == gc.GetSquare (0, 2)));
+		Assert.AreSame (gc.GetSquare (0, 3), lst.Find(x => x == gc.GetSquare (0, 3)));
+		Assert.AreSame (gc.GetSquare (9, 2), lst.Find(x => x == gc.GetSquare (9, 2)));
+		Assert.AreSame (gc.GetSquare (1, 2), lst.Find(x => x == gc.GetSquare (1, 2)));
+		Assert.AreSame (gc.GetSquare (8, 3), lst.Find(x => x == gc.GetSquare (8, 3)));
+		Assert.AreSame (gc.GetSquare (9, 3), lst.Find(x => x == gc.GetSquare (9, 3)));
+		Assert.AreSame (gc.GetSquare (1, 3), lst.Find(x => x == gc.GetSquare (1, 3)));
+		Assert.AreSame (gc.GetSquare (2, 3), lst.Find(x => x == gc.GetSquare (2, 3)));
+	}
+
+	[Test]
+	public void GetVision_Level3_South()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+		
+		// Act
+		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.SOUTH, 3));
+		
+		// Arrange
+		Assert.AreEqual (9, lst.Count);
+		Assert.AreSame (gc.GetSquare (0, 9), lst.Find(x => x == gc.GetSquare (0, 9)));
+		Assert.AreSame (gc.GetSquare (9, 8), lst.Find(x => x == gc.GetSquare (9, 8)));
+		Assert.AreSame (gc.GetSquare (0, 8), lst.Find(x => x == gc.GetSquare (0, 8)));
+		Assert.AreSame (gc.GetSquare (1, 8), lst.Find(x => x == gc.GetSquare (1, 8)));
+		Assert.AreSame (gc.GetSquare (8, 7), lst.Find(x => x == gc.GetSquare (8, 7)));
+		Assert.AreSame (gc.GetSquare (9, 7), lst.Find(x => x == gc.GetSquare (9, 7)));
+		Assert.AreSame (gc.GetSquare (0, 7), lst.Find(x => x == gc.GetSquare (0, 7)));
+		Assert.AreSame (gc.GetSquare (1, 7), lst.Find(x => x == gc.GetSquare (1, 7)));
+		Assert.AreSame (gc.GetSquare (2, 7), lst.Find(x => x == gc.GetSquare (2, 7)));
+	}
+
+	[Test]
+	public void GetVision_Level3_East()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+		
+		// Act
+		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.EAST, 3));
+		
+		// Arrange
+		Assert.AreEqual (9, lst.Count);
+		Assert.AreSame (gc.GetSquare (1, 0), lst.Find(x => x == gc.GetSquare (1, 0)));
+		Assert.AreSame (gc.GetSquare (2, 9), lst.Find(x => x == gc.GetSquare (2, 9)));
+		Assert.AreSame (gc.GetSquare (2, 0), lst.Find(x => x == gc.GetSquare (2, 0)));
+		Assert.AreSame (gc.GetSquare (2, 1), lst.Find(x => x == gc.GetSquare (2, 1)));
+		Assert.AreSame (gc.GetSquare (3, 8), lst.Find(x => x == gc.GetSquare (3, 8)));
+		Assert.AreSame (gc.GetSquare (3, 9), lst.Find(x => x == gc.GetSquare (3, 9)));
+		Assert.AreSame (gc.GetSquare (3, 0), lst.Find(x => x == gc.GetSquare (3, 0)));
+		Assert.AreSame (gc.GetSquare (3, 1), lst.Find(x => x == gc.GetSquare (3, 1)));
+		Assert.AreSame (gc.GetSquare (3, 2), lst.Find(x => x == gc.GetSquare (3, 2)));
+	}
+
+	[Test]
+	public void GetVision_Level3_West()
+	{
+		//Arrange
+		GridController gc = new GridController();
+		IGrid sic = GetMockSquareInstantiationController ();
+		gc.SetSquareInstantiationController(sic);
+		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
+		gc.Init (10, 10);
+		
+		// Act
+		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.WEST, 3));
+		
+		// Arrange
+		Assert.AreEqual (9, lst.Count);
+		Assert.AreSame (gc.GetSquare (9, 0), lst.Find(x => x == gc.GetSquare (9, 0)));
+		Assert.AreSame (gc.GetSquare (8, 9), lst.Find(x => x == gc.GetSquare (8, 9)));
+		Assert.AreSame (gc.GetSquare (8, 0), lst.Find(x => x == gc.GetSquare (8, 0)));
+		Assert.AreSame (gc.GetSquare (8, 1), lst.Find(x => x == gc.GetSquare (8, 1)));
+		Assert.AreSame (gc.GetSquare (7, 8), lst.Find(x => x == gc.GetSquare (7, 8)));
+		Assert.AreSame (gc.GetSquare (7, 9), lst.Find(x => x == gc.GetSquare (7, 9)));
+		Assert.AreSame (gc.GetSquare (7, 0), lst.Find(x => x == gc.GetSquare (7, 0)));
+		Assert.AreSame (gc.GetSquare (7, 1), lst.Find(x => x == gc.GetSquare (7, 1)));
+		Assert.AreSame (gc.GetSquare (7, 2), lst.Find(x => x == gc.GetSquare (7, 2)));
 	}
 
 	private ISquare GetMockSquare ()
