@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [Serializable]
 public class GridController {
@@ -81,27 +82,67 @@ public class GridController {
 		return false;
 	}
 
-	private ISquare[] GetVisonNorth()
+	private void GetVisionNorth(int x, int y, int level, ref List<ISquare> squares)
 	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((level - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y + i) + height) % height));
+		}
 	}
 
-
-	private ISquare[] GetVisionEast()
+	private void GetVisionSouth(int x, int y, int level, ref List<ISquare> squares)
 	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((level - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y - i) + height) % height));
+		}
 	}
 
-	private ISquare[] GetVisionWest()
+	private void GetVisionEast(int x, int y, int level, ref List<ISquare> squares)
 	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((level - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x + i) + width) % width, ((y - count / 2 + j) + height) % height));
+		}
+	}
+
+	private void GetVisionWest(int x, int y, int level, ref List<ISquare> squares)
+	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((level - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - i) + width) % width, ((y - count / 2 + j) + height) % height));
+		}
 	}
 
 	public ISquare[] GetVision(int x, int y, Orientation orientation, int level)
 	{
-		for (int i = 0; i < level; i++)
+		List<ISquare> squares = new List<ISquare>();
+		switch (orientation)
 		{
-			for (int j = (x - i + width) % width; j < (x + i + 1) % width; j++)
-			{
-			}
+			case Orientation.NORTH:
+				this.GetVisionNorth (x, y, level, ref squares);
+				break;
+			case Orientation.SOUTH:
+				this.GetVisionSouth (x, y, level, ref squares);
+				break;
+			case Orientation.EAST:
+				this.GetVisionEast (x, y, level, ref squares);
+				break;
+			case Orientation.WEST:
+				this.GetVisionWest (x, y, level, ref squares);
+				break;
 		}
+		if (squares.Count == 0)
+			return null;
+		return squares.ToArray ();
 	}
 
 	public Vector3 GetNearestTeleport (Vector3 distance, Vector3 currentPosition)
