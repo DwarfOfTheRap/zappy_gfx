@@ -42,6 +42,21 @@ public class PlayerManager {
 			throw new PlayerNotFoundException();
 		}
 	}
+
+	public PlayerController[] GetPlayersInTeam(Team team)
+	{
+		List<PlayerController> tmp = new List<PlayerController>();
+
+		foreach (PlayerController player in players)
+		{
+			if (player.team == team)
+				tmp.Add (player);
+		}
+		if (tmp.Count == 0)
+			return null;
+		return tmp.ToArray ();
+	}
+
 	public PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
 	{
 		PlayerController controller = pic.Instantiate();

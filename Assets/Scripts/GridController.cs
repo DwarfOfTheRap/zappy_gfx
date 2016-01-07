@@ -64,6 +64,46 @@ public class GridController {
 		return grid[x * height + y];
 	}
 
+	public bool GetSquarePosition(ISquare square, ref int x, ref int y)
+	{
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				if (grid[i * height + j] == square)
+				{
+					x = i;
+					y = j;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private ISquare[] GetVisonNorth()
+	{
+	}
+
+
+	private ISquare[] GetVisionEast()
+	{
+	}
+
+	private ISquare[] GetVisionWest()
+	{
+	}
+
+	public ISquare[] GetVision(int x, int y, Orientation orientation, int level)
+	{
+		for (int i = 0; i < level; i++)
+		{
+			for (int j = (x - i + width) % width; j < (x + i + 1) % width; j++)
+			{
+			}
+		}
+	}
+
 	public Vector3 GetNearestTeleport (Vector3 distance, Vector3 currentPosition)
 	{
 		float absx = Mathf.Abs (distance.x);
