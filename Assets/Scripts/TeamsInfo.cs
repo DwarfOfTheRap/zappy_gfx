@@ -27,24 +27,24 @@ public class TeamsInfo : MonoBehaviour {
 
 	void CreateTeamNameTextArea (GameObject buttonObject, Team team)
 	{
-		GameObject teamName = new GameObject (team.teamName);
+		GameObject teamName = new GameObject (team.name);
 		teamName.AddComponent<RectTransform> ();
 		teamName.AddComponent<CanvasRenderer> ();
 
 		Text text = teamName.AddComponent<Text> ();
-		text.text = team.teamName;
+		text.text = team.name;
 		text.font = font;
 		text.fontSize = 8;
 		text.alignment = TextAnchor.MiddleLeft;
 		text.resizeTextForBestFit = true;
 		text.resizeTextMinSize = 6;
 		text.resizeTextMaxSize = 8;
-		text.color = team.teamColor;
+		text.color = team.color;
 	}
 
 	void CreateTeamCompletionTextArea (GameObject buttonObject, Team team)
 	{
-		GameObject teamCompletion = new GameObject (team.teamName);
+		GameObject teamCompletion = new GameObject (team.name);
 		LayoutElement layoutElem = teamCompletion.AddComponent<LayoutElement> ();
 		layoutElem.ignoreLayout = true;
 
@@ -72,7 +72,7 @@ public class TeamsInfo : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		foreach(Team team in teams) {
-			GameObject buttonObject = new GameObject(team.teamName);
+			GameObject buttonObject = new GameObject(team.name);
 			CreateTeamDetailsButton(buttonObject, team);
 			CreateTeamNameTextArea(buttonObject, team);
 			CreateTeamCompletionTextArea(buttonObject, team);
