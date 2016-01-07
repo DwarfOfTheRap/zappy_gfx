@@ -13,6 +13,7 @@ public enum Orientation {
 [Serializable]
 public class PlayerController {
 	public int			index;
+	public int			level;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
 	public bool 		isIncantating { get; private set; }
