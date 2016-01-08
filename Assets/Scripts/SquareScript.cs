@@ -2,9 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Renderer))]
 public class SquareScript : MonoBehaviour, ISquare
 {
-    public SquareContent resources;
+    public SquareContent	resources;
+	public Color			originalColor;
+
+	void Start()
+	{
+		originalColor = GetComponent<Renderer>().material.color;
+	}
 
     public Vector3 GetPosition ()
     {
@@ -38,11 +45,12 @@ public class SquareScript : MonoBehaviour, ISquare
 
 	public void EnableVision (Color color)
 	{
-		GetComponent<Material>().color = color;
+		GetComponent<Renderer>().material.color = color;
 	}
 
 	public void DisableVision ()
 	{
+		GetComponent<Renderer>().material.color = originalColor;
 	}
 
     public SquareContent GetResources ()
