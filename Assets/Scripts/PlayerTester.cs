@@ -2,27 +2,21 @@
 using System.Collections;
 
 [RequireComponent(typeof(PlayerScript))]
-public class PlayerTester : MonoBehaviour {
-	public PlayerTest		deathTest;
-	public PlayerTest		orientationTest;
-	public PlayerTest		incantateTest;
-	public PlayerTest		incantate_stopTest;
-	public PlayerTest		setDestinationTest;
-	public PlayerTest		setDestinationTestLegit;
-	public PlayerTest		expulsedTest;
-	public delegate void	TestMethod();
+public class PlayerTester : MonoBehaviourTester {
+	public MonoBehaviourTest		deathTest;
+	public MonoBehaviourTest		orientationTest;
+	public MonoBehaviourTest		incantateTest;
+	public MonoBehaviourTest		incantate_stopTest;
+	public MonoBehaviourTest		setDestinationTest;
+	public MonoBehaviourTest		setDestinationTestLegit;
+	public MonoBehaviourTest		expulsedTest;
 	public Orientation		orientation;
 	public SquareScript		destinationSquare;
 	public SquareScript		originSquare;
 	public int[]			destinationVector;
 	public int[]			initVector;
 
-	void Start()
-	{
-		TestInit ();
-	}
-
-	void TestInit()
+	protected override void InitTest()
 	{
 		if (orientationTest.enabled)
 			StartCoroutine (WaitForTest(orientationTest, TestOrientation));
@@ -75,19 +69,5 @@ public class PlayerTester : MonoBehaviour {
 	{
 		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare, null);
 		GetComponent<PlayerScript>().controller.BeExpulsed (orientation);
-	}
-
-	IEnumerator WaitForTest(PlayerTest test, TestMethod method)
-	{
-		if (test.time > 0.0f)
-			yield return new WaitForSeconds(test.time);
-		method();
-	}
-
-	[System.Serializable]
-	public class PlayerTest
-	{
-		public bool enabled = false;
-		public float time = 0.0f;
 	}
 }

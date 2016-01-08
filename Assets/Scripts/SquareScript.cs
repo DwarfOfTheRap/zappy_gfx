@@ -36,6 +36,15 @@ public class SquareScript : MonoBehaviour, ISquare
         DestroyImmediate (gameObject);
     }
 
+	public void EnableVision (Color color)
+	{
+		GetComponent<Material>().color = color;
+	}
+
+	public void DisableVision ()
+	{
+	}
+
     public SquareContent GetResources ()
     {
         return resources;
@@ -61,6 +70,8 @@ public interface ISquare
     float GetBoundX();
     float GetBoundY();
     float GetBoundZ();
+	void EnableVision(Color color);
+	void DisableVision();
     void Destroy();
     void DestroyImmediate();
     SquareContent GetResources();
