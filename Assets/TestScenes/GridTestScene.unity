@@ -1301,7 +1301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeout: 5
-  ignored: 0
+  ignored: 1
   succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
   expectedExceptionList: 
