@@ -6,11 +6,16 @@ public class TeamButton : MonoBehaviour {
 
 	public GameObject		teamDetails;
 
+	void Start ()
+	{
+		teamDetails = GameObject.FindGameObjectWithTag("TeamCompositionWindow");
+	}
+
 	public void ActivateTeamDetails ()
 	{
-		GameObject[]	objs = gameObject.GetComponentsInChildren<Text> ();
+		Text[]	texts = gameObject.GetComponentsInChildren<Text> ();
 
 		teamDetails.GetComponent<CanvasGroup> ().alpha = 1;
-		teamDetails.GetComponent<TeamDetails> ().team = objs[1].gameObject.GetComponent<TeamCompletion> ().team;
+		//teamDetails.GetComponent<TeamDetails> ().team = texts[1].gameObject.GetComponent<TeamCompletion> ().team;
 	}
 }
