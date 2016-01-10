@@ -1,15 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TeamButton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public GameObject		teamDetails;
+
+	public void ActivateTeamDetails ()
+	{
+		teamDetails.GetComponent<CanvasGroup> ().alpha = 1;
 	}
 }
