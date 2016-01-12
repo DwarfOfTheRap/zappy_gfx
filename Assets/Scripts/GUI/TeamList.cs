@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TeamsInfo : MonoBehaviour {
+public class TeamList : MonoBehaviour {
 
 	public List<Team> 		teams;
 	public GameObject		prefab;

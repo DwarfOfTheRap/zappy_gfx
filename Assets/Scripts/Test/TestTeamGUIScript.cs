@@ -18,11 +18,11 @@ public class TestTeamGUIScript : MonoBehaviour {
 		new Team() { name = "   R", color = new Color(0.5f, 1.0f, 0.0f, 1.0f) }
 	};
 
-	public TeamsInfo		teamsInfo;
+	public TeamList		teamList;
 
 	void OnEnable ()
 	{
-		teamsInfo.teams = teams;
+		teamList.teams = teams;
 	}
 
 	void Update ()
