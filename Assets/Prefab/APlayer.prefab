@@ -119,6 +119,7 @@ GameObject:
   - 222: {fileID: 22227594}
   - 114: {fileID: 11454420}
   - 114: {fileID: 11473166}
+  - 114: {fileID: 11434630}
   m_Layer: 5
   m_Name: APlayer
   m_TagString: Untagged
@@ -339,6 +340,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11434630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 132732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05507fc531f34426da0e2d05e5d48bec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: {fileID: 11480074}
+  playerLvl: {fileID: 11445346}
+  linemate: {fileID: 0}
+  deraumere: {fileID: 0}
+  sibur: {fileID: 0}
+  mendiane: {fileID: 0}
+  phiras: {fileID: 0}
+  thystame: {fileID: 0}
 --- !u!114 &11439036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,7 +476,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Lvl 9\x03"
+  m_Text: Lvl 1
 --- !u!114 &11450812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -603,7 +623,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Player 255\x03"
+  m_Text: Player 1
 --- !u!114 &11484016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,7 +937,31 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: playerNumber
+      value: 
+      objectReference: {fileID: 11480074}
+    - target: {fileID: 0}
+      propertyPath: playerLvl
+      value: 
+      objectReference: {fileID: 11445346}
+    - target: {fileID: 0}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 132732}
+    - target: {fileID: 0}
+      propertyPath: playerInventory
+      value: 
+      objectReference: {fileID: 116652}
+    - target: {fileID: 0}
+      propertyPath: m_ChildForceExpandWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Text
+      value: Lvl 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 132732}

@@ -15,7 +15,7 @@ public class TeamCompletion : MonoBehaviour {
 		
 		if (players != null) {
 			Array.Sort (players, new Comparison<PlayerController> ((x, y) => y.level.CompareTo (x.level)));
-			for (int i = 0; i < 6; ++i) {
+			for (int i = 0; i < players.Length && i < 6; ++i) {
 				average += players [i].level;
 			}
 			average /= 6;

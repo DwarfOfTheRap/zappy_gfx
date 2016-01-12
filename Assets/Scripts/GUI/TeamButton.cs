@@ -5,6 +5,9 @@ using System.Collections;
 public class TeamButton : MonoBehaviour {
 
 	public GameObject		teamDetails;
+	public Team				team;
+	public Text				teamName;
+	public Text				teamCompletion;
 
 	void Start ()
 	{
@@ -13,9 +16,7 @@ public class TeamButton : MonoBehaviour {
 
 	public void ActivateTeamDetails ()
 	{
-		Text[]	texts = gameObject.GetComponentsInChildren<Text> ();
-
 		teamDetails.GetComponent<CanvasGroup> ().alpha = 1;
-		//teamDetails.GetComponent<TeamDetails> ().team = texts[1].gameObject.GetComponent<TeamCompletion> ().team;
+		teamDetails.GetComponent<PlayerList> ().DisplayDetails(team);
 	}
 }
