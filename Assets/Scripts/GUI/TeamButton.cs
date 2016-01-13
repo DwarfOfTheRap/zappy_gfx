@@ -16,7 +16,15 @@ public class TeamButton : MonoBehaviour {
 
 	public void ActivateTeamDetails ()
 	{
+		PlayerList playerList = teamComposition.GetComponentInChildren<PlayerList> ();
+		Transform[] children = playerList.gameObject.GetComponentsInChildren<Transform>();
+		
+		foreach(Transform trans in children)
+		{
+			if (trans != playerList.transform)
+				Destroy(trans.gameObject);
+		}
+		playerList.DisplayDetails(team);
 		teamComposition.GetComponent<CanvasGroup> ().alpha = 1;
-		teamComposition.GetComponent<PlayerList> ().DisplayDetails(team);
 	}
 }
