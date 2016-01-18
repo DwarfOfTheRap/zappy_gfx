@@ -7,8 +7,13 @@ public class GameManagerScript : MonoBehaviour {
 	public PlayerManager			playerManager { get; private set; }
 	public TeamManager				teamManager { get; private set; }
 	public PlayerInstantiationController	pic { get; private set; }
+<<<<<<< HEAD
 
 
+=======
+	
+	
+>>>>>>> origin/develop
 	void Awake()
 	{
 		instance = this;

@@ -10,9 +10,15 @@ public class TeamManager
 		public TeamNotFoundException() : base() {}
 		public TeamNotFoundException(string message) : base(message) {}
 	}
+<<<<<<< HEAD
 
 	public List<Team>	teams;
 
+=======
+	
+	public List<Team>	teams;
+	
+>>>>>>> origin/develop
 	public Team			FindTeam(string name)
 	{
 		Team res = teams.Find (x => x.name == name);
@@ -20,5 +26,9 @@ public class TeamManager
 			throw new TeamNotFoundException();
 		return res;
 	}
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> origin/develop

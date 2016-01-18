@@ -7,4 +7,7 @@ public class Team
 	public string	name;
 	public Color	color;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/develop
