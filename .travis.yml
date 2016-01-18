@@ -1,0 +1,11 @@
+language: c#
+sudo: required
+dist: trusty
+install: Scripts/install.sh
+script: Scripts/build.sh
+os:
+  - osx
+
+notifications:
+  slack: dwarfoftherap:6MsfPkyRctI0nrGYkLsN9J7k
+  email: false
