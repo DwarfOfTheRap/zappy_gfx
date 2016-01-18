@@ -9,7 +9,6 @@ public class PlayerController {
 	public Team			team;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
-	public Team			team;
 	
 	public	ISquare		currentSquare;
 	private Quaternion	rotation;
@@ -45,24 +44,14 @@ public class PlayerController {
 		isIncantating = false;
 		animatorController.SetBool("Incantate", false);
 	}
-<<<<<<< HEAD
 
 	public void Die()
-=======
-	
-	public void SetPosition(int x, int y)
->>>>>>> origin/develop
 	{
 		dead = true;
 		animatorController.SetTrigger ("Death");
 	}
-<<<<<<< HEAD
-
-	public void Expulse()
-=======
 	
-	public void SetPlayerOrientation(Orientation playerOrientation)
->>>>>>> origin/develop
+	public void Expulse()
 	{
 		animatorController.SetTrigger ("Expulse");
 		foreach (PlayerController player in currentSquare.GetResources().players)
@@ -85,7 +74,6 @@ public class PlayerController {
 	{
 		try
 		{
-<<<<<<< HEAD
 			ISquare square = gridController.GetSquare (x, y);
 			this.currentSquare = square;
 			playerMovementController.SetPosition(square.GetPosition());
@@ -115,25 +103,6 @@ public class PlayerController {
 	}
 
 	public void SetPosition(int x, int y, GridController gridController)
-=======
-		case Orientation.NORTH:
-			rotation = Quaternion.Euler (0, 0, 0);
-			break;
-		case Orientation.EAST:
-			rotation = Quaternion.Euler (0, 90, 0);
-			break;
-		case Orientation.SOUTH:
-			rotation = Quaternion.Euler (0, 180, 0);
-			break;
-		case Orientation.WEST:
-			rotation = Quaternion.Euler (0, 270, 0);
-			break;
-		}
-	}
-	
-	
-	public Orientation GetDestinationOrientation(Vector3 position, Vector3 destination)
->>>>>>> origin/develop
 	{
 		try
 		{
@@ -145,13 +114,8 @@ public class PlayerController {
 			return ;
 		}
 	}
-<<<<<<< HEAD
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
-=======
-	
-	public Orientation GetAnimationOrientation(Orientation destinationOrientation, Orientation playerOrientation)
->>>>>>> origin/develop
 	{
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);

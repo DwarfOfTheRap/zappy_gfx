@@ -8,20 +8,13 @@ public enum Orientation {
 	WEST = 4,
 	NONE = 0
 }
-<<<<<<< HEAD
- 
-public static class OrientationManager {
-
-=======
 
 public static class OrientationManager {
 	
->>>>>>> origin/develop
 	public static Orientation Opposite(Orientation orientation)
 	{
 		switch (orientation)
 		{
-<<<<<<< HEAD
 			case Orientation.NORTH:
 				return Orientation.SOUTH;
 			case Orientation.EAST:
@@ -32,18 +25,6 @@ public static class OrientationManager {
 				return Orientation.EAST;
 			default:
 				return Orientation.NONE;
-=======
-		case Orientation.NORTH:
-			return Orientation.SOUTH;
-		case Orientation.EAST:
-			return Orientation.WEST;
-		case Orientation.SOUTH:
-			return Orientation.NORTH;
-		case Orientation.WEST:
-			return Orientation.EAST;
-		default:
-			return Orientation.NONE;
->>>>>>> origin/develop
 		}
 	}
 	public static Quaternion GetRotation(Orientation playerOrientation)
@@ -115,8 +96,4 @@ public static class OrientationManager {
 			return Orientation.WEST;
 		return Orientation.NONE;
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/develop

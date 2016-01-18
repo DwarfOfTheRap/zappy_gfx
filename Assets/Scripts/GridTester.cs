@@ -10,6 +10,8 @@ public class GridTester : MonoBehaviourTester {
 	public Color				vision_test_color;
 	public Orientation			orientation;
 
+	public bool					areInVision;
+
 	protected override void InitTest ()
 	{
 		if (visionTest.enabled)
