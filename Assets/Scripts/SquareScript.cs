@@ -7,69 +7,78 @@ public class SquareScript : MonoBehaviour, ISquare
 {
     public SquareContent	resources;
 	public Color			originalColor;
+	private Material standardMaterial;
+	public Material highlightedMaterial;
+	public SquareContent resources;
 
-	void Start()
+	void Start ()
 	{
-		originalColor = GetComponent<Renderer>().material.color;
+        originalColor = GetComponent<Renderer>().material.color;
+		standardMaterial = GetComponent<MeshRenderer> ().material;
 	}
 
-    public Vector3 GetPosition ()
-    {
-        return transform.position;
-    }
-    
-    public float GetBoundX ()
-    {
-        return GetComponent<Renderer>().bounds.size.x;
-    }
-    
-    public float GetBoundY ()
-    {
-        return GetComponent<Renderer>().bounds.size.y;
-    }
-    
-    public float GetBoundZ ()
-    {
-        return GetComponent<Renderer>().bounds.size.z;
-    }
+	public Vector3 GetPosition ()
+	{
+		return transform.position;
+	}
+	
+	public float GetBoundX ()
+	{
+		return GetComponent<Renderer>().bounds.size.x;
+	}
+	
+	public float GetBoundY ()
+	{
+		return GetComponent<Renderer>().bounds.size.y;
+	}
+	
+	public float GetBoundZ ()
+	{
+		return GetComponent<Renderer>().bounds.size.z;
+	}
 
-    public void Destroy ()
-    {
-        Destroy (gameObject);
-    }
-
-    public void DestroyImmediate()
-    {
-        DestroyImmediate (gameObject);
-    }
+	public void Destroy ()
+	{
+		Destroy (gameObject);
+	}
 
 	public void EnableVision (Color color)
 	{
-		GetComponent<Renderer>().material.color = color;
+		GetComponent<MeshRenderer>().material.color = color;
 	}
 
 	public void DisableVision ()
 	{
-		GetComponent<Renderer>().material.color = originalColor;
+		GetComponent<MeshRenderer>().material.color = originalColor;
 	}
 
-    public SquareContent GetResources ()
-    {
-        return resources;
-    }
+	public void DestroyImmediate()
+	{
+		DestroyImmediate (gameObject);
+	}
+
+	public void Highlighted()
+	{
+		gameObject.GetComponent<MeshRenderer> ().material = highlightedMaterial;
+	}
+
+	public void Standard()
+	{
+		gameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
+	}
 }
 
 [System.Serializable]
 public class SquareContent
 {
-    public uint nourriture;
-    public uint linemate;
-    public uint deraumere;
-    public uint sibur;
-    public uint mendiane;
-    public uint phiras;
-    public uint thystame;
-    public List<PlayerController> players = new List<PlayerController>();
+	public uint nourriture;
+	public uint linemate;
+	public uint deraumere;
+	public uint sibur;
+	public uint mendiane;
+	public uint phiras;
+	public uint thystame;
+	public List<PlayerController> players = new List<PlayerController>();
 }
 
 public interface ISquare
@@ -78,9 +87,11 @@ public interface ISquare
     float GetBoundX();
     float GetBoundY();
     float GetBoundZ();
-	void EnableVision(Color color);
-	void DisableVision();
+    void EnableVision(Color color);
+    void DisableVision();
     void Destroy();
     void DestroyImmediate();
     SquareContent GetResources();
+    void Highlighted();
+    void Standard();
 }
