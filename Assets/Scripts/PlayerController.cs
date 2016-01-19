@@ -6,7 +6,6 @@ using System;
 public class PlayerController {
 	public int			level;
 	public int			index;
-	public int			level;
 	public Team			team;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;

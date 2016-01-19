@@ -17,7 +17,7 @@ public class PlayerManagerScript {
 		
 		public TwoPlayersWithTheSameIndexException(string message) : base(message) {}
 	}
-	private List<PlayerController>			players;
+	public List<PlayerController>			players;
 	public GridController					gridController { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }

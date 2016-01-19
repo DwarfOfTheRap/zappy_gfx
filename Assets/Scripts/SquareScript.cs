@@ -9,7 +9,6 @@ public class SquareScript : MonoBehaviour, ISquare
 	public Color			originalColor;
 	private Material standardMaterial;
 	public Material highlightedMaterial;
-	public SquareContent resources;
 
 	void Start ()
 	{
@@ -40,6 +39,11 @@ public class SquareScript : MonoBehaviour, ISquare
 	public void Destroy ()
 	{
 		Destroy (gameObject);
+	}
+
+	public SquareContent GetResources()
+	{
+		return this.resources;
 	}
 
 	public void EnableVision (Color color)
