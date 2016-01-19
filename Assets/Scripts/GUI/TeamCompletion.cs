@@ -23,13 +23,11 @@ public class TeamCompletion : MonoBehaviour {
 		}
 		return (average.ToString () + "%");
 	}
-
-	// Use this for initialization
+	
 	void Start () {
 		text.text = GetTeamCompletion ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		text.text = GetTeamCompletion ();
 	}

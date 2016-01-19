@@ -4,12 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class TeamList : MonoBehaviour {
+public class TeamListUI : MonoBehaviour {
 
 	public List<Team> 		teams;
 	public GameObject		prefab;
-
-	// Use this for initialization
+	
 	void Start () {
 		if (teams != null) {
 			foreach (Team team in teams) {

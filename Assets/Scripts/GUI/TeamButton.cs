@@ -16,7 +16,7 @@ public class TeamButton : MonoBehaviour {
 
 	public void ActivateTeamDetails ()
 	{
-		PlayerList playerList = teamComposition.GetComponentInChildren<PlayerList> ();
+		PlayerListUI playerList = teamComposition.GetComponentInChildren<PlayerListUI> ();
 		Transform[] children = playerList.gameObject.GetComponentsInChildren<Transform>();
 		
 		foreach(Transform trans in children)

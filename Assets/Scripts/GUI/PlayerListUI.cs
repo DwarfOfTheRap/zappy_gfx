@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class PlayerList: MonoBehaviour {
+public class PlayerListUI : MonoBehaviour {
 
 	public GameObject		prefab;
 	public CanvasGroup		window;
@@ -35,17 +35,17 @@ public class PlayerList: MonoBehaviour {
 				aPlayer.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				aPlayer.name = "Player " + player.index.ToString();
 
-				APlayer script = aPlayer.gameObject.GetComponent<APlayer> ();
+				PlayerUI script = aPlayer.gameObject.GetComponent<PlayerUI> ();
 
 				script.playerIndex.text = "Player " + player.index.ToString();
 				script.playerLvl.text = "Lvl " + player.level.ToString();
 				/* TO REPLACE BY RELEVENT VALUES */
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().linemate.text = "1";
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().deraumere.text = "2";
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().sibur.text = "3";
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().mendiane.text = "4";
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().phiras.text = "5";
-				script.playerInventory.gameObject.GetComponent<PlayerInventory>().thystame.text = "6";
+				script.inventory.linemate.text = "1";
+				script.inventory.deraumere.text = "2";
+				script.inventory.sibur.text = "3";
+				script.inventory.mendiane.text = "4";
+				script.inventory.phiras.text = "5";
+				script.inventory.thystame.text = "6";
 				/* TO REPLACE BY RELEVENT VALUES */
 			}
 		}
