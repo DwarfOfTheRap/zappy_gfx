@@ -5,6 +5,7 @@ using System;
 [Serializable]
 public class PlayerController {
 	public int			index;
+	public int			level;
 	public Team			team;
 	public float		speed = 1.0f;
 	public float		rotSpeed = 1.0f;
