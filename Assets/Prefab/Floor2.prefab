@@ -85,6 +85,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d10d7741e2482394bb832a1f2b857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 2100000, guid: b7fe10744132d49ab9b3295a9b1a9f7d, type: 2}
+  resources:
+    nourriture: 0
+    linemate: 0
+    deraumere: 0
+    sibur: 0
+    mendiane: 0
+    phiras: 0
+    thystame: 0
+    players: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -96,6 +106,10 @@ Prefab:
       propertyPath: m_TagString
       value: Floor2
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: highlightedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: b7fe10744132d49ab9b3295a9b1a9f7d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113110}

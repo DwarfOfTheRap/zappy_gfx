@@ -23,9 +23,10 @@ public class SquareInfoScript : MonoBehaviour {
 
 		}
 		if (Input.GetMouseButtonUp (1)) {
-			GetComponent<CanvasGroup> ().alpha = 0;
-			square.Standard();
+			if (square != null)
+				square.Standard();
 			square = null;
+			GetComponent<CanvasGroup> ().alpha = 0;
 		}
 	}
 
