@@ -1,47 +1,47 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &156688
+--- !u!1 &173062
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 465130}
-  - 33: {fileID: 3322364}
-  - 23: {fileID: 2313656}
-  - 114: {fileID: 11424430}
-  - 65: {fileID: 6592962}
+  - 4: {fileID: 457098}
+  - 33: {fileID: 3384446}
+  - 23: {fileID: 2343208}
+  - 114: {fileID: 11416456}
+  - 65: {fileID: 6571098}
   m_Layer: 0
-  m_Name: Floor7
+  m_Name: Floor6
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &465130
+--- !u!4 &457098
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156688}
+  m_GameObject: {fileID: 173062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.32999992, y: -2.50999999, z: 5.25}
+  m_LocalPosition: {x: 15.6700001, y: 4.8499999, z: 5.25}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &2313656
+--- !u!23 &2343208
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156688}
+  m_GameObject: {fileID: 173062}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 4eaa4fe397f9b4548bc771ef0c45a3c1, type: 2}
+  - {fileID: 2100000, guid: d8e54caccc76a458fa645f22cfadb193, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -55,36 +55,46 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &3322364
+--- !u!33 &3384446
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156688}
+  m_GameObject: {fileID: 173062}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &6592962
+--- !u!65 &6571098
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156688}
+  m_GameObject: {fileID: 173062}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11424430
+--- !u!114 &11416456
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156688}
+  m_GameObject: {fileID: 173062}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20d10d7741e2482394bb832a1f2b857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 0}
+  resources:
+    nourriture: 0
+    linemate: 0
+    deraumere: 0
+    sibur: 0
+    mendiane: 0
+    phiras: 0
+    thystame: 0
+    players: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -94,5 +104,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 156688}
+  m_RootGameObject: {fileID: 173062}
   m_IsPrefabParent: 1

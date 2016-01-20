@@ -85,6 +85,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d10d7741e2482394bb832a1f2b857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedMaterial: {fileID: 0}
+  resources:
+    nourriture: 0
+    linemate: 0
+    deraumere: 0
+    sibur: 0
+    mendiane: 0
+    phiras: 0
+    thystame: 0
+    players: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
