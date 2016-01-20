@@ -21,38 +21,35 @@ public class CameraNavigationUI : MonoBehaviour {
 		if (Input.GetMouseButtonUp (0)) {
 			Camera cam = Camera.main;
 			SquareContentUI sCSript = squareContentWindow.GetComponent<SquareContentUI>();
-			
+			ISquare square = null;
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			bool mousingOver = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+
 			if (sCSript.square != null)
 				sCSript.square.Standard();
-			//sCSript.square = sCSript.OnLeftMouseClick (Input.mousePosition);
-			
+			if (Physics.Raycast(ray, out hit))
+			{
+				if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && mousingOver == false)
+				{
+					squareContentWindow.GetComponent<CanvasGroup> ().alpha = 1;
+					squareContentWindow.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+					square = hit.collider.gameObject.GetComponent<SquareScript>() as ISquare;
+					square.Highlighted();
+					sCSript.square = square;
+				}
+			}
+			else
+			{
+				squareContentWindow.GetComponent<CanvasGroup> ().alpha = 0;
+				squareContentWindow.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+				sCSript.square = null;
+			}
 			if (Time.time - lastClickTime < catchTime && sCSript.square != null) {
 				cam.transform.position = new Vector3 (sCSript.square.GetPosition().x, sCSript.square.GetPosition().y + 16.5f, sCSript.square.GetPosition().z - 28.0f);
 			}
 			lastClickTime = Time.time;
 		}
-
-		/*public ISquare OnLeftMouseClick(Vector3 target)
-		{
-			ISquare square = null;
-			RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay(target);
-			bool mousingOver = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
-			
-			if (Physics.Raycast(ray, out hit))
-			{
-				if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && mousingOver == false)
-				{
-					GetComponent<CanvasGroup> ().alpha = 1;
-					square = hit.collider.gameObject.GetComponent<SquareScript>() as ISquare;
-					square.Highlighted();
-					return square;
-				}
-			}
-			GetComponent<CanvasGroup> ().alpha = 0;
-			GetComponent<CanvasGroup> ().
-			return null;
-		}*/
 	}
 
 	void CheckMouseScroll()
