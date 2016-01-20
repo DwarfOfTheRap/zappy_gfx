@@ -7,6 +7,6 @@ public class TestSquareInfo : MonoBehaviour {
 
 	void FixedUpdate ()
 	{
-		sIS.square = sIS.OnLeftMouseClick (Camera.main.WorldToScreenPoint(this.gameObject.transform.localPosition));
+		//sIS.square = sIS.OnLeftMouseClick (Camera.main.WorldToScreenPoint(this.gameObject.transform.localPosition));
 	}
 }

@@ -5,21 +5,6 @@ using System.Collections;
 public class PlayerListUI : MonoBehaviour {
 
 	public GameObject		prefab;
-	public CanvasGroup		window;
-	
-	void CheckInput()
-	{
-		if (Input.GetMouseButtonUp (1)) {
-			Transform[] children = gameObject.GetComponentsInChildren<Transform>();
-
-			foreach(Transform trans in children)
-			{
-				if (trans != this.transform)
-					Destroy(trans.gameObject);
-			}
-			window.alpha = 0;
-		}
-	}
 
 	public void DisplayDetails(Team team)
 	{
@@ -39,6 +24,7 @@ public class PlayerListUI : MonoBehaviour {
 
 				script.playerIndex.text = "Player " + player.index.ToString();
 				script.playerLvl.text = "Lvl " + player.level.ToString();
+
 				/* TO REPLACE BY RELEVENT VALUES */
 				script.inventory.linemate.text = "1";
 				script.inventory.deraumere.text = "2";
@@ -49,10 +35,5 @@ public class PlayerListUI : MonoBehaviour {
 				/* TO REPLACE BY RELEVENT VALUES */
 			}
 		}
-	}
-
-	void Update ()
-	{
-		CheckInput();
 	}
 }

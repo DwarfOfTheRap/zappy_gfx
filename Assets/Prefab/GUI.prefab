@@ -100,7 +100,6 @@ GameObject:
   - 223: {fileID: 22331934}
   - 114: {fileID: 11423290}
   - 114: {fileID: 11466660}
-  - 114: {fileID: 11489988}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -385,6 +384,7 @@ GameObject:
   - 222: {fileID: 22271308}
   - 114: {fileID: 11485872}
   - 225: {fileID: 22562814}
+  - 114: {fileID: 11406324}
   m_Layer: 5
   m_Name: Teams
   m_TagString: Untagged
@@ -914,6 +914,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ForceModuleActive: 0
+--- !u!114 &11406324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67a5c68b78224801938c3d7fd39b0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notMousingOver: 1
 --- !u!114 &11411888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1050,7 +1062,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 132732, guid: 0f954940677e34a01adde2ecde746b13, type: 2}
-  window: {fileID: 22548754}
 --- !u!114 &11418572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2372,19 +2383,6 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
---- !u!114 &11489988
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d88f3e733e3e84979a47afade3b7bdcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squareContentWindow: {fileID: 22441766}
-  teamCompositionWindow: {fileID: 22491168}
 --- !u!114 &11490216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3824,7 +3822,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!1001 &100100000
 Prefab:
