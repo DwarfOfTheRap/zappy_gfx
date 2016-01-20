@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TestSquareInfo : MonoBehaviour {
 
-	public SquareInfoScript sIS;
+	public SquareContentUI sIS;
 
 	void FixedUpdate ()
 	{

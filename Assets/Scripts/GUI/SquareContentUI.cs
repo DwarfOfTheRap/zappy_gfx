@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class SquareInfoScript : MonoBehaviour {
+public class SquareContentUI : MonoBehaviour {
 
 	public ISquare square;
 	public Text linemate;
@@ -13,22 +13,6 @@ public class SquareInfoScript : MonoBehaviour {
 	public Text thystame;
 	public Text nourriture;
 	public Text players;
-
-	void CheckInput()
-	{
-		if (Input.GetMouseButtonUp (0)) {
-			if (square != null)
-				square.Standard();
-			square = OnLeftMouseClick (Input.mousePosition);
-
-		}
-		if (Input.GetMouseButtonUp (1)) {
-			if (square != null)
-				square.Standard();
-			square = null;
-			GetComponent<CanvasGroup> ().alpha = 0;
-		}
-	}
 
 	public ISquare OnLeftMouseClick(Vector3 target)
 	{
@@ -62,7 +46,6 @@ public class SquareInfoScript : MonoBehaviour {
 	}
 	
 	void Update () {
-		CheckInput ();
 		if (square != null)
 			DisplayResources(square);
 	}
