@@ -4,21 +4,31 @@ using System;
 
 [Serializable]
 public class PlayerController {
-	public int			level;
-	public int			index;
-	public Team			team;
-	public float		speed = 1.0f;
-	public float		rotSpeed = 1.0f;
+	public class PlayerInventory
+	{
+		public int 				linemate;
+		public int				deraumere;
+		public int				sibur;
+		public int				mendiane;
+		public int				phiras;
+		public int				thystame;
+	}
+	public PlayerInventory		inventory;
+	public int					level;
+	public int					index;
+	public Team					team;
+	public float				speed = 1.0f;
+	public float				rotSpeed = 1.0f;
 	
-	public	ISquare		currentSquare;
-	private Quaternion	rotation;
-	private bool		expulsed;
+	public	ISquare				currentSquare;
+	private Quaternion			rotation;
+	private bool				expulsed;
 
-	public bool 		isIncantating { get; private set; }
-	public bool			dead { get; private set; }
-	public Vector3		destination { get; private set; }
-	public Vector3		teleportDestination;
-	public Orientation	playerOrientation { get; private set; }
+	public bool 				isIncantating { get; private set; }
+	public bool					dead { get; private set; }
+	public Vector3				destination { get; private set; }
+	public Vector3				teleportDestination;
+	public Orientation			playerOrientation { get; private set; }
 	
 	private IAnimatorController	animatorController;
 	private IPlayerMovementController playerMovementController;
