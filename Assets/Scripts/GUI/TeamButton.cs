@@ -26,5 +26,6 @@ public class TeamButton : MonoBehaviour {
 		}
 		playerList.DisplayDetails(team);
 		teamComposition.GetComponent<CanvasGroup> ().alpha = 1;
+		teamComposition.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 	}
 }

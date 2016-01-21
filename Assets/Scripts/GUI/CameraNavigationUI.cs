@@ -9,6 +9,8 @@ public class CameraNavigationUI : MonoBehaviour {
 
 	private float 				lastClickTime = 0.0f;
 	private float 				catchTime = 0.25f;
+	private float				moveSpeed = 0.5f;
+	private float				scrollSpeed = 1.0f;
 
 	void InitCameraPosition()
 	{
@@ -39,7 +41,7 @@ public class CameraNavigationUI : MonoBehaviour {
 					sCSript.square = square;
 				}
 			}
-			else
+			else if (mousingOver == false)
 			{
 				squareContentWindow.GetComponent<CanvasGroup> ().alpha = 0;
 				squareContentWindow.GetComponent<CanvasGroup> ().blocksRaycasts = false;
@@ -60,14 +62,14 @@ public class CameraNavigationUI : MonoBehaviour {
 
 		if (deltaScroll > 0.0f && cam.transform.position.y > 3.5f && mousingOver == false)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - 1.0f, cam.transform.position.z);
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + 1.0f);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - scrollSpeed, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + scrollSpeed);
 		}
 		
 		if (deltaScroll < 0.0f && cam.transform.position.y < 100.0f && mousingOver == false)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + 1.0f, cam.transform.position.z);
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - 1.0f);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + scrollSpeed, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - scrollSpeed);
 		}
 	}
 
@@ -82,13 +84,15 @@ public class CameraNavigationUI : MonoBehaviour {
 				sCScript.square.Standard();
 			sCScript.square = null;
 			squareContentWindow.GetComponent<CanvasGroup> ().alpha = 0;
+			squareContentWindow.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	
 			foreach(Transform trans in pLChildren)
 			{
 				if (trans != pLScript.transform)
 					Destroy(trans.gameObject);
 			}
-			teamCompositionWindow.GetComponent<CanvasGroup>().alpha = 0;
+			teamCompositionWindow.GetComponent<CanvasGroup> ().alpha = 0;
+			teamCompositionWindow.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 		}
 	}
 
@@ -97,33 +101,40 @@ public class CameraNavigationUI : MonoBehaviour {
 		Camera cam = Camera.main;
 		if (Input.GetKey(KeyCode.W))
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + 0.5f);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + moveSpeed);
 		}
 		if (Input.GetKey(KeyCode.A))
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x - 0.5f, cam.transform.position.y, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x - moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
 		if (Input.GetKey(KeyCode.S))
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - 0.5f);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - moveSpeed);
 		}
 		if (Input.GetKey(KeyCode.D))
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x + 0.5f, cam.transform.position.y, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x + moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
 		if (Input.GetKey(KeyCode.Q) && cam.transform.position.y < 100.0f)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + 0.5f, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + moveSpeed, cam.transform.position.z);
 		}
 		if (Input.GetKey(KeyCode.E) && cam.transform.position.y > 3.5f)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - 0.5f, cam.transform.position.z);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - moveSpeed, cam.transform.position.z);
 		}
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
 			InitCameraPosition();
 		}
-
+		if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		{
+			moveSpeed = 1.0f;
+		}
+		if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		{
+			moveSpeed = 0.5f;
+		}
 	}
 
 	void Start () {
