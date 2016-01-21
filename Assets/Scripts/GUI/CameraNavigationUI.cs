@@ -11,10 +11,12 @@ public class CameraNavigationUI : MonoBehaviour {
 	private float 				catchTime = 0.25f;
 	private float				moveSpeed = 0.5f;
 	private float				scrollSpeed = 1.0f;
+	private int					startHeight;
+	private int					startWidth;
 
 	void InitCameraPosition()
 	{
-		Camera.main.transform.position = new Vector3 (0.0f, 16.5f, -28.0f);
+		Camera.main.transform.position = new Vector3 (0.0f + 2.5f * (startWidth - 1), 25.0f + (1.875f * (startHeight - 10)), -33.0f - (1.675f * (startHeight - 10)));
 		Camera.main.transform.rotation = Quaternion.Euler(new Vector3(28.0f, 0.0f, 0.0f));
 	}
 
@@ -99,19 +101,19 @@ public class CameraNavigationUI : MonoBehaviour {
 	void CheckKeyboardInput()
 	{
 		Camera cam = Camera.main;
-		if (Input.GetKey(KeyCode.W))
+		if (Input.GetKey(KeyCode.W) && cam.transform.position.z < 0.0f)
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + moveSpeed);
 		}
-		if (Input.GetKey(KeyCode.A))
+		if (Input.GetKey(KeyCode.A) && cam.transform.position.x > -2.5f)
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x - moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
-		if (Input.GetKey(KeyCode.S))
+		if (Input.GetKey(KeyCode.S) && cam.transform.position.z > (startHeight * 5.0f * -1.0f))
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - moveSpeed);
 		}
-		if (Input.GetKey(KeyCode.D))
+		if (Input.GetKey(KeyCode.D) && cam.transform.position.x < ((startWidth * 5.0f) - 2.5f))
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x + moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
@@ -138,6 +140,8 @@ public class CameraNavigationUI : MonoBehaviour {
 	}
 
 	void Start () {
+		startHeight = GameManagerScript.instance.grid.controller.startHeight;
+		startWidth = GameManagerScript.instance.grid.controller.startWidth;
 		InitCameraPosition();
 	}
 

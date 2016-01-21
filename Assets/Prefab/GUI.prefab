@@ -100,6 +100,8 @@ GameObject:
   - 223: {fileID: 22331934}
   - 114: {fileID: 11423290}
   - 114: {fileID: 11466660}
+  - 114: {fileID: 11495502}
+  - 114: {fileID: 11432252}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -1298,14 +1300,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd0df76c2a1542f89bc27ad67a985dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linemate: {fileID: 11478752}
-  deraumere: {fileID: 11402834}
-  sibur: {fileID: 11497726}
-  mendiane: {fileID: 11463780}
-  phiras: {fileID: 11443190}
-  thystame: {fileID: 11464096}
-  nourriture: {fileID: 11496736}
-  players: {fileID: 11491438}
+  linemate: {fileID: 11457508}
+  deraumere: {fileID: 11490216}
+  sibur: {fileID: 11436870}
+  mendiane: {fileID: 11489002}
+  phiras: {fileID: 11457044}
+  thystame: {fileID: 11446016}
+  nourriture: {fileID: 11475284}
+  players: {fileID: 11445522}
 --- !u!114 &11432172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1333,6 +1335,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11432252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4212dfb988634c9eb3f9bbf0a4216ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamList: {fileID: 11425516}
 --- !u!114 &11432836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2586,6 +2600,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11495502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2618b35fdab634eceb8dfb589ac9419f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sIS: {fileID: 11429894}
 --- !u!114 &11496736
 MonoBehaviour:
   m_ObjectHideFlags: 1

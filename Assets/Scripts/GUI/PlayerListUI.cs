@@ -26,6 +26,7 @@ public class PlayerListUI : MonoBehaviour {
 				script.playerLvl.text = "Lvl " + player.level.ToString();
 
 				/* TO REPLACE BY RELEVENT VALUES */
+				script.inventory.food.text = "0";
 				script.inventory.linemate.text = "1";
 				script.inventory.deraumere.text = "2";
 				script.inventory.sibur.text = "3";
