@@ -80,7 +80,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	public void SetTeamColor (Color color)
 	{
-		GetComponent<MeshRenderer>().material.color = color;
+		GetComponentInChildren<Renderer>().material.color = color;
 	}
 
 	#endregion

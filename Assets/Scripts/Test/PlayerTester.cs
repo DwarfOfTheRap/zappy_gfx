@@ -11,12 +11,16 @@ public class PlayerTester : MonoBehaviourTester {
 	public MonoBehaviourTest		setDestinationTest;
 	public MonoBehaviourTest		setDestinationTestLegit;
 	public MonoBehaviourTest		expulsedTest;
+	public MonoBehaviourTest		teamTest;
 	public Orientation				orientation;
 	public SquareScript				destinationSquare;
 	public SquareScript				originSquare;
 	public int[]					destinationVector;
+	public Team						team;
 	public int[]					initVector;
-	public Team						testTeam;
+
+	[HideInInspector]
+	public Color	color;
 
 	protected override void InitTest()
 	{
@@ -34,6 +38,8 @@ public class PlayerTester : MonoBehaviourTester {
 			StartCoroutine (WaitForTest (expulsedTest, TestExpulsed));
 		if (setDestinationTestLegit.enabled)
 			StartCoroutine (WaitForTest (setDestinationTestLegit, TestDestinationLegit));
+		if (teamTest.enabled)
+			StartCoroutine (WaitForTest (teamTest, TestTeam));
 	}
 
 	void TestOrientation ()
@@ -63,7 +69,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestDestinationLegit()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, testTeam, GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, team, GameManagerScript.instance.grid.controller);
 		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
 	}
 
@@ -75,7 +81,12 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestTeam()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, testTeam, GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, team, GameManagerScript.instance.grid.controller);
+	}
+
+	void Update()
+	{
+		color = GetComponentInChildren<Renderer>().material.color;
 	}
 }
 #endif

@@ -5,9 +5,9 @@ using System;
 [Serializable]
 public class Team
 {
-	public string	name { get; private set;}
-	public Color	color { get; private set;}
-
+	public string	name;
+	public Color	color;
+	
 	public Team(string name, Color color)
 	{
 		this.name = name;

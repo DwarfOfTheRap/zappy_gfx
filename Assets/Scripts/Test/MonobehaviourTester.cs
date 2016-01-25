@@ -26,4 +26,4 @@ public abstract class MonoBehaviourTester : MonoBehaviour {
 		public float time = 0.0f;
 	}
 }
-#endif
+#endif  
