@@ -33,8 +33,12 @@ public class PlayerController {
 	
 	private IAnimatorController			animatorController;
 	private IPlayerMotorController		playerMovementController;
-
+		
 #if UNITY_EDITOR
+	public PlayerController()
+	{
+	}
+
 	public PlayerController(int index, int level, Team team)
 	{
 		this.index = index;
