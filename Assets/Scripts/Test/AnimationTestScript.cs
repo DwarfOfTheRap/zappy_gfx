@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 [RequireComponent(typeof(Animator))]
 public class AnimationTestScript : MonoBehaviour {
 	public string animationName;
@@ -22,3 +23,4 @@ public class AnimationTestScript : MonoBehaviour {
 		animationIsPlaying = IsPlaying ();
 	}
 }
+#endif

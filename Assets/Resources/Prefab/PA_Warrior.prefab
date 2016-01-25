@@ -152,7 +152,6 @@ GameObject:
   - 114: {fileID: 11408916}
   - 54: {fileID: 5410852}
   - 65: {fileID: 6550614}
-  - 114: {fileID: 11450016}
   m_Layer: 8
   m_Name: PA_Warrior
   m_TagString: Player
@@ -1083,6 +1082,9 @@ MonoBehaviour:
   controller:
     level: 0
     index: 0
+    team:
+      name: 
+      color: {r: 0, g: 0, b: 0, a: 0}
     speed: 5
     rotSpeed: 500
     teleportDestination: {x: 0, y: 0, z: 0}
@@ -1121,42 +1123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6c725824e4a4030a7702263427ce9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11450016
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4728c302d16a84661a6433da785d9767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathTest:
-    enabled: 0
-    time: 0
-  orientationTest:
-    enabled: 1
-    time: 0
-  incantateTest:
-    enabled: 0
-    time: 0
-  incantate_stopTest:
-    enabled: 0
-    time: 0
-  setDestinationTest:
-    enabled: 0
-    time: 0
-  setDestinationTestLegit:
-    enabled: 1
-    time: 0
-  expulsedTest:
-    enabled: 0
-    time: 0
-  orientation: 4
-  destinationSquare: {fileID: 0}
-  destinationVector: 0900000000000000
-  initVector: 0300000000000000
 --- !u!114 &11465752
 MonoBehaviour:
   m_ObjectHideFlags: 1

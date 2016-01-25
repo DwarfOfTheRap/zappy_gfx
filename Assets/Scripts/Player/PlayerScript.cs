@@ -2,10 +2,10 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
-	public PlayerController controller;
-	public PlayerLegsScript[] legs;
-	public Orientation		orientation;
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController{
+	public PlayerController 	controller;
+	public PlayerLegsScript[]	legs;
+	public Orientation			orientation;
 
 	private void OnEnable()
 	{
@@ -39,7 +39,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 
 	#endregion
 
-	#region IPlayerMovementController implementation
+	#region IPlayerMotorController implementation
 
 	public bool IsMoving (Vector3 destination)
 	{
@@ -76,6 +76,11 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementC
 	{
 		foreach (PlayerLegsScript leg in legs)
 			leg.EnableSparksAnimation(orientation);
+	}
+
+	public void SetTeamColor (Color color)
+	{
+		GetComponent<MeshRenderer>().material.color = color;
 	}
 
 	#endregion

@@ -45,7 +45,6 @@ public class PlayerListUI : MonoBehaviour {
 				script.inventory.mendiane.text = player.inventory.mendiane.ToString ();
 				script.inventory.phiras.text = player.inventory.phiras.ToString ();
 				script.inventory.thystame.text = player.inventory.thystame.ToString ();
-				/* TO REPLACE BY RELEVENT VALUES */
 			}
 		}
 	}

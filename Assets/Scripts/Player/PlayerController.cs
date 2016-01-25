@@ -1,44 +1,54 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Diagnostics;
 
 [Serializable]
 public class PlayerController {
 	public class PlayerInventory
 	{
-		public int 				linemate;
-		public int				deraumere;
-		public int				sibur;
-		public int				mendiane;
-		public int				phiras;
-		public int				thystame;
-	}
-	public PlayerInventory		inventory;
-	public int					level;
-	public int					index;
-	public Team					team;
-	public float				speed = 1.0f;
-	public float				rotSpeed = 1.0f;
+		public int 						linemate = 0;
+		public int						deraumere = 0;
+		public int						sibur = 0;
+		public int						mendiane = 0;
+		public int						phiras = 0;
+		public int						thystame = 0;
+	}						   	
+	public PlayerInventory				inventory = new PlayerInventory();
+	public int							level;
+	public int							index;
+	public Team							team { get; private set;}
+	public float						speed = 1.0f;
+	public float						rotSpeed = 1.0f;
+									
+	public	ISquare						currentSquare;
+	private Quaternion					rotation;
+	private bool						expulsed;
+									
+	public bool 						isIncantating { get; private set; }
+	public bool							dead { get; private set; }
+	public Vector3						destination { get; private set; }
+	public Vector3						teleportDestination;
+	public Orientation					playerOrientation { get; private set; }
 	
-	public	ISquare				currentSquare;
-	private Quaternion			rotation;
-	private bool				expulsed;
+	private IAnimatorController			animatorController;
+	private IPlayerMotorController		playerMovementController;
 
-	public bool 				isIncantating { get; private set; }
-	public bool					dead { get; private set; }
-	public Vector3				destination { get; private set; }
-	public Vector3				teleportDestination;
-	public Orientation			playerOrientation { get; private set; }
-	
-	private IAnimatorController	animatorController;
-	private IPlayerMovementController playerMovementController;
-	
+#if UNITY_EDITOR
+	public PlayerController(int index, int level, Team team)
+	{
+		this.index = index;
+		this.level = level;
+		this.team = team;
+	}
+#endif
+
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
 		this.animatorController = animatorController;
 	}
 	
-	public void SetPlayerMovementController(IPlayerMovementController playerMovementController)
+	public void SetPlayerMovementController(IPlayerMotorController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
 	}
@@ -80,7 +90,7 @@ public class PlayerController {
 		playerMovementController.StopExpulsion();
 	}
 
-	public void Init(int x, int y, Orientation orientation, int level, int index, Team team, GridController gridController)
+	public PlayerController Init(int x, int y, Orientation orientation, int level, int index, Team team, GridController gridController)
 	{
 		try
 		{
@@ -88,12 +98,16 @@ public class PlayerController {
 			this.currentSquare = square;
 			playerMovementController.SetPosition(square.GetPosition());
 			destination = playerMovementController.SetDestination (square.GetPosition ());
+			this.level = level;
 			this.index = index;
+			this.team = team;
 			this.SetPlayerOrientation (orientation);
+			playerMovementController.SetTeamColor (team.color);
+			return this;
 		}
 		catch (GridController.GridOutOfBoundsException)
 		{
-			return ;
+			return null;
 		}
 	}
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 public class TestGetSquareMethod : MonoBehaviour {
 	
 	public ISquare squareToTest;
@@ -11,3 +12,4 @@ public class TestGetSquareMethod : MonoBehaviour {
 		sttPosition = squareToTest.GetPosition ();
 	}
 }
+#endif

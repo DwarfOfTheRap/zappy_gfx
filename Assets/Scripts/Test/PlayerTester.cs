@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 [RequireComponent(typeof(PlayerScript))]
 public class PlayerTester : MonoBehaviourTester {
 	public MonoBehaviourTest		deathTest;
@@ -10,11 +11,12 @@ public class PlayerTester : MonoBehaviourTester {
 	public MonoBehaviourTest		setDestinationTest;
 	public MonoBehaviourTest		setDestinationTestLegit;
 	public MonoBehaviourTest		expulsedTest;
-	public Orientation		orientation;
-	public SquareScript		destinationSquare;
-	public SquareScript		originSquare;
-	public int[]			destinationVector;
-	public int[]			initVector;
+	public Orientation				orientation;
+	public SquareScript				destinationSquare;
+	public SquareScript				originSquare;
+	public int[]					destinationVector;
+	public int[]					initVector;
+	public Team						testTeam;
 
 	protected override void InitTest()
 	{
@@ -61,7 +63,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestDestinationLegit()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, null, GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, testTeam, GameManagerScript.instance.grid.controller);
 		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
 	}
 
@@ -70,4 +72,10 @@ public class PlayerTester : MonoBehaviourTester {
 		GetComponent<PlayerScript>().controller.SetDestination (destinationSquare, null);
 		GetComponent<PlayerScript>().controller.BeExpulsed (orientation);
 	}
+
+	void TestTeam()
+	{
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, testTeam, GameManagerScript.instance.grid.controller);
+	}
 }
+#endif

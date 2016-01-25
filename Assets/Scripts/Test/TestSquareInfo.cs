@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 public class TestSquareInfo : MonoBehaviour {
 
 	public SquareInfoScript sIS;
@@ -10,3 +11,4 @@ public class TestSquareInfo : MonoBehaviour {
 		sIS.square = sIS.OnLeftMouseClick (Camera.main.WorldToScreenPoint(this.gameObject.transform.localPosition));
 	}
 }
+#endif

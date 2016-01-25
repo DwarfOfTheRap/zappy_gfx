@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+#if UNITY_EDITOR
 public class TestNumberOfEachTile : MonoBehaviour
 {
 	public int numberOfTiles1;
@@ -16,3 +16,4 @@ public class TestNumberOfEachTile : MonoBehaviour
 		numberOfTiles2 = allTiles2.Length;
 	}
 }
+#endif

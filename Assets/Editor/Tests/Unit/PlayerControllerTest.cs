@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -178,9 +178,9 @@ public class PlayerControllerTest : MonoBehaviour {
 		movementController.Received ().MoveToRotation (Quaternion.Euler(0, 270, 0), Arg.Any<float>());;
 	}
 
-	public IPlayerMovementController GetPlayerMovementControllerMock()
+	public IPlayerMotorController GetPlayerMovementControllerMock()
 	{
-		return Substitute.For<IPlayerMovementController>();
+		return Substitute.For<IPlayerMotorController>();
 	}
 
 	public IAnimatorController GetAnimatorControllerMock(){
@@ -202,7 +202,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		return Substitute.For<PlayerController>();
 	}
 
-	public PlayerController GetPlayerControllerMock(IPlayerMovementController movementController)
+	public PlayerController GetPlayerControllerMock(IPlayerMotorController movementController)
 	{
 		var controller = Substitute.For<PlayerController>();
 		controller.SetPlayerMovementController(movementController);
@@ -216,7 +216,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		return controller;
 	}
 
-	public PlayerController GetPlayerControllerMock(IAnimatorController animatorController, IPlayerMovementController movementController)
+	public PlayerController GetPlayerControllerMock(IAnimatorController animatorController, IPlayerMotorController movementController)
 	{
 		var controller = Substitute.For<PlayerController>();
 		controller.SetAnimatorController(animatorController);

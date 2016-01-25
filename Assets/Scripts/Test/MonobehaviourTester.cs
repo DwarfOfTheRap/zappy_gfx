@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(GridScript))]
+#if UNITY_EDITOR
 public abstract class MonoBehaviourTester : MonoBehaviour {
 	protected delegate void TestMethod();
 
@@ -26,3 +26,4 @@ public abstract class MonoBehaviourTester : MonoBehaviour {
 		public float time = 0.0f;
 	}
 }
+#endif
