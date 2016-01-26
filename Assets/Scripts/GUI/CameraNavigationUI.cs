@@ -101,19 +101,19 @@ public class CameraNavigationUI : MonoBehaviour {
 	void CheckKeyboardInput()
 	{
 		Camera cam = Camera.main;
-		if (Input.GetKey(KeyCode.W) && cam.transform.position.z < 0.0f)
+		if (Input.GetAxis("Vertical") > 0 /*&& cam.transform.position.z < 0.0f*/)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + moveSpeed);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
-		if (Input.GetKey(KeyCode.A) && cam.transform.position.x > -2.5f)
+		if (Input.GetAxis("Horizontal") < 0 && cam.transform.position.x > -2.5f)
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x - moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
-		if (Input.GetKey(KeyCode.S) && cam.transform.position.z > (startHeight * 5.0f * -1.0f))
+		if (Input.GetAxis("Vertical") < 0 /*&& cam.transform.position.z > (startHeight * 5.0f * -1.0f)*/)
 		{
-			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - moveSpeed);
+			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
-		if (Input.GetKey(KeyCode.D) && cam.transform.position.x < ((startWidth * 5.0f) - 2.5f))
+		if (Input.GetAxis("Horizontal") > 0 && cam.transform.position.x < ((startWidth * 5.0f) - 2.5f))
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x + moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}

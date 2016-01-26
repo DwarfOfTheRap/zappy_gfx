@@ -103,6 +103,18 @@ MonoBehaviour:
   squareContentWindow: {fileID: 1001746003}
   teamCompositionWindow: {fileID: 1050709103}
   teamListWindow: {fileID: 1421183956}
+--- !u!65 &575260359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 575260351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &800017068
 Prefab:
   m_ObjectHideFlags: 0
@@ -140,7 +152,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 452236, guid: 9f378647288604447af4c36530973fe6, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 193482, guid: 9f378647288604447af4c36530973fe6, type: 2}
       propertyPath: m_Name
