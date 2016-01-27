@@ -5,11 +5,15 @@ using System.Collections.Generic;
 public class SquareScript : MonoBehaviour, ISquare
 {
 	private Material standardMaterial;
+	//private float standardEmission;
+	//public float highlightedEmission;
+
 	public Material highlightedMaterial;
 	public SquareContent resources;
 
 	void Start ()
 	{
+		//standardEmission = GetComponent<MeshRenderer> ().material.GetFloat("_EmissionColor");
 		standardMaterial = GetComponent<MeshRenderer> ().material;
 	}
 
@@ -50,11 +54,13 @@ public class SquareScript : MonoBehaviour, ISquare
 
 	public void Highlighted()
 	{
+		//gameObject.GetComponent<MeshRenderer> ().material.SetFloat("_EmissionColor", highlightedEmission);
 		gameObject.GetComponent<MeshRenderer> ().material = highlightedMaterial;
 	}
 
 	public void Standard()
 	{
+		//gameObject.GetComponent<MeshRenderer> ().material.SetFloat("_EmissionColor", standardEmission);
 		gameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
 	}
 }

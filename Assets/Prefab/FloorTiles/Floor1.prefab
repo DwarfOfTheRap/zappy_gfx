@@ -106,6 +106,14 @@ Prefab:
       propertyPath: m_TagString
       value: Floor1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: highlightedEmission
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: highlightedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 6ebb845930c6e4ba493d1aa4f2d9531a, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 127272}

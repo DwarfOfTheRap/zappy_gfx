@@ -16,7 +16,7 @@ public class CameraNavigationUI : MonoBehaviour {
 
 	void InitCameraPosition()
 	{
-		Camera.main.transform.position = new Vector3 (0.0f + 2.5f * (startWidth - 1), 25.0f + (1.875f * (startHeight - 10)), -31.5f - (1.675f * (startHeight - 10)));
+		Camera.main.transform.position = new Vector3 (0.0f + 2.5f * (startHeight - 1), 25.0f + (1.875f * (startWidth - 10)), -31.5f - (1.675f * (startWidth - 10)));
 		Camera.main.transform.rotation = Quaternion.Euler(new Vector3(28.0f, 0.0f, 0.0f));
 	}
 
@@ -101,7 +101,7 @@ public class CameraNavigationUI : MonoBehaviour {
 	void CheckKeyboardInput()
 	{
 		Camera cam = Camera.main;
-		if (Input.GetAxis("Vertical") > 0 && cam.transform.position.z < (40.0f + (5.0f * (startHeight - 10.0f)) - (cam.transform.position.y - 3.5f)))
+		if (Input.GetAxis("Vertical") > 0 && cam.transform.position.z < (40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f)))
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
@@ -113,15 +113,15 @@ public class CameraNavigationUI : MonoBehaviour {
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
-		if (Input.GetAxis("Horizontal") > 0 && cam.transform.position.x < ((startWidth * 5.0f) - 2.5f))
+		if (Input.GetAxis("Horizontal") > 0 && cam.transform.position.x < ((startHeight * 5.0f) - 2.5f))
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x + moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
 		if (Input.GetKey(KeyCode.Q) && cam.transform.position.y < 103.5f)
 		{
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + moveSpeed, cam.transform.position.z);
-			if (cam.transform.position.z > (40.0f + (5.0f * (startHeight - 10.0f)) - (cam.transform.position.y - 3.5f)))
-				cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, 40.0f + (5.0f * (startHeight - 10.0f)) - (cam.transform.position.y - 3.5f));
+			if (cam.transform.position.z > (40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f)))
+				cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, 40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f));
 		}
 		if (Input.GetKey(KeyCode.E) && cam.transform.position.y > 3.5f)
 		{
