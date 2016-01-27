@@ -49,8 +49,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133302}
-  m_LocalRotation: {x: .000796907465, y: -.964164257, z: .265289098, w: .00289537781}
-  m_LocalPosition: {x: 21.225956, y: 23.2893887, z: 75.8039856}
+  m_LocalRotation: {x: -.00747720152, y: -.964568496, z: .262288958, w: -.0274992697}
+  m_LocalPosition: {x: 22.199894, y: 30.4050751, z: 77.4612579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 461976}
@@ -62,7 +62,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173510}
-  m_LocalRotation: {x: .0893810317, y: -.846890211, z: -.0251987111, w: .523596287}
+  m_LocalRotation: {x: .0495583378, y: -.743190229, z: .0785657987, w: -.662600756}
   m_LocalPosition: {x: -14.0557241, y: .698316097, z: 5.68465662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -97,7 +97,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
@@ -191,16 +191,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd6d4281e5d7cd44d8c6e38bc2c1b8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: .100000001
+  intensity: 2
   chromaticAberration: 0
   axialAberration: .879999995
-  blur: .25
+  blur: 0
   blurSpread: .75
   luminanceDependency: .25
   blurDistance: 2.5
@@ -219,9 +219,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d64b4f3a592f28b44bf19223ac8b6cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: .5
-  softness: 1
-  spread: 1
+  intensity: -1.5
+  softness: 11
+  spread: 2.8900001
   blurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   depthFetchShader: {fileID: 4800000, guid: 14768d3865b1342e3a861fbe19ba2db2, type: 3}
   creaseApplyShader: {fileID: 4800000, guid: b59984d82af624bd3b0c777f038276f2, type: 3}
