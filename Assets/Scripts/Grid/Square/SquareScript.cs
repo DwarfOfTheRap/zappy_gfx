@@ -6,14 +6,13 @@ using System.Collections.Generic;
 public class SquareScript : MonoBehaviour, ISquare
 {
     public SquareContent	resources;
-	public Color			originalColor;
-	private Material standardMaterial;
-	public Material highlightedMaterial;
+	private Color			baseColor;
+	public	Color			highlightedColor;
 
 	void Start ()
 	{
-        originalColor = GetComponent<Renderer>().material.color;
-		standardMaterial = GetComponent<MeshRenderer> ().material;
+		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
+		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
 	}
 
 	public Vector3 GetPosition ()
@@ -53,7 +52,7 @@ public class SquareScript : MonoBehaviour, ISquare
 
 	public void DisableVision ()
 	{
-		GetComponent<MeshRenderer>().material.color = originalColor;
+		GetComponent<MeshRenderer>().material.color = baseColor;
 	}
 
 	public void DestroyImmediate()
@@ -61,14 +60,19 @@ public class SquareScript : MonoBehaviour, ISquare
 		DestroyImmediate (gameObject);
 	}
 
+	public void Highlighted(Color color)
+	{
+		GetComponent<Renderer>().material.SetColor ("_EmissionColor", color);
+	}
+
 	public void Highlighted()
 	{
-		gameObject.GetComponent<MeshRenderer> ().material = highlightedMaterial;
+		Highlighted (highlightedColor);
 	}
 
 	public void Standard()
 	{
-		gameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
+		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
 	}
 }
 
