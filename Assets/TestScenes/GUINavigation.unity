@@ -753,11 +753,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11486364, guid: b850a18a5af0641339f87ea537ad521a, type: 2}
       propertyPath: controller.startHeight
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11486364, guid: b850a18a5af0641339f87ea537ad521a, type: 2}
       propertyPath: controller.startWidth
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b850a18a5af0641339f87ea537ad521a, type: 2}
