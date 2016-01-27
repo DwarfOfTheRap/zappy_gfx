@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class SquareScript : MonoBehaviour, ISquare
 {
-	private Material standardMaterial;
-	public Material highlightedMaterial;
+	private Color	baseColor;
+	public Color	hightlightedColor;
 	public SquareContent resources;
 
 	void Start ()
 	{
-		standardMaterial = GetComponent<MeshRenderer> ().material;
+		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
+		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
 	}
 
 	public Vector3 GetPosition ()
@@ -48,14 +49,19 @@ public class SquareScript : MonoBehaviour, ISquare
 		return resources;
 	}
 
+	public void Highlighted(Color color)
+	{
+		GetComponent<Renderer>().material.SetColor ("_EmissionColor", color);
+	}
+
 	public void Highlighted()
 	{
-		gameObject.GetComponent<MeshRenderer> ().material = highlightedMaterial;
+		this.Highlighted (hightlightedColor);
 	}
 
 	public void Standard()
 	{
-		gameObject.GetComponent<MeshRenderer> ().material = standardMaterial;
+		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
 	}
 }
 
@@ -83,4 +89,5 @@ public interface ISquare
 	SquareContent GetResources();
 	void Highlighted();
 	void Standard();
+
 }

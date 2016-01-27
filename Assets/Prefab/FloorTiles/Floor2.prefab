@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f20d10d7741e2482394bb832a1f2b857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightedMaterial: {fileID: 2100000, guid: b7fe10744132d49ab9b3295a9b1a9f7d, type: 2}
+  hightlightedColor: {r: .352941155, g: .352941155, b: .352941155, a: 1}
   resources:
     nourriture: 0
     linemate: 0
@@ -110,6 +110,22 @@ Prefab:
       propertyPath: highlightedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: b7fe10744132d49ab9b3295a9b1a9f7d, type: 2}
+    - target: {fileID: 0}
+      propertyPath: hightlightedColor.r
+      value: .352941155
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hightlightedColor.g
+      value: .352941155
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hightlightedColor.b
+      value: .352941155
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hightlightedColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 113110}
