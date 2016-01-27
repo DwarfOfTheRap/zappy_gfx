@@ -86,7 +86,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void Update()
 	{
-		color = GetComponentInChildren<Renderer>().material.color;
+		color = GetComponentInChildren<Renderer>().materials[1].color;
 	}
 }
 #endif
