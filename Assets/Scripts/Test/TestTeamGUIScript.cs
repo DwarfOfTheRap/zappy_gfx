@@ -23,7 +23,7 @@ public class TestTeamGUIScript : MonoBehaviour {
 
 	void OnEnable ()
 	{
-		teamList.teams = teams;
+		GameManagerScript.instance.teamManager.teams = teams;
 	}
 
 	void Update ()

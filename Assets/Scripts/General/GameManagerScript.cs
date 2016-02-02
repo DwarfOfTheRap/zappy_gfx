@@ -9,7 +9,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController {
 	public TeamManager				teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 
-	void Awake()
+	void OnEnable()
 	{
 		prefab = Resources.Load ("Prefab/PA_Warrior") as GameObject;
 		instance = this;

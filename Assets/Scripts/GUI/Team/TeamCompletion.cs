@@ -21,11 +21,7 @@ public class TeamCompletion : MonoBehaviour {
 			average /= 6;
 			average = (average * 100) / 8;
 		}
-		return (average.ToString () + "%");
-	}
-	
-	void Start () {
-		text.text = GetTeamCompletion ();
+		return (average.ToString ("0.0") + "%");
 	}
 
 	void Update () {

@@ -62,7 +62,7 @@ public class PlayerManagerScript {
 		PlayerController controller = pic.Instantiate();
 		if (players.Find (pl => pl.index == n) != null)
 			throw new TwoPlayersWithTheSameIndexException();
-		controller.Init (x, y, o, l, n, teamManager.FindTeam(name), gridController);
+		controller.Init (x, y, o, l, n, teamManager.findTeam(name), gridController);
 		players.Add (controller);
 		return controller;
 	}
