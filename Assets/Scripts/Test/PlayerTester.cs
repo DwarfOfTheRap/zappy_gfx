@@ -69,7 +69,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestDestinationLegit()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ()), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
 	}
 
@@ -81,7 +81,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestTeam()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ()), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
