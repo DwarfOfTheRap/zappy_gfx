@@ -9,10 +9,12 @@ public class CameraNavigationUI : MonoBehaviour {
 
 	private float 				lastClickTime = 0.0f;
 	private float 				catchTime = 0.25f;
+	private float				doubleClickSpeed = 1.5f;
 	private float				moveSpeed = 0.5f;
 	private float				scrollSpeed = 1.0f;
 	private int					startHeight;
 	private int					startWidth;
+	private Vector3?			destination = null;
 
 	void InitCameraPosition()
 	{
@@ -23,7 +25,6 @@ public class CameraNavigationUI : MonoBehaviour {
 	void CheckLeftMouseClick()
 	{
 		if (Input.GetMouseButtonUp (0)) {
-			Camera cam = Camera.main;
 			SquareContentUI sCSript = squareContentWindow.GetComponent<SquareContentUI>();
 			ISquare square = null;
 			RaycastHit hit;
@@ -50,7 +51,7 @@ public class CameraNavigationUI : MonoBehaviour {
 				sCSript.square = null;
 			}
 			if (Time.time - lastClickTime < catchTime && sCSript.square != null) {
-				cam.transform.position = new Vector3 (sCSript.square.GetPosition().x, sCSript.square.GetPosition().y + 16.5f, sCSript.square.GetPosition().z - 28.0f);
+				destination = new Vector3 (sCSript.square.GetPosition().x, sCSript.square.GetPosition().y + 16.5f, sCSript.square.GetPosition().z - 28.0f);
 			}
 			lastClickTime = Time.time;
 		}
@@ -64,12 +65,14 @@ public class CameraNavigationUI : MonoBehaviour {
 
 		if (deltaScroll > 0.0f && cam.transform.position.y > 3.5f && mousingOver == false)
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - scrollSpeed, cam.transform.position.z);
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + scrollSpeed);
 		}
 		
 		if (deltaScroll < 0.0f && cam.transform.position.y < 100.0f && mousingOver == false)
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + scrollSpeed, cam.transform.position.z);
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z - scrollSpeed);
 		}
@@ -103,34 +106,41 @@ public class CameraNavigationUI : MonoBehaviour {
 		Camera cam = Camera.main;
 		if (Input.GetAxis("Vertical") > 0 && cam.transform.position.z < (40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f)))
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
 		if (Input.GetAxis("Horizontal") < 0 && cam.transform.position.x > -2.5f)
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x - moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
 		if (Input.GetAxis("Vertical") < 0 && cam.transform.position.z > -10.0f - (cam.transform.position.y - 3.5f))
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, cam.transform.position.z + (Input.GetAxis("Vertical") * moveSpeed));
 		}
 		if (Input.GetAxis("Horizontal") > 0 && cam.transform.position.x < ((startHeight * 5.0f) - 2.5f))
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x + moveSpeed, cam.transform.position.y, cam.transform.position.z);
 		}
 		if (Input.GetKey(KeyCode.Q) && cam.transform.position.y < 103.5f)
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y + moveSpeed, cam.transform.position.z);
 			if (cam.transform.position.z > (40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f)))
 				cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, 40.0f + (5.0f * (startWidth - 10.0f)) - (cam.transform.position.y - 3.5f));
 		}
 		if (Input.GetKey(KeyCode.E) && cam.transform.position.y > 3.5f)
 		{
+			destination = null;
 			cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y - moveSpeed, cam.transform.position.z);
 			if (cam.transform.position.z < -10.0f - (cam.transform.position.y - 3.5f))
 				cam.transform.position = new Vector3 (cam.transform.position.x, cam.transform.position.y, -10.0f - (cam.transform.position.y - 3.5f));
 		}
 		if (Input.GetKeyUp(KeyCode.Space))
 		{
+			destination = null;
 			InitCameraPosition();
 		}
 		if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
@@ -143,16 +153,25 @@ public class CameraNavigationUI : MonoBehaviour {
 		}
 	}
 
+	void GoToDestination ()
+	{
+		if (destination != null)
+		{
+			Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, (Vector3)destination, doubleClickSpeed * Time.deltaTime);
+		}
+	}
+
 	void Start () {
 		startHeight = GameManagerScript.instance.grid.controller.startHeight;
 		startWidth = GameManagerScript.instance.grid.controller.startWidth;
 		InitCameraPosition();
 	}
 
-	void Update () {
+	void LateUpdate () {
 		CheckLeftMouseClick();
 		CheckMouseScroll();
 		CheckRightMouseClick();
 		CheckKeyboardInput();
+		GoToDestination();
 	}
 }
