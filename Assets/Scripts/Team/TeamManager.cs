@@ -5,15 +5,25 @@ using System.Collections.Generic;
 
 public class TeamManager
 {
-	class TeamNotFoundException : Exception
+	public abstract class TeamManagerException : Exception
+	{
+		public TeamManagerException() : base() {}
+		public TeamManagerException(string message) : base(message) {}
+	}
+	public class TeamNotFoundException : TeamManagerException
 	{
 		public TeamNotFoundException() : base() {}
 		public TeamNotFoundException(string message) : base(message) {}
 	}
+	public class NoTeamException : TeamManagerException
+	{
+		public NoTeamException() : base() {}
+		public NoTeamException(string message) : base(message) {}
+	}
 	public delegate void TeamMethod(Team team);
 	public static event TeamMethod OnTeamAdded;
-	public List<Team>	teams;
-	public Stack<Color>	colors;
+	public	List<Team>		teams;
+	private Stack<Color>	colors;
 
 	public TeamManager()
 	{
@@ -34,6 +44,8 @@ public class TeamManager
 
 	public Team			findTeam(string name)
 	{
+		if (teams.Count == 0)
+			throw new NoTeamException();
 		Team res = teams.Find (x => x.name == name);
 		if (res == null)
 			throw new TeamNotFoundException();
@@ -44,7 +56,8 @@ public class TeamManager
 	{
 		Team team = new Team(name, _getNewTeamColor ());
 		this.teams.Add (team);
-		OnTeamAdded(team);
+		if (OnTeamAdded != null)
+			OnTeamAdded(team);
 		return team;
 	}
 
