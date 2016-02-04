@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IInputManager {
+public interface IInputManager
+{
 	bool MoveLeft();
-	float LeftMovementValue();
 	bool MoveRight();
-	float RightMovementValue();
+	float HorizontalMovementValue();
+
 	bool MoveForward();
-	float ForwardMovementValue();
 	bool MoveBackward();
-	float BackwardMovementValue();
+	float VerticalMovementValue();
 
 	bool MoveUp();
 	bool MoveDown();
@@ -21,6 +21,7 @@ public interface IInputManager {
 	float DeltaScroll();
 	
 	bool DoubleMoveSpeed();
+	bool StandardMoveSpeed();
 
 	bool LeftClick();
 	bool DoubleLeftClick();

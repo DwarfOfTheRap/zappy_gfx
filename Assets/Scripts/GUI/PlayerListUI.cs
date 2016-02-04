@@ -37,4 +37,19 @@ public class PlayerListUI : MonoBehaviour {
 			}
 		}
 	}
+
+	void DeletePlayers ()
+	{
+		Transform[]		pLChildren = this.GetComponentsInChildren<Transform>();
+
+		foreach(Transform trans in pLChildren)
+		{
+			if (trans != this.transform)
+				Destroy(trans.gameObject);
+		}
+	}
+
+	void Start () {
+		InputManager.OnRightClick += DeletePlayers;
+	}
 }

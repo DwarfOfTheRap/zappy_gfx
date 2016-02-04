@@ -3,6 +3,13 @@ using System.Collections;
 
 public class InputManager : IInputManager 
 {
+	public delegate void LeftClickEvent (ISquare square);
+	public delegate void RightClickEvent ();
+	public delegate void DoubleClickEvent (ISquare square);
+	public static event LeftClickEvent OnLeftClick;
+	public static event RightClickEvent OnRightClick;
+	public static event DoubleClickEvent OnDoubleClick;
+
 	private float 				lastClickTime = 0.0f;
 	private float 				catchTime = 0.25f;
 
@@ -10,97 +17,128 @@ public class InputManager : IInputManager
 
 	public bool MoveLeft ()
 	{
-		throw new System.NotImplementedException ();
-	}
-
-	public float LeftMovementValue ()
-	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Horizontal") < 0);
 	}
 
 	public bool MoveRight ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Horizontal") > 0);
 	}
 
-	public float RightMovementValue ()
+	public float HorizontalMovementValue ()
 	{
-		throw new System.NotImplementedException ();
-	}
+		return (Input.GetAxis ("Horizontal"));
+	}		
 
 	public bool MoveForward ()
 	{
-		throw new System.NotImplementedException ();
-	}
-
-	public float ForwardMovementValue ()
-	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Vertical") > 0);
 	}
 
 	public bool MoveBackward ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Vertical") < 0);
 	}
 
-	public float BackwardMovementValue ()
+	public float VerticalMovementValue ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Vertical"));
 	}
 
 	public bool MoveUp ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetKey (KeyCode.Q));
 	}
 
 	public bool MoveDown ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetKey (KeyCode.E));
 	}
 
 	public bool ResetCamera ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetKeyUp (KeyCode.Space));
 	}
 
 	public bool ScrollUp ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Mouse ScrollWheel") > 0);
 	}
 
 	public bool ScrollDown ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
 	}
 
 	public float DeltaScroll ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetAxis ("Mouse ScrollWheel"));
 	}
 
 	public bool DoubleMoveSpeed ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift));
+	}
+
+	public bool StandardMoveSpeed ()
+	{
+		return (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift));
 	}
 
 	public bool LeftClick ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetMouseButtonUp (0));
 	}
 
 	public bool DoubleLeftClick ()
 	{
-		throw new System.NotImplementedException ();
+		return (Time.time - lastClickTime < catchTime);
 	}
 
 	public bool RightClick ()
 	{
-		throw new System.NotImplementedException ();
+		return (Input.GetMouseButtonUp (1));
 	}
 
 	public bool MousingOverGameObject ()
 	{
-		throw new System.NotImplementedException ();
+		return (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ());
+	}
+
+	public void CheckInput ()
+	{
+		if (LeftClick ())
+		{
+			float t = Time.time - lastClickTime;
+			Debug.Log(t.ToString());
+			lastClickTime = Time.time;
+			LeftMouseClick ();
+		}
+		if (RightClick ())
+			RightMouseClick ();
+	}
+
+	void LeftMouseClick ()
+	{
+		RaycastHit hit;
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			
+		if (Physics.Raycast(ray, out hit))
+			if (hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2")
+			{
+				ISquare square = hit.collider.gameObject.GetComponent<SquareScript> () as ISquare;
+
+				if (OnLeftClick != null)
+					OnLeftClick (square);
+				if (DoubleLeftClick() && OnDoubleClick != null)
+					OnDoubleClick (square);
+			}
+	}
+
+	void RightMouseClick ()
+	{
+		if (OnRightClick != null)
+			OnRightClick ();
 	}
 
 	#endregion

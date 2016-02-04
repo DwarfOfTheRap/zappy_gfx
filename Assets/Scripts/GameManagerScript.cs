@@ -19,4 +19,9 @@ public class GameManagerScript : MonoBehaviour {
 		pic = new PlayerInstantiationController();
 		playerManager = new PlayerManager(grid.controller, teamManager, pic);
 	}
+
+	void Update()
+	{
+		inputManager.CheckInput ();
+	}
 }

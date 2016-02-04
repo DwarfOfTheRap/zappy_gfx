@@ -25,6 +25,25 @@ public class SquareContentUI : MonoBehaviour {
 		nourriture.text = square.GetResources ().nourriture.ToString ();
 		players.text = square.GetResources ().players.Count.ToString ();
 	}
+
+	void DisplayWindow (ISquare square)
+	{
+		this.square = square;
+		this.GetComponent<CanvasGroup> ().alpha = 1;
+		this.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+	}
+
+	void HideWindow ()
+	{
+		this.square = null;
+		this.GetComponent<CanvasGroup> ().alpha = 0;
+		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
+	}
+
+	void Start () {
+		InputManager.OnLeftClick += DisplayWindow;
+		InputManager.OnRightClick += HideWindow;
+	}
 	
 	void Update () {
 		if (square != null)
