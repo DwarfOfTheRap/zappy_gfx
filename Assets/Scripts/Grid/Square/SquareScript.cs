@@ -8,11 +8,35 @@ public class SquareScript : MonoBehaviour, ISquare
     public SquareContent	resources;
 	private Color			baseColor;
 	public	Color			highlightedColor;
+	public	GameObject		resourcePrefab;
+
+	private float			resourceElevation = 0.75f;
+	private 
 
 	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
+		InitResources();
+	}
+
+	void InitResources()
+	{
+		InitResource (-0.3f, -0.3f, Color.cyan);
+		InitResource (-0.3f, 0, Color.yellow);
+		InitResource (-0.3f, 0.3f, Color.magenta);
+		InitResource (0.3f, -0.3f, Color.red);
+		InitResource (0.3f, 0, Color.green);
+		InitResource (0.3f, 0.3f, Color.blue);
+	}
+
+	GameObject InitResource(float x, float z, Color color)
+	{
+		GameObject clone = Instantiate (resourcePrefab);
+		clone.transform.SetParent (this.transform);
+		clone.transform.localPosition = new Vector3(x, resourceElevation, z);
+		clone.GetComponentInChildren<Renderer>().material.color = color;
+		return clone;
 	}
 
 	public Vector3 GetPosition ()
