@@ -11,7 +11,6 @@ public class SquareScript : MonoBehaviour, ISquare
 	public	GameObject		resourcePrefab;
 
 	private float			resourceElevation = 0.75f;
-	private 
 
 	void Start ()
 	{
@@ -22,12 +21,12 @@ public class SquareScript : MonoBehaviour, ISquare
 
 	void InitResources()
 	{
-		InitResource (-0.3f, -0.3f, Color.cyan);
-		InitResource (-0.3f, 0, Color.yellow);
-		InitResource (-0.3f, 0.3f, Color.magenta);
-		InitResource (0.3f, -0.3f, Color.red);
-		InitResource (0.3f, 0, Color.green);
-		InitResource (0.3f, 0.3f, Color.blue);
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(76/255.0f, 12/255.0f, 43/255.0f));
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(119/255.0f, 13/255.0f, 80/255.0f));
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(242/255.0f, 29/255.0f, 68/255.0f));
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 137/255.0f, 48/255.0f));
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 212/255.0f, 53/255.0f));
+		InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.magenta);
 	}
 
 	GameObject InitResource(float x, float z, Color color)
