@@ -109,10 +109,8 @@ public class InputManager : IInputManager
 	{
 		if (LeftClick ())
 		{
-			float t = Time.time - lastClickTime;
-			Debug.Log(t.ToString());
-			lastClickTime = Time.time;
 			LeftMouseClick ();
+			lastClickTime = Time.time;
 		}
 		if (RightClick ())
 			RightMouseClick ();
@@ -124,15 +122,21 @@ public class InputManager : IInputManager
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			
 		if (Physics.Raycast(ray, out hit))
+		{
 			if (hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2")
 			{
 				ISquare square = hit.collider.gameObject.GetComponent<SquareScript> () as ISquare;
 
 				if (OnLeftClick != null)
+				{
 					OnLeftClick (square);
+				}
 				if (DoubleLeftClick() && OnDoubleClick != null)
+				{
 					OnDoubleClick (square);
+				}
 			}
+		}
 	}
 
 	void RightMouseClick ()

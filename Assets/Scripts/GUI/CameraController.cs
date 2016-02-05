@@ -26,6 +26,7 @@ public class CameraController {
 		this.currentWidth = currentWidth;
 		this.inputManager = inputManager;
 		this.cameraMovement = cameraMovement;
+		InputManager.OnDoubleClick += CheckDoubleClick;
 		InitCameraPosition();
 	}
 
@@ -148,10 +149,6 @@ public class CameraController {
 		CheckCameraReset();
 		CheckSpeedUp();
 		CheckSlowDown();
-	}
-
-	void Start() {
-		InputManager.OnDoubleClick += CheckDoubleClick;
 	}
 
 	public void LateUpdate () {
