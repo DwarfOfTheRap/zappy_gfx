@@ -51,13 +51,13 @@ public class SquareInfoScript : MonoBehaviour {
 
 	void DisplayResources (ISquare square)
 	{
-		linemate.text = square.GetResources ().linemate.ToString ();
-		deraumere.text = square.GetResources ().deraumere.ToString ();
-		sibur.text = square.GetResources ().sibur.ToString ();
-		mendiane.text = square.GetResources ().mendiane.ToString ();
-		phiras.text = square.GetResources ().phiras.ToString ();
-		thystame.text = square.GetResources ().thystame.ToString ();
-		nourriture.text = square.GetResources ().nourriture.ToString ();
+		linemate.text = square.GetResources ().linemate.count.ToString ();
+		deraumere.text = square.GetResources ().deraumere.count.ToString ();
+		sibur.text = square.GetResources ().sibur.count.ToString ();
+		mendiane.text = square.GetResources ().mendiane.count.ToString ();
+		phiras.text = square.GetResources ().phiras.count.ToString ();
+		thystame.text = square.GetResources ().thystame.count.ToString ();
+		nourriture.text = square.GetResources ().nourriture.count.ToString ();
 		players.text = square.GetResources ().players.Count.ToString ();
 	}
 	
