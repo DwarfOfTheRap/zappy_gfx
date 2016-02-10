@@ -2,8 +2,13 @@
 using System.Collections;
 
 public class ResourceScript : MonoBehaviour {
-	// Update is called once per frame
-	void Update () {
-			
+	void OnEnable()
+	{
+		Animation animation = GetComponentInChildren<Animation>();
+		foreach (AnimationState state in animation)
+		{
+			state.time = Random.Range (0, state.length);
+		}
+		animation.Play();
 	}
 }

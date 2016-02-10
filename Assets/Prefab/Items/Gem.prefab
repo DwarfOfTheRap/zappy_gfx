@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11450516}
-  - 111: {fileID: 11183810}
   m_Layer: 0
   m_Name: Gem
   m_TagString: Untagged
@@ -31,6 +30,7 @@ GameObject:
   - 33: {fileID: 3350650}
   - 23: {fileID: 2348764}
   - 64: {fileID: 6402296}
+  - 111: {fileID: 11126082}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -121,16 +121,17 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300006, guid: 309db8db017484e308a6de0a8e64c11a, type: 3}
---- !u!111 &11183810
+--- !u!111 &11126082
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 118426}
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 9b9778e2596ed4200bfa899b49041d87, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 9b9778e2596ed4200bfa899b49041d87, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
