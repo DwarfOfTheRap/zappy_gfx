@@ -1286,14 +1286,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfccd2ced9b64791aef9b249ca5a6fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linemate: {fileID: 11457508}
-  deraumere: {fileID: 11490216}
-  sibur: {fileID: 11436870}
-  mendiane: {fileID: 11489002}
-  phiras: {fileID: 11457044}
-  thystame: {fileID: 11446016}
-  nourriture: {fileID: 11475284}
-  players: {fileID: 11445522}
+  linemateNumber: {fileID: 11457508}
+  linemateText: {fileID: 11478752}
+  deraumereNumber: {fileID: 11490216}
+  deraumereText: {fileID: 11402834}
+  siburNumber: {fileID: 11436870}
+  siburText: {fileID: 11497726}
+  mendianeNumber: {fileID: 11489002}
+  mendianeText: {fileID: 11463780}
+  phirasNumber: {fileID: 11457044}
+  phirasText: {fileID: 11443190}
+  thystameNumber: {fileID: 11446016}
+  thystameText: {fileID: 11464096}
+  nourritureNumber: {fileID: 11475284}
+  nourritureText: {fileID: 11496736}
+  playersNumber: {fileID: 11445522}
+  playersText: {fileID: 11491438}
 --- !u!114 &11432172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2689,7 +2697,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11467444}
   m_HandleRect: {fileID: 22438198}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

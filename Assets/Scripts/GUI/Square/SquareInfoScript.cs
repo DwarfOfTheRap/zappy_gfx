@@ -5,14 +5,14 @@ using System.Collections;
 public class SquareInfoScript : MonoBehaviour {
 
 	public ISquare square;
-	public Text linemate;
-	public Text deraumere;
-	public Text sibur;
-	public Text mendiane;
-	public Text phiras;
-	public Text thystame;
-	public Text nourriture;
-	public Text players;
+	public Text linemateNumber;
+	public Text deraumereNumber;
+	public Text siburNumber;
+	public Text mendianeNumber;
+	public Text phirasNumber;
+	public Text thystameNumber;
+	public Text nourritureNumber;
+	public Text playersNumber;
 
 	void CheckInput()
 	{
@@ -51,14 +51,21 @@ public class SquareInfoScript : MonoBehaviour {
 
 	void DisplayResources (ISquare square)
 	{
-		linemate.text = square.GetResources ().linemate.count.ToString ();
-		deraumere.text = square.GetResources ().deraumere.count.ToString ();
-		sibur.text = square.GetResources ().sibur.count.ToString ();
-		mendiane.text = square.GetResources ().mendiane.count.ToString ();
-		phiras.text = square.GetResources ().phiras.count.ToString ();
-		thystame.text = square.GetResources ().thystame.count.ToString ();
-		nourriture.text = square.GetResources ().nourriture.count.ToString ();
-		players.text = square.GetResources ().players.Count.ToString ();
+		linemateNumber.text = square.GetResources ().linemate.count.ToString ();
+		linemateNumber.color = square.GetResources ().linemate.GetColor ();
+		deraumereNumber.text = square.GetResources ().deraumere.count.ToString ();
+		deraumereNumber.color = square.GetResources ().deraumere.GetColor ();
+		siburNumber.text = square.GetResources ().sibur.count.ToString ();
+		siburNumber.color = square.GetResources ().sibur.GetColor ();
+		mendianeNumber.text = square.GetResources ().mendiane.count.ToString ();
+		mendianeNumber.color = square.GetResources ().mendiane.GetColor ();
+		phirasNumber.text = square.GetResources ().phiras.count.ToString ();
+		phirasNumber.color = square.GetResources ().phiras.GetColor ();
+		thystameNumber.text = square.GetResources ().thystame.count.ToString ();
+		thystameNumber.color = square.GetResources ().thystame.GetColor ();
+		nourritureNumber.text = square.GetResources ().nourriture.count.ToString ();
+		nourritureNumber.color = square.GetResources ().nourriture.GetColor ();
+		playersNumber.text = square.GetResources ().players.Count.ToString ();
 	}
 	
 	void Update () {

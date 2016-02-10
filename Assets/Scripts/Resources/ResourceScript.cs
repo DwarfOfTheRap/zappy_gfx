@@ -19,9 +19,16 @@ public class ResourceScript : MonoBehaviour, IResourceEnabler {
 		controller = new ResourceController(this);
 	}
 
+	public Color GetColor()
+	{
+		Color color = GetComponentInChildren<Renderer>().material.color;
+		return new Color(color.r, color.g, color.b, 1);
+	}
+
 	public void Enable (bool state)
 	{
-		this.gameObject.SetActive(state);
+		GetComponentInChildren<Renderer>().enabled = state;
+		GetComponentInChildren<Animation>().enabled = state;
 	}
 
 	void Update()
@@ -30,19 +37,25 @@ public class ResourceScript : MonoBehaviour, IResourceEnabler {
 	}
 }
 
+[System.Serializable]
 public class ResourceController
 {
 	public uint			count;
-	IResourceEnabler	enabler;
+	IResourceEnabler	motor;
 
-	public ResourceController(IResourceEnabler enabler)
+	public ResourceController(IResourceEnabler motor)
 	{
-		this.enabler = enabler;
+		this.motor = motor;
 	}
 
 	void Enable()
 	{
-		enabler.Enable (count > 0);
+		motor.Enable (count > 0);
+	}
+
+	public Color GetColor()
+	{
+		return motor.GetColor ();
 	}
 
 	public void Update()
@@ -53,4 +66,5 @@ public class ResourceController
 
 public interface IResourceEnabler {
 	void Enable(bool state);
+	Color GetColor();
 }
