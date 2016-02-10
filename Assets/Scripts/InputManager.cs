@@ -62,12 +62,12 @@ public class InputManager : IInputManager
 
 	public bool ScrollUp ()
 	{
-		return (Input.GetAxis ("Mouse ScrollWheel") > 0);
+		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
 	}
 
 	public bool ScrollDown ()
 	{
-		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
+		return (Input.GetAxis ("Mouse ScrollWheel") > 0);
 	}
 
 	public float DeltaScroll ()

@@ -44,16 +44,22 @@ public class CameraController {
 		}
 	}
 
-	void CheckMouseScroll()
+	void CheckMouseScrollDown()
 	{
 		bool mousingOver = inputManager.MousingOverGameObject();
-		
-		if (inputManager.ScrollUp() && position.y > downBoundary && mousingOver == false)
+
+		if (inputManager.ScrollDown() && position.y > downBoundary && mousingOver == false)
 		{
 			target = null;
 			position = cameraMovement.Move (new Vector3 (position.x, position.y - scrollSpeed, position.z + scrollSpeed));
 		}
-		if (inputManager.ScrollDown() && position.y < upBoundary && mousingOver == false)
+	}
+	
+	void CheckMouseScrollUp()
+	{
+		bool mousingOver = inputManager.MousingOverGameObject();
+		
+		if (inputManager.ScrollUp() && position.y < upBoundary && mousingOver == false)
 		{
 			target = null;
 			position = cameraMovement.Move (new Vector3 (position.x, position.y + scrollSpeed, position.z - scrollSpeed));
@@ -152,7 +158,8 @@ public class CameraController {
 	}
 
 	public void LateUpdate () {
-		CheckMouseScroll();
+		CheckMouseScrollUp();
+		CheckMouseScrollDown();
 		CheckKeyboardInput();
 		GoToTarget();
 	}
