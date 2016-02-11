@@ -9,6 +9,7 @@ public class SquareScript : MonoBehaviour, ISquare
 	private Color			baseColor;
 	public	Color			highlightedColor;
 	public	GameObject		resourcePrefab;
+	public	GameObject		foodPrefab;
 	private float			resourceElevation = 0.63f;
 
 	void Start ()
@@ -20,18 +21,18 @@ public class SquareScript : MonoBehaviour, ISquare
 
 	void InitResources()
 	{
-		resources.linemate = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.white);
-		resources.deraumere = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(119/255.0f, 13/255.0f, 80/255.0f));
-		resources.sibur = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(242/255.0f, 29/255.0f, 68/255.0f));
-		resources.mendiane = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 137/255.0f, 48/255.0f));
-		resources.phiras = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 212/255.0f, 53/255.0f));
-		resources.thystame = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.gray);
-		resources.nourriture = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.cyan);
+		resources.linemate = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.white, resourcePrefab);
+		resources.deraumere = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(119/255.0f, 13/255.0f, 80/255.0f), resourcePrefab);
+		resources.sibur = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(242/255.0f, 29/255.0f, 68/255.0f), resourcePrefab);
+		resources.mendiane = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 137/255.0f, 48/255.0f), resourcePrefab);
+		resources.phiras = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), new Color(255/255.0f, 212/255.0f, 53/255.0f), resourcePrefab);
+		resources.thystame = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.gray, resourcePrefab);
+		resources.nourriture = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.cyan, foodPrefab);
 	}
 
-	ResourceController InitResource(float x, float z, Color color)
+	ResourceController InitResource(float x, float z, Color color, GameObject prefab)
 	{
-		GameObject clone = Instantiate (resourcePrefab);
+		GameObject clone = Instantiate (prefab);
 		clone.transform.SetParent (this.transform);
 		clone.transform.localPosition = new Vector3(x, resourceElevation, z);
 		clone.GetComponentInChildren<Renderer>().material.color = new Color(color.r, color.g, color.b, clone.GetComponentInChildren<Renderer>().material.color.a);

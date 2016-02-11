@@ -99,9 +99,8 @@ public class PlayerController {
 		try
 		{
 			ISquare square = gridController.GetSquare (x, y);
-			this.currentSquare = square;
+			SetDestination(square, gridController);
 			playerMovementController.SetPosition(square.GetPosition());
-			destination = playerMovementController.SetDestination (square.GetPosition ());
 			this.level = level;
 			this.index = index;
 			this.team = team;
