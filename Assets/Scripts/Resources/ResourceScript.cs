@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ResourceScript : MonoBehaviour, IResourceEnabler {
-	public ResourceController controller;
+	public ResourceController	controller;
 
 	void OnEnable()
 	{
@@ -24,7 +24,6 @@ public class ResourceScript : MonoBehaviour, IResourceEnabler {
 	{
 		GetComponentInChildren<Renderer>().enabled = state;
 		GetComponentInChildren<Animation>().enabled = state;
-		this.gameObject.SetActive(state);
 	}
 }
 
@@ -34,7 +33,6 @@ public class ResourceController
 
 	public Color		color { get; private set;}
 	IResourceEnabler	motor;
-	[SerializeField]
 	private uint		_count;
 	public uint			count {
 		get {
@@ -50,7 +48,7 @@ public class ResourceController
 	{
 		this.motor = motor;
 		this.color = color;
-		this.count = 0;
+		this.count = 1;
 	}
 
 	void Enable(bool state)

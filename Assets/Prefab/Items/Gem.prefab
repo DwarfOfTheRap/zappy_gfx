@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 114: {fileID: 11450516}
   m_Layer: 0
   m_Name: Gem
   m_TagString: Untagged
@@ -30,6 +29,7 @@ GameObject:
   - 33: {fileID: 3350650}
   - 23: {fileID: 2348764}
   - 111: {fileID: 11126082}
+  - 114: {fileID: 11421978}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -114,7 +114,7 @@ Animation:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118426}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 9b9778e2596ed4200bfa899b49041d87, type: 2}
   m_Animations:
@@ -123,19 +123,17 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &11450516
+--- !u!114 &11421978
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
+  m_GameObject: {fileID: 118426}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfc46676a564b4ec69db00ace69e0761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller:
-    _count: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
