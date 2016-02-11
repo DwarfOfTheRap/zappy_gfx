@@ -29,7 +29,6 @@ GameObject:
   - 4: {fileID: 490328}
   - 33: {fileID: 3350650}
   - 23: {fileID: 2348764}
-  - 64: {fileID: 6402296}
   - 111: {fileID: 11126082}
   m_Layer: 0
   m_Name: Mesh
@@ -61,7 +60,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118426}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -.465999991}
   m_LocalScale: {x: .75, y: .75, z: .75}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -109,18 +108,6 @@ EditorExtensionImpl:
 --- !u!1002 &6400001
 EditorExtensionImpl:
   serializedVersion: 6
---- !u!64 &6402296
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118426}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300006, guid: 309db8db017484e308a6de0a8e64c11a, type: 3}
 --- !u!111 &11126082
 Animation:
   m_ObjectHideFlags: 1
