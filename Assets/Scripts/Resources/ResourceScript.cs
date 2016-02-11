@@ -50,7 +50,7 @@ public class ResourceController
 	{
 		this.motor = motor;
 		this.color = color;
-		this.count = count;
+		this.count = 1;
 	}
 
 	void Enable(bool state)
