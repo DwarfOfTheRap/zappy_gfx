@@ -14,57 +14,51 @@ public class ResourceScript : MonoBehaviour, IResourceEnabler {
 		animation.Play();
 	}
 
-	void Awake()
-	{
-		controller = new ResourceController(this);
-	}
-
-	public Color GetColor()
+	public void Init()
 	{
 		Color color = GetComponentInChildren<Renderer>().material.color;
-		return new Color(color.r, color.g, color.b, 1);
+		controller = new ResourceController(this, new Color(color.r, color.g, color.b, 1));
 	}
 
 	public void Enable (bool state)
 	{
 		GetComponentInChildren<Renderer>().enabled = state;
 		GetComponentInChildren<Animation>().enabled = state;
-	}
-
-	void Update()
-	{
-		controller.Update ();
+		this.gameObject.SetActive(state);
 	}
 }
 
 [System.Serializable]
 public class ResourceController
 {
-	public uint			count;
-	IResourceEnabler	motor;
 
-	public ResourceController(IResourceEnabler motor)
+	public Color		color { get; private set;}
+	IResourceEnabler	motor;
+	[SerializeField]
+	private uint		_count;
+	public uint			count {
+		get {
+			return _count;
+		}
+		set { 
+			_count = value;
+			this.Enable (count > 0);
+			}
+	}
+
+	public ResourceController(IResourceEnabler motor, Color color)
 	{
 		this.motor = motor;
+		this.color = color;
+		this.count = count;
 	}
 
-	void Enable()
+	void Enable(bool state)
 	{
-		motor.Enable (count > 0);
-	}
-
-	public Color GetColor()
-	{
-		return motor.GetColor ();
-	}
-
-	public void Update()
-	{
-		Enable ();
+		motor.Enable (state);
 	}
 }
 
 public interface IResourceEnabler {
 	void Enable(bool state);
-	Color GetColor();
 }

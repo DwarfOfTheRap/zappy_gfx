@@ -52,19 +52,19 @@ public class SquareInfoScript : MonoBehaviour {
 	void DisplayResources (ISquare square)
 	{
 		linemateNumber.text = square.GetResources ().linemate.count.ToString ();
-		linemateNumber.color = square.GetResources ().linemate.GetColor ();
+		linemateNumber.color = square.GetResources ().linemate.color;
 		deraumereNumber.text = square.GetResources ().deraumere.count.ToString ();
-		deraumereNumber.color = square.GetResources ().deraumere.GetColor ();
+		deraumereNumber.color = square.GetResources ().deraumere.color;
 		siburNumber.text = square.GetResources ().sibur.count.ToString ();
-		siburNumber.color = square.GetResources ().sibur.GetColor ();
+		siburNumber.color = square.GetResources ().sibur.color;
 		mendianeNumber.text = square.GetResources ().mendiane.count.ToString ();
-		mendianeNumber.color = square.GetResources ().mendiane.GetColor ();
+		mendianeNumber.color = square.GetResources ().mendiane.color;
 		phirasNumber.text = square.GetResources ().phiras.count.ToString ();
-		phirasNumber.color = square.GetResources ().phiras.GetColor ();
+		phirasNumber.color = square.GetResources ().phiras.color;
 		thystameNumber.text = square.GetResources ().thystame.count.ToString ();
-		thystameNumber.color = square.GetResources ().thystame.GetColor ();
+		thystameNumber.color = square.GetResources ().thystame.color;
 		nourritureNumber.text = square.GetResources ().nourriture.count.ToString ();
-		nourritureNumber.color = square.GetResources ().nourriture.GetColor ();
+		nourritureNumber.color = square.GetResources ().nourriture.color;
 		playersNumber.text = square.GetResources ().players.Count.ToString ();
 	}
 	

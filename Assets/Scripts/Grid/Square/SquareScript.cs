@@ -36,6 +36,7 @@ public class SquareScript : MonoBehaviour, ISquare
 		clone.transform.SetParent (this.transform);
 		clone.transform.localPosition = new Vector3(x, resourceElevation, z);
 		clone.GetComponentInChildren<Renderer>().material.color = new Color(color.r, color.g, color.b, clone.GetComponentInChildren<Renderer>().material.color.a);
+		clone.GetComponent<ResourceScript>().Init();
 		return clone.GetComponent<ResourceScript>().controller;
 	}
 
