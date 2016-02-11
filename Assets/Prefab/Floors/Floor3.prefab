@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 16
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &407118
 Transform:
@@ -121,7 +121,7 @@ Prefab:
       objectReference: {fileID: 128496, guid: 3105903552d3e4211be06a5feb42c70d, type: 2}
     - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

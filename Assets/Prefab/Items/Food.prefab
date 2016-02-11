@@ -26,7 +26,7 @@ GameObject:
   - 4: {fileID: 463690}
   - 33: {fileID: 3397032}
   - 23: {fileID: 2323538}
-  - 111: {fileID: 11168328}
+  - 111: {fileID: 11143086}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157748}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
-  m_LocalPosition: {x: 0, y: 0, z: -16.0200005}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 402856}
@@ -90,7 +90,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157748}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!111 &11168328
+--- !u!111 &11143086
 Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -98,9 +98,9 @@ Animation:
   m_GameObject: {fileID: 157748}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 9b9778e2596ed4200bfa899b49041d87, type: 2}
+  m_Animation: {fileID: 7400000, guid: 72fee7aec36574d3fb223d845d03e353, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: 9b9778e2596ed4200bfa899b49041d87, type: 2}
+  - {fileID: 7400000, guid: 72fee7aec36574d3fb223d845d03e353, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
-    count: 1
+    _count: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
