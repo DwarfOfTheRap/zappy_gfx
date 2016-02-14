@@ -15,7 +15,7 @@ public class SquareTester : MonoBehaviourTester {
 
 	void TestResources()
 	{
-		GetComponent<SquareScript>().SetResources (1, 0, 1, 0, 1, 0, 1);
+		GetComponent<SquareScript>().SetResources (1, 1, 1, 1, 1, 1, 1);
 	}
 
 	void Update()
