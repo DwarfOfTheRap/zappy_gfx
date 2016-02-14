@@ -12,7 +12,7 @@ public class SquareScript : MonoBehaviour, ISquare
 	public	GameObject		foodPrefab;
 	private float			resourceElevation = 0.63f;
 
-	void Start ()
+	void Awake ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
@@ -75,19 +75,20 @@ public class SquareScript : MonoBehaviour, ISquare
 		resources.nourriture.count = nourriture;
 		resources.linemate.count = linemate;
 		resources.deraumere.count = deraumere;
-		resources.sibur.count = mendiane;
+		resources.sibur.count = sibur;
+		resources.mendiane.count = mendiane;
 		resources.phiras.count = phiras;
 		resources.thystame.count = thystame;
 	}
 
 	public void EnableVision (Color color)
 	{
-		GetComponent<MeshRenderer>().material.color = color;
+		GetComponent<MeshRenderer>().material.SetColor ("_EmissionColor", color);
 	}
 
 	public void DisableVision ()
 	{
-		GetComponent<MeshRenderer>().material.color = baseColor;
+		GetComponent<MeshRenderer>().material.SetColor ("_EmissionColor", baseColor);
 	}
 
 	public void DestroyImmediate()
