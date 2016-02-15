@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController{
 	public PlayerController 	controller;
-	public PlayerLegsScript[]	legs;
 	public Orientation			orientation;
 
 	private void OnEnable()
@@ -12,7 +11,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetPlayerOrientation(orientation);
-		legs = GetComponentsInChildren<PlayerLegsScript>();
 	}
 
 	#region IAnimatorController implementation
@@ -68,14 +66,10 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	public void StopExpulsion()
 	{
-		foreach (PlayerLegsScript leg in legs)
-			leg.DisableSparksAnimation();
 	} 
 
 	public void Expulsed(Orientation orientation)
 	{
-		foreach (PlayerLegsScript leg in legs)
-			leg.EnableSparksAnimation(orientation);
 	}
 
 	public void SetTeamColor (Color color)

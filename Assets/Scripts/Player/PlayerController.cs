@@ -16,7 +16,7 @@ public class PlayerController {
 	}						   	
 	public PlayerInventory				inventory = new PlayerInventory();
 	public int							level;
-	public int							index;
+	public int							index { get; private set;}
 	public Team							team { get; private set;}
 	public float						speed = 1.0f;
 	public float						rotSpeed = 1.0f;
