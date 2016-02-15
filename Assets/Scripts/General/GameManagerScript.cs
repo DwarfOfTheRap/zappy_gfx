@@ -1,27 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController {
-	public static GameManagerScript instance;
-	public GameObject				prefab;
-	public GridScript				grid { get; private set; }
-	public PlayerManagerScript			playerManager { get; private set; }
-	public TeamManager				teamManager { get; private set; }
+public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, IEggInstantiationController {
+	public static GameManagerScript 		instance;
+	public GameObject						playerPrefab;
+	public GameObject						eggPrefab;
+	public GridScript						grid { get; private set; }
+	public PlayerManagerScript				playerManager { get; private set; }
+	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 
 	void OnEnable()
 	{
-		prefab = Resources.Load ("Prefab/PA_Warrior") as GameObject;
+		playerPrefab = Resources.Load ("Prefab/Ciccio_LOD") as GameObject;
 		instance = this;
 		grid = GetComponentInChildren<GridScript>();
 		teamManager = new TeamManager();
-		pic = this;
-		playerManager = new PlayerManagerScript(grid.controller, teamManager, pic);
+		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
 	}
 
-	public PlayerController Instantiate ()
+	public EggController InstantiateEgg ()
 	{
-		GameObject clone = Instantiate (prefab);
+		GameObject clone = Instantiate (eggPrefab);
+		return clone.GetComponent<EggScript>().controller;
+	}
+
+	public PlayerController InstantiatePlayer ()
+	{
+		GameObject clone = Instantiate (playerPrefab);
 		return clone.GetComponent<PlayerScript>().controller;
 	}
+}
+
+public interface IEggInstantiationController
+{
+	EggController InstantiateEgg ();
+}
+
+public interface IPlayerInstantiationController
+{
+	PlayerController InstantiatePlayer ();
 }

@@ -6,7 +6,8 @@ using System.Diagnostics;
 [Serializable]
 public class EggController {
 	public int							index { get; private set; }
-	public PlayerController				player { get; private set; } 
+	public PlayerController				parent { get; private set; } 
+	public Team							team { get { return parent.team; } set {} }
 									
 	public	ISquare						currentSquare;
 									
@@ -22,17 +23,33 @@ public class EggController {
 		this.animatorController = animatorController;
 	}
 
-	public EggController				Init(int x, int y, int index, GridController gridController)
+	public EggController				Init(int x, int y, int index, PlayerController parent, GridController gridController)
 	{
 		try
 		{
 			this.currentSquare = gridController.GetSquare (x, y);
 			this.index = index;
+			this.parent = parent;
 			return this;
 		}
 		catch (GridController.GridOutOfBoundsException)
 		{
 			return null;
 		}
+	}
+
+	public void Hatch ()
+	{
+		throw new NotImplementedException ();
+	}
+
+	public void Die ()
+	{
+		throw new NotImplementedException ();
+	}
+
+	public void PlayerConnection ()
+	{
+		throw new NotImplementedException ();
 	}
 }

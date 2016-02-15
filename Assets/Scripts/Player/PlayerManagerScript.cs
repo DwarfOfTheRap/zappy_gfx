@@ -11,6 +11,11 @@ public class PlayerManagerScript {
 
 		public PlayerNotFoundException(string message) : base(message) {}
 	}
+	public class EggNotFoundException : Exception
+	{
+		public EggNotFoundException() {}
+		public EggNotFoundException(string message) : base(message) {}
+	}
 	public class TwoPlayersWithTheSameIndexException : Exception
 	{
 		public TwoPlayersWithTheSameIndexException() {}
@@ -18,16 +23,19 @@ public class PlayerManagerScript {
 		public TwoPlayersWithTheSameIndexException(string message) : base(message) {}
 	}
 	public List<PlayerController>			players;
+	public List<EggController>				eggs;
 	public GridController					gridController { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
+	public IEggInstantiationController		eic { get; private set; }
 
 	PlayerManagerScript(){}
 
-	public PlayerManagerScript(GridController gridController, TeamManager teamManager, IPlayerInstantiationController pic)
+	public PlayerManagerScript(GridController gridController, TeamManager teamManager, IPlayerInstantiationController pic, IEggInstantiationController eic)
 	{
 		this.players = new List<PlayerController>();
 		this.pic = pic;
+		this.eic = eic;
 		this.gridController = gridController;
 	}
 
@@ -43,13 +51,25 @@ public class PlayerManagerScript {
 		}
 	}
 
+	public virtual EggController GetEgg(int e)
+	{
+		try
+		{
+			return eggs.Find (x => x.index == e);
+		}
+		catch (Exception)
+		{
+			throw new PlayerNotFoundException();
+		}
+	}
+
 	public PlayerController[] GetPlayersInTeam(Team team)
 	{
 		List<PlayerController> tmp = new List<PlayerController>();
 
 		foreach (PlayerController player in players)
 		{
-			if (player.team == team)
+			if (player.team == team && !player.dead)
 				tmp.Add (player);
 		}
 		if (tmp.Count == 0)
@@ -59,7 +79,7 @@ public class PlayerManagerScript {
 
 	public PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
 	{
-		PlayerController controller = pic.Instantiate();
+		PlayerController controller = pic.InstantiatePlayer();
 		if (players.Find (pl => pl.index == n) != null)
 			throw new TwoPlayersWithTheSameIndexException();
 		controller.Init (x, y, o, l, n, teamManager.findTeam(name), gridController);
@@ -135,18 +155,32 @@ public class PlayerManagerScript {
 		return player;
 	}
 
-	public PlayerController SetEggCreation(int e, int n, int x, int y)
+	public EggController SetEggCreation(int e, int n, int x, int y)
 	{
-		throw new NotImplementedException();
+		EggController egg = this.eic.InstantiateEgg();
+		PlayerController player = GetPlayer (n);
+		eggs.Add (egg.Init (x, y, e, player, gridController));
+		return egg;
 	}
 
-	public PlayerController SetEggHatch(int e)
+	public EggController SetEggHatch(int e)
 	{
-		throw new NotImplementedException();
+		EggController egg = GetEgg (e);
+		egg.Hatch();
+		return egg;
 	}
 
-	public PlayerController SetEggDie(int e)
+	public EggController SetPlayerToEggConnection(int e)
 	{
-		throw new NotImplementedException();
+		EggController egg = GetEgg (e);
+		egg.PlayerConnection();
+		return egg;
+	}
+
+	public EggController SetEggDie(int e)
+	{
+		EggController egg = GetEgg (e);
+		egg.Die();
+		return egg;
 	}
 }
