@@ -9,7 +9,7 @@ public class CameraController {
 	public Vector3				position;
 	private float				doubleClickSpeed = 1.5f;
 
-	private float				moveSpeed = 0.5f;
+	public float				moveSpeed { get; set; }
 	private float				scrollSpeed = 1.0f;
 
 	private int					currentHeight;
@@ -26,7 +26,8 @@ public class CameraController {
 		this.currentWidth = currentWidth;
 		this.inputManager = inputManager;
 		this.cameraMovement = cameraMovement;
-		InputManager.OnDoubleClick += CheckDoubleClick;
+		var doubleClickEvent = this.inputManager.GetDoubleClickEvent();
+		doubleClickEvent += CheckDoubleClick;
 		InitCameraPosition();
 	}
 

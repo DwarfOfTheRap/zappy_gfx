@@ -10,6 +10,6 @@ public class TeamCompositionUI : MonoBehaviour {
 	}
 
 	void Start () {
-		InputManager.OnRightClick += HideWindow;
+		GameManagerScript.instance.inputManager.OnRightClick += HideWindow;
 	}
 }

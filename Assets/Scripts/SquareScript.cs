@@ -12,7 +12,7 @@ public class SquareScript : MonoBehaviour, ISquare
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
-		InputManager.OnLeftClick += SquareHighlighting;
+		GameManagerScript.instance.inputManager.OnLeftClick += SquareHighlighting;
 	}
 
 	public Vector3 GetPosition ()

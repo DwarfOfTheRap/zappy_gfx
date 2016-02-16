@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GameManagerScript : MonoBehaviour {
 	public static GameManagerScript instance;
+
 	public GridScript				grid { get; private set; }
 	public InputManager 			inputManager { get; private set; }
 	public PlayerManager			playerManager { get; private set; }

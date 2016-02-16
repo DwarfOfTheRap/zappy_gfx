@@ -3,6 +3,10 @@ using System.Collections;
 
 public interface IInputManager
 {
+	InputManager.RightClickEvent GetRightClickEvent ();
+	InputManager.LeftClickEvent GetLeftClickEvent ();
+	InputManager.DoubleClickEvent GetDoubleClickEvent ();
+
 	bool MoveLeft();
 	bool MoveRight();
 	float HorizontalMovementValue();

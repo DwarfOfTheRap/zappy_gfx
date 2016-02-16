@@ -200,7 +200,49 @@ public class NavigationTests {
 		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y < initPos.y)));
 	}
 
+	[Test]
+	public void CameraSpeedUp()
+	{
+		//Arrange
+		ICameraMovement camMov = GetMockCameraMovement ();
+		IInputManager inputM = GetMockInputManager ();
+		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
+		float initSpeed = 1.0f;
 
+		inputM.DoubleMoveSpeed().Returns(true);
+		//Act
+		camCon.LateUpdate();
+		//Assert
+		Assert.AreEqual(camCon.moveSpeed, initSpeed);
+	}
+
+	[Test]
+	public void CameraDoubleClick()
+	{
+		//Arrange
+		GridController gc = new GridController ();
+		int height = 10;
+		int width = 10;
+		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
+		ICameraMovement camMov = GetMockCameraMovement ();
+		IInputManager inputM = GetMockInputManager ();
+		CameraController camCon = new CameraController(inputM, camMov, height, width);
+		bool wasCalled = false;
+		ISquare square;
+		Vector3 targetPos;
+
+		gc.SetSquareInstantiationController (sic);
+		gc.Init (width, height);
+		square = gc.GetSquare(3, 3);
+		targetPos = square.GetPosition();
+		inputM.DoubleLeftClick().Returns(true);
+		//Act
+		GameManagerScript.instance.inputManager.OnDoubleClick += (args) => wasCalled = true;
+		GameManagerScript.instance.inputManager.OnDoubleClick += Raise.Event<InputManager.DoubleClickEvent>(this, square);
+		camCon.LateUpdate();
+		//Assert
+		Assert.That (wasCalled && camCon.position == targetPos);
+	}
 
 	public IInputManager GetMockInputManager()
 	{
@@ -212,5 +254,15 @@ public class NavigationTests {
 		ICameraMovement cam = Substitute.For<ICameraMovement> ();
 		cam.Move (Vector3.zero).ReturnsForAnyArgs(x => { return (Vector3)x[0]; });
 		return cam;
+	}
+
+	private ISquare GetMockSquare ()
+	{
+		return Substitute.For<ISquare> ();
+	}
+	
+	private ISquareInstantiationController GetMockSquareInstantiationController ()
+	{
+		return Substitute.For<ISquareInstantiationController> ();
 	}
 }

@@ -6,14 +6,29 @@ public class InputManager : IInputManager
 	public delegate void LeftClickEvent (ISquare square);
 	public delegate void RightClickEvent ();
 	public delegate void DoubleClickEvent (ISquare square);
-	public static event LeftClickEvent OnLeftClick;
-	public static event RightClickEvent OnRightClick;
-	public static event DoubleClickEvent OnDoubleClick;
+	public event LeftClickEvent OnLeftClick;
+	public event RightClickEvent OnRightClick;
+	public event DoubleClickEvent OnDoubleClick;
 
 	private float 				lastClickTime = 0.0f;
 	private float 				catchTime = 0.25f;
 
 	#region IInputManager implementation
+
+	public RightClickEvent GetRightClickEvent ()
+	{
+		return this.OnRightClick;
+	}
+
+	public LeftClickEvent GetLeftClickEvent ()
+	{
+		return this.OnLeftClick;
+	}
+
+	public DoubleClickEvent GetDoubleClickEvent ()
+	{
+		return this.OnDoubleClick;
+	}
 
 	public bool MoveLeft ()
 	{

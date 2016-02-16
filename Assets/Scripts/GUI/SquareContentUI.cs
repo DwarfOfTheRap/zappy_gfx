@@ -41,8 +41,8 @@ public class SquareContentUI : MonoBehaviour {
 	}
 
 	void Start () {
-		InputManager.OnLeftClick += DisplayWindow;
-		InputManager.OnRightClick += HideWindow;
+		GameManagerScript.instance.inputManager.OnLeftClick += DisplayWindow;
+		GameManagerScript.instance.inputManager.OnRightClick += HideWindow;
 	}
 	
 	void Update () {
