@@ -72,6 +72,25 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 	}
 
+	public void EnableHighlight (Color color)
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			Debug.Log ("??");
+			renderer.materials[0].SetFloat ("_Outline", 0.0025f);
+			renderer.materials[0].SetColor ("_OutlineColor", color);
+		}
+	}
+
+	public void DisableHighlight ()
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials[0].SetFloat ("_Outline", 0);
+			renderer.materials[0].SetColor ("_OutlineColor", Color.black);
+		}
+	}
+
 	public void SetTeamColor (Color color)
 	{
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())

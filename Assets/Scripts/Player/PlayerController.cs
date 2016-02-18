@@ -158,6 +158,16 @@ public class PlayerController {
 			playerMovementController.MoveToDestination (destination, speed);
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
+
+	public void EnableHighlight()
+	{
+		playerMovementController.EnableHighlight (this.team.color);
+	}
+
+	public void DisableHighlight()
+	{
+		playerMovementController.DisableHighlight ();
+	}
 	
 	public void Update(Vector3 position)
 	{

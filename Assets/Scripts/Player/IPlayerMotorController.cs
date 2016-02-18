@@ -10,5 +10,8 @@ public interface IPlayerMotorController {
 	Vector3 SetDestination(Vector3 destination);
 	void SetPosition (Vector3 vector3);
 
+	void EnableHighlight(Color color);
+	void DisableHighlight();
+
 	void SetTeamColor(Color color);
 }
