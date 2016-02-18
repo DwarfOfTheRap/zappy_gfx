@@ -1396,7 +1396,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.81388283, y: -3.5699873, z: -.522394896}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 409756}
@@ -2113,11 +2113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller:
     level: 1
-    index: 0
     speed: 3
     rotSpeed: 500
     teleportDestination: {x: 0, y: 0, z: 0}
-  legs: []
   orientation: 0
 --- !u!137 &13728640
 SkinnedMeshRenderer:
