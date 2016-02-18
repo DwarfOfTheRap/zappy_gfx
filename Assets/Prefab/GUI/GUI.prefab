@@ -45,6 +45,7 @@ GameObject:
   - 224: {fileID: 22436490}
   - 222: {fileID: 22238410}
   - 114: {fileID: 11402834}
+  - 114: {fileID: 11464540}
   m_Layer: 5
   m_Name: Deraumere
   m_TagString: Untagged
@@ -207,6 +208,7 @@ GameObject:
   - 224: {fileID: 22494634}
   - 222: {fileID: 22214394}
   - 114: {fileID: 11478752}
+  - 114: {fileID: 11402882}
   m_Layer: 5
   m_Name: Linemate
   m_TagString: Untagged
@@ -296,6 +298,7 @@ GameObject:
   - 224: {fileID: 22459794}
   - 222: {fileID: 22267588}
   - 114: {fileID: 11491438}
+  - 114: {fileID: 11442544}
   m_Layer: 5
   m_Name: Players
   m_TagString: Untagged
@@ -349,6 +352,7 @@ GameObject:
   - 224: {fileID: 22415454}
   - 222: {fileID: 22208510}
   - 114: {fileID: 11482104}
+  - 114: {fileID: 11456060}
   m_Layer: 5
   m_Name: WindowTitle
   m_TagString: Untagged
@@ -366,6 +370,7 @@ GameObject:
   - 224: {fileID: 22417010}
   - 222: {fileID: 22278346}
   - 114: {fileID: 11421224}
+  - 114: {fileID: 11429654}
   m_Layer: 5
   m_Name: WindowTitle
   m_TagString: Untagged
@@ -419,6 +424,7 @@ GameObject:
   - 224: {fileID: 22445550}
   - 222: {fileID: 22288078}
   - 114: {fileID: 11443190}
+  - 114: {fileID: 11495248}
   m_Layer: 5
   m_Name: Phiras
   m_TagString: Untagged
@@ -492,6 +498,7 @@ GameObject:
   - 224: {fileID: 22467894}
   - 222: {fileID: 22269330}
   - 114: {fileID: 11464096}
+  - 114: {fileID: 11405864}
   m_Layer: 5
   m_Name: Thystame
   m_TagString: Untagged
@@ -527,6 +534,7 @@ GameObject:
   - 224: {fileID: 22490670}
   - 222: {fileID: 22202286}
   - 114: {fileID: 11497726}
+  - 114: {fileID: 11429786}
   m_Layer: 5
   m_Name: Sibur
   m_TagString: Untagged
@@ -544,6 +552,7 @@ GameObject:
   - 224: {fileID: 22463572}
   - 222: {fileID: 22269870}
   - 114: {fileID: 11414218}
+  - 114: {fileID: 11432356}
   m_Layer: 5
   m_Name: WindowTitle
   m_TagString: Untagged
@@ -579,6 +588,7 @@ GameObject:
   - 224: {fileID: 22447862}
   - 222: {fileID: 22282134}
   - 114: {fileID: 11496736}
+  - 114: {fileID: 11438848}
   m_Layer: 5
   m_Name: Food
   m_TagString: Untagged
@@ -614,6 +624,7 @@ GameObject:
   - 224: {fileID: 22412582}
   - 222: {fileID: 22211176}
   - 114: {fileID: 11463780}
+  - 114: {fileID: 11432146}
   m_Layer: 5
   m_Name: Mendiane
   m_TagString: Untagged
@@ -883,6 +894,34 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: der
+--- !u!114 &11402882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &11405864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11405880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1275,6 +1314,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &11429654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .103}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
+--- !u!114 &11429786
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11429894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1294,6 +1361,20 @@ MonoBehaviour:
   thystameNumber: {fileID: 11446016}
   nourritureNumber: {fileID: 11475284}
   playersNumber: {fileID: 11445522}
+--- !u!114 &11432146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11432172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1321,6 +1402,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11432356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .103}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11432836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1373,6 +1468,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &11438848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11438976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1391,6 +1500,20 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: .5
   m_ForceModuleActive: 0
+--- !u!114 &11442544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11443190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1647,6 +1770,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11456060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .103}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11457044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1802,6 +1939,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: thy
+--- !u!114 &11464540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11465996
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2023,7 +2174,7 @@ MonoBehaviour:
     m_FontSize: 8
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 4
+    m_MinSize: 6
     m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
@@ -2454,14 +2605,14 @@ MonoBehaviour:
     m_FontSize: 3
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 4
-    m_MaxSize: 7
+    m_MinSize: 6
+    m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: plyrs
+  m_Text: plyr
 --- !u!114 &11492320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2574,6 +2725,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11495248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: .0839999989}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &11496736
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2598,8 +2763,8 @@ MonoBehaviour:
     m_FontSize: 6
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 4
-    m_MaxSize: 7
+    m_MinSize: 6
+    m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
