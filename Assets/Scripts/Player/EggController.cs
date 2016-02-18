@@ -14,6 +14,7 @@ public class EggController {
 	public bool							dead { get; private set; }
 
 	public IAnimatorController			animatorController;
+	public IEggMotorController			motorController;
 		
 #if UNITY_EDITOR
 
@@ -23,6 +24,11 @@ public class EggController {
 		this.animatorController = animatorController;
 	}
 
+	public void							SetMotorController(IEggMotorController motorController)
+	{
+		this.motorController = motorController;
+	}
+
 	public EggController				Init(int x, int y, int index, PlayerController parent, GridController gridController)
 	{
 		try
@@ -30,6 +36,7 @@ public class EggController {
 			this.currentSquare = gridController.GetSquare (x, y);
 			this.index = index;
 			this.parent = parent;
+			this.motorController.SetTeamColor (parent.team.color);
 			return this;
 		}
 		catch (GridController.GridOutOfBoundsException)

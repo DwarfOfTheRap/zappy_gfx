@@ -6,6 +6,8 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	public PlayerController 	controller;
 	public Orientation			orientation;
 
+	private const float				_highlight_width = 0.0025f;
+
 	private void OnEnable()
 	{
 		controller.SetAnimatorController(this);
@@ -76,8 +78,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
 		{
-			Debug.Log ("??");
-			renderer.materials[0].SetFloat ("_Outline", 0.0025f);
+			renderer.materials[0].SetFloat ("_Outline", _highlight_width);
 			renderer.materials[0].SetColor ("_OutlineColor", color);
 		}
 	}
