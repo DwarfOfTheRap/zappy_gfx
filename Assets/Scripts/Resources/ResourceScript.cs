@@ -48,7 +48,7 @@ public class ResourceController
 	{
 		this.motor = motor;
 		this.color = color;
-		this.count = 0;
+		this.count = 1;
 	}
 
 	void Enable(bool state)

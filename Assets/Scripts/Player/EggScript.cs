@@ -36,6 +36,11 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	{
 		GetComponentInChildren<Renderer>().material.color = color / 2;
 	}
+	
+	public void SetPosition (Vector3 position)
+	{
+		this.transform.position = position;
+	}
 
 	#endregion
 	
@@ -49,4 +54,5 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 public interface IEggMotorController
 {
 	void SetTeamColor(Color color);
+	void SetPosition(Vector3 position);
 }

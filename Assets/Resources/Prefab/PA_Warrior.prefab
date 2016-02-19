@@ -227,7 +227,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 485614}
-  - 114: {fileID: 11409324}
   m_Layer: 0
   m_Name: swarmWarriorLtRearLeg5
   m_TagString: Untagged
@@ -303,7 +302,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 480794}
-  - 114: {fileID: 11465752}
   m_Layer: 0
   m_Name: swarmWarriorRtFrontLeg5
   m_TagString: Untagged
@@ -319,7 +317,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 403572}
-  - 114: {fileID: 11415396}
   m_Layer: 0
   m_Name: swarmWarriorRtRearLeg5
   m_TagString: Untagged
@@ -425,7 +422,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 410234}
-  - 114: {fileID: 11423380}
   m_Layer: 0
   m_Name: swarmWarriorLtFrontLeg5
   m_TagString: Untagged
@@ -1081,59 +1077,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller:
     level: 0
-    index: 0
-    team:
-      name: 
-      color: {r: 0, g: 0, b: 0, a: 0}
     speed: 5
     rotSpeed: 500
     teleportDestination: {x: 0, y: 0, z: 0}
-  legs: []
   orientation: 2
---- !u!114 &11409324
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 139372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6c725824e4a4030a7702263427ce9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11415396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6c725824e4a4030a7702263427ce9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11423380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 187338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6c725824e4a4030a7702263427ce9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &11465752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157624}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a6c725824e4a4030a7702263427ce9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!137 &13718476
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

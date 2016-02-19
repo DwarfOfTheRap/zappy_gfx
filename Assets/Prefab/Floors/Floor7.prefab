@@ -86,20 +86,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resources:
-    nourriture:
-      _count: 0
-    linemate:
-      _count: 0
-    deraumere:
-      _count: 0
-    sibur:
-      _count: 0
-    mendiane:
-      _count: 0
-    phiras:
-      _count: 0
-    thystame:
-      _count: 0
     players: []
   highlightedColor: {r: 0, g: 0, b: 0, a: 0}
   resourcePrefab: {fileID: 100000, guid: 92ff307084e584caf99ebc59022a8289, type: 2}
