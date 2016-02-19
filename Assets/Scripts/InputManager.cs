@@ -119,7 +119,7 @@ public class InputManager : AInputManager
 			
 		if (Physics.Raycast(ray, out hit))
 		{
-			if (hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2")
+			if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && !MousingOverGameObject())
 			{
 				ISquare square = hit.collider.gameObject.GetComponent<SquareScript> () as ISquare;
 
