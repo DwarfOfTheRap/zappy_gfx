@@ -3,12 +3,12 @@ using System.Collections;
 
 public abstract class AInputManager
 {
-	public delegate void LeftClickEventHandler (ClickEventArgs ev);
-	public delegate void RightClickEventHandler ();
+	public delegate void SquareClickEventHandler (ClickEventArgs ev);
+	public delegate void ClickEventHandler ();
 
-	public event LeftClickEventHandler OnLeftClicking;
-	public event RightClickEventHandler OnRightClicking;
-	public event LeftClickEventHandler OnDoubleClicking;
+	public event SquareClickEventHandler OnLeftClicking;
+	public event ClickEventHandler OnRightClicking;
+	public event SquareClickEventHandler OnDoubleClicking;
 
 	public abstract bool MoveLeft();
 	public abstract bool MoveRight();
