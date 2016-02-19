@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -26,9 +26,9 @@ public class SquareContentUI : MonoBehaviour {
 		players.text = square.GetResources ().players.Count.ToString ();
 	}
 
-	void DisplayWindow (ISquare square)
+	void DisplayWindow (ClickEventArgs args)
 	{
-		this.square = square;
+		this.square = args.square;
 		this.GetComponent<CanvasGroup> ().alpha = 1;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 	}
@@ -41,8 +41,8 @@ public class SquareContentUI : MonoBehaviour {
 	}
 
 	void Start () {
-		GameManagerScript.instance.inputManager.OnLeftClick += DisplayWindow;
-		GameManagerScript.instance.inputManager.OnRightClick += HideWindow;
+		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
+		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
 	}
 	
 	void Update () {

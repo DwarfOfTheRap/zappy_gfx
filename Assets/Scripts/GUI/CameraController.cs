@@ -3,31 +3,34 @@ using System.Collections;
 
 [System.Serializable]
 public class CameraController {
-	public IInputManager		inputManager;
+	public AInputManager		inputManager;
 	public ICameraMovement		cameraMovement;
 
 	public Vector3				position;
-	private float				doubleClickSpeed = 1.5f;
+	private const float			doubleClickSpeed = 1.5f;
 
-	public float				moveSpeed { get; set; }
-	private float				scrollSpeed = 1.0f;
+	private const float			startMoveSpeed = 0.5f;		
+	public float				moveSpeed { get; private set; }
+	private const float			scrollSpeed = 1.0f;
 
 	private int					currentHeight;
 	private int					currentWidth;
-	private ISquare				target = null;
+	public ISquare				target;
 
 	private const float			squareSide = 5.0f;
 	private const float			downBoundary = 3.5f;
 	private const float			upBoundary = 103.5f;
 
-	public CameraController (IInputManager inputManager, ICameraMovement cameraMovement, int currentHeight, int currentWidth)
+	private CameraController () {}
+
+	public CameraController (AInputManager inputManager, ICameraMovement cameraMovement, int currentHeight, int currentWidth)
 	{
 		this.currentHeight = currentHeight;
 		this.currentWidth = currentWidth;
 		this.inputManager = inputManager;
 		this.cameraMovement = cameraMovement;
-		var doubleClickEvent = this.inputManager.GetDoubleClickEvent();
-		doubleClickEvent += CheckDoubleClick;
+		this.inputManager.OnDoubleClicking += CheckDoubleClick;
+		this.moveSpeed = startMoveSpeed;
 		InitCameraPosition();
 	}
 
@@ -88,6 +91,7 @@ public class CameraController {
 		{
 			target = null;
 			position = cameraMovement.Move (new Vector3 (position.x - moveSpeed, position.y, position.z));
+			Debug.Log (position.ToString());
 		}
 	}
 
@@ -141,8 +145,8 @@ public class CameraController {
 		}
 	}
 
-	void CheckDoubleClick(ISquare square) {
-		target = square;
+	void CheckDoubleClick(ClickEventArgs args) {
+		target = args.square;
 	}
 
 	void CheckKeyboardInput()

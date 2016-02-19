@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -50,6 +50,6 @@ public class PlayerListUI : MonoBehaviour {
 	}
 
 	void Start () {
-		GameManagerScript.instance.inputManager.OnRightClick += DeletePlayers;
+		GameManagerScript.instance.inputManager.OnRightClicking += DeletePlayers;
 	}
 }

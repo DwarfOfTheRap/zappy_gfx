@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,7 +12,7 @@ public class SquareScript : MonoBehaviour, ISquare
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
-		GameManagerScript.instance.inputManager.OnLeftClick += SquareHighlighting;
+		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
 	}
 
 	public Vector3 GetPosition ()
@@ -65,9 +65,9 @@ public class SquareScript : MonoBehaviour, ISquare
 		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
 	}
 
-	void SquareHighlighting (ISquare square)
+	void SquareHighlighting (ClickEventArgs args)
 	{
-		if (square == (ISquare)this)
+		if (args.square == (ISquare)this)
 			Highlighted();
 		else
 			Standard();

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TeamCompositionUI : MonoBehaviour {
@@ -10,6 +10,6 @@ public class TeamCompositionUI : MonoBehaviour {
 	}
 
 	void Start () {
-		GameManagerScript.instance.inputManager.OnRightClick += HideWindow;
+		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
 	}
 }

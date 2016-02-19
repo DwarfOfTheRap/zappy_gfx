@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
+using System;
 
 [TestFixture]
 public class NavigationTests {
@@ -11,7 +12,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 
@@ -28,7 +29,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 
@@ -46,7 +47,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -64,7 +65,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -82,7 +83,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -100,7 +101,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -117,7 +118,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -134,7 +135,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -152,7 +153,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -171,7 +172,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -188,7 +189,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
 		
@@ -205,7 +206,7 @@ public class NavigationTests {
 	{
 		//Arrange
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		float initSpeed = 1.0f;
 
@@ -217,7 +218,7 @@ public class NavigationTests {
 	}
 
 	[Test]
-	public void CameraDoubleClick()
+	public void CameraMoveToTarget()
 	{
 		//Arrange
 		GridController gc = new GridController ();
@@ -225,28 +226,26 @@ public class NavigationTests {
 		int width = 10;
 		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
 		ICameraMovement camMov = GetMockCameraMovement ();
-		IInputManager inputM = GetMockInputManager ();
+		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, height, width);
-		bool wasCalled = false;
-		ISquare square;
+		ISquare sq;
 		Vector3 targetPos;
 
 		gc.SetSquareInstantiationController (sic);
 		gc.Init (width, height);
-		square = gc.GetSquare(3, 3);
-		targetPos = square.GetPosition();
-		inputM.DoubleLeftClick().Returns(true);
+		sq = gc.GetSquare(3, 3);
+		targetPos = sq.GetPosition();
 		//Act
-		GameManagerScript.instance.inputManager.OnDoubleClick += (args) => wasCalled = true;
-		GameManagerScript.instance.inputManager.OnDoubleClick += Raise.Event<InputManager.DoubleClickEvent>(this, square);
+		camCon.target = sq;
 		camCon.LateUpdate();
 		//Assert
-		Assert.That (wasCalled && camCon.position == targetPos);
+		Assert.That (camCon.position == targetPos);
 	}
-
-	public IInputManager GetMockInputManager()
+	public AInputManager GetMockInputManager()
 	{
-		return Substitute.For<IInputManager> ();
+		var im = Substitute.For<AInputManager> ();
+		im.MousingOverGameObject ().Returns (false);
+		return im;
 	}
 
 	public ICameraMovement GetMockCameraMovement()

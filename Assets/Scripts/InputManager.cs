@@ -1,124 +1,105 @@
 using UnityEngine;
 using System.Collections;
 
-public class InputManager : IInputManager 
+public class InputManager : AInputManager 
 {
-	public delegate void LeftClickEvent (ISquare square);
-	public delegate void RightClickEvent ();
-	public delegate void DoubleClickEvent (ISquare square);
-	public event LeftClickEvent OnLeftClick;
-	public event RightClickEvent OnRightClick;
-	public event DoubleClickEvent OnDoubleClick;
-
 	private float 				lastClickTime = 0.0f;
 	private float 				catchTime = 0.25f;
 
-	#region IInputManager implementation
+	#region AInputManager implementation
 
-	public RightClickEvent GetRightClickEvent ()
+	public override bool MoveLeft ()
 	{
-		return this.OnRightClick;
-	}
 
-	public LeftClickEvent GetLeftClickEvent ()
-	{
-		return this.OnLeftClick;
-	}
-
-	public DoubleClickEvent GetDoubleClickEvent ()
-	{
-		return this.OnDoubleClick;
-	}
-
-	public bool MoveLeft ()
-	{
 		return (Input.GetAxis ("Horizontal") < 0);
 	}
 
-	public bool MoveRight ()
+	public override bool MoveRight ()
 	{
 		return (Input.GetAxis ("Horizontal") > 0);
 	}
 
-	public float HorizontalMovementValue ()
+	public override float HorizontalMovementValue ()
 	{
 		return (Input.GetAxis ("Horizontal"));
 	}		
 
-	public bool MoveForward ()
+	public override bool MoveForward ()
 	{
 		return (Input.GetAxis ("Vertical") > 0);
 	}
 
-	public bool MoveBackward ()
+	public override bool MoveBackward ()
 	{
 		return (Input.GetAxis ("Vertical") < 0);
 	}
 
-	public float VerticalMovementValue ()
+	public override float VerticalMovementValue ()
 	{
 		return (Input.GetAxis ("Vertical"));
 	}
 
-	public bool MoveUp ()
+	public override bool MoveUp ()
 	{
 		return (Input.GetKey (KeyCode.Q));
 	}
 
-	public bool MoveDown ()
+	public override bool MoveDown ()
 	{
 		return (Input.GetKey (KeyCode.E));
 	}
 
-	public bool ResetCamera ()
+	public override bool ResetCamera ()
 	{
 		return (Input.GetKeyUp (KeyCode.Space));
 	}
 
-	public bool ScrollUp ()
+	public override bool ScrollUp ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
 	}
 
-	public bool ScrollDown ()
+	public override bool ScrollDown ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") > 0);
 	}
 
-	public float DeltaScroll ()
+	public override float DeltaScroll ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel"));
 	}
 
-	public bool DoubleMoveSpeed ()
+	public override bool DoubleMoveSpeed ()
 	{
 		return (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift));
 	}
 
-	public bool StandardMoveSpeed ()
+	public override bool StandardMoveSpeed ()
 	{
 		return (Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift));
 	}
 
-	public bool LeftClick ()
+	public override bool LeftClick ()
 	{
 		return (Input.GetMouseButtonUp (0));
 	}
 
-	public bool DoubleLeftClick ()
+	public override bool DoubleLeftClick ()
 	{
 		return (Time.time - lastClickTime < catchTime);
 	}
 
-	public bool RightClick ()
+	public override bool RightClick ()
 	{
 		return (Input.GetMouseButtonUp (1));
 	}
 
-	public bool MousingOverGameObject ()
+	public override bool MousingOverGameObject ()
 	{
 		return (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject ());
 	}
+	
+	#endregion
 
 	public void CheckInput ()
 	{
@@ -142,23 +123,15 @@ public class InputManager : IInputManager
 			{
 				ISquare square = hit.collider.gameObject.GetComponent<SquareScript> () as ISquare;
 
-				if (OnLeftClick != null)
-				{
-					OnLeftClick (square);
-				}
-				if (DoubleLeftClick() && OnDoubleClick != null)
-				{
-					OnDoubleClick (square);
-				}
+				this.OnLeftClick (square);
+				if (DoubleLeftClick())
+					this.OnDoubleClick (square);
 			}
 		}
 	}
 
 	void RightMouseClick ()
 	{
-		if (OnRightClick != null)
-			OnRightClick ();
+		this.OnRightClick ();
 	}
-
-	#endregion
 }
