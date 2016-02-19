@@ -91,7 +91,6 @@ public class CameraController {
 		{
 			target = null;
 			position = cameraMovement.Move (new Vector3 (position.x - moveSpeed, position.y, position.z));
-			Debug.Log (position.ToString());
 		}
 	}
 
