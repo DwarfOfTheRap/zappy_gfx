@@ -1,25 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerListUI : MonoBehaviour {
 
 	public GameObject		prefab;
-	public CanvasGroup		window;
-	
-	void CheckInput()
-	{
-		if (Input.GetMouseButtonUp (1)) {
-			Transform[] children = gameObject.GetComponentsInChildren<Transform>();
-
-			foreach(Transform trans in children)
-			{
-				if (trans != this.transform)
-					Destroy(trans.gameObject);
-			}
-			window.alpha = 0;
-		}
-	}
 
 	public void DisplayDetails(Team team)
 	{
@@ -39,7 +24,9 @@ public class PlayerListUI : MonoBehaviour {
 
 				script.playerIndex.text = "Player " + player.index.ToString();
 				script.playerLvl.text = "Lvl " + player.level.ToString();
+
 				/* TO REPLACE BY RELEVENT VALUES */
+				script.inventory.food.text = "0";
 				script.inventory.linemate.text = "1";
 				script.inventory.deraumere.text = "2";
 				script.inventory.sibur.text = "3";
@@ -51,8 +38,18 @@ public class PlayerListUI : MonoBehaviour {
 		}
 	}
 
-	void Update ()
+	void DeletePlayers ()
 	{
-		CheckInput();
+		Transform[]		pLChildren = this.GetComponentsInChildren<Transform>();
+
+		foreach(Transform trans in pLChildren)
+		{
+			if (trans != this.transform)
+				Destroy(trans.gameObject);
+		}
+	}
+
+	void Start () {
+		GameManagerScript.instance.inputManager.OnRightClicking += DeletePlayers;
 	}
 }

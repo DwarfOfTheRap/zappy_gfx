@@ -100,6 +100,7 @@ GameObject:
   - 223: {fileID: 22331934}
   - 114: {fileID: 11423290}
   - 114: {fileID: 11466660}
+  - 114: {fileID: 11432252}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -384,6 +385,7 @@ GameObject:
   - 222: {fileID: 22271308}
   - 114: {fileID: 11485872}
   - 225: {fileID: 22562814}
+  - 114: {fileID: 11406324}
   m_Layer: 5
   m_Name: Teams
   m_TagString: Untagged
@@ -913,6 +915,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ForceModuleActive: 0
+--- !u!114 &11406324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67a5c68b78224801938c3d7fd39b0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notMousingOver: 1
 --- !u!114 &11411888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1049,7 +1063,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 132732, guid: 0f954940677e34a01adde2ecde746b13, type: 2}
-  window: {fileID: 22548754}
 --- !u!114 &11418572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1283,7 +1296,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 198006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcfccd2ced9b64791aef9b249ca5a6fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bd0df76c2a1542f89bc27ad67a985dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   linemate: {fileID: 11457508}
@@ -1321,6 +1334,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11432252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4212dfb988634c9eb3f9bbf0a4216ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamList: {fileID: 11425516}
 --- !u!114 &11432836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3788,7 +3813,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!225 &22562814
 CanvasGroup:
