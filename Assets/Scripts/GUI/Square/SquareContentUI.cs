@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class SquareInfoScript : MonoBehaviour {
+public class SquareContentUI  : MonoBehaviour {
 
 	public ISquare square;
 	public Text linemateNumber;
