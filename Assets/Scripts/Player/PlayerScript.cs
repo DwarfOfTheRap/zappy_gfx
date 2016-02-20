@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	public PlayerController 	controller;
 	public Orientation			orientation;
 
-	private const float				_highlight_width = 0.0025f;
+	private const float			_highlight_width = 0.0025f;
 
 	private void OnEnable()
 	{

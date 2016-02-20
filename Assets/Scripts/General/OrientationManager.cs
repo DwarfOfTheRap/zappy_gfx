@@ -40,7 +40,7 @@ public static class OrientationManager {
 		case Orientation.WEST:
 			return Quaternion.Euler (0, 270, 0);
 		default:
-			return Quaternion.identity;
+			return Quaternion.Euler (0, 180, 0);
 		}
 	}
 	

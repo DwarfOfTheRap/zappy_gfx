@@ -6,17 +6,17 @@ using System;
 
 public class TeamListUI : MonoBehaviour {
 	public GameObject		prefab;
-
+	
 	void OnEnable()
 	{
 		TeamManager.OnTeamAdded += OnTeamAdded;
 	}
-
+	
 	void OnDisable()
 	{
 		TeamManager.OnTeamAdded -= OnTeamAdded;
 	}
-
+	
 	void OnTeamAdded(Team team)
 	{
 		GameObject buttonObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;

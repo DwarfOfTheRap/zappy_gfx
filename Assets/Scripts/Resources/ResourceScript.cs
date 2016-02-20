@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ResourceScript : MonoBehaviour, IResourceEnabler {
@@ -54,6 +54,11 @@ public class ResourceController
 	void Enable(bool state)
 	{
 		motor.Enable (state);
+	}
+
+	public override string ToString()
+	{
+		return _count.ToString ();
 	}
 }
 

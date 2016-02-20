@@ -11,6 +11,7 @@ public class PlayerUI : MonoBehaviour {
 	[System.Serializable]
 	public class PlayerInventoryUI
 	{
+		public Text 				food;
 		public Text 				linemate;
 		public Text 				deraumere;
 		public Text 				sibur;
@@ -21,6 +22,7 @@ public class PlayerUI : MonoBehaviour {
 
 	void Awake()
 	{
+		inventory.food = transform.FindChild ("PlayerInventory/Food").GetComponent<Text>();
 		inventory.linemate = transform.FindChild ("PlayerInventory/Linemate").GetComponent<Text>();
 		inventory.deraumere = transform.FindChild ("PlayerInventory/Deraumere").GetComponent<Text>();
 		inventory.sibur = transform.FindChild ("PlayerInventory/Sibur").GetComponent<Text>();

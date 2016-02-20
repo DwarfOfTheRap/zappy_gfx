@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,10 +12,12 @@ public class SquareScript : MonoBehaviour, ISquare
 	public	GameObject		foodPrefab;
 	private float			resourceElevation = 0.63f;
 
-	void Awake ()
+	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
+		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
+		GameManagerScript.instance.inputManager.OnRightClicking += Standard;
 		InitResources();
 	}
 
@@ -30,12 +32,14 @@ public class SquareScript : MonoBehaviour, ISquare
 		resources.nourriture = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), Color.cyan, foodPrefab);
 	}
 
-	ResourceController InitResource(float x, float z, Color color, GameObject prefab)
+ResourceController InitResource(float x, float z, Color color, GameObject prefab)
 	{
 		GameObject clone = Instantiate (prefab);
 		clone.transform.SetParent (this.transform);
 		clone.transform.localPosition = new Vector3(x, resourceElevation, z);
+		clone.GetComponentInChildren<Renderer>().material.EnableKeyword ("_EMISSION");
 		clone.GetComponentInChildren<Renderer>().material.color = new Color(color.r, color.g, color.b, clone.GetComponentInChildren<Renderer>().material.color.a);
+		clone.GetComponentInChildren<Renderer>().material.SetColor ("_EmissionColor", new Color(color.r / 4.0f, color.g / 4.0f, color.b / 4.0f, 1));
 		clone.GetComponentInChildren<ResourceScript>().Init();
 		return clone.GetComponentInChildren<ResourceScript>().controller;
 	}
@@ -109,6 +113,14 @@ public class SquareScript : MonoBehaviour, ISquare
 	public void Standard()
 	{
 		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
+	}
+
+	void SquareHighlighting (ClickEventArgs args)
+	{
+		if (args.square == (ISquare)this)
+			Highlighted();
+		else
+			Standard();
 	}
 }
 

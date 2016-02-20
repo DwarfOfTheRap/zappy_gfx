@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, IEggInstantiationController {
@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public GameObject						eggPrefab;
 	public GridScript						grid { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }
+	public InputManager 					inputManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 
@@ -16,6 +17,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		instance = this;
 		grid = GetComponentInChildren<GridScript>();
 		teamManager = new TeamManager();
+		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
 	}
 
@@ -29,6 +31,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	{
 		GameObject clone = Instantiate (playerPrefab);
 		return clone.GetComponent<PlayerScript>().controller;
+	}
+
+	void Update()
+	{
+		inputManager.CheckInput ();
 	}
 }
 
