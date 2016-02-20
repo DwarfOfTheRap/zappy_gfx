@@ -10,7 +10,6 @@ public class InputManager : AInputManager
 
 	public override bool MoveLeft ()
 	{
-
 		return (Input.GetAxis ("Horizontal") < 0);
 	}
 
@@ -116,7 +115,6 @@ public class InputManager : AInputManager
 	{
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			
 		if (Physics.Raycast(ray, out hit))
 		{
 			if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && !MousingOverGameObject())

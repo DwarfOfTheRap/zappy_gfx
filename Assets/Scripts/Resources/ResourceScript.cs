@@ -55,6 +55,11 @@ public class ResourceController
 	{
 		motor.Enable (state);
 	}
+
+	public override string ToString()
+	{
+		return _count.ToString ();
+	}
 }
 
 public interface IResourceEnabler {

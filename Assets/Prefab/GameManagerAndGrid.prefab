@@ -65,9 +65,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 166814}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 400acaadcd195484eb0c96473e504932, type: 3}
+  m_Script: {fileID: 11500000, guid: 93be3c3a6b2c447debc67c437396f02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 0}
+  eggPrefab: {fileID: 0}
 --- !u!114 &11486364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,6 +84,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 11405190, guid: 2b9fb187a60e24bccb434df484848b8e, type: 2}
   - {fileID: 11496556, guid: 1dc803647b77745339fd7b8b0f3d796a, type: 2}
+  teleporters: []
   controller:
     startHeight: 10
     startWidth: 10

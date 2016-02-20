@@ -12,10 +12,11 @@ public class SquareScript : MonoBehaviour, ISquare
 	public	GameObject		foodPrefab;
 	private float			resourceElevation = 0.63f;
 
-	void Awake ()
+	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
+		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
 		InitResources();
 	}
 
@@ -109,6 +110,14 @@ ResourceController InitResource(float x, float z, Color color, GameObject prefab
 	public void Standard()
 	{
 		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
+	}
+
+	void SquareHighlighting (ClickEventArgs args)
+	{
+		if (args.square == (ISquare)this)
+			Highlighted();
+		else
+			Standard();
 	}
 }
 

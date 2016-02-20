@@ -32,6 +32,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		GameObject clone = Instantiate (playerPrefab);
 		return clone.GetComponent<PlayerScript>().controller;
 	}
+
+	void Update()
+	{
+		inputManager.CheckInput ();
+	}
 }
 
 public interface IEggInstantiationController
