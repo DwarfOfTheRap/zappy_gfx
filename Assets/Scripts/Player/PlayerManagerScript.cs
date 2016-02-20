@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class PlayerManager {
+public class PlayerManagerScript {
 	public class PlayerNotFoundException : Exception
 	{
 		public PlayerNotFoundException() {}
@@ -20,14 +20,12 @@ public class PlayerManager {
 	/*!!!!!!!!*/public List<PlayerController>			players; /*!!!!!!!!*/
 	public GridController					gridController { get; private set; }
 	public TeamManager						teamManager { get; private set; }
-	public IPlayerInstantiationController	pic { get; private set; }
 	
-	PlayerManager(){}
+	PlayerManagerScript(){}
 	
-	public PlayerManager(GridController gridController, TeamManager teamManager, IPlayerInstantiationController pic)
+	public PlayerManagerScript(GridController gridController, TeamManager teamManager)
 	{
 		this.players = new List<PlayerController>();
-		this.pic = pic;
 		this.gridController = gridController;
 	}
 	

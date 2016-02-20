@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IPlayerMovementController {
+public interface IPlayerMotorController {
 	bool IsMoving();
 	void MoveToDestination(float speed);
 	void MoveToRotation(Quaternion rotation, float rotSpeed);

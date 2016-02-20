@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -224,7 +224,7 @@ public class NavigationTests {
 		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		ISquareInstantiationController sic = GetMockSquareInstantiationController ();
+		IGrid sic = GetMockSquareInstantiationController ();
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, height, width);
@@ -260,8 +260,8 @@ public class NavigationTests {
 		return Substitute.For<ISquare> ();
 	}
 	
-	private ISquareInstantiationController GetMockSquareInstantiationController ()
+	private IGrid GetMockSquareInstantiationController ()
 	{
-		return Substitute.For<ISquareInstantiationController> ();
+		return Substitute.For<IGrid> ();
 	}
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -15,14 +15,14 @@ public class PlayerController {
 	public Orientation	playerOrientation { get; private set; }
 	
 	private IAnimatorController	animatorController;
-	private IPlayerMovementController playerMovementController;
+	private IPlayerMotorController playerMovementController;
 	
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
 		this.animatorController = animatorController;
 	}
 	
-	public void SetPlayerMovementController(IPlayerMovementController playerMovementController)
+	public void SetPlayerMovementController(IPlayerMotorController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
 	}

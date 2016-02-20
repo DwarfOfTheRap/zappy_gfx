@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
@@ -33,9 +33,9 @@ public class GridController {
 	public	int			startHeight;
 	public	int			startWidth;
 
-	private ISquareInstantiationController squareInstantiationController;
+	private IGrid squareInstantiationController;
 
-	public void SetSquareInstantiationController (ISquareInstantiationController squareInstantiationController)
+	public void SetSquareInstantiationController (IGrid squareInstantiationController)
 	{
 		this.squareInstantiationController = squareInstantiationController;
 	}

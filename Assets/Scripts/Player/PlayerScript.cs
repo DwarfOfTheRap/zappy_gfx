@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMovementController {
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController {
 	public PlayerController controller;
 
 	public Vector3			destination;

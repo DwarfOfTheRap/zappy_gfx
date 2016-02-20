@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManagerScript : MonoBehaviour {
@@ -6,9 +6,8 @@ public class GameManagerScript : MonoBehaviour {
 
 	public GridScript				grid { get; private set; }
 	public InputManager 			inputManager { get; private set; }
-	public PlayerManager			playerManager { get; private set; }
+	public PlayerManagerScript			playerManager { get; private set; }
 	public TeamManager				teamManager { get; private set; }
-	public PlayerInstantiationController	pic { get; private set; }
 	
 	
 	void Awake()
@@ -17,8 +16,7 @@ public class GameManagerScript : MonoBehaviour {
 		grid = GetComponentInChildren<GridScript>();
 		inputManager = new InputManager();
 		teamManager = new TeamManager();
-		pic = new PlayerInstantiationController();
-		playerManager = new PlayerManager(grid.controller, teamManager, pic);
+		playerManager = new PlayerManagerScript(grid.controller, teamManager);
 	}
 
 	void Update()

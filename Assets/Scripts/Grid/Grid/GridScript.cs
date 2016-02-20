@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 
-public class GridScript : MonoBehaviour, ISquareInstantiationController {
+public class GridScript : MonoBehaviour, IGrid {
 
 	public SquareScript[] prefabs = new SquareScript[2];
 	public GridController controller;
