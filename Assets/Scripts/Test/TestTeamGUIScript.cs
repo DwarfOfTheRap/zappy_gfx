@@ -2,27 +2,28 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+#if UNITY_EDITOR
 public class TestTeamGUIScript : MonoBehaviour {
 
 	public List<Team> 		teams = new List<Team>() {
-		new Team() { name = "Pouet", color = new Color(1.0f, 0.0f, 0.0f, 1.0f) },
-		new Team() { name = "DOTR", color = new Color(1.0f, 0.0f, 1.0f, 1.0f) },
-		new Team() { name = "Trololo", color = new Color(0.0f, 1.0f, 1.0f, 1.0f) },
-		new Team() { name = "Bidule", color = new Color(0.0f, 0.0f, 1.0f, 1.0f) },
-		new Team() { name = "Machin", color = new Color(1.0f, 1.0f, 0.0f, 1.0f) },
-		new Team() { name = "Chouette", color = new Color(0.0f, 1.0f, 0.0f, 1.0f) },
-		new Team() { name = "Xirod", color = new Color(0.5f, 0.0f, 1.0f, 1.0f) },
-		new Team() { name = "D", color = new Color(0.0f, 0.5f, 1.0f, 1.0f) },
-		new Team() { name = " O", color = new Color(1.0f, 0.0f, 0.5f, 1.0f) },
-		new Team() { name = "  T", color = new Color(1.0f, 0.5f, 0.0f, 1.0f) },
-		new Team() { name = "   R", color = new Color(0.5f, 1.0f, 0.0f, 1.0f) }
+		new Team("Pouet", new Color(1.0f, 0.0f, 0.0f, 1.0f)),
+		new Team("DOTR", new Color(1.0f, 0.0f, 1.0f, 1.0f)),
+		new Team("Trololo", new Color(0.0f, 1.0f, 1.0f, 1.0f)),
+		new Team("Bidule", new Color(0.0f, 0.0f, 1.0f, 1.0f)),
+		new Team("Machin", new Color(1.0f, 1.0f, 0.0f, 1.0f)),
+		new Team("Chouette", new Color(0.0f, 1.0f, 0.0f, 1.0f)),
+		new Team("Xirod", new Color(0.5f, 0.0f, 1.0f, 1.0f)),
+		new Team("D", new Color(0.0f, 0.5f, 1.0f, 1.0f)),
+		new Team(" O", new Color(1.0f, 0.0f, 0.5f, 1.0f)),
+		new Team("  T", new Color(1.0f, 0.5f, 0.0f, 1.0f)),
+		new Team("   R", new Color(0.5f, 1.0f, 0.0f, 1.0f))
 	};
 
 	public TeamListUI		teamList;
 
 	void OnEnable ()
 	{
-		teamList.teams = teams;
+		GameManagerScript.instance.teamManager.teams = teams;
 	}
 
 	void Update ()
@@ -31,23 +32,24 @@ public class TestTeamGUIScript : MonoBehaviour {
 		Team dotr = teams.Find(x => x.name == "DOTR");
 		
 		List<PlayerController> players = new List<PlayerController>() {
-			new PlayerController() { index = 1, level = 1, team = pouet },
-			new PlayerController() { index = 2, level = 1, team = pouet },
-			new PlayerController() { index = 3, level = 1, team = pouet },
-			new PlayerController() { index = 4, level = 1, team = pouet },
-			new PlayerController() { index = 5, level = 1, team = pouet },
-			new PlayerController() { index = 6, level = 1, team = pouet },
-			new PlayerController() { index = 7, level = 1, team = pouet },
-			new PlayerController() { index = 8, level = 1, team = pouet },
-			new PlayerController() { index = 9, level = 1, team = pouet },
-			new PlayerController() { index = 10, level = 1, team = pouet },
-			new PlayerController() { index = 11, level = 1, team = pouet },
-			new PlayerController() { index = 12, level = 1, team = pouet },
-			new PlayerController() { index = 1, level = 1, team = dotr },
-			new PlayerController() { index = 2, level = 1, team = dotr },
-			new PlayerController() { index = 3, level = 1, team = dotr }
+			new PlayerController(1, 1, pouet),
+			new PlayerController(2, 1, pouet),
+			new PlayerController(3, 1, pouet),
+			new PlayerController(4, 1, pouet),
+			new PlayerController(5, 1, pouet),
+			new PlayerController(6, 1, pouet),
+			new PlayerController(7, 1, pouet),
+			new PlayerController(8, 1, pouet),
+			new PlayerController(9, 1, pouet),
+			new PlayerController(10, 1, pouet),
+			new PlayerController(11, 1, pouet),
+			new PlayerController(12, 1, pouet),
+			new PlayerController(1, 1, dotr),
+			new PlayerController(2, 1, dotr),
+			new PlayerController(3, 1, dotr)
 		};
 
 		GameManagerScript.instance.playerManager.players = players;
 	}
 }
+#endif

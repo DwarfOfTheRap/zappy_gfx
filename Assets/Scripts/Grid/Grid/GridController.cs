@@ -1,6 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [Serializable]
 public class GridController {
@@ -28,8 +29,8 @@ public class GridController {
 
 	public ISquare[] grid { get ; private set; }
 
-	private int			height;
-	private int			width;
+	public int 			height { get; private set; }
+	public int			width { get; private set; }
 	public	int			startHeight;
 	public	int			startWidth;
 
@@ -55,13 +56,109 @@ public class GridController {
 		return null;
 	}
 	
-	public ISquare GetSquare(int x, int y)
+	public virtual ISquare GetSquare(int x, int y)
 	{
 		if (grid == null)
 			throw new GridNotInitializedException("Tried to access the grid while it's not initialized yet.");
 		if ((x * height + y) < 0 || (x * height + y) >= grid.Length)
 			throw new GridOutOfBoundsException("Out of bounds with X = " + x + " and Y = " + y + ".");
 		return grid[x * height + y];
+	}
+
+	public bool GetSquarePosition(ISquare square, ref int x, ref int y)
+	{
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				if (grid[i * height + j] == square)
+				{
+					x = i;
+					y = j;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private void GetVisionNorth(int x, int y, int level, ref List<ISquare> squares)
+	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((i - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y + i) + height) % height));
+		}
+	}
+
+	private void GetVisionSouth(int x, int y, int level, ref List<ISquare> squares)
+	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((i - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y - i) + height) % height));
+		}
+	}
+
+	private void GetVisionEast(int x, int y, int level, ref List<ISquare> squares)
+	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((i - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x + i) + width) % width, ((y - count / 2 + j) + height) % height));
+		}
+	}
+
+	private void GetVisionWest(int x, int y, int level, ref List<ISquare> squares)
+	{
+		for (int i = 1; i <= level; i++)
+		{
+			int count = ((i - 1) * 2) + 1;
+			for (int j = 0; j < count; j++)
+				squares.Add (this.GetSquare (((x - i) + width) % width, ((y - count / 2 + j) + height) % height));
+		}
+	}
+
+	public ISquare[] GetVision(int x, int y, Orientation orientation, int level)
+	{
+		List<ISquare> squares = new List<ISquare>();
+		switch (orientation)
+		{
+			case Orientation.NORTH:
+				this.GetVisionNorth (x, y, level, ref squares);
+				break;
+			case Orientation.SOUTH:
+				this.GetVisionSouth (x, y, level, ref squares);
+				break;
+			case Orientation.EAST:
+				this.GetVisionEast (x, y, level, ref squares);
+				break;
+			case Orientation.WEST:
+				this.GetVisionWest (x, y, level, ref squares);
+				break;
+		}
+		if (squares.Count == 0)
+			return null;
+		return squares.ToArray ();
+	}
+
+	public Vector3 GetNearestTeleport (Vector3 distance, Vector3 currentPosition)
+	{
+		float absx = Mathf.Abs (distance.x);
+		float absz = Mathf.Abs (distance.z);
+		if (absx > absz && distance.x > 0)
+			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.WEST).x, currentPosition.y, currentPosition.z);
+		else if (absx > absz && distance.x <= 0)
+			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.EAST).x, currentPosition.y, currentPosition.z);
+		else if (absx <= absz && distance.z > 0)
+			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition (Orientation.SOUTH).z);
+		else if (absx <= absz && distance.z <= 0)
+			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition(Orientation.NORTH).z);
+		else
+			return Vector3.zero;
 	}
 	
 	public void Init(int width, int height)
@@ -97,6 +194,7 @@ public class GridController {
 			if (height % 2 == 0)
 				switchInt ^= 1;
 		}
+		squareInstantiationController.InitTeleporters (sizex, sizey, sizez, width, height);
 	}
 
 }

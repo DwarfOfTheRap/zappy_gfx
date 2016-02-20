@@ -1,12 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController {
-	public PlayerController controller;
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController{
+	public PlayerController 	controller;
+	public Orientation			orientation;
 
-	public Vector3			destination;
-	public Orientation		orientation;
+	private const float				_highlight_width = 0.0025f;
 
 	private void OnEnable()
 	{
@@ -39,20 +39,24 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	#endregion
 
-	#region IPlayerMovementController implementation
+	#region IPlayerMotorController implementation
 
-	public bool IsMoving ()
+	public bool IsMoving (Vector3 destination)
 	{
 		return this.transform.position != destination;
 	}
 
-	public void SetDestination (int x, int y)
+	public Vector3 SetDestination (Vector3 destination)
 	{
-		Vector3 tmp = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetPosition();
-		destination = new Vector3(tmp.x, transform.position.y, tmp.z);
+		return new Vector3(destination.x, transform.position.y, destination.z);
 	}
 
-	public void MoveToDestination (float speed)
+	public void SetPosition (Vector3 vector3)
+	{
+		this.transform.position = new Vector3(vector3.x, this.transform.position.y, vector3.z);
+	}
+
+	public void MoveToDestination (Vector3 destination, float speed)
 	{
 		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
 	}
@@ -62,10 +66,45 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed);
 	}
 
+	public void StopExpulsion()
+	{
+	} 
+
+	public void Expulsed(Orientation orientation)
+	{
+	}
+
+	public void EnableHighlight (Color color)
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials[0].SetFloat ("_Outline", _highlight_width);
+			renderer.materials[0].SetColor ("_OutlineColor", color);
+		}
+	}
+
+	public void DisableHighlight ()
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials[0].SetFloat ("_Outline", 0);
+			renderer.materials[0].SetColor ("_OutlineColor", Color.black);
+		}
+	}
+
+	public void SetTeamColor (Color color)
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials[1].color = color;
+		}
+		GetComponentInChildren<Light>().color = color;
+	}
+
 	#endregion
 
 	void Update()
 	{
-		controller.Update (this.transform.position, this.destination);
+		controller.Update (this.transform.position);
 	}
 }
