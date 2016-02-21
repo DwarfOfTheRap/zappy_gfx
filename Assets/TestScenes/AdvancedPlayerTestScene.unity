@@ -19735,7 +19735,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2124925908}
   m_HandleRect: {fileID: 2124925907}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -23174,6 +23174,10 @@ Prefab:
     - target: {fileID: 11459668, guid: 72708571449fd4fb0b3f8e6e30549cbf, type: 2}
       propertyPath: intensity
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2066354, guid: 72708571449fd4fb0b3f8e6e30549cbf, type: 2}
+      propertyPath: m_RenderingPath
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 72708571449fd4fb0b3f8e6e30549cbf, type: 2}
@@ -28310,6 +28314,17 @@ MonoBehaviour:
   jitter: .0500000007
   showVelocity: 0
   showVelocityScale: 1
+--- !u!114 &1903058712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1903058699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13b81547b63f4e5ba12617d0611b711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1906064985
 GameObject:
   m_ObjectHideFlags: 0
