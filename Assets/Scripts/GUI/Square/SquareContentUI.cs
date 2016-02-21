@@ -36,7 +36,10 @@ public class SquareContentUI : MonoBehaviour {
     void DisplayWindow (ClickEventArgs args)
     {
 		if (!args.target.IsSquare())
+		{
+			HideWindow ();
 			return ;
+		}
 		this.square = (ISquare)args.target;
         this.GetComponent<CanvasGroup> ().alpha = 1;
         this.GetComponent<CanvasGroup> ().blocksRaycasts = true;

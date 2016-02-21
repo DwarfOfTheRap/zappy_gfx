@@ -13,6 +13,7 @@ public class PlayerController {
 		public int						mendiane = 0;
 		public int						phiras = 0;
 		public int						thystame = 0;
+		public int						nourriture = 0;
 	}						   	
 	public PlayerInventory				inventory = new PlayerInventory();
 	public int							level;
