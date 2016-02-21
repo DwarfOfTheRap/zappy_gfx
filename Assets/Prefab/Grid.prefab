@@ -290,8 +290,8 @@ MonoBehaviour:
   - {fileID: 11496556, guid: 1dc803647b77745339fd7b8b0f3d796a, type: 2}
   teleporters: []
   controller:
-    startHeight: 30
-    startWidth: 30
+    startHeight: 10
+    startWidth: 10
 --- !u!114 &11438114
 MonoBehaviour:
   m_ObjectHideFlags: 1

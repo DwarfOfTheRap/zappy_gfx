@@ -17,6 +17,9 @@ GameObject:
   - 114: {fileID: 11473572}
   - 114: {fileID: 11459668}
   - 114: {fileID: 11471208}
+  - 114: {fileID: 11473038}
+  - 114: {fileID: 11477436}
+  - 114: {fileID: 11437286}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -174,6 +177,17 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 173510}
   m_Enabled: 1
+--- !u!114 &11437286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13b81547b63f4e5ba12617d0611b711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11438504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  intensity: 5.36000013
+  intensity: 2.5
   chromaticAberration: 0
   axialAberration: .879999995
   blur: .5
@@ -237,6 +251,19 @@ MonoBehaviour:
   shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
   shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
   shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
+--- !u!114 &11473038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e0beeb7601b4e24a6bd33091c82105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController:
+    position: {x: 0, y: 0, z: 0}
 --- !u!114 &11473572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,6 +281,38 @@ MonoBehaviour:
   blurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
   depthFetchShader: {fileID: 4800000, guid: 14768d3865b1342e3a861fbe19ba2db2, type: 3}
   creaseApplyShader: {fileID: 4800000, guid: b59984d82af624bd3b0c777f038276f2, type: 3}
+--- !u!114 &11477436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e9b95cf609d96409b6c40519432957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filterType: 2
+  preview: 0
+  previewScale: {x: 1, y: 1, z: 1}
+  movementScale: 0
+  rotationScale: 1
+  maxVelocity: 8
+  minVelocity: .100000001
+  velocityScale: .375
+  softZDistance: .00499999989
+  velocityDownsample: 1
+  excludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  shader: {fileID: 4800000, guid: 85a88efa8c871af4a9d17c64791b6f4f, type: 3}
+  dx11MotionBlurShader: {fileID: 4800000, guid: f1b13d7a80660504a858ea24cfa418c6,
+    type: 3}
+  replacementClear: {fileID: 4800000, guid: 7699c5fbfa27745a1abe111ab7bf9785, type: 3}
+  noiseTexture: {fileID: 2800000, guid: 31f5a8611c4ed1245b18456206e798dc, type: 3}
+  jitter: .0500000007
+  showVelocity: 0
+  showVelocityScale: 1
 --- !u!114 &11493612
 MonoBehaviour:
   m_ObjectHideFlags: 1

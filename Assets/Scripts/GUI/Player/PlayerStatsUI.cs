@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerStatsUI : MonoBehaviour {
 	
-	public PlayerController player;
+	public PlayerController player = null;
 	public Text linemateNumber;
 	public Text deraumereNumber;
 	public Text siburNumber;
@@ -57,12 +57,13 @@ public class PlayerStatsUI : MonoBehaviour {
 	}
 	
 	void Start () {
+		this.player = null;
 		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
 	}
 	
 	void Update () {
-		if (player != null)
+		if (this.player != null)
 			DisplayResources(player);
 	}
 }
