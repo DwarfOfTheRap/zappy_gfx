@@ -7,11 +7,16 @@ public class CameraScript : MonoBehaviour, ICameraMovement {
 
 	#region ICameraMovement implementation
 
-
-	public Vector3 Move (Vector3 position)
+	public Vector3 GoTo (Vector3 position)
 	{
 		this.transform.position = position;
-		return (transform.position);
+		return (this.transform.position);
+	}
+
+	public Vector3 Move (Vector3 direction, float speed)
+	{
+		this.transform.position += direction * speed * Time.deltaTime;
+		return (this.transform.position);
 	}
 
 

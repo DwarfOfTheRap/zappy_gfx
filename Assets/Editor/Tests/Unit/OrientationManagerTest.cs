@@ -84,7 +84,7 @@ public class OrientationManagerTest {
 		Quaternion expected_result1 = Quaternion.Euler(0, 90, 0);
 		Quaternion expected_result2 = Quaternion.Euler(0, 180, 0);
 		Quaternion expected_result3 = Quaternion.Euler (0, 270, 0);
-		Quaternion expected_result4 = Quaternion.identity;
+		Quaternion expected_result4 = Quaternion.Euler (0, 180, 0);
 		// Act
 		Quaternion result0 = OrientationManager.GetRotation(Orientation.NORTH);
 		Quaternion result1 = OrientationManager.GetRotation(Orientation.EAST);
