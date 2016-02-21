@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ResourceScript : MonoBehaviour, IResourceEnabler {
+public class ResourceScript : MonoBehaviour, IResource {
 	public ResourceController	controller;
 
 	void OnEnable()
@@ -30,9 +30,15 @@ public class ResourceScript : MonoBehaviour, IResourceEnabler {
 [System.Serializable]
 public class ResourceController
 {
-
+	public static Color	linemateColor { get { return Color.white; } }
+	public static Color deraumereColor { get { return new Color(119/255.0f, 13/255.0f, 80/255.0f); }}
+	public static Color	siburColor { get { return new Color(242/255.0f, 29/255.0f, 68/255.0f); }}
+	public static Color	mendianeColor { get { return new Color(255/255.0f, 137/255.0f, 48/255.0f); }}
+	public static Color	phirasColor { get { return new Color(255/255.0f, 212/255.0f, 53/255.0f); }}
+	public static Color	thystameColor { get { return Color.gray; }}
+	public static Color	foodColor { get { return Color.cyan; }}
 	public Color		color { get; private set;}
-	IResourceEnabler	motor;
+	IResource	motor;
 	private uint		_count;
 	public uint			count {
 		get {
@@ -44,7 +50,7 @@ public class ResourceController
 			}
 	}
 
-	public ResourceController(IResourceEnabler motor, Color color)
+	public ResourceController(IResource motor, Color color)
 	{
 		this.motor = motor;
 		this.color = color;
@@ -62,6 +68,6 @@ public class ResourceController
 	}
 }
 
-public interface IResourceEnabler {
+public interface IResource {
 	void Enable(bool state);
 }

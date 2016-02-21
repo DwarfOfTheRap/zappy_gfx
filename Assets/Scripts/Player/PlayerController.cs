@@ -33,6 +33,7 @@ public class PlayerController {
 	
 	private IAnimatorController			animatorController;
 	private IPlayerMotorController		playerMovementController;
+	private AInputManager				inputManager;	
 		
 #if UNITY_EDITOR
 	public PlayerController()
@@ -55,6 +56,13 @@ public class PlayerController {
 	public void SetPlayerMovementController(IPlayerMotorController playerMovementController)
 	{
 		this.playerMovementController = playerMovementController;
+	}
+
+	public void SetInputManager (AInputManager inputManager)
+	{
+		this.inputManager = inputManager;
+		inputManager.OnLeftClicking += OnLeftClick;
+		inputManager.OnRightClicking += OnRightClick;
 	}
 	
 	public void Incantate()
@@ -168,7 +176,20 @@ public class PlayerController {
 	{
 		playerMovementController.DisableHighlight ();
 	}
-	
+
+	void OnLeftClick(ClickEventArgs args)
+	{
+		if (args.target.IsPlayer () && args.target == (IClickTarget)playerMovementController)
+			EnableHighlight ();
+		else
+			DisableHighlight ();
+	}
+
+	void OnRightClick ()
+	{
+		DisableHighlight ();
+	}
+
 	public void Update(Vector3 position)
 	{
 		if (!dead)

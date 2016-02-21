@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController{
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController, IClickTarget {
 	public PlayerController 	controller;
 	public Orientation			orientation;
 
@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetPlayerOrientation(orientation);
+		controller.SetInputManager(GameManagerScript.instance.inputManager);
 	}
 
 	#region IAnimatorController implementation
@@ -99,6 +100,25 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 			renderer.materials[1].color = color;
 		}
 		GetComponentInChildren<Light>().color = color;
+	}
+
+	#endregion
+
+	#region IClickTarget implementation
+
+	public bool IsSquare ()
+	{
+		return false;
+	}
+
+	public bool IsPlayer ()
+	{
+		return true;
+	}
+
+	public Vector3 GetPosition ()
+	{
+		return this.transform.position;
 	}
 
 	#endregion

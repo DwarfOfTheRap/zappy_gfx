@@ -17,25 +17,27 @@ public class SquareContentUI : MonoBehaviour {
     public void DisplayResources (ISquare square)
     {
         linemateNumber.text = square.GetResources ().linemate.count.ToString ();
-        linemateNumber.color = square.GetResources ().linemate.color;
+		linemateNumber.color = ResourceController.linemateColor;
         deraumereNumber.text = square.GetResources ().deraumere.count.ToString ();
-        deraumereNumber.color = square.GetResources ().deraumere.color;
+		deraumereNumber.color = ResourceController.deraumereColor;
         siburNumber.text = square.GetResources ().sibur.count.ToString ();
-        siburNumber.color = square.GetResources ().sibur.color;
+		siburNumber.color = ResourceController.siburColor;
         mendianeNumber.text = square.GetResources ().mendiane.count.ToString ();
-        mendianeNumber.color = square.GetResources ().mendiane.color;
+		mendianeNumber.color = ResourceController.mendianeColor;
         phirasNumber.text = square.GetResources ().phiras.count.ToString ();
-        phirasNumber.color = square.GetResources ().phiras.color;
+		phirasNumber.color = ResourceController.phirasColor;
         thystameNumber.text = square.GetResources ().thystame.count.ToString ();
-        thystameNumber.color = square.GetResources ().thystame.color;
+		thystameNumber.color = ResourceController.thystameColor;
         nourritureNumber.text = square.GetResources ().nourriture.count.ToString ();
-        nourritureNumber.color = square.GetResources ().nourriture.color;
+		nourritureNumber.color = ResourceController.foodColor;
         playersNumber.text = square.GetResources ().players.Count.ToString ();
     }
 
     void DisplayWindow (ClickEventArgs args)
     {
-        this.square = args.square;
+		if (!args.target.IsSquare())
+			return ;
+		this.square = (ISquare)args.target;
         this.GetComponent<CanvasGroup> ().alpha = 1;
         this.GetComponent<CanvasGroup> ().blocksRaycasts = true;
     }

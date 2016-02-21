@@ -15,7 +15,7 @@ public class CameraController {
 
 	private int					currentHeight;
 	private int					currentWidth;
-	public ISquare				target;
+	public IClickTarget			target;
 
 	private const float			squareSide = 5.0f;
 	private const float			downBoundary = 3.5f;
@@ -146,7 +146,7 @@ public class CameraController {
 	}
 
 	void CheckDoubleClick(ClickEventArgs args) {
-		target = args.square;
+		target = args.target;
 	}
 
 	void CheckKeyboardInput()

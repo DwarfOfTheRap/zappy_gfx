@@ -119,7 +119,7 @@ public class InputManager : AInputManager
 		{
 			if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && !MousingOverGameObject())
 			{
-				ISquare square = hit.collider.gameObject.GetComponent<SquareScript> () as ISquare;
+				var square = hit.collider.gameObject.GetComponent<SquareScript> ();
 
 				this.OnLeftClick (square);
 				if (DoubleLeftClick())

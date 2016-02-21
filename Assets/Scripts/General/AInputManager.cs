@@ -36,19 +36,19 @@ public abstract class AInputManager
 
 	public abstract bool MousingOverGameObject();
 
-	public void OnLeftClick (ISquare sq)
+	protected void OnLeftClick (IClickTarget target)
 	{
 		if (OnLeftClicking != null)
-			OnLeftClicking(new ClickEventArgs { square = sq } );
+			OnLeftClicking(new ClickEventArgs { target = target } );
 	}
 
-	public void OnDoubleClick (ISquare sq)
+	protected void OnDoubleClick (IClickTarget target)
 	{
 		if (OnDoubleClicking != null)
-			OnDoubleClicking(new ClickEventArgs { square = sq } );
+			OnDoubleClicking(new ClickEventArgs { target = target } );
 	}
 
-	public void OnRightClick ()
+	protected void OnRightClick ()
 	{
 		if (OnRightClicking != null)
 			OnRightClicking();
@@ -57,5 +57,12 @@ public abstract class AInputManager
 
 public class ClickEventArgs : System.EventArgs
 {
-	public ISquare square { get; set; }
+	public IClickTarget target { get; set; }
+}
+
+public interface IClickTarget
+{
+	bool IsSquare();
+	bool IsPlayer();
+	Vector3 GetPosition();
 }

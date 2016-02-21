@@ -202,22 +202,16 @@ public class NavigationTests {
 	public void CameraMoveToTarget()
 	{
 		//Arrange
-		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		IGrid sic = GetMockSquareInstantiationController ();
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, height, width);
-		ISquare sq;
-		Vector3 targetPos;
+		var target = GetMockClickTarget ();
 
-		gc.SetSquareInstantiationController (sic);
-		gc.Init (width, height);
-		sq = gc.GetSquare(3, 3);
-		targetPos = sq.GetPosition();
+		Vector3 targetPos = target.GetPosition();
 		//Act
-		camCon.target = sq;
+		camCon.target = target;
 		camCon.LateUpdate();
 		//Assert
 		Assert.That (camCon.position == targetPos);
@@ -244,5 +238,10 @@ public class NavigationTests {
 	private IGrid GetMockSquareInstantiationController ()
 	{
 		return Substitute.For<IGrid> ();
+	}
+
+	private IClickTarget GetMockClickTarget()
+	{
+		return Substitute.For<IClickTarget>();
 	}
 }
