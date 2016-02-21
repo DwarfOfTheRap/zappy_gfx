@@ -117,13 +117,16 @@ public class InputManager : AInputManager
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast(ray, out hit))
 		{
+			IClickTarget target = null;
 			if ((hit.collider.gameObject.tag == "Floor1" || hit.collider.gameObject.tag == "Floor2") && !MousingOverGameObject())
+				target = hit.collider.gameObject.GetComponent<SquareScript> ();
+			if ((hit.collider.gameObject.tag == "Player") && !MousingOverGameObject ())
+				target = hit.collider.gameObject.GetComponent<PlayerScript> ();
+			if (target != null)
 			{
-				var square = hit.collider.gameObject.GetComponent<SquareScript> ();
-
-				this.OnLeftClick (square);
+				this.OnLeftClick (target);
 				if (DoubleLeftClick())
-					this.OnDoubleClick (square);
+					this.OnDoubleClick (target);
 			}
 		}
 	}

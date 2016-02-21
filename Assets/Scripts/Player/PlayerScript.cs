@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	private const float			_highlight_width = 0.0025f;
 
-	private void OnEnable()
+	private void Start()
 	{
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
