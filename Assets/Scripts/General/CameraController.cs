@@ -9,9 +9,9 @@ public class CameraController {
 	public Vector3				position;
 	private const float			doubleClickSpeed = 1.5f;
 
-	private const float			startMoveSpeed = 5f;		
+	private const float			startMoveSpeed = 20f;		
 	public float				moveSpeed { get; private set; }
-	public const float			scrollSpeed = 10f;
+	public const float			scrollSpeed = 30f;
 
 	private int					currentHeight;
 	private int					currentWidth;
@@ -134,7 +134,7 @@ public class CameraController {
 	void CheckSpeedUp() {
 		if (inputManager.DoubleMoveSpeed())
 		{
-			moveSpeed = startMoveSpeed * 2;
+			moveSpeed = startMoveSpeed * 1.5f;
 		}
 	}
 
