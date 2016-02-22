@@ -7,10 +7,22 @@ public class TimeCount : MonoBehaviour {
 	private string			timeString;
 	private float			totalGameSeconds;
 
+	IEnumerator TimeUpdate ()
+	{
+		while (true) {
+			if (GameManagerScript.instance.timeSpeed > 0) {
+				yield return new WaitForSeconds (1.0f / GameManagerScript.instance.timeSpeed);
+				totalGameSeconds += 1.0f;
+			}
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		totalGameSeconds += GameManagerScript.instance.timeSpeed * Time.deltaTime;
 		this.gameObject.GetComponent<Text> ().text = "00:00";
+
+		StartCoroutine (TimeUpdate());
 	}
 	
 	// Update is called once per frame
@@ -18,7 +30,6 @@ public class TimeCount : MonoBehaviour {
 		float seconds;
 		float minutes;
 
-		totalGameSeconds += GameManagerScript.instance.timeSpeed * Time.deltaTime;
 		seconds = totalGameSeconds % 60.0f;
 		minutes = totalGameSeconds / 60.0f;
 

@@ -635,6 +635,7 @@ GameObject:
   - 222: {fileID: 22286524}
   - 114: {fileID: 11454250}
   - 114: {fileID: 11479960}
+  - 114: {fileID: 11457420}
   m_Layer: 5
   m_Name: Speed
   m_TagString: Untagged
@@ -1137,6 +1138,7 @@ GameObject:
   - 224: {fileID: 22415390}
   - 222: {fileID: 22208376}
   - 114: {fileID: 11495492}
+  - 114: {fileID: 11438186}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -2526,13 +2528,35 @@ MonoBehaviour:
   m_FillRect: {fileID: 22445490}
   m_HandleRect: {fileID: 22498182}
   m_Direction: 0
-  m_MinValue: -1
-  m_MaxValue: 3
+  m_MinValue: 0
+  m_MaxValue: 4
   m_WholeNumbers: 1
-  m_Value: 0
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11457420}
+        m_MethodName: ChangeTextOnEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: ChangeTimeSpeed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &11426284
@@ -2919,6 +2943,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11438186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 169696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94327957e8f04141bec24979bc848b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11438848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3480,7 +3515,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: x1
+  m_Text: Play
 --- !u!114 &11454688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3568,6 +3603,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &11457420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1bfbeb64c0842cc91eb09cc6696113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11457508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5176,7 +5222,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99:99
+  m_Text: 00:00
 --- !u!114 &11496736
 MonoBehaviour:
   m_ObjectHideFlags: 1
