@@ -10,6 +10,8 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public InputManager 					inputManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
+	public float							timeSpeed;
+	public float[]							timeSpeeds = {0.0f, 0.5f, 1.0f, 2.0f, 4.0f};
 
 	void OnEnable()
 	{
@@ -19,6 +21,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
+		timeSpeed = 1.0f;
 	}
 
 	public EggController InstantiateEgg ()
@@ -31,6 +34,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	{
 		GameObject clone = Instantiate (playerPrefab);
 		return clone.GetComponent<PlayerScript>().controller;
+	}
+
+	public void ChangeTimeSpeed(float value)
+	{
+		timeSpeed = timeSpeeds [(int)value];
 	}
 
 	void Update()
