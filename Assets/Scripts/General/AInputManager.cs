@@ -5,50 +5,50 @@ public abstract class AInputManager
 {
 	public delegate void SquareClickEventHandler (ClickEventArgs ev);
 	public delegate void ClickEventHandler ();
-
+	
 	public event SquareClickEventHandler OnLeftClicking;
 	public event ClickEventHandler OnRightClicking;
 	public event SquareClickEventHandler OnDoubleClicking;
-
+	
 	public abstract bool MoveLeft();
 	public abstract bool MoveRight();
 	public abstract float HorizontalMovementValue();
-
+	
 	public abstract bool MoveForward();
 	public abstract bool MoveBackward();
 	public abstract float VerticalMovementValue();
-
+	
 	public abstract bool MoveUp();
 	public abstract bool MoveDown();
-
+	
 	public abstract bool ResetCamera();
-
+	
 	public abstract bool ScrollUp();
 	public abstract bool ScrollDown();
 	public abstract float DeltaScroll();
 	
 	public abstract bool DoubleMoveSpeed();
 	public abstract bool StandardMoveSpeed();
-
+	
 	public abstract bool LeftClick();
 	public abstract bool DoubleLeftClick();
 	public abstract bool RightClick();
-
+	
 	public abstract bool MousingOverGameObject();
-
-	public void OnLeftClick (ISquare sq)
+	
+	protected void OnLeftClick (IClickTarget target)
 	{
 		if (OnLeftClicking != null)
-			OnLeftClicking(new ClickEventArgs { square = sq } );
+			OnLeftClicking(new ClickEventArgs { target = target } );
 	}
-
-	public void OnDoubleClick (ISquare sq)
+	
+	protected void OnDoubleClick (IClickTarget target)
 	{
 		if (OnDoubleClicking != null)
-			OnDoubleClicking(new ClickEventArgs { square = sq } );
+			OnDoubleClicking(new ClickEventArgs { target = target } );
 	}
-
-	public void OnRightClick ()
+	
+	protected void OnRightClick ()
 	{
 		if (OnRightClicking != null)
 			OnRightClicking();
@@ -57,5 +57,12 @@ public abstract class AInputManager
 
 public class ClickEventArgs : System.EventArgs
 {
-	public ISquare square { get; set; }
+	public IClickTarget target { get; set; }
+}
+
+public interface IClickTarget
+{
+	bool IsSquare();
+	bool IsPlayer();
+	Vector3 GetPosition();
 }

@@ -6,7 +6,7 @@ using System;
 
 [TestFixture]
 public class NavigationTests {
-
+	
 	[Test]
 	public void CameraReset()
 	{
@@ -15,7 +15,7 @@ public class NavigationTests {
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
 		Vector3 initPos;
-
+		
 		initPos = camCon.position;
 		//Act
 		camCon.position = new Vector3 (0.0f, 0.0f, 0.0f);
@@ -23,7 +23,7 @@ public class NavigationTests {
 		//Assert
 		Assert.AreEqual(initPos, camCon.position);
 	}
-
+	
 	[Test]
 	public void CameraScrollUp()
 	{
@@ -31,17 +31,15 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
-
-		initPos = camCon.position;
+		
 		inputM.MousingOverGameObject().Returns(false);
 		inputM.ScrollUp().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y > initPos.y && x.z < initPos.z)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y > 0 && x.z < 0)), CameraController.scrollSpeed);
 	}
-
+	
 	[Test]
 	public void CameraScrollUpOnObject()
 	{
@@ -49,17 +47,15 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MousingOverGameObject().Returns(true);
 		inputM.ScrollUp().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.DidNotReceive().Move (Arg.Is<Vector3>(x => (x.y > initPos.y && x.z < initPos.z)));
+		camMov.DidNotReceiveWithAnyArgs().Move (Arg.Any <Vector3>(), Arg.Any<float>());
 	}
-
+	
 	[Test]
 	public void CameraScrollDown()
 	{
@@ -67,17 +63,15 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MousingOverGameObject().Returns(false);
 		inputM.ScrollDown().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y < initPos.y && x.z > initPos.z)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y < 0 && x.z > 0)), CameraController.scrollSpeed);
 	}
-
+	
 	[Test]
 	public void CameraScrollDownOnObject()
 	{
@@ -85,17 +79,15 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MousingOverGameObject().Returns(true);
 		inputM.ScrollDown().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.DidNotReceive().Move (Arg.Is<Vector3>(x => (x.y > initPos.y && x.z < initPos.z)));
+		camMov.DidNotReceiveWithAnyArgs().Move (Vector3.zero, 0.0f);
 	}
-
+	
 	[Test]
 	public void CameraMoveLeft()
 	{
@@ -103,16 +95,14 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MoveLeft().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.x < initPos.x)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.x < 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveRight()
 	{
@@ -120,16 +110,14 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MoveRight().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.x > initPos.x)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.x > 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveForward()
 	{
@@ -137,17 +125,16 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
+		camCon.position = new Vector3(camCon.position.x, camCon.position.y, 0.0f);
 		inputM.MoveForward().Returns(true);
 		inputM.VerticalMovementValue().Returns(1.0f);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.z > initPos.z)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.z > 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveBackward()
 	{
@@ -155,18 +142,16 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
 		camCon.position = new Vector3(camCon.position.x, camCon.position.y, 0.0f);
-		initPos = camCon.position;
 		inputM.MoveBackward().Returns(true);
 		inputM.VerticalMovementValue().Returns(-1.0f);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.z < initPos.z)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.z < 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveUp()
 	{
@@ -174,16 +159,14 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MoveUp().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y > initPos.y)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y > 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveDown()
 	{
@@ -191,16 +174,14 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		Vector3 initPos;
 		
-		initPos = camCon.position;
 		inputM.MoveDown().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y < initPos.y)));
+		camMov.Received().Move (Arg.Is<Vector3>(x => (x.y < 0)), camCon.moveSpeed);
 	}
-
+	
 	[Test]
 	public void CameraSpeedUp()
 	{
@@ -208,35 +189,29 @@ public class NavigationTests {
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, 10, 10);
-		float initSpeed = 1.0f;
-
+		float initSpeed = camCon.moveSpeed;
+		
 		inputM.DoubleMoveSpeed().Returns(true);
 		//Act
 		camCon.LateUpdate();
 		//Assert
-		Assert.AreEqual(camCon.moveSpeed, initSpeed);
+		Assert.Greater(camCon.moveSpeed, initSpeed);
 	}
-
+	
 	[Test]
 	public void CameraMoveToTarget()
 	{
 		//Arrange
-		GridController gc = new GridController ();
 		int height = 10;
 		int width = 10;
-		IGrid sic = GetMockSquareInstantiationController ();
 		ICameraMovement camMov = GetMockCameraMovement ();
 		AInputManager inputM = GetMockInputManager ();
 		CameraController camCon = new CameraController(inputM, camMov, height, width);
-		ISquare sq;
-		Vector3 targetPos;
-
-		gc.SetSquareInstantiationController (sic);
-		gc.Init (width, height);
-		sq = gc.GetSquare(3, 3);
-		targetPos = sq.GetPosition();
+		var target = GetMockClickTarget ();
+		
+		Vector3 targetPos = target.GetPosition();
 		//Act
-		camCon.target = sq;
+		camCon.target = target;
 		camCon.LateUpdate();
 		//Assert
 		Assert.That (camCon.position == targetPos);
@@ -247,14 +222,14 @@ public class NavigationTests {
 		im.MousingOverGameObject ().Returns (false);
 		return im;
 	}
-
+	
 	public ICameraMovement GetMockCameraMovement()
 	{
 		ICameraMovement cam = Substitute.For<ICameraMovement> ();
-		cam.Move (Vector3.zero).ReturnsForAnyArgs(x => { return (Vector3)x[0]; });
+		cam.GoTo (Vector3.zero).ReturnsForAnyArgs(x => { return (Vector3)x[0]; });
 		return cam;
 	}
-
+	
 	private ISquare GetMockSquare ()
 	{
 		return Substitute.For<ISquare> ();
@@ -263,5 +238,10 @@ public class NavigationTests {
 	private IGrid GetMockSquareInstantiationController ()
 	{
 		return Substitute.For<IGrid> ();
+	}
+	
+	private IClickTarget GetMockClickTarget()
+	{
+		return Substitute.For<IClickTarget>();
 	}
 }

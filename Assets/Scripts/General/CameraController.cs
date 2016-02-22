@@ -5,24 +5,24 @@ using System.Collections;
 public class CameraController {
 	public AInputManager		inputManager;
 	public ICameraMovement		cameraMovement;
-
+	
 	public Vector3				position;
 	private const float			doubleClickSpeed = 1.5f;
-
-	private const float			startMoveSpeed = 0.5f;		
+	
+	private const float			startMoveSpeed = 5f;		
 	public float				moveSpeed { get; private set; }
-	private const float			scrollSpeed = 1.0f;
-
+	public const float			scrollSpeed = 10f;
+	
 	private int					currentHeight;
 	private int					currentWidth;
-	public ISquare				target;
-
+	public IClickTarget			target;
+	
 	private const float			squareSide = 5.0f;
 	private const float			downBoundary = 3.5f;
 	private const float			upBoundary = 103.5f;
-
+	
 	private CameraController () {}
-
+	
 	public CameraController (AInputManager inputManager, ICameraMovement cameraMovement, int currentHeight, int currentWidth)
 	{
 		this.currentHeight = currentHeight;
@@ -33,13 +33,13 @@ public class CameraController {
 		this.moveSpeed = startMoveSpeed;
 		InitCameraPosition();
 	}
-
+	
 	public void InitCameraPosition()
 	{
-		position = cameraMovement.Move(new Vector3 (0.0f + (squareSide / 2) * (currentHeight - 1), 25.0f + (1.875f * (currentWidth - 10)), -31.5f - (1.675f * (currentWidth - 10))));
+		position = cameraMovement.GoTo(new Vector3 (0.0f + (squareSide / 2) * (currentHeight - 1), 25.0f + (1.875f * (currentWidth - 10)), -31.5f - (1.675f * (currentWidth - 10))));
 		cameraMovement.Rotate(Quaternion.Euler(new Vector3(28.0f, 0.0f, 0.0f)));
 	}
-
+	
 	void GoToTarget ()
 	{
 		if (target != null)
@@ -47,15 +47,15 @@ public class CameraController {
 			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 16.5f, target.GetPosition().z - 28.0f), doubleClickSpeed);
 		}
 	}
-
+	
 	void CheckMouseScrollDown()
 	{
 		bool mousingOver = inputManager.MousingOverGameObject();
-
+		
 		if (inputManager.ScrollDown() && position.y > downBoundary && mousingOver == false)
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y - scrollSpeed, position.z + scrollSpeed));
+			position = cameraMovement.Move (Vector3.down + Vector3.forward, scrollSpeed);
 		}
 	}
 	
@@ -66,62 +66,63 @@ public class CameraController {
 		if (inputManager.ScrollUp() && position.y < upBoundary && mousingOver == false)
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y + scrollSpeed, position.z - scrollSpeed));
+			position = cameraMovement.Move (Vector3.up + Vector3.back, scrollSpeed);
 		}
 	}
-
+	
 	void CheckForwardInput() {
 		if (inputManager.MoveForward() && position.z < (40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)))
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y, position.z + (inputManager.VerticalMovementValue() * moveSpeed)));
+			position = cameraMovement.Move (Vector3.forward * inputManager.VerticalMovementValue (), moveSpeed);
 		}
 	}
-
+	
 	void CheckBackwardInput() {
 		if (inputManager.MoveBackward() && position.z > -10.0f - (position.y - downBoundary))
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y, position.z + (inputManager.VerticalMovementValue() * moveSpeed)));
+			position = cameraMovement.Move (Vector3.forward * inputManager.VerticalMovementValue (), moveSpeed);
 		}
 	}
-
+	
 	void CheckLeftInput() {
 		if (inputManager.MoveLeft() && position.x > -(squareSide / 2))
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x - moveSpeed, position.y, position.z));
+			position = cameraMovement.Move (Vector3.left, moveSpeed);
 		}
 	}
-
+	
 	void CheckRightInput() {
 		if (inputManager.MoveRight() && position.x < ((currentHeight * squareSide) - (squareSide / 2)))
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x + moveSpeed, position.y, position.z));
+			position = cameraMovement.Move (Vector3.right, moveSpeed);
 		}
 	}
-
+	
 	void CheckUpwardInput() {
 		if (inputManager.MoveUp() && position.y < upBoundary)
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y + moveSpeed, position.z));
+			position = cameraMovement.Move (Vector3.up, moveSpeed);
 			if (position.z > (40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)))
-				position = cameraMovement.Move (new Vector3 (position.x, position.y, 40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)));
+				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, 40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)));
 		}
 	}
-
+	
 	void CheckDownwardInput() {
 		if (inputManager.MoveDown () && position.y > downBoundary)
 		{
 			target = null;
-			position = cameraMovement.Move (new Vector3 (position.x, position.y - moveSpeed, position.z));
+			
+			position = cameraMovement.Move (Vector3.down, moveSpeed);
 			if (position.z < -10.0f - (position.y - downBoundary))
-				position = cameraMovement.Move (new Vector3 (position.x, position.y, -10.0f - (position.y - downBoundary)));
+				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, -10.0f - (position.y - downBoundary)));
 		}
 	}
-
+	
 	void CheckCameraReset() {
 		if (inputManager.ResetCamera())
 		{
@@ -129,25 +130,25 @@ public class CameraController {
 			InitCameraPosition();
 		}
 	}
-
+	
 	void CheckSpeedUp() {
 		if (inputManager.DoubleMoveSpeed())
 		{
-			moveSpeed = 1.0f;
+			moveSpeed = startMoveSpeed * 2;
 		}
 	}
-
+	
 	void CheckSlowDown() {
 		if (inputManager.StandardMoveSpeed())
 		{
-			moveSpeed = 0.5f;
+			moveSpeed = startMoveSpeed;
 		}
 	}
-
+	
 	void CheckDoubleClick(ClickEventArgs args) {
-		target = args.square;
+		target = args.target;
 	}
-
+	
 	void CheckKeyboardInput()
 	{
 		CheckForwardInput();
@@ -160,7 +161,7 @@ public class CameraController {
 		CheckSpeedUp();
 		CheckSlowDown();
 	}
-
+	
 	public void LateUpdate () {
 		CheckMouseScrollUp();
 		CheckMouseScrollDown();

@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController{
+public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController, IClickTarget {
 	public PlayerController 	controller;
 	public Orientation			orientation;
 
@@ -103,6 +103,24 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	#endregion
 
+	#region IClickTarget implementation
+	
+	public bool IsSquare ()
+	{
+		return false;
+	}
+	
+	public bool IsPlayer ()
+	{
+		return true;
+	}
+	
+	public Vector3 GetPosition ()
+	{
+		return this.transform.position;
+	}
+	
+	#endregion
 	void Update()
 	{
 		controller.Update (this.transform.position);
