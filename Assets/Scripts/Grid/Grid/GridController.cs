@@ -60,7 +60,7 @@ public class GridController {
 	{
 		if (grid == null)
 			throw new GridNotInitializedException("Tried to access the grid while it's not initialized yet.");
-		if ((x * height + y) < 0 || (x * height + y) >= grid.Length)
+		if ((x * height + y) < 0 || (x * height + y) >= grid.Length || x < 0 || y < 0)
 			throw new GridOutOfBoundsException("Out of bounds with X = " + x + " and Y = " + y + ".");
 		return grid[x * height + y];
 	}

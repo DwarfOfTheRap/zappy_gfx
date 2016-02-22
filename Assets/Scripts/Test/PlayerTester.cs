@@ -12,6 +12,7 @@ public class PlayerTester : MonoBehaviourTester {
 	public MonoBehaviourTest		setDestinationTestLegit;
 	public MonoBehaviourTest		expulsedTest;
 	public MonoBehaviourTest		teamTest;
+	public MonoBehaviourTest		constantWalkingTest;
 	public Orientation				orientation;
 	public SquareScript				destinationSquare;
 	public SquareScript				originSquare;
@@ -40,6 +41,8 @@ public class PlayerTester : MonoBehaviourTester {
 			StartCoroutine (WaitForTest (setDestinationTestLegit, TestDestinationLegit));
 		if (teamTest.enabled)
 			StartCoroutine (WaitForTest (teamTest, TestTeam));
+		if (constantWalkingTest.enabled)
+			StartCoroutine (WaitForTest (constantWalkingTest, TestWalk));
 	}
 
 	void TestOrientation ()
@@ -84,6 +87,24 @@ public class PlayerTester : MonoBehaviourTester {
 		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		//GetComponent<PlayerScript>().controller.EnableHighlight ();
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
+	}
+
+	void TestWalk()
+	{
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		StartCoroutine (WalkMore(initVector[0], initVector[1]));
+	}
+
+	IEnumerator WalkMore(int x, int y)
+	{
+		while (true) {
+			yield return new WaitForEndOfFrame();
+			if (GetComponent<PlayerScript>().controller.destination == GetComponent<PlayerScript>().transform.position)
+			{
+				y = (GameManagerScript.instance.grid.controller.height + (y - 1)) % GameManagerScript.instance.grid.controller.height;
+				GetComponent<PlayerScript> ().controller.SetDestination (GameManagerScript.instance.grid.controller.GetSquare (x, y), GameManagerScript.instance.grid.controller);
+			}
+		}
 	}
 
 	void Update()

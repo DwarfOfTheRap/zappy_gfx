@@ -636,6 +636,7 @@ GameObject:
   - 114: {fileID: 11454250}
   - 114: {fileID: 11479960}
   - 114: {fileID: 11457420}
+  - 114: {fileID: 11435212}
   m_Layer: 5
   m_Name: Speed
   m_TagString: Untagged
@@ -2535,7 +2536,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11457420}
+      - m_Target: {fileID: 11435212}
         m_MethodName: ChangeTextOnEvent
         m_Mode: 0
         m_Arguments:
@@ -2832,6 +2833,17 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
+--- !u!114 &11435212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa1bfbeb64c0842cc91eb09cc6696113, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11436870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5338,7 +5350,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11467444}
   m_HandleRect: {fileID: 22438198}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

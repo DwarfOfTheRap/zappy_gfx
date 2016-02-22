@@ -49,6 +49,11 @@ public class PlayerController {
 	}
 #endif
 
+	public void ChangeAnimationSpeed(float value)
+	{
+		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeSpeed);
+	}
+
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
 		this.animatorController = animatorController;
