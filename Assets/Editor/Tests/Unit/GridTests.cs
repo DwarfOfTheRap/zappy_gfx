@@ -153,10 +153,10 @@ public class GridTests {
 		gc.Init (10, 10);
 
 		// Assert
-		Assert.AreSame(gc.GetVision (5, 5, Orientation.EAST, 1)[0], gc.GetSquare (6, 5));
-		Assert.AreSame(gc.GetVision (5, 5, Orientation.WEST, 1)[0], gc.GetSquare (4, 5));
-		Assert.AreSame(gc.GetVision (5, 5, Orientation.SOUTH, 1)[0], gc.GetSquare (5, 4));
-		Assert.AreSame(gc.GetVision (5, 5, Orientation.NORTH, 1)[0], gc.GetSquare (5, 6));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.EAST, 1)[0], gc.GetSquare (5, 5));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.WEST, 1)[0], gc.GetSquare (5, 5));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.SOUTH, 1)[0], gc.GetSquare (5, 5));
+		Assert.AreSame(gc.GetVision (5, 5, Orientation.NORTH, 1)[0], gc.GetSquare (5, 5));
 	}
 
 	[Test]
@@ -169,15 +169,15 @@ public class GridTests {
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
 
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.EAST, 1)[0], gc.GetSquare (0, 1));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.WEST, 1)[0], gc.GetSquare (0, 9));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.SOUTH, 1)[0], gc.GetSquare (9, 0));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.NORTH, 1)[0], gc.GetSquare (1, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.EAST, 1)[2], gc.GetSquare (0, 1));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.WEST, 1)[2], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.SOUTH, 1)[2], gc.GetSquare (9, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.NORTH, 1)[2], gc.GetSquare (1, 0));
 			
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.EAST, 1)[0], gc.GetSquare (9, 0));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.WEST, 1)[0], gc.GetSquare (9, 8));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.SOUTH, 1)[0], gc.GetSquare (0, 9));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.NORTH, 1)[0], gc.GetSquare (8, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.EAST, 1)[2], gc.GetSquare (9, 0));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.WEST, 1)[2], gc.GetSquare (9, 8));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.SOUTH, 1)[2], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.NORTH, 1)[2], gc.GetSquare (8, 9));
 	}
 
 	[Test]
@@ -194,7 +194,7 @@ public class GridTests {
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.NORTH, 3));
 
 		// Arrange
-		Assert.AreEqual (9, lst.Count);
+		Assert.AreEqual (16, lst.Count);
 		Assert.AreSame (gc.GetSquare (0, 1), lst.Find(x => x == gc.GetSquare (0, 1)));
 		Assert.AreSame (gc.GetSquare (0, 2), lst.Find(x => x == gc.GetSquare (0, 2)));
 		Assert.AreSame (gc.GetSquare (0, 3), lst.Find(x => x == gc.GetSquare (0, 3)));
@@ -220,7 +220,7 @@ public class GridTests {
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.SOUTH, 3));
 		
 		// Arrange
-		Assert.AreEqual (9, lst.Count);
+		Assert.AreEqual (16, lst.Count);
 		Assert.AreSame (gc.GetSquare (0, 9), lst.Find(x => x == gc.GetSquare (0, 9)));
 		Assert.AreSame (gc.GetSquare (9, 8), lst.Find(x => x == gc.GetSquare (9, 8)));
 		Assert.AreSame (gc.GetSquare (0, 8), lst.Find(x => x == gc.GetSquare (0, 8)));
@@ -246,7 +246,7 @@ public class GridTests {
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.EAST, 3));
 		
 		// Arrange
-		Assert.AreEqual (9, lst.Count);
+		Assert.AreEqual (16, lst.Count);
 		Assert.AreSame (gc.GetSquare (1, 0), lst.Find(x => x == gc.GetSquare (1, 0)));
 		Assert.AreSame (gc.GetSquare (2, 9), lst.Find(x => x == gc.GetSquare (2, 9)));
 		Assert.AreSame (gc.GetSquare (2, 0), lst.Find(x => x == gc.GetSquare (2, 0)));
@@ -272,7 +272,7 @@ public class GridTests {
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.WEST, 3));
 		
 		// Arrange
-		Assert.AreEqual (9, lst.Count);
+		Assert.AreEqual (16, lst.Count);
 		Assert.AreSame (gc.GetSquare (9, 0), lst.Find(x => x == gc.GetSquare (9, 0)));
 		Assert.AreSame (gc.GetSquare (8, 9), lst.Find(x => x == gc.GetSquare (8, 9)));
 		Assert.AreSame (gc.GetSquare (8, 0), lst.Find(x => x == gc.GetSquare (8, 0)));

@@ -128,7 +128,7 @@ public class GridController {
 		}
 	}
 
-	public ISquare[] GetVision(int x, int y, Orientation orientation, int level)
+	public virtual ISquare[] GetVision(int x, int y, Orientation orientation, int level)
 	{
 		List<ISquare> squares = new List<ISquare>();
 		switch (orientation)

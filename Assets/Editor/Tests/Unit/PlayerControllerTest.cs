@@ -36,6 +36,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		var movementController = GetPlayerMovementControllerMock();
 		var controller = GetPlayerControllerMock (movementController);
 		var gridcontroller = GetGridControllerMock ();
+		controller.SetGridController (gridcontroller);
 		var square = GetSquareMock ();
 		square.GetPosition ().Returns (new Vector3(0, 0, 0));
 		square.GetResources ().Returns (new SquareContent());
@@ -53,6 +54,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		var movementController = GetPlayerMovementControllerMock();
 		var controller = GetPlayerControllerMock (movementController);
 		var gridcontroller = GetGridControllerMock ();
+		controller.SetGridController (gridcontroller);
 		var square = GetSquareMock ();
 		square.GetPosition ().Returns (new Vector3(3, 3, 3));
 		gridcontroller.GetSquare (3, 3).Returns(square);
@@ -68,7 +70,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.GoToDestination (Orientation.NORTH);
 		// Assert
@@ -83,7 +85,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.GoToDestination (Orientation.EAST);
 		// Assert
@@ -98,7 +100,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.GoToDestination (Orientation.SOUTH);
 		// Assert
@@ -113,7 +115,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.GoToDestination (Orientation.WEST);
 		// Assert
@@ -128,7 +130,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.SetPlayerOrientation(Orientation.NORTH);
 		controller.GoToDestination (Orientation.NORTH);
@@ -142,7 +144,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.SetPlayerOrientation(Orientation.EAST);
 		controller.GoToDestination (Orientation.NORTH);
@@ -156,7 +158,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.SetPlayerOrientation(Orientation.SOUTH);
 		controller.GoToDestination (Orientation.NORTH);
@@ -170,7 +172,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
 		var animatorController = GetAnimatorControllerMock ();
-		var controller = GetPlayerControllerMock (animatorController, movementController);
+		var controller = GetPlayerControllerMock (animatorController, movementController, GetGridControllerMock());
 		// Act
 		controller.SetPlayerOrientation(Orientation.WEST);
 		controller.GoToDestination (Orientation.NORTH);
@@ -216,11 +218,12 @@ public class PlayerControllerTest : MonoBehaviour {
 		return controller;
 	}
 
-	public PlayerController GetPlayerControllerMock(IAnimatorController animatorController, IPlayerMotorController movementController)
+	public PlayerController GetPlayerControllerMock(IAnimatorController animatorController, IPlayerMotorController movementController, GridController gridController)
 	{
 		var controller = Substitute.For<PlayerController>();
 		controller.SetAnimatorController(animatorController);
 		controller.SetPlayerMovementController(movementController);
+		controller.SetGridController (gridController);
 		movementController.IsMoving (Vector3.zero).ReturnsForAnyArgs(true);
 		return controller;
 	}
