@@ -174,6 +174,7 @@ public interface ISquare
     void DestroyImmediate();
     SquareContent GetResources();
 	void SetResources(uint nourriture, uint linemate, uint deraumere, uint sibur, uint mendiane, uint phiras, uint thystame);
+	void Highlighted(Color color);
     void Highlighted();
     void Standard();
 }

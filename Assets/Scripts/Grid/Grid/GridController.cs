@@ -27,6 +27,12 @@ public class GridController {
 		public GridNotInitializedException(string message) : base(message) {}
 	}
 
+	public class SquareNotFoundException : Exception
+	{
+		public SquareNotFoundException(){}
+		public SquareNotFoundException(string message) : base(message) {}
+	}
+
 	public ISquare[] grid { get ; private set; }
 
 	public int 			height { get; private set; }
@@ -60,7 +66,7 @@ public class GridController {
 	{
 		if (grid == null)
 			throw new GridNotInitializedException("Tried to access the grid while it's not initialized yet.");
-		if ((x * height + y) < 0 || (x * height + y) >= grid.Length)
+		if ((x * height + y) < 0 || (x * height + y) >= grid.Length || x < 0 || y < 0)
 			throw new GridOutOfBoundsException("Out of bounds with X = " + x + " and Y = " + y + ".");
 		return grid[x * height + y];
 	}
@@ -84,9 +90,9 @@ public class GridController {
 
 	private void GetVisionNorth(int x, int y, int level, ref List<ISquare> squares)
 	{
-		for (int i = 1; i <= level; i++)
+		for (int i = 0; i <= level; i++)
 		{
-			int count = ((i - 1) * 2) + 1;
+			int count = (i * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y + i) + height) % height));
 		}
@@ -94,9 +100,9 @@ public class GridController {
 
 	private void GetVisionSouth(int x, int y, int level, ref List<ISquare> squares)
 	{
-		for (int i = 1; i <= level; i++)
+		for (int i = 0; i <= level; i++)
 		{
-			int count = ((i - 1) * 2) + 1;
+			int count = (i * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - count / 2 + j) + width) % width, ((y - i) + height) % height));
 		}
@@ -104,9 +110,9 @@ public class GridController {
 
 	private void GetVisionEast(int x, int y, int level, ref List<ISquare> squares)
 	{
-		for (int i = 1; i <= level; i++)
+		for (int i = 0; i <= level; i++)
 		{
-			int count = ((i - 1) * 2) + 1;
+			int count = (i * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x + i) + width) % width, ((y - count / 2 + j) + height) % height));
 		}
@@ -114,9 +120,9 @@ public class GridController {
 
 	private void GetVisionWest(int x, int y, int level, ref List<ISquare> squares)
 	{
-		for (int i = 1; i <= level; i++)
+		for (int i = 0; i <= level; i++)
 		{
-			int count = ((i - 1) * 2) + 1;
+			int count = (i * 2) + 1;
 			for (int j = 0; j < count; j++)
 				squares.Add (this.GetSquare (((x - i) + width) % width, ((y - count / 2 + j) + height) % height));
 		}
@@ -138,6 +144,9 @@ public class GridController {
 				break;
 			case Orientation.WEST:
 				this.GetVisionWest (x, y, level, ref squares);
+				break;
+			default:
+				this.GetVisionSouth (x, y, level, ref squares);
 				break;
 		}
 		if (squares.Count == 0)

@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
+		controller.SetGridController(GameManagerScript.instance.grid.controller);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
 	}

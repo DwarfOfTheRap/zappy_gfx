@@ -81,8 +81,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestTeam()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
-		//GetComponent<PlayerScript>().controller.EnableHighlight ();
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], (Orientation)Random.Range (0, 5), Random.Range (1, 7), Random.Range (0, 9999), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
