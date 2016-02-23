@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 using System.Diagnostics;
@@ -51,7 +52,7 @@ public class PlayerController {
 
 	public void ChangeAnimationSpeed(float value)
 	{
-		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeSpeed);
+		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeSpeed / 10.0f);
 	}
 
 	public void SetAnimatorController(IAnimatorController animatorController)
@@ -129,6 +130,7 @@ public class PlayerController {
 			this.index = index;
 			this.team = team;
 			this.SetPlayerOrientation (orientation);
+			playerMovementController.SetRotation (OrientationManager.GetRotation (orientation));
 			playerMovementController.SetTeamColor (team.color);
 			return this;
 		}
@@ -146,7 +148,7 @@ public class PlayerController {
 				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
-			if (gridController != null && (Mathf.Abs (distance.x) > gridController.width / 2 || Mathf.Abs (distance.z) > gridController.height / 2))
+			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
 			destination = playerMovementController.SetDestination (square.GetPosition ());
 		}

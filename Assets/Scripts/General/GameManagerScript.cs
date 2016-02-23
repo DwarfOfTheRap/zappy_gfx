@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, IEggInstantiationController {
@@ -11,7 +12,6 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 	public float							timeSpeed;
-	public float[]							timeSpeeds = {0.0f, 0.5f, 1.0f, 2.0f, 4.0f};
 
 	void OnEnable()
 	{
@@ -21,7 +21,8 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
-		timeSpeed = 1.0f;
+		timeSpeed = 10.0f;
+		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
 	public EggController InstantiateEgg ()
@@ -38,7 +39,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 
 	public void ChangeTimeSpeed(float value)
 	{
-		timeSpeed = timeSpeeds [(int)value];
+		timeSpeed = value;
 	}
 
 	void Update()
