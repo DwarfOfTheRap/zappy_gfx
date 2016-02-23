@@ -83,6 +83,16 @@ public class PlayerController {
 		animatorController.SetBool("Incantate", false);
 	}
 
+	public void GrabItem()
+	{
+		animatorController.SetTrigger ("Grab");
+	}
+
+	public void ThrowItem()
+	{
+		animatorController.SetTrigger ("Grab");
+	}
+
 	public void Die()
 	{
 		dead = true;

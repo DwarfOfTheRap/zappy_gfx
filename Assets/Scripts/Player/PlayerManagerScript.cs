@@ -140,12 +140,16 @@ public class PlayerManagerScript {
 
 	public PlayerController SetPlayerThrowResource(int n, int i)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.ThrowItem ();
+		return player;
 	}
 
 	public PlayerController SetPlayerTakeResource(int n, int i)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.GrabItem ();
+		return player;
 	}
 
 	public PlayerController SetPlayerDeath(int n)

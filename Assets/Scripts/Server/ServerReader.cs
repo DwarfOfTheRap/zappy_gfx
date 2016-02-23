@@ -11,7 +11,7 @@ public class ServerReader {
 	private string L = @"[1-8]";
 	private string e = @"[0-9]+";
 	private string T = @"([1-9]|[0-9]{2,})";
-	private string N = @"\w+";
+	private string N = @"[\w ]{1,32}";
 	private string R = @"[0-1]";
 	private string M = "\"[^\"]*\"";
 	private string i = @"[0-6]";

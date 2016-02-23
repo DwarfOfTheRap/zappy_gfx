@@ -44,7 +44,7 @@ public class CameraController {
 	{
 		if (target != null)
 		{
-			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 16.5f, target.GetPosition().z - 28.0f), doubleClickSpeed);
+			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 10.89f, target.GetPosition().z - 18.48f), doubleClickSpeed);
 		}
 	}
 
