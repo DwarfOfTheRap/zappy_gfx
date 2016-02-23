@@ -29,10 +29,13 @@ public class TimeCount : MonoBehaviour {
 	void Update () {
 		int seconds;
 		int minutes;
+		int hours;
 
 		seconds = totalGameSeconds % 60;
 		minutes = totalGameSeconds / 60;
-
-		this.gameObject.GetComponent<Text> ().text = minutes.ToString ("00") + ":" + seconds.ToString ("00");
+		minutes %= 60;
+		hours = totalGameSeconds / 3600;
+	
+		this.gameObject.GetComponent<Text> ().text = hours.ToString("00") + ":" + minutes.ToString ("00") + ":" + seconds.ToString ("00");
 	}
 }

@@ -3,16 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TimeSlider : MonoBehaviour {
-	
-	private string[]		speeds = {"Stop", "Slow", "Play", "x2", "x4"};
 
 	public void ChangeTextOnEvent(float value)
 	{
-		this.gameObject.GetComponent<Text> ().text = speeds [((int)value)];
+		this.gameObject.GetComponent<Text> ().text = "t = " + ((int)value).ToString();
 	}
 
 	void Start ()
 	{
-		this.gameObject.GetComponent<Text> ().text = "Play";
+		this.gameObject.GetComponent<Text> ().text = "t = " + GameManagerScript.instance.timeSpeed;
 	}
 }
