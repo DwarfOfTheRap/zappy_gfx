@@ -245,7 +245,7 @@ public class PlayerController {
 		this.squareVision = gridController.GetVision (x, y, oldOrientation, level);
 		foreach (ISquare square in squareVision)
 		{
-			square.Highlighted (team.color / 3.0f);
+			square.Highlighted (team.color / 4.0f);
 		}
 	}
 
