@@ -117,6 +117,7 @@ GameObject:
   - 223: {fileID: 22331934}
   - 114: {fileID: 11423290}
   - 114: {fileID: 11466660}
+  - 95: {fileID: 9557710}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -1570,6 +1571,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 22422678}
   m_RootOrder: 1
+--- !u!95 &9557710
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105852}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 60de352b5d25343d1936cb827801d0fb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11400958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5444,7 +5462,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11467444}
   m_HandleRect: {fileID: 22438198}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
