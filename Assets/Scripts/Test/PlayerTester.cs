@@ -88,7 +88,7 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestIncantate()
 	{
-		GetComponent<PlayerScript>().controller.Incantate ();
+		GetComponent<PlayerScript>().controller.IncantatePrimary ();
 	}
 
 	void TestIncantateStop()

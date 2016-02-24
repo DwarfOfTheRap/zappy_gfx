@@ -12,7 +12,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		var animatorController = GetAnimatorControllerMock();
 		var controller = GetPlayerControllerMock (animatorController);
 		// Act
-		controller.Incantate();
+		controller.IncantatePrimary();
 		// Assert
 		animatorController.Received().SetBool ("Incantate", true);
 	}

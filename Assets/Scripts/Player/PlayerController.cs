@@ -72,7 +72,13 @@ public class PlayerController {
 		inputManager.OnRightClicking += OnRightClick;
 	}
 	
-	public void Incantate()
+	public void IncantatePrimary()
+	{
+		isIncantating = true;
+		animatorController.SetBool ("Incantate", true);
+	}
+
+	public void IncantateSecondary ()
 	{
 		isIncantating = true;
 		animatorController.SetBool ("Incantate", true);

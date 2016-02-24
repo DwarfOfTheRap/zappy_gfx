@@ -119,10 +119,17 @@ public class PlayerManagerScript {
 		throw new NotImplementedException();
 	}
 
-	public PlayerController SetPlayerIncantate(int n)
+	public PlayerController SetPlayerIncantatePrimary(int n)
 	{
 		PlayerController player = GetPlayer (n);
-		player.Incantate ();
+		player.IncantatePrimary ();
+		return player;
+	}
+
+	public PlayerController SetPlayerIncantateSecondary(int n)
+	{
+		PlayerController player = GetPlayer (n);
+		player.IncantateSecondary ();
 		return player;
 	}
 
