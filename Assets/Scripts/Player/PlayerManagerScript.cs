@@ -142,7 +142,9 @@ public class PlayerManagerScript {
 
 	public PlayerController SetPlayerLayEgg(int n)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.LayEgg ();
+		return player;
 	}
 
 	public PlayerController SetPlayerThrowResource(int n, int i)
@@ -170,6 +172,7 @@ public class PlayerManagerScript {
 	{
 		EggController egg = this.eic.InstantiateEgg();
 		PlayerController player = GetPlayer (n);
+		player.StopLayingEgg ();
 		eggs.Add (egg.Init (x, y, e, player, gridController));
 		return egg;
 	}

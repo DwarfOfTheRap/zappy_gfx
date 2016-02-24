@@ -26,8 +26,6 @@ public class PlayerController {
 	public	ISquare						currentSquare;
 	private Quaternion					rotation;
 	private bool						expulsed;
-									
-	public bool 						isIncantating { get; private set; }
 	public bool							dead { get; private set; }
 	public Vector3						destination { get; private set; }
 	public Vector3						teleportDestination;
@@ -74,20 +72,27 @@ public class PlayerController {
 	
 	public void IncantatePrimary()
 	{
-		isIncantating = true;
 		animatorController.SetBool ("Incantate", true);
 	}
 
 	public void IncantateSecondary ()
 	{
-		isIncantating = true;
 		animatorController.SetBool ("Incantate", true);
 	}
 	
 	public void StopIncantating()
 	{
-		isIncantating = false;
 		animatorController.SetBool("Incantate", false);
+	}
+
+	public void LayEgg()
+	{
+		animatorController.SetBool ("LayEgg", true);
+	}
+
+	public void StopLayingEgg()
+	{
+		animatorController.SetBool ("LayEgg", false);
 	}
 
 	public void GrabItem()
