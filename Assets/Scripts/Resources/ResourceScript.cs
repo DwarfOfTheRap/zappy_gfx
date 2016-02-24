@@ -54,7 +54,7 @@ public class ResourceController
 	{
 		this.motor = motor;
 		this.color = color;
-		this.count = 1;
+		this.count = (uint)Random.Range (0, 2);
 	}
 
 	void Enable(bool state)

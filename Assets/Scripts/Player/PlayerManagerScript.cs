@@ -119,10 +119,17 @@ public class PlayerManagerScript {
 		throw new NotImplementedException();
 	}
 
-	public PlayerController SetPlayerIncantate(int n)
+	public PlayerController SetPlayerIncantatePrimary(int n)
 	{
 		PlayerController player = GetPlayer (n);
-		player.Incantate ();
+		player.IncantatePrimary ();
+		return player;
+	}
+
+	public PlayerController SetPlayerIncantateSecondary(int n)
+	{
+		PlayerController player = GetPlayer (n);
+		player.IncantateSecondary ();
 		return player;
 	}
 
@@ -135,17 +142,23 @@ public class PlayerManagerScript {
 
 	public PlayerController SetPlayerLayEgg(int n)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.LayEgg ();
+		return player;
 	}
 
 	public PlayerController SetPlayerThrowResource(int n, int i)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.ThrowItem ();
+		return player;
 	}
 
 	public PlayerController SetPlayerTakeResource(int n, int i)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.GrabItem ();
+		return player;
 	}
 
 	public PlayerController SetPlayerDeath(int n)
@@ -159,6 +172,7 @@ public class PlayerManagerScript {
 	{
 		EggController egg = this.eic.InstantiateEgg();
 		PlayerController player = GetPlayer (n);
+		player.StopLayingEgg ();
 		eggs.Add (egg.Init (x, y, e, player, gridController));
 		return egg;
 	}

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
@@ -7,14 +8,22 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	public Orientation			orientation;
 
 	private const float			_highlight_width = 0.0025f;
-
+	
 	private void Awake()
 	{
+
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetGridController(GameManagerScript.instance.grid.controller);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
+	}
+
+	private void Start()
+	{
+		Slider slider = GameObject.Find ("Slider").GetComponent<Slider> ();
+
+		slider.onValueChanged.AddListener (controller.ChangeAnimationSpeed);
 	}
 
 	#region IAnimatorController implementation
@@ -53,19 +62,34 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		return new Vector3(destination.x, transform.position.y, destination.z);
 	}
 
+	public bool HasHitDestination(Vector3 destination)
+	{
+		return (this.transform.position == new Vector3(destination.x, destination.y, destination.z));
+	}
+
 	public void SetPosition (Vector3 vector3)
 	{
 		this.transform.position = new Vector3(vector3.x, this.transform.position.y, vector3.z);
 	}
 
+	public void SetRotation (Quaternion rotation)
+	{
+		this.transform.rotation = rotation;
+	}
+
 	public void MoveToDestination (Vector3 destination, float speed)
 	{
-		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed);
+		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed * GameManagerScript.instance.timeSpeed);
 	}
 
 	public void MoveToRotation (Quaternion rotation, float rotSpeed)
 	{
-		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed);
+		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed * GameManagerScript.instance.timeSpeed);
+	}
+
+	public bool HasHitRotation(Quaternion rotation)
+	{
+		return (this.transform.rotation == rotation);
 	}
 
 	public void StopExpulsion()

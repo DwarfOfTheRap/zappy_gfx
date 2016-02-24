@@ -2113,8 +2113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller:
     level: 1
-    speed: 3
-    rotSpeed: 500
+    speed: .359699994
+    rotSpeed: 6.43499994
     teleportDestination: {x: 0, y: 0, z: 0}
   orientation: 0
 --- !u!137 &13728640
@@ -2446,7 +2446,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: controller.rotSpeed
-      value: 500
+      value: 6.43499994
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: controller.level
@@ -2466,7 +2466,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: controller.speed
-      value: 3
+      value: .359699994
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString

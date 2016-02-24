@@ -91,7 +91,7 @@ public class ServerReaderTests {
 		
 		// Act
 		bool test1_result = sr.IsTeamNamesString("tna bidule\n");
-		bool test2_result = sr.IsTeamNamesString("tna Thequickbrownfoxjumpsoverthelazydog\n");
+		bool test2_result = sr.IsTeamNamesString("tna Thequickbrownfoxjumpsoverthelazy\n");
 		bool test3_result = sr.IsTeamNamesString("tna \n");
 		bool test4_result = sr.IsTeamNamesString("tna 01234567890123456789\n");
 		bool test5_result = sr.IsTeamNamesString("tna\n");
@@ -128,14 +128,14 @@ public class ServerReaderTests {
 		bool test12_expected_result = false;
 
 		string test1_string = "pnw #40 4 3 2 8 test\n";
-		string test2_string = "pnw #40 4 3 2 8 testtesttesttesttesttesttesttesttesttesttest\n";
+		string test2_string = "pnw #40 4 3 2 8 testtesttesttesttesttesttest\n";
 		string test3_string = "pnw #0 0 0 1 1 0\n";
-		string test4_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazydog\n";
-		string test5_string = "bmw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazydog\n";
+		string test4_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazy\n";
+		string test5_string = "bmw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazy\n";
 		string test6_string = "";
 		string test7_string = "string\n";
-		string test8_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazydog";
-		string test9_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazydog 8\n";
+		string test8_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazy";
+		string test9_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazy 8\n";
 		string test10_string = "pnw #99999 99999 99999 4 8 Thequickbrownfoxjumpsoverthelazydog\ngwrgwgweg";
 		string test11_string = "pnw #0 0 0 0 0 0\n";
 		string test12_string = "pnw #0 0 0 5 9 0\n";
@@ -346,7 +346,7 @@ public class ServerReaderTests {
 		bool test7_expected_result = false;
 		
 		string test1_string = "pbc #0 \"\"\n";
-		string test2_string = "pbc #99999 \"The Quick Brown Fox Jumps Over The Lazy Dog\nAnd that's pretty much all\"\n";
+		string test2_string = "pbc #99999 \"The Quick Brown Fox Jumps Over The Lazy Dog And that's pretty much all\"\n";
 		string test3_string = "pbc #5 \"Test\"\n";
 		string test4_string = "pbc #-1 \"Test\"\n";
 		string test5_string = "";
@@ -820,8 +820,8 @@ public class ServerReaderTests {
 		
 		string test1_string = "seg 0\n";
 		string test2_string = "seg 99999\n";
-		string test3_string = "seg Thequickbrownfoxjumpsoverthelazydog\n";
-		string test4_string = "seg Thequickbrownfoxjumpsoverthelazydog\nwrtwrtw";
+		string test3_string = "seg Thequickbrownfoxjumpsoverthelazy\n";
+		string test4_string = "seg Thequickbrownfoxjumpsoverthelazy\nwrtwrtw";
 		string test5_string = "";
 		string test6_string = "string\n";
 		string test7_string = "seg \n";
@@ -855,13 +855,13 @@ public class ServerReaderTests {
 		bool test1_expected_result = true;
 		bool test2_expected_result = true;
 		bool test3_expected_result = true;
-		bool test4_expected_result = false;
+		bool test4_expected_result = true;
 		bool test5_expected_result = false;
 		bool test6_expected_result = false;
 		bool test7_expected_result = false;
 		
 		string test1_string = "smg \"\"\n";
-		string test2_string = "smg \"The Quick Brown Fox Jumps Over The Lazy Dog\nAnd that's pretty much all\"\n";
+		string test2_string = "smg \"The Quick Brown Fox Jumps Over The Lazy Dog And that's pretty much all\"\n";
 		string test3_string = "smg \"Test\"\n";
 		string test4_string = "smg #-1 \"Test\"\n";
 		string test5_string = "";

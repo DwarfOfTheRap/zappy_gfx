@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using System.Diagnostics;
@@ -21,13 +21,15 @@ public class PlayerController {
 	public Team							team { get; private set;}
 	public float						speed = 1.0f;
 	public float						rotSpeed = 1.0f;
-									
+								
+	private ISquare						oldSquare;
 	public	ISquare						currentSquare;
-	private Quaternion					rotation;
+	private Orientation					oldOrientation;
+	public  Quaternion					rotation { get; private set; }
 	private bool						expulsed;
 
-	private bool						highlighted;
-	private ISquare[]					squareVision;
+	private bool						highlighted = false;
+	private ISquare[]					squareVision = new ISquare[0];
 									
 	public bool 						isIncantating { get; private set; }
 	public bool							dead { get; private set; }
@@ -53,6 +55,11 @@ public class PlayerController {
 	}
 #endif
 
+	public void ChangeAnimationSpeed(float value)
+	{
+		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeSpeed / 10.0f);
+	}
+
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
 		this.animatorController = animatorController;
@@ -75,16 +82,39 @@ public class PlayerController {
 		this.gridController = gridController;
 	}
 	
-	public void Incantate()
+	public void IncantatePrimary()
 	{
-		isIncantating = true;
+		animatorController.SetBool ("Incantate", true);
+	}
+
+	public void IncantateSecondary ()
+	{
 		animatorController.SetBool ("Incantate", true);
 	}
 	
 	public void StopIncantating()
 	{
-		isIncantating = false;
 		animatorController.SetBool("Incantate", false);
+	}
+
+	public void LayEgg()
+	{
+		animatorController.SetBool ("LayEgg", true);
+	}
+
+	public void StopLayingEgg()
+	{
+		animatorController.SetBool ("LayEgg", false);
+	}
+
+	public void GrabItem()
+	{
+		animatorController.SetTrigger ("Grab");
+	}
+
+	public void ThrowItem()
+	{
+		animatorController.SetTrigger ("Grab");
 	}
 
 	public void Die()
@@ -123,6 +153,7 @@ public class PlayerController {
 			this.index = index;
 			this.team = team;
 			this.SetPlayerOrientation (orientation);
+			playerMovementController.SetRotation (OrientationManager.GetRotation (orientation));
 			playerMovementController.SetTeamColor (team.color);
 			return this;
 		}
@@ -134,16 +165,16 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
+		this.oldSquare = this.currentSquare;
 		if (this.currentSquare != square)
 		{
 			if (currentSquare != null)
 				currentSquare.GetResources ().players.Remove (this);
 			square.GetResources ().players.Add(this);
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
-			if (gridController != null && (Mathf.Abs (distance.x) > gridController.width / 2 || Mathf.Abs (distance.z) > gridController.height / 2))
+			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
 			destination = playerMovementController.SetDestination (square.GetPosition ());
-			UpdateSquareVision ();
 		}
 		currentSquare = square;
 	}
@@ -163,9 +194,9 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
+		this.oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
-		UpdateSquareVision ();
 	}
 	
 	public void GoToDestination(Orientation animationOrientation)
@@ -179,13 +210,13 @@ public class PlayerController {
 		playerMovementController.MoveToRotation(rotation, rotSpeed);
 	}
 
-	public void EnableHighlight()
+	void EnableHighlight()
 	{
 		highlighted = true;
 		playerMovementController.EnableHighlight (this.team.color);
 	}
 
-	public void DisableHighlight()
+	void DisableHighlight()
 	{
 		highlighted = false;
 		playerMovementController.DisableHighlight ();
@@ -203,24 +234,19 @@ public class PlayerController {
 	{
 		DisableHighlight ();
 	}
-
-	void HighlightSquareVision()
-	{
-		int x = 0;
-		int y = 0;
-		gridController.GetSquarePosition (currentSquare, ref x, ref y);
-		foreach (ISquare square in squareVision)
-		{
-			square.Highlighted (team.color / 3.0f);
-		}
-	}
-
+	
 	void UpdateSquareVision()
 	{
 		int x = 0;
 		int y = 0;
-		gridController.GetSquarePosition (currentSquare, ref x, ref y);
-		this.squareVision = gridController.GetVision (x, y, playerOrientation, level);
+		foreach (ISquare square in squareVision)
+			square.Standard ();
+		gridController.GetSquarePosition (oldSquare, ref x, ref y);
+		this.squareVision = gridController.GetVision (x, y, oldOrientation, level);
+		foreach (ISquare square in squareVision)
+		{
+			square.Highlighted (team.color / 3.0f);
+		}
 	}
 
 	public void Update(Vector3 position)
@@ -229,10 +255,14 @@ public class PlayerController {
 		{
 			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
 			GoToDestination (animationOrientation);
-			if (highlighted)
-				HighlightSquareVision ();
 			if (!playerMovementController.IsMoving (this.destination))
-				StopExpulsion ();
+				StopExpulsion () ;
+			if (highlighted)
+				UpdateSquareVision ();
+			if (playerMovementController.HasHitDestination (this.destination))
+				this.oldSquare = currentSquare;
+			if (playerMovementController.HasHitRotation (this.rotation))
+				this.oldOrientation = playerOrientation;
 		}
 	}
 }

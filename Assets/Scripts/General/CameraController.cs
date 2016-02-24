@@ -9,9 +9,9 @@ public class CameraController {
 	public Vector3				position;
 	private const float			doubleClickSpeed = 1.5f;
 
-	private const float			startMoveSpeed = 5f;		
+	private const float			startMoveSpeed = 20f;		
 	public float				moveSpeed { get; private set; }
-	public const float			scrollSpeed = 10f;
+	public const float			scrollSpeed = 30f;
 
 	private int					currentHeight;
 	private int					currentWidth;
@@ -30,6 +30,7 @@ public class CameraController {
 		this.inputManager = inputManager;
 		this.cameraMovement = cameraMovement;
 		this.inputManager.OnDoubleClicking += CheckDoubleClick;
+		this.inputManager.OnRightClicking += CheckRightClick;
 		this.moveSpeed = startMoveSpeed;
 		InitCameraPosition();
 	}
@@ -44,7 +45,7 @@ public class CameraController {
 	{
 		if (target != null)
 		{
-			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 16.5f, target.GetPosition().z - 28.0f), doubleClickSpeed);
+			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 10.89f, target.GetPosition().z - 18.48f), doubleClickSpeed);
 		}
 	}
 
@@ -134,7 +135,7 @@ public class CameraController {
 	void CheckSpeedUp() {
 		if (inputManager.DoubleMoveSpeed())
 		{
-			moveSpeed = startMoveSpeed * 2;
+			moveSpeed = startMoveSpeed * 1.5f;
 		}
 	}
 
@@ -147,6 +148,11 @@ public class CameraController {
 
 	void CheckDoubleClick(ClickEventArgs args) {
 		target = args.target;
+	}
+
+	void CheckRightClick ()
+	{
+		target = null;
 	}
 
 	void CheckKeyboardInput()
