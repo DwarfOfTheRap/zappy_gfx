@@ -4,6 +4,8 @@ using System.Collections;
 public class ResourceScript : MonoBehaviour, IResource {
 	public ResourceController	controller;
 
+	int							_minimalQualityLevel = 3;
+
 	void OnEnable()
 	{
 		Animation animation = GetComponentInChildren<Animation>();
@@ -12,6 +14,18 @@ public class ResourceScript : MonoBehaviour, IResource {
 			state.time = Random.Range (0, state.length);
 		}
 		animation.Play();
+		QualityManager.OnQualityChange += OnQualityChange;
+		GetComponent<Animation>().enabled = (QualityManager.GetQualityLevel() >= _minimalQualityLevel);
+	}
+
+	void OnDisable()
+	{
+		QualityManager.OnQualityChange -= OnQualityChange;
+	}
+
+	void OnQualityChange(QualityEventArg arg)
+	{
+		GetComponent<Animation>().enabled = (arg.qualityLevel >= _minimalQualityLevel);
 	}
 
 	public void Init()
@@ -57,14 +71,14 @@ public class ResourceController
 		this.count = (uint)Random.Range (0, 2);
 	}
 
-	void Enable(bool state)
-	{
-		motor.Enable (state);
-	}
-
 	public override string ToString()
 	{
 		return _count.ToString ();
+	}
+
+	void Enable(bool state)
+	{
+		motor.Enable (state);
 	}
 }
 
