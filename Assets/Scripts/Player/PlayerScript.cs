@@ -113,7 +113,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		signal.GetComponent<Image>().enabled = true;
 		while (countdown > 0)
 		{
-			int t = (int)GameManagerScript.instance.timeSpeed;
+			int t = (int)GameManagerScript.instance.timeManager.timeSpeed;
 			if (t > 0)
 			{
 				yield return new WaitForSeconds(1.0f / t);

@@ -238,7 +238,7 @@ public class PlayerTester : MonoBehaviourTester {
 		while (true)
 		{
 			GetComponent<PlayerScript>().controller.Broadcast ("SPAM");
-			yield return new WaitForSeconds(Random.Range (30.0f, 100.0f) / GameManagerScript.instance.timeSpeed);
+			yield return new WaitForSeconds(Random.Range (30.0f, 100.0f) / GameManagerScript.instance.timeManager.timeSpeed);
 		}
 	}
 

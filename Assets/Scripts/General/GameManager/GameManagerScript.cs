@@ -27,6 +27,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
+	public void ChangeTimeSpeed(float timeSpeed)
+	{
+		timeManager.ChangeTimeSpeed (timeSpeed);
+	}
+
 	public EggController InstantiateEgg ()
 	{
 		GameObject clone = Instantiate (eggPrefab);
