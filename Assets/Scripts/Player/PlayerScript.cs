@@ -100,6 +100,31 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 	}
 
+	public void Broadcast (string message)
+	{
+		Debug.Log (message);
+		var signal = this.transform.FindChild ("PlayerCanvas/Signal").gameObject;
+		StartCoroutine (BroadcastSignal(signal));
+	}
+
+	IEnumerator BroadcastSignal (GameObject signal)
+	{
+		int countdown = 7;
+		signal.GetComponent<Image>().enabled = true;
+		while (countdown > 0)
+		{
+			int t = (int)GameManagerScript.instance.timeSpeed;
+			if (t > 0)
+			{
+				yield return new WaitForSeconds(1.0f / t);
+				countdown--;
+			}
+			else
+				yield return new WaitForEndOfFrame();
+		}
+		signal.GetComponent<Image>().enabled = false;
+	}
+
 	public void EnableHighlight (Color color)
 	{
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())

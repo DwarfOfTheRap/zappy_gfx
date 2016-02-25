@@ -102,9 +102,17 @@ public class PlayerManagerScript {
 		return player;
 	}
 
-	public PlayerController SetPlayerInventory(int n, int[] inventory)
+	public PlayerController SetPlayerInventory(int n, int nourriture, int linemate, int deraumere, int sibur, int mendiane, int phiras, int thystame)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.inventory.nourriture = nourriture;
+		player.inventory.linemate = linemate;
+		player.inventory.deraumere = deraumere;
+		player.inventory.sibur = sibur;
+		player.inventory.mendiane = mendiane;
+		player.inventory.phiras = phiras;
+		player.inventory.thystame = thystame;
+		return player;
 	}
 
 	public PlayerController SetPlayerExpulse(int n)
@@ -114,9 +122,11 @@ public class PlayerManagerScript {
 		return player;
 	}
 
-	public PlayerController SetPlayerBroadcast(int n)
+	public PlayerController SetPlayerBroadcast(int n, string message)
 	{
-		throw new NotImplementedException();
+		PlayerController player = GetPlayer (n);
+		player.Broadcast(message);
+		return player;
 	}
 
 	public PlayerController SetPlayerIncantatePrimary(int n)
