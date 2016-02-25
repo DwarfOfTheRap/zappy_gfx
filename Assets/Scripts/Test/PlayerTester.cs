@@ -16,6 +16,7 @@ public class PlayerTester : MonoBehaviourTester {
 	public MonoBehaviourTest		doingEightsTest;
 	public MonoBehaviourTest		hopASquareTest;
 	public MonoBehaviourTest		rotateOnceTest;
+	public MonoBehaviourTest		broadcastTest;
 	public Orientation				orientation;
 	public SquareScript				destinationSquare;
 	public SquareScript				originSquare;
@@ -74,6 +75,8 @@ public class PlayerTester : MonoBehaviourTester {
 			StartCoroutine (WaitForTest (hopASquareTest, TestOneSquare));
 		if (rotateOnceTest.enabled)
 			StartCoroutine (WaitForTest (rotateOnceTest, TestRotateOnce));
+		if (broadcastTest.enabled)
+			StartCoroutine (WaitForTest (broadcastTest, TestBroadcast));
 	}
 
 	void TestOrientation ()
@@ -146,6 +149,11 @@ public class PlayerTester : MonoBehaviourTester {
 		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		StartCoroutine (RotateOnce(Orientation.EAST));
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
+	}
+
+	void TestBroadcast ()
+	{
+		StartCoroutine (BroadcastSpam());
 	}
 
 	IEnumerator WalkMore(int x, int y)
@@ -223,6 +231,15 @@ public class PlayerTester : MonoBehaviourTester {
 			yield return new WaitForEndOfFrame();
 		}
 		Debug.Log ("RotateOnce time " + (Time.realtimeSinceStartup - startTime).ToString());
+	}
+
+	IEnumerator BroadcastSpam ()
+	{
+		while (true)
+		{
+			GetComponent<PlayerScript>().controller.Broadcast ("SPAM");
+			yield return new WaitForSeconds(Random.Range (30.0f, 100.0f) / GameManagerScript.instance.timeSpeed);
+		}
 	}
 
 	void Update()

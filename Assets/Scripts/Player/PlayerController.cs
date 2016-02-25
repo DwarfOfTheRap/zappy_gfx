@@ -122,6 +122,11 @@ public class PlayerController {
 		dead = true;
 		animatorController.SetTrigger ("Death");
 	}
+
+	public void Broadcast (string message)
+	{
+		playerMovementController.Broadcast (message);
+	}
 	
 	public void Expulse()
 	{
