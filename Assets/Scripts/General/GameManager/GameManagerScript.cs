@@ -11,8 +11,8 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public QualityManager					qualityManager { get; private set; }
 	public InputManager 					inputManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
+	public TimeManager						timeManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
-	public float							timeSpeed;
 
 	void OnEnable()
 	{
@@ -20,10 +20,10 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		instance = this;
 		grid = GetComponentInChildren<GridScript>();
 		qualityManager = new QualityManager();
+		timeManager = new TimeManager();
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
-		timeSpeed = 10.0f;
 		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
@@ -37,11 +37,6 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	{
 		GameObject clone = Instantiate (playerPrefab);
 		return clone.GetComponent<PlayerScript>().controller;
-	}
-
-	public void ChangeTimeSpeed(float value)
-	{
-		timeSpeed = value;
 	}
 
 	void Update()

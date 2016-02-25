@@ -32,7 +32,7 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 		resources.nourriture = InitResource (Random.Range (-0.3f, 0.3f), Random.Range (-0.3f, 0.3f), ResourceController.foodColor, foodPrefab);
 	}
 
-ResourceController InitResource(float x, float z, Color color, GameObject prefab)
+	ResourceController InitResource(float x, float z, Color color, GameObject prefab)
 	{
 		GameObject clone = Instantiate (prefab);
 		clone.transform.SetParent (this.transform);

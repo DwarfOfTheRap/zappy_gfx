@@ -11,6 +11,6 @@ public class TimeSlider : MonoBehaviour {
 
 	void Start ()
 	{
-		this.gameObject.GetComponent<Text> ().text = "t = " + GameManagerScript.instance.timeSpeed;
+		this.gameObject.GetComponent<Text> ().text = "t = " + GameManagerScript.instance.timeManager.timeSpeed;
 	}
 }

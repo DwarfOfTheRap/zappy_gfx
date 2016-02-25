@@ -8,9 +8,9 @@ public class TimeCount : MonoBehaviour {
 	IEnumerator TimeUpdate ()
 	{
 		while (true) {
-			if (GameManagerScript.instance.timeSpeed > 0) {
-				yield return new WaitForSeconds (1.0f / GameManagerScript.instance.timeSpeed);
-				if (GameManagerScript.instance.timeSpeed > 0)
+			if (GameManagerScript.instance.timeManager.timeSpeed > 0) {
+				yield return new WaitForSeconds (1.0f / GameManagerScript.instance.timeManager.timeSpeed);
+				if (GameManagerScript.instance.timeManager.timeSpeed > 0)
 					totalGameSeconds += 1;
 			}
 			else

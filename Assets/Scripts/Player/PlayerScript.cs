@@ -79,12 +79,12 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	public void MoveToDestination (Vector3 destination, float speed)
 	{
-		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed * GameManagerScript.instance.timeSpeed);
+		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, Time.deltaTime * speed * GameManagerScript.instance.timeManager.timeSpeed);
 	}
 
 	public void MoveToRotation (Quaternion rotation, float rotSpeed)
 	{
-		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed * GameManagerScript.instance.timeSpeed);
+		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed * GameManagerScript.instance.timeManager.timeSpeed);
 	}
 
 	public bool HasHitRotation(Quaternion rotation)

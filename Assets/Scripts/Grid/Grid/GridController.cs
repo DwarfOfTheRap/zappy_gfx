@@ -37,8 +37,8 @@ public class GridController {
 
 	public int 			height { get; private set; }
 	public int			width { get; private set; }
-	public	int			startHeight;
-	public	int			startWidth;
+	public int			startHeight;
+	public int			startWidth;
 
 	private IGrid squareInstantiationController;
 

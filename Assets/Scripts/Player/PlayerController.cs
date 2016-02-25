@@ -57,7 +57,7 @@ public class PlayerController {
 
 	public void ChangeAnimationSpeed(float value)
 	{
-		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeSpeed / 10.0f);
+		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
 	}
 
 	public void SetAnimatorController(IAnimatorController animatorController)
