@@ -142,14 +142,17 @@ public class PlayerManagerScript {
 		player.IncantateSecondary ();
 		return player;
 	}
-
-	public PlayerController SetPlayerStopIncantate(int n)
+	
+	public List<PlayerController> SetPlayersStopIncantate(int x, int y)
 	{
-		PlayerController player = GetPlayer (n);
-		player.StopIncantating ();
-		return player;
+		var players = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players;
+		foreach (var player in GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players)
+		{
+			player.StopIncantating ();
+		}
+		return players;
 	}
-
+	
 	public PlayerController SetPlayerLayEgg(int n)
 	{
 		PlayerController player = GetPlayer (n);

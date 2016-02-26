@@ -33,7 +33,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public void GameOver(int team)
 	{
 		if (OnGameOver != null)
-			OnGameOver ();
+			OnGameOver (team);
 	}
 
 	public void ChangeTimeSpeed(float timeSpeed)

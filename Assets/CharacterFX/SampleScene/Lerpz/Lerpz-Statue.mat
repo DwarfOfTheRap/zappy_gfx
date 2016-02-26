@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Lerpz-Statue
+  m_Shader: {fileID: 4800000, guid: ec121873c4c98420f8645ac341872304, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 1702c13dcd1113a2a0008cea4ada8c59, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 6c5199bacd1113a2a0008cea4ada8c59, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _NoiseTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 72b1bb295756843889b97a3dc58ba5dc, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _GrungeTex
+        second:
+          m_Texture: {fileID: 2800000, guid: b856f5273369746b09c254c5bf11f125, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BaseTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 898bab05bb6094790ac44e7c9c8e1bca, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Scale
+        second: 1
+      data:
+        first:
+          name: _DiffuseAmount
+        second: 1
+      data:
+        first:
+          name: _GrungeAmount
+        second: 2
+      data:
+        first:
+          name: _DisintegrateAmount
+        second: 0
+      data:
+        first:
+          name: _DissolveEdge
+        second: .0607462674
+      data:
+        first:
+          name: _TileFactor
+        second: 4
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _DissolveColor
+        second: {r: 1, g: .5, b: .200000003, a: 0}
+      data:
+        first:
+          name: _EdgeEmission
+        second: {r: .529850721, g: .454363197, b: .114669181, a: 0}

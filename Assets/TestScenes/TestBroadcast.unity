@@ -1635,7 +1635,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 484606, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .0606782809
+      value: .0606782772
       objectReference: {fileID: 0}
     - target: {fileID: 484606, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
       propertyPath: m_LocalRotation.z
@@ -2701,56 +2701,6 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 0}
   initVector: 0400000004000000
   color: {r: 0, g: 0, b: 0, a: 0}
---- !u!1001 &1685520209
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 432434, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 192520, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_Name
-      value: Ciccio_LOD (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 22314896, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 2118996120}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1896232489 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 192520, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
@@ -3928,8 +3878,3 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2047c8407a3fc4b059e2312142645ea3, type: 2}
   m_IsPrefabParent: 0
---- !u!20 &2118996120 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 2066354, guid: 72708571449fd4fb0b3f8e6e30549cbf,
-    type: 2}
-  m_PrefabInternal: {fileID: 322703986}

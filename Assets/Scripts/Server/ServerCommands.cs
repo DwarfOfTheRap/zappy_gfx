@@ -132,14 +132,10 @@ public static class ServerCommands {
 	public static void SendIncantationStop(string serverMessage)
 	{
 		Match regexMatch;
-		List<PlayerController> players;
 		int incantationResult;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + R + "\n$");
-		players = GameManagerScript.instance.grid.controller.GetSquare (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value)).GetResources ().players;
-		foreach (PlayerController player in players) {
-			player.StopIncantating();
-		}
+		GameManagerScript.instance.playerManager.SetPlayersStopIncantate (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value));
 		incantationResult = int.Parse (regexMatch.Groups [4].Value);
 	}
 
