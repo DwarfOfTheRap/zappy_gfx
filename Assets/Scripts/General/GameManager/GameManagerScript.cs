@@ -14,7 +14,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public TimeManager						timeManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 
-	public delegate void GameOverEventHandler(int Team);
+	public delegate void GameOverEventHandler(GameOverEventArgs ev);
 	public event GameOverEventHandler OnGameOver;
 
 	void OnEnable()
@@ -30,10 +30,10 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
-	public void GameOver(int team)
+	public void GameOver(Team team)
 	{
 		if (OnGameOver != null)
-			OnGameOver ();
+			OnGameOver ( new GameOverEventArgs { team = team });
 	}
 
 	public void ChangeTimeSpeed(float timeSpeed)
@@ -58,6 +58,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		qualityManager.Update ();
 		inputManager.CheckInput ();
 	}
+}
+
+public class GameOverEventArgs : System.EventArgs
+{
+	public Team team;
 }
 
 public interface IEggInstantiationController

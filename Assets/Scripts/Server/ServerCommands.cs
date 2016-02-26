@@ -221,9 +221,11 @@ public static class ServerCommands {
 	public static void SendGameOver(string serverMessage)
 	{
 		Match regexMatch;
+		Team team;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "\n$");
-		GameManagerScript.instance.GameOver(int.Parse(regexMatch.Groups[2].Value));
+		team = GameManagerScript.instance.teamManager.findTeam (regexMatch.Groups [2].Value);
+		GameManagerScript.instance.GameOver(team);
 	}
 
 	public static void SendServerMessage(string serverMessage)

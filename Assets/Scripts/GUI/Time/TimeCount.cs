@@ -18,14 +18,17 @@ public class TimeCount : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
-	void Start () {
-		this.gameObject.GetComponent<Text> ().text = "00:00";
+	void StopTimeCount (GameOverEventArgs ev)
+	{
+		StopAllCoroutines ();
+	}
 
+	void Start () {
+		GameManagerScript.instance.OnGameOver += StopTimeCount;
+		this.gameObject.GetComponent<Text> ().text = "00:00";
 		StartCoroutine (TimeUpdate());
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		int seconds;
 		int minutes;
