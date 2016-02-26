@@ -14,6 +14,9 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public TimeManager						timeManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 
+	public delegate void GameOverEventHandler(int Team);
+	public event GameOverEventHandler OnGameOver;
+
 	void OnEnable()
 	{
 		playerPrefab = Resources.Load ("Prefab/Ciccio_LOD") as GameObject;
@@ -25,6 +28,12 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
 		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
+	}
+
+	public void GameOver(int team)
+	{
+		if (OnGameOver != null)
+			OnGameOver ();
 	}
 
 	public void ChangeTimeSpeed(float timeSpeed)
