@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityStandardAssets.ImageEffects;
 
+[RequireComponent(typeof(Bloom))]
+[RequireComponent(typeof(VignetteAndChromaticAberration))]
+[RequireComponent(typeof(Antialiasing))]
+[RequireComponent(typeof(CameraMotionBlur))]
 public class ImageEffectManager : MonoBehaviour {
 	void OnEnable()
 	{

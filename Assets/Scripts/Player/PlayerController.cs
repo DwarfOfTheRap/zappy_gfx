@@ -173,9 +173,6 @@ public class PlayerController {
 		this.oldSquare = this.currentSquare;
 		if (this.currentSquare != square)
 		{
-			if (currentSquare != null)
-				currentSquare.GetResources ().players.Remove (this);
-			square.GetResources ().players.Add(this);
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
@@ -254,6 +251,22 @@ public class PlayerController {
 		}
 	}
 
+	void OnDestinationHit()
+	{
+		if (playerMovementController.HasHitDestination (this.destination))
+		{
+			if (this.oldSquare != null)
+				this.oldSquare.GetResources().players.Remove (this);
+			this.currentSquare.GetResources ().players.Add (this);
+			this.oldSquare = currentSquare;
+		}
+		if (playerMovementController.HasHitRotation (this.rotation))
+		{
+			this.oldOrientation = this.playerOrientation;
+		}
+
+	}
+
 	public void Update(Vector3 position)
 	{
 		if (!dead)
@@ -264,10 +277,7 @@ public class PlayerController {
 				StopExpulsion () ;
 			if (highlighted)
 				UpdateSquareVision ();
-			if (playerMovementController.HasHitDestination (this.destination))
-				this.oldSquare = currentSquare;
-			if (playerMovementController.HasHitRotation (this.rotation))
-				this.oldOrientation = playerOrientation;
+			OnDestinationHit ();
 		}
 	}
 }
