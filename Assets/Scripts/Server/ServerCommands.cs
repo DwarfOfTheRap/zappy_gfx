@@ -18,6 +18,63 @@ public static class ServerCommands {
 	private const string i 		= @"([0-6])";
 	private const string e		= @"(#[0-9]+)";
 	private const string T		= @"([1-9]|[0-9]{2,})";
+	
+	delegate void methodDelegate(string serverMessage);
+	private static Dictionary<string, methodDelegate> methodDictionary = new Dictionary<string, methodDelegate>()
+	{
+		{"msz", new methodDelegate (SendMapSize)},
+		{"bct", new methodDelegate (SendSquareContent)},
+		{"tna", new methodDelegate (SendTeamName)},
+		{"pnw", new methodDelegate (SendPlayerConnection)},
+		{"ppo", new methodDelegate (SendPlayerPosition)},
+		{"plv",	new methodDelegate (SendPlayerLevel)},
+		{"pin", new methodDelegate (SendPlayerInventory)},
+		{"pex", new methodDelegate (SendPlayerExpulsion)},
+		{"pbc", new methodDelegate (SendBroadcast)},
+		{"pic", new methodDelegate (SendIncantationStart)},
+		{"pie", new methodDelegate (SendIncantationStop)},
+		{"pfk", new methodDelegate (SendLayEgg)},
+		{"pdr", new methodDelegate (SendThrowResource)},
+		{"pgt", new methodDelegate (SendTakeResource)},
+		{"pdi", new methodDelegate (SendDeath)},
+		{"enw", new methodDelegate (SendEndOfFork)},
+		{"eht", new methodDelegate (SendHatchedEgg)},
+		{"ebo", new methodDelegate (SendPlayerToEggConnection)},
+		{"edi", new methodDelegate (SendRottenEgg)},
+		{"sgt", new methodDelegate (SendTimeUnit)},
+		{"seg", new methodDelegate (SendGameOver)},
+		{"smg", 
+	}
+
+	private static methodDelegate[] methodTable = new methodDelegate[] {
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		new methodDelegate (SendServerMessage),
+		new methodDelegate (SendUnknownCommand),
+		new methodDelegate (SendWrongParameters)
+	};
+
+	public static void PickMethod(string serverMessage)
+	{
+		Match regexMatch;
+
+		regexMatch = Regex.Match (serverMessage, cmd);
+	}
 
 	public static void SendMapSize(string serverMessage)
 	{
