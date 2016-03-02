@@ -87,7 +87,7 @@ public class PlayerManagerScript {
 		return controller;
 	}
 
-	public PlayerController SetPlayerPosition(int n, int x, int y, Orientation o)
+	public virtual PlayerController SetPlayerPosition(int n, int x, int y, Orientation o)
 	{
 		PlayerController player = GetPlayer (n);
 		player.SetPosition (x, y, gridController);
@@ -95,14 +95,14 @@ public class PlayerManagerScript {
 		return player;
 	}
 
-	public PlayerController SetPlayerLevel(int n, int l)
+	public virtual PlayerController SetPlayerLevel(int n, int l)
 	{
 		PlayerController player = GetPlayer (n);
 		player.level = l;
 		return player;
 	}
 
-	public PlayerController SetPlayerInventory(int n, int nourriture, int linemate, int deraumere, int sibur, int mendiane, int phiras, int thystame)
+	public virtual PlayerController SetPlayerInventory(int n, int nourriture, int linemate, int deraumere, int sibur, int mendiane, int phiras, int thystame)
 	{
 		PlayerController player = GetPlayer (n);
 		player.inventory.nourriture = nourriture;
@@ -115,70 +115,73 @@ public class PlayerManagerScript {
 		return player;
 	}
 
-	public PlayerController SetPlayerExpulse(int n)
+	public virtual PlayerController SetPlayerExpulse(int n)
 	{
 		PlayerController player = GetPlayer (n);
 		player.Expulse ();
 		return player;
 	}
 
-	public PlayerController SetPlayerBroadcast(int n, string message)
+	public virtual PlayerController SetPlayerBroadcast(int n, string message)
 	{
 		PlayerController player = GetPlayer (n);
 		player.Broadcast(message);
 		return player;
 	}
 
-	public PlayerController SetPlayerIncantatePrimary(int n)
+	public virtual PlayerController SetPlayerIncantatePrimary(int n)
 	{
 		PlayerController player = GetPlayer (n);
 		player.IncantatePrimary ();
 		return player;
 	}
 
-	public PlayerController SetPlayerIncantateSecondary(int n)
+	public virtual PlayerController SetPlayerIncantateSecondary(int n)
 	{
 		PlayerController player = GetPlayer (n);
 		player.IncantateSecondary ();
 		return player;
 	}
 
-	public PlayerController SetPlayerStopIncantate(int n)
+	public virtual List<PlayerController> SetPlayersStopIncantate(int x, int y)
 	{
-		PlayerController player = GetPlayer (n);
-		player.StopIncantating ();
-		return player;
+		var players = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players;
+		foreach (var player in GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players)
+		{
+			player.StopIncantating ();
+		}
+		return players;
 	}
 
-	public PlayerController SetPlayerLayEgg(int n)
+	public virtual PlayerController SetPlayerLayEgg(int n)
 	{
 		PlayerController player = GetPlayer (n);
 		player.LayEgg ();
 		return player;
 	}
 
-	public PlayerController SetPlayerThrowResource(int n, int i)
+	public virtual PlayerController SetPlayerThrowResource(int n, int i)
 	{
 		PlayerController player = GetPlayer (n);
 		player.ThrowItem ();
 		return player;
 	}
 
-	public PlayerController SetPlayerTakeResource(int n, int i)
+	public virtual PlayerController SetPlayerTakeResource(int n, int i)
 	{
 		PlayerController player = GetPlayer (n);
 		player.GrabItem ();
 		return player;
 	}
 
-	public PlayerController SetPlayerDeath(int n)
+	public virtual PlayerController SetPlayerDeath(int n)
 	{
 		PlayerController player = GetPlayer (n);
 		player.Die ();
 		return player;
 	}
 
-	public EggController SetEggCreation(int e, int n, int x, int y)
+	public virtual EggController SetEggCreation(int e, int n, int x, int y)
 	{
 		EggController egg = this.eic.InstantiateEgg();
 		PlayerController player = GetPlayer (n);
@@ -187,21 +190,21 @@ public class PlayerManagerScript {
 		return egg;
 	}
 
-	public EggController SetEggHatch(int e)
+	public virtual EggController SetEggHatch(int e)
 	{
 		EggController egg = GetEgg (e);
 		egg.Hatch();
 		return egg;
 	}
 
-	public EggController SetPlayerToEggConnection(int e)
+	public virtual EggController SetPlayerToEggConnection(int e)
 	{
 		EggController egg = GetEgg (e);
 		egg.PlayerConnection();
 		return egg;
 	}
 
-	public EggController SetEggDie(int e)
+	public virtual EggController SetEggDie(int e)
 	{
 		EggController egg = GetEgg (e);
 		egg.Die();
