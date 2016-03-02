@@ -49,8 +49,8 @@ public class Hologram : MonoBehaviour {
 		
 		foreach(Material HoloMaterial in HoloMaterials)
 		{
-			HoloMaterial.SetFloat("_RimPower",newrim);
-			HoloMaterial.SetFloat("_ClipPower",newclip);
+			HoloMaterial.SetFloat("_RimPower", newrim);
+			HoloMaterial.SetFloat("_ClipPower", newclip);
 		}
 		
 		// make light flicker

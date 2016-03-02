@@ -34,12 +34,17 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 
 	public void SetTeamColor (Color color)
 	{
-		GetComponentInChildren<Renderer>().material.color = color / 2;
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			foreach (Material material in renderer.materials)
+				material.SetColor ("_RimColor", color == Color.cyan ? Color.white : color);
+		}
+		GetComponentInChildren<Light>().color = color;
 	}
 	
 	public void SetPosition (Vector3 position)
 	{
-		this.transform.position = position;
+		this.transform.position = new Vector3(position.x, this.transform.position.y, position.z);
 	}
 
 	#endregion
