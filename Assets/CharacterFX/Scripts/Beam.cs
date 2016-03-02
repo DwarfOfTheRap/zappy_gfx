@@ -12,7 +12,12 @@ public class Beam : MonoBehaviour {
 	
 	// Start is called just before any of the
 	// Update methods is called the first time.
-	void Start () {
+	void OnEnable () {
+		UpdateMaterials ();
+	}
+
+	public void UpdateMaterials ()
+	{
 		var materials = new List<Material>();
 		foreach (var renderer in GetComponentsInChildren<Renderer>())
 		{
@@ -106,10 +111,4 @@ public class Beam : MonoBehaviour {
 			Destroy (m);
 		}
 	}
-}
-
-public class example : MonoBehaviour {
-    void Awake() {
-        GetComponent<Renderer>().material.color = Color.red;
-    }
 }

@@ -218,7 +218,7 @@ public class PlayerController {
 		playerMovementController.EnableHighlight (this.team.color);
 	}
 
-	void DisableHighlight()
+	public void DisableHighlight()
 	{
 		highlighted = false;
 		playerMovementController.DisableHighlight ();
@@ -265,6 +265,12 @@ public class PlayerController {
 			this.oldOrientation = this.playerOrientation;
 		}
 
+	}
+
+	public void OnDisable ()
+	{
+		inputManager.OnLeftClicking -= OnLeftClick;
+		inputManager.OnRightClicking -= OnRightClick;
 	}
 
 	public void Update(Vector3 position)

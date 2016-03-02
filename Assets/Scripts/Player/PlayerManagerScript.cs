@@ -178,6 +178,7 @@ public class PlayerManagerScript {
 	{
 		PlayerController player = GetPlayer (n);
 		player.Die ();
+		players.Remove (player);
 		return player;
 	}
 
@@ -208,6 +209,7 @@ public class PlayerManagerScript {
 	{
 		EggController egg = GetEgg (e);
 		egg.Die();
+		eggs.Remove (egg);
 		return egg;
 	}
 }

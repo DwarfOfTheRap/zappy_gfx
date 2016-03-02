@@ -1,13 +1,12 @@
   Shader "Character/Disintegrate Bumped Diffuse" {
     Properties {
-      _MainTex ("Texture (RGB)", 2D) = "white" {}
-      _BumpMap ("Texture (RGB)", 2D) = "bump" {}
-      _NoiseTex ("Effect Map (RGB)", 2D) = "white" {}
-      _DisintegrateAmount ("Effect Amount", Range(0.0, 1.01)) = 0.0
-      _DissolveColor("Edge Color", Color) = (1.0,0.5,0.2,0.0)
-      _EdgeEmission ("Edge Emission", Color) = (0,0,0,0)
-      _DissolveEdge("Edge Range",Range(0.0,0.1)) = 0.01
-      _TileFactor ("Tile Factor", Range(0.0,4.0)) = 1.0
+        _MainTex("Albedo", 2D) = "white" {}
+      	_NoiseTex ("Effect Map (RGB)", 2D) = "white" {}
+      	_DisintegrateAmount ("Effect Amount", Range(0.0, 1.01)) = 0.0
+      	_DissolveColor("Edge Color", Color) = (1.0,0.5,0.2,0.0)
+      	_EdgeEmission ("Edge Emission", Color) = (0,0,0,0)
+      	_DissolveEdge("Edge Range",Range(0.0,0.1)) = 0.01
+      	_TileFactor ("Tile Factor", Range(0.0,4.0)) = 1.0
     }
     SubShader {
       Tags { "RenderType" = "Opaque" }
@@ -48,5 +47,5 @@
       }
       ENDCG
     }
-    Fallback "Disintegrate"
+    Fallback "Diffuse"
   }

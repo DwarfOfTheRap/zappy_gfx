@@ -47,8 +47,6 @@
         _OutlineColor ("Outline Color", Color) = (0,0,0,1)
         _Outline ("Outline width", Range (.002, 0.03)) = .005
         // -------------------------
-        
-        _NoiseTex ("Effect Map (RGB)", 2D) = "white" {}
       	_DisintegrateAmount ("Effect Amount", Range(0.0, 1.01)) = 0.0
       	_DissolveColor("Edge Color", Color) = (1.0,0.5,0.2,0.0)
       	_EdgeEmission ("Edge Emission", Color) = (0,0,0,0)
@@ -61,19 +59,17 @@
     ENDCG
  
 /////////////////////////////////////////////////////////////////////////////////////////////
- 
     SubShader
     {
         Tags { "RenderType"="Opaque" "PerformanceChecks"="False" }
         LOD 300
  
         // ----------------------
-        // Start of Outline adding
-   
+        // Start of Outline adding  
         CGINCLUDE
         #include "UnityCG.cginc"
-     
-        struct appdata {
+
+      	struct appdata {
             float4 vertex : POSITION;
             float3 normal : NORMAL;
         };
@@ -83,18 +79,9 @@
             UNITY_FOG_COORDS(0)
             fixed4 color : COLOR;
         };
-     
+        
         uniform float _Outline;
         uniform float4 _OutlineColor;
-        
-        sampler2D _MainTex;
-      	sampler2D _BumpMap;
-      	sampler2D _NoiseTex;
-      	float  _DisintegrateAmount;
-      	float4 _DissolveColor;
-      	float  _DissolveEdge;
-      	float  _TileFactor;
-      	float4 _EdgeEmission;
         
         v2f vert(appdata v) {
             // just make a copy of incoming vertex data but scaled according to normal direction
@@ -110,36 +97,8 @@
             return o;
         }
         
-        ENDCG   
-        
-		Pass {
-			Name "DISINTEGRATE"
-			Tags { "RenderType" = "Opaque" }
-			CGPROGRAM
-      		#pragma target 3.0
-      		#pragma surface surf Lambert addshadow nolightmap 
-		    void surf (Input IN, inout SurfaceOutput o) 
-      		{
-          		float clipval = tex2D (_NoiseTex, IN.uv_MainTex * _TileFactor).rgb - _DisintegrateAmount; 
-          
-		        clip(clipval);
-          
+        ENDCG
 
-          if (clipval < _DissolveEdge && _DisintegrateAmount > 0)
-          {
-              o.Emission = _EdgeEmission;
-              o.Albedo = _DissolveColor;          
-          }
-          else
-          {
-              o.Albedo = tex2D (_MainTex, IN.uv_MainTex).rgb;
-          }     
-          float4 nrm =  tex2D (_BumpMap,IN.uv_BumpMap);    
-          o.Normal = UnpackNormal(nrm);       
-      }
-      		ENDCG
-		}
- 
         Pass {
             Name "OUTLINE"
             Tags { "LightMode" = "Always" }

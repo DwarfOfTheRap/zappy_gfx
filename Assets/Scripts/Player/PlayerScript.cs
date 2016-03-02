@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	public Orientation			orientation;
 	private Material			_material;
 	public Material				disintegrateMaterial;
+	public Material				disintegrateGlassMaterial;
 	private const float			_highlight_width = 0.0025f;
 	
 	private void Awake()
@@ -176,7 +177,21 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	public void Disintegrate()
 	{
-		GetComponent<Beam>().BeamOut (false);
+		controller.DisableHighlight ();
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials = new Material[] { disintegrateMaterial, disintegrateGlassMaterial };
+			renderer.materials[0].SetColor ("_DissolveColor", controller.team.color);
+			renderer.materials[1].SetColor ("_DissolveColor", controller.team.color);
+		}
+		GetComponent<Beam>().UpdateMaterials();
+		GetComponentInChildren<Light>().enabled = false;
+		GetComponent<Beam>().BeamOut (true);
+	}
+
+	void OnDisable()
+	{
+		controller.OnDisable();
 	}
 
 	void Update()
