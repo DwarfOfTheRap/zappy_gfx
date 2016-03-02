@@ -6,17 +6,18 @@ using System.Collections;
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController, IClickTarget {
 	public PlayerController 	controller;
 	public Orientation			orientation;
-
+	private Material			_material;
+	public Material				disintegrateMaterial;
 	private const float			_highlight_width = 0.0025f;
 	
 	private void Awake()
 	{
-
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetGridController(GameManagerScript.instance.grid.controller);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
+		this._material = GetComponentInChildren<Renderer>().material;
 	}
 
 	private void Start()
@@ -172,6 +173,11 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	}
 
 	#endregion
+
+	public void Disintegrate()
+	{
+		GetComponent<Beam>().BeamOut (false);
+	}
 
 	void Update()
 	{

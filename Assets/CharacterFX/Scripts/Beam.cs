@@ -6,7 +6,6 @@ public class Beam : MonoBehaviour {
 	
 	public AudioSource EffectSource;
 	public AudioClip EffectSound;
-	public Renderer SourceRenderer;
 	private Material[] EffectMaterials;	
 	public float EffectLength = 0.0f;
 	
@@ -14,7 +13,12 @@ public class Beam : MonoBehaviour {
 	// Start is called just before any of the
 	// Update methods is called the first time.
 	void Start () {
-		EffectMaterials = SourceRenderer.materials;
+		var materials = new List<Material>();
+		foreach (var renderer in GetComponentsInChildren<Renderer>())
+		{
+			materials.AddRange (renderer.materials);
+		}
+		EffectMaterials = materials.ToArray ();
 	}
 	
 	private void SetMaterialParms(float amount)

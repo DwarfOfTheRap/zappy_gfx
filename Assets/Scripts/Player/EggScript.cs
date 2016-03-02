@@ -32,6 +32,10 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 
 	#region IEggMotorController implementation
 
+	public void Init()
+	{
+	}
+
 	public void SetTeamColor (Color color)
 	{
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
@@ -60,4 +64,5 @@ public interface IEggMotorController
 {
 	void SetTeamColor(Color color);
 	void SetPosition(Vector3 position);
+	void Init ();
 }

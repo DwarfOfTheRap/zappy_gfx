@@ -37,6 +37,7 @@ public class EggController {
 			motorController.SetPosition (this.currentSquare.GetPosition ());
 			this.index = index;
 			this.parent = parent;
+			this.motorController.Init();
 			this.motorController.SetTeamColor (parent.team.color);
 			return this;
 		}

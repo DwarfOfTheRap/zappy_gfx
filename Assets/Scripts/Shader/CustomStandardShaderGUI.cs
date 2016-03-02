@@ -39,6 +39,13 @@ namespace UnityEditor
 			public static GUIContent detailMaskText = new GUIContent("Detail Mask", "Mask for Secondary Maps (A)");
 			public static GUIContent detailAlbedoText = new GUIContent("Detail Albedo x2", "Albedo (RGB) multiplied by 2");
 			public static GUIContent detailNormalMapText = new GUIContent("Normal Map", "Normal Map");
+
+			// Disintegrate Add 
+			public static GUIContent effectMapText = new GUIContent("Effect Map", "Effect Map");
+			public static GUIContent edgeAmountText = new GUIContent("Edge Amount", "Edge Amount");
+			public static GUIContent edgeColor = new GUIContent("Edge Content", "Edge Content");
+			public static GUIContent edgeEmission = new GUIContent("Edge Range", "Edge Range");
+			public static GUIContent tileFactor = new GUIContent("Tile Factor", "Tile Factor");
 			
 			public static string whiteSpaceString = " ";
 			public static string primaryMapsText = "Main Maps";
@@ -76,7 +83,15 @@ namespace UnityEditor
 		// Outline Add ------------------------------------------------------- //
 		MaterialProperty _OutlineColor = null;
 		MaterialProperty _Outline = null;
-		
+
+		// Disintegrate Add ------------------------------------------------------- //
+		MaterialProperty effectMap = null;
+		MaterialProperty effectAmount = null;
+		MaterialProperty edgeColor = null;
+		MaterialProperty edgeEmission = null;
+		MaterialProperty edgeAmount = null;
+		MaterialProperty tileFactor = null;
+
 		MaterialEditor m_MaterialEditor;
 		WorkflowMode m_WorkflowMode = WorkflowMode.Specular;
 		
@@ -117,6 +132,13 @@ namespace UnityEditor
 			// Outline Add ------------------------------------------------------- //
 			_OutlineColor = FindProperty ("_OutlineColor", props);
 			_Outline = FindProperty ("_Outline", props);
+			// Disintegrate Add
+			effectMap = FindProperty ("_NoiseTex", props);
+			effectAmount = FindProperty ("_DisintegrateAmount", props);
+			edgeAmount = FindProperty ("_DissolveEdge", props);
+			edgeEmission = FindProperty ("_EdgeEmission", props);
+			edgeColor = FindProperty ("_DissolveColor", props);
+			tileFactor = FindProperty ("_TileFactor", props);
 		}
 		
 		public override void OnGUI (MaterialEditor materialEditor, MaterialProperty[] props)
@@ -153,6 +175,7 @@ namespace UnityEditor
 				m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, bumpMap, bumpMap.textureValue != null ? bumpScale : null);
 				m_MaterialEditor.TexturePropertySingleLine(Styles.heightMapText, heightMap, heightMap.textureValue != null ? heigtMapScale : null);
 				m_MaterialEditor.TexturePropertySingleLine(Styles.occlusionText, occlusionMap, occlusionMap.textureValue != null ? occlusionStrength : null);
+				m_MaterialEditor.TexturePropertySingleLine (Styles.effectMapText, effectMap, null);
 				DoEmissionArea(material);
 				m_MaterialEditor.TexturePropertySingleLine(Styles.detailMaskText, detailMask);
 				EditorGUI.BeginChangeCheck();
@@ -175,6 +198,15 @@ namespace UnityEditor
 				GUILayout.Label ("Outline Properties", EditorStyles.boldLabel);
 				m_MaterialEditor.ColorProperty (_OutlineColor, "Outline Color");
 				m_MaterialEditor.FloatProperty (_Outline, "Outline Width");
+
+				// Disintegrate properties ---------------------------------------------- //
+				GUILayout.Label ("Disintegrate Properties", EditorStyles.boldLabel);
+				m_MaterialEditor.TexturePropertySingleLine (Styles.effectMapText, effectMap, null);
+				m_MaterialEditor.RangeProperty (effectAmount, "Effect Amount");
+				m_MaterialEditor.ColorProperty (edgeColor, "Edge Color");
+				m_MaterialEditor.ColorProperty (edgeEmission, "Edge Emission");
+				m_MaterialEditor.RangeProperty (edgeAmount, "Edge Range");
+				m_MaterialEditor.RangeProperty (tileFactor, "Tile Factor");
 			}
 			if (EditorGUI.EndChangeCheck())
 			{
