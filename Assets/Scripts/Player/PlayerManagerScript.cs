@@ -77,7 +77,7 @@ public class PlayerManagerScript {
 		return tmp.ToArray ();
 	}
 
-	public PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
+	public virtual PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
 	{
 		PlayerController controller = pic.InstantiatePlayer();
 		if (players.Find (pl => pl.index == n) != null)
