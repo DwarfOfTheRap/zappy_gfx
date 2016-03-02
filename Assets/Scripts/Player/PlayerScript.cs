@@ -182,7 +182,9 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		{
 			renderer.materials = new Material[] { disintegrateMaterial, disintegrateGlassMaterial };
 			renderer.materials[0].SetColor ("_DissolveColor", controller.team.color);
+			renderer.materials[0].SetColor ("_EdgeEmission", controller.team.color);
 			renderer.materials[1].SetColor ("_DissolveColor", controller.team.color);
+			renderer.materials[1].SetColor ("_EdgeEmission", controller.team.color);
 		}
 		GetComponent<Beam>().UpdateMaterials();
 		GetComponentInChildren<Light>().enabled = false;
