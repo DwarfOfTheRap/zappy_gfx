@@ -240,7 +240,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		light.intensity = 0;
 		while (light.intensity < intensity)
 		{
-			light.intensity += Time.deltaTime;
+			light.intensity += Time.deltaTime * (GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
 			yield return null;
 		}
 	}

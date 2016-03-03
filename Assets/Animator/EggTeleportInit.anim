@@ -18,13 +18,13 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: {x: 0, y: -1, z: 0}
-        inSlope: {x: 0, y: 1, z: 0}
-        outSlope: {x: 0, y: 1, z: 0}
+        inSlope: {x: 0, y: .499916673, z: 0}
+        outSlope: {x: 0, y: .499916673, z: 0}
         tangentMode: 0
-      - time: 1
-        value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 1, z: 0}
-        outSlope: {x: 0, y: 1, z: 0}
+      - time: 2.00016665
+        value: {x: 0, y: -8.33272934e-05, z: 0}
+        inSlope: {x: 0, y: .499916673, z: 0}
+        outSlope: {x: 0, y: .499916673, z: 0}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -49,7 +49,7 @@ AnimationClip:
   m_AnimationClipSettings:
     serializedVersion: 2
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 2.00016665
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -67,12 +67,7 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 10
-      - time: 1
+      - time: 2.00016665
         value: 0
         inSlope: 0
         outSlope: 0
@@ -88,13 +83,13 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: -1
-        inSlope: 1
-        outSlope: 1
+        inSlope: .499916673
+        outSlope: .499916673
         tangentMode: 10
-      - time: 1
-        value: 0
-        inSlope: 1
-        outSlope: 1
+      - time: 2.00016665
+        value: -8.33272934e-05
+        inSlope: .499916673
+        outSlope: .499916673
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -105,12 +100,7 @@ AnimationClip:
   - curve:
       serializedVersion: 2
       m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 10
-      - time: 1
+      - time: 2.00016665
         value: 0
         inSlope: 0
         outSlope: 0
@@ -126,7 +116,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: .983333349
+  - time: 1.98333335
     functionName: OnInitAnimationEnd
     data: 
     objectReferenceParameter: {fileID: 0}

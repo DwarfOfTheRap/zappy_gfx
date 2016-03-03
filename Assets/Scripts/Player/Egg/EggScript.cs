@@ -53,9 +53,7 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	
 	public void SetPosition (Vector3 position)
 	{
-		Debug.Log (this.transform.position);
 		this.transform.position = new Vector3(position.x, this.transform.position.y, position.z);
-		Debug.Log (this.transform.position);
 	}
 
 	#endregion
@@ -83,6 +81,11 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	public void OnDeathAnimationEnd()
 	{
 		Destroy (gameObject);
+	}
+
+	public void Update()
+	{
+		GetComponent<Animator>().SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
 	}
 }
 

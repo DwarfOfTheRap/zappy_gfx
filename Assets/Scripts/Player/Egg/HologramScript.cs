@@ -74,7 +74,6 @@ public class HologramController
 
 	public void Die()
 	{
-		Debug.Log ("?");
 		animatorController.SetTrigger ("Death");
 	}
 }
