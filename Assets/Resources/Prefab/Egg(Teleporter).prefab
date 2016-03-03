@@ -133,7 +133,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b13df757dc47549e19c25f894f0b94ba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9710130c376754bedb45c5425aa109ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hologramPrefab: {fileID: 0}
+  hologramPrefab: {fileID: 11434098, guid: d9906c0c2a4b5429aba4fd42955361a5, type: 2}
 --- !u!198 &19860170
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1267,7 +1267,16 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hologramPrefab
+      value: 
+      objectReference: {fileID: 11434098, guid: d9906c0c2a4b5429aba4fd42955361a5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 115238}

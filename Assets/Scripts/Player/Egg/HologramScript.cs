@@ -10,7 +10,7 @@ public class HologramScript : MonoBehaviour, IHologram, IAnimatorController {
 	
 	// Update is called once per frame
 	void Update () {
-		GetComponent<Animator>().SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed);
+		GetComponent<Animator>().SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
 	}
 
 	#region IAnimatorController implementation
@@ -44,7 +44,7 @@ public class HologramScript : MonoBehaviour, IHologram, IAnimatorController {
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
 		{
 			foreach (Material material in renderer.materials)
-				material.SetColor ("_RimColor", color);
+				material.SetColor ("_RimColor", color == Color.cyan ? Color.white : color);
 		}
 	}
 
@@ -74,6 +74,7 @@ public class HologramController
 
 	public void Die()
 	{
+		Debug.Log ("?");
 		animatorController.SetTrigger ("Death");
 	}
 }

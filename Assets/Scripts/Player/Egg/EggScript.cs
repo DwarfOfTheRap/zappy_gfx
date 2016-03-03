@@ -53,22 +53,20 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	
 	public void SetPosition (Vector3 position)
 	{
+		Debug.Log (this.transform.position);
 		this.transform.position = new Vector3(position.x, this.transform.position.y, position.z);
+		Debug.Log (this.transform.position);
 	}
 
 	#endregion
 
 	public void Hatch ()
 	{
-		GetComponent<ParticleSystem>().Stop ();
+		GetComponentInChildren<ParticleSystem>().Stop ();
 		var clone = Instantiate (hologramPrefab) as HologramScript;
 		clone.transform.SetParent (this.transform);
-		clone.transform.localPosition = new Vector3 (0, 0.5f, 0);
-		foreach (Renderer renderer in clone.GetComponentsInChildren<Renderer>())
-		{
-			foreach (Material material in renderer.materials)
-				material.SetColor ("_RimColor", controller.team.color);
-		}
+		clone.transform.localPosition = Vector3.zero;
+		clone.controller.SetTeamColors (controller.team.color);
 		_hologram = clone.controller;
 	}
 
@@ -85,11 +83,6 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	public void OnDeathAnimationEnd()
 	{
 		Destroy (gameObject);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
 

@@ -234,7 +234,15 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 			renderer.materials[0].SetFloat ("_Outline", outline);
 			renderer.materials[0].SetColor ("_OutlineColor", color);
 		}
-		GetComponentInChildren<Light>().enabled = true;
+		var light = GetComponentInChildren<Light>();
+		light.enabled = true;
+		var intensity = light.intensity;
+		light.intensity = 0;
+		while (light.intensity < intensity)
+		{
+			light.intensity += Time.deltaTime;
+			yield return null;
+		}
 	}
 
 	void OnDisable()

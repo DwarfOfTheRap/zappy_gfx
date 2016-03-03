@@ -2188,7 +2188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EffectSource: {fileID: 0}
   EffectSound: {fileID: 0}
-  EffectLength: 5
+  EffectLength: 50
 --- !u!114 &11474906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2671,7 +2671,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: d4cc6623a3cda4483b8c57d2bf88d047, type: 2}
     - target: {fileID: 0}
       propertyPath: EffectLength
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

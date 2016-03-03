@@ -4,10 +4,16 @@ using System;
 using System.Diagnostics;
 
 [Serializable]
-public class EggController {
+public class EggController
+{
 	public int							index { get; private set; }
-	public PlayerController				parent { get; private set; } 
-	public Team							team { get { return parent.team; } set {} }
+
+	public PlayerController				parent { get; private set; }
+
+	public Team							team {
+		get { return parent.team; }
+		set {}
+	}
 									
 	public	ISquare						currentSquare;
 									
@@ -19,46 +25,41 @@ public class EggController {
 #if UNITY_EDITOR
 
 #endif
-	public void							SetAnimatorController(IAnimatorController animatorController)
+	public void							SetAnimatorController (IAnimatorController animatorController)
 	{
-		this.animatorController = animatorController;
+ 		this.animatorController = animatorController;
 	}
 
-	public void							SetMotorController(IEggMotorController motorController)
+	public void							SetMotorController (IEggMotorController motorController)
 	{
 		this.motorController = motorController;
 	}
 
-	public EggController				Init(int x, int y, int index, PlayerController parent, GridController gridController)
+	public EggController				Init (int x, int y, int index, PlayerController parent, GridController gridController)
 	{
-		try
-		{
-			this.currentSquare = gridController.GetSquare (x, y);
-			motorController.SetPosition (this.currentSquare.GetPosition ());
-			this.index = index;
-			this.parent = parent;
-			this.motorController.Init();
-			this.motorController.SetTeamColor (parent.team.color);
-			return this;
-		}
-		catch (GridController.GridOutOfBoundsException)
-		{
-			return null;
-		}
+		this.currentSquare = gridController.GetSquare (x, y);
+		motorController.SetPosition (this.currentSquare.GetPosition ());
+		this.index = index;
+		this.parent = parent;
+		this.motorController.Init ();
+		this.motorController.SetTeamColor (parent.team.color);
+		return this;
 	}
 
 	public void Hatch ()
 	{
-		motorController.Hatch();
+		motorController.Hatch ();
 	}
 
 	public void Die ()
 	{
 		animatorController.SetTrigger ("Death");
+		motorController.Die ();
 	}
 
 	public void PlayerConnection ()
 	{
 		animatorController.SetTrigger ("Death");
+		motorController.Die ();
 	}
 }

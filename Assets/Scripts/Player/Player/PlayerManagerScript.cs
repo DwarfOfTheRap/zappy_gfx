@@ -34,8 +34,10 @@ public class PlayerManagerScript {
 	public PlayerManagerScript(GridController gridController, TeamManager teamManager, IPlayerInstantiationController pic, IEggInstantiationController eic)
 	{
 		this.players = new List<PlayerController>();
+		this.eggs = new List<EggController>();
 		this.pic = pic;
 		this.eic = eic;
+		this.teamManager = teamManager;
 		this.gridController = gridController;
 	}
 

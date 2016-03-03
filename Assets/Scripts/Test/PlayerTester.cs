@@ -132,21 +132,21 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestDoEights()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		StartCoroutine (DoEight());
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestOneSquare()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		StartCoroutine (HopASquare());
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestRotateOnce()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
 		StartCoroutine (RotateOnce(Orientation.EAST));
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
