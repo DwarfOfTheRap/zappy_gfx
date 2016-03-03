@@ -22,6 +22,7 @@ public abstract class AInputManager
 	public abstract bool MoveDown();
 
 	public abstract bool ResetCamera();
+	public abstract bool OpenMenu();
 
 	public abstract bool ScrollUp();
 	public abstract bool ScrollDown();
