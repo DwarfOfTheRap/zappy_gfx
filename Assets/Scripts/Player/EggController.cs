@@ -49,7 +49,6 @@ public class EggController {
 
 	public void Hatch ()
 	{
-
 	}
 
 	public void Die ()

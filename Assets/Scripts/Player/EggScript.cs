@@ -41,9 +41,10 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
 		{
 			foreach (Material material in renderer.materials)
-				material.SetColor ("_RimColor", color == Color.cyan ? Color.white : color);
+				material.color = color;
 		}
 		GetComponentInChildren<Light>().color = color;
+		GetComponentInChildren<ParticleSystem>().startColor = color;
 	}
 	
 	public void SetPosition (Vector3 position)
@@ -52,6 +53,16 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	}
 
 	#endregion
+
+	public void OnInitAnimationEnd()
+	{
+		GetComponentInChildren<ParticleSystem>().Play();
+	}
+
+	public void OnDeathAnimationEnd()
+	{
+		Destroy (gameObject);
+	}
 	
 	// Update is called once per frame
 	void Update () {

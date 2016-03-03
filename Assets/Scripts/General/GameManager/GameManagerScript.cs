@@ -19,7 +19,8 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 
 	void OnEnable()
 	{
-		playerPrefab = Resources.Load ("Prefab/Ciccio_LOD") as GameObject;
+		playerPrefab = Resources.Load ("Prefab/Player") as GameObject;
+		eggPrefab = Resources.Load ("Prefab/Egg(Teleporter)") as GameObject;
 		instance = this;
 		grid = GetComponentInChildren<GridScript>();
 		qualityManager = new QualityManager();
