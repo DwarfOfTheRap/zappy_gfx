@@ -21,7 +21,7 @@ public class ServerCommandsTests {
 	{
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
-		sc.gridController.GetSquare (3, 3).ReturnsForAnyArgs (GetSquareMock ());
+		sc.gridController.GetSquare (3, 3).ReturnsForAnyArgs (GetMockSquare ());
 		//Act
 		sc.SendSquareContent ("bct 3 3 1 1 1 1 1 1 1\n");
 		//Assert
@@ -124,13 +124,112 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
 		SquareContent squareC = new SquareContent ();
-		squareC.players.Add (GetMockPlayerController (GetAnimatorControllerMock()));
+		squareC.players.Add (GetMockPlayerController (GetMockAnimatorController ()));
 		sc.gridController.GetSquare (5, 5).ReturnsForAnyArgs (Substitute.For<ISquare> ());
 		sc.gridController.GetSquare (5, 5).GetResources().ReturnsForAnyArgs(squareC);
 		//Act
 		sc.SendIncantationStop ("pie 5 5 1\n");
 		//Assert
 		sc.playerManager.Received ().SetPlayersStopIncantate (5, 5);
+	}
+
+	[Test]
+	public void SendLayEggTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendLayEgg("pfk #3\n");
+		//Assert
+		sc.playerManager.Received().SetPlayerLayEgg(3);
+	}
+
+	[Test]
+	public void SendThrowResourceTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendThrowResource("pdr #3 3\n");
+		//Assert
+		sc.playerManager.Received().SetPlayerThrowResource(3, 3);
+	}
+
+	[Test]
+	public void SendTakeResourceTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendTakeResource("pgt #3 3\n");
+		//Assert
+		sc.playerManager.Received().SetPlayerTakeResource(3, 3);
+	}
+
+	[Test]
+	public void SendDeathTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendDeath("pdi #3\n");
+		//Assert
+		sc.playerManager.Received().SetPlayerDeath(3);
+	}
+
+	[Test]
+	public void SendEndOfForkTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendEndOfFork("enw #4 #3 5 5\n");
+		//Assert
+		sc.playerManager.Received().SetEggCreation(4, 3, 5, 5);
+	}
+
+	[Test]
+	public void SendHatchedEggTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendHatchedEgg("eht #4\n");
+		//Assert
+		sc.playerManager.Received().SetEggHatch(4);
+	}
+
+	[Test]
+	public void SendPlayerToEggConnection()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendPlayerToEggConnection("ebo #4\n");
+		//Assert
+		sc.playerManager.Received().SetPlayerToEggConnection(4);
+	}
+
+	[Test]
+	public void SendRottenEggTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendRottenEgg("edi #4\n");
+		//Assert
+		sc.playerManager.Received().SetEggDie(4);
+	}
+
+	[Test]
+	public void SendTimeUnitTest()
+	{
+		//Arrange
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager ());
+		//Act
+		sc.SendTimeUnit("sgt 150\n");
+		//Assert
+		sc.timeManager.Received().ChangeTimeSpeed(150.0f);
 	}
 
 	public GridController GetMockGridController()
@@ -165,7 +264,7 @@ public class ServerCommandsTests {
 		return (Substitute.For<IEggInstantiationController> ());
 	}
 
-	public ISquare GetSquareMock()
+	public ISquare GetMockSquare()
 	{
 		return (Substitute.For<ISquare> ());
 	}
@@ -177,8 +276,18 @@ public class ServerCommandsTests {
 		return controller;
 	}
 
-	public IAnimatorController GetAnimatorControllerMock()
+	public IAnimatorController GetMockAnimatorController()
 	{
-		return Substitute.For<IAnimatorController>();
+		return (Substitute.For<IAnimatorController>());
+	}
+
+	public Team GetMockTeam ()
+	{
+		return (Substitute.For<Team> ("TestTeam", Color.red));
+	}
+
+	public GameManagerScript GetMockGameManager ()
+	{
+		return (Substitute.For<GameManagerScript>());
 	}
 }

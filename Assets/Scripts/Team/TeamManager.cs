@@ -42,7 +42,7 @@ public class TeamManager
 		this.colors.Push (Color.cyan);
 	}
 
-	public Team			findTeam(string name)
+	public virtual Team			findTeam(string name)
 	{
 		if (teams.Count == 0)
 			throw new NoTeamException();
@@ -61,7 +61,7 @@ public class TeamManager
 		return team;
 	}
 
-	private Color		_getNewTeamColor()
+	private Color				_getNewTeamColor()
 	{
 		if (this.colors.Count > 0)
 			return this.colors.Pop ();
