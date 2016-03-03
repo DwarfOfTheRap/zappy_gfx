@@ -49,16 +49,16 @@ public class EggController {
 
 	public void Hatch ()
 	{
-		throw new NotImplementedException ();
+
 	}
 
 	public void Die ()
 	{
-		throw new NotImplementedException ();
+		animatorController.SetTrigger ("Death");
 	}
 
 	public void PlayerConnection ()
 	{
-		throw new NotImplementedException ();
+		animatorController.SetTrigger ("Death");
 	}
 }
