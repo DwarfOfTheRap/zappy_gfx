@@ -14,6 +14,12 @@ public class MenuWindow : MonoBehaviour {
 		}
 	}
 
+	public void DisplayWindow()
+	{
+		gameObject.GetComponent<CanvasGroup>().alpha = 1;
+		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
+	}
+
 	public void CloseWindow()
 	{
 		gameObject.GetComponent<CanvasGroup>().alpha = 0;
