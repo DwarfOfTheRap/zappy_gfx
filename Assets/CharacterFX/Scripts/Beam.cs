@@ -46,12 +46,12 @@ public class Beam : MonoBehaviour {
 
 		float LengthLeft = EffectLength;
 		
-		while(LengthLeft > 0.0f)
+		while (LengthLeft > 0.0f)
     	{
 			float pos = 1.0f - (LengthLeft / EffectLength);
 			SetMaterialParms(pos);
         	yield return null;
-			LengthLeft -= Time.deltaTime;
+			LengthLeft -= Time.deltaTime * GameManagerScript.instance.timeManager.timeSpeed;
     	}
 		SetMaterialParms(1.01f);
 		if (Destroy)
@@ -71,12 +71,12 @@ public class Beam : MonoBehaviour {
 
 		float LengthLeft = EffectLength;
 				
-		while(LengthLeft > 0.0f)
+		while (LengthLeft > 0.0f)
     	{
-			float pos =  (LengthLeft / EffectLength);
+			float pos = (LengthLeft / EffectLength);
 			SetMaterialParms(pos);
         	yield return null;
-			LengthLeft -= Time.deltaTime;
+			LengthLeft -= Time.deltaTime * GameManagerScript.instance.timeManager.timeSpeed;
     	}
 		
 		SetMaterialParms(0.0f);

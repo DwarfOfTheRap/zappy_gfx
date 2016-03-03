@@ -226,7 +226,13 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		while (!HasRisen ())
 			yield return null;
 		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			var outline = renderer.materials[0].GetFloat ("_Outline");
+			var color = renderer.materials[0].GetColor ("_OutlineColor");
 			renderer.materials = new Material[] { _material, _glassMaterial };
+			renderer.materials[0].SetFloat ("_Outline", outline);
+			renderer.materials[0].SetColor ("_OutlineColor", color);
+		}
 		GetComponentInChildren<Light>().enabled = true;
 	}
 

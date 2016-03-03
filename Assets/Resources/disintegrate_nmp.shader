@@ -7,6 +7,10 @@
       	_EdgeEmission ("Edge Emission", Color) = (0,0,0,0)
       	_DissolveEdge("Edge Range",Range(0.0,0.1)) = 0.01
       	_TileFactor ("Tile Factor", Range(0.0,4.0)) = 1.0
+        // Added Outline properties
+        _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+        _Outline ("Outline width", Range (.002, 0.03)) = .005
+        // -------------------------
     }
     SubShader {
       Tags { "RenderType" = "Opaque" }
