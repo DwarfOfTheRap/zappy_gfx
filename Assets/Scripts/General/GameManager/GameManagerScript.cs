@@ -31,7 +31,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
-	public void GameOver(Team team)
+	public virtual void GameOver(Team team)
 	{
 		if (OnGameOver != null)
 			OnGameOver ( new GameOverEventArgs { team = team });

@@ -53,6 +53,11 @@ public class InputManager : AInputManager
 		return (Input.GetKeyUp (KeyCode.Space));
 	}
 
+	public override bool MenuKey ()
+	{
+		return (Input.GetKeyUp (KeyCode.Escape));
+	}
+
 	public override bool ScrollUp ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
