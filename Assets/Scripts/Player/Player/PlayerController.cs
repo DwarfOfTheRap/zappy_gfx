@@ -40,7 +40,8 @@ public class PlayerController {
 	private IAnimatorController			animatorController;
 	private IPlayerMotorController		playerMovementController;
 	private GridController				gridController;
-	private AInputManager				inputManager;	
+	private AInputManager				inputManager;
+	private TimeManager					timeManager;
 		
 #if UNITY_EDITOR
 	public PlayerController()
@@ -57,7 +58,7 @@ public class PlayerController {
 
 	public void ChangeAnimationSpeed(float value)
 	{
-		this.animatorController.SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
+		this.animatorController.SetFloat ("Speed", timeManager.timeSpeed / 10.0f);
 	}
 
 	public void SetAnimatorController(IAnimatorController animatorController)
@@ -75,6 +76,11 @@ public class PlayerController {
 		this.inputManager = inputManager;
 		inputManager.OnLeftClicking += OnLeftClick;
 		inputManager.OnRightClicking += OnRightClick;
+	}
+
+	public void SetTimeManager (TimeManager timeManager)
+	{
+		this.timeManager = timeManager;
 	}
 
 	public void SetGridController (GridController gridController)

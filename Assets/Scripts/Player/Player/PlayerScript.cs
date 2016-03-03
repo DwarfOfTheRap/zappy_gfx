@@ -19,6 +19,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		controller.SetGridController(GameManagerScript.instance.grid.controller);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
+		controller.SetTimeManager (GameManagerScript.instance.timeManager);
 		this._material = GetComponentInChildren<Renderer>().materials[0];
 		this._glassMaterial = GetComponentInChildren<Renderer>().materials[1];
 	}

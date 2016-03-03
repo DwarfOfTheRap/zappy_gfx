@@ -49,6 +49,7 @@ public class EggController {
 
 	public void Hatch ()
 	{
+		motorController.Hatch();
 	}
 
 	public void Die ()

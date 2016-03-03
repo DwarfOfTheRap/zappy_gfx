@@ -3,13 +3,17 @@ using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController {
-	public EggController	controller;
+	public EggController		controller;
+	public HologramScript		hologramPrefab;
+
+	private HologramController	_hologram;
 
 	void Awake() {
 		controller = new EggController();
 		controller.SetAnimatorController(this);
 		controller.SetMotorController(this);
 	}
+
 	public void SetBool (string name, bool value)
 	{
 		GetComponent<Animator>().SetBool (name, value);
@@ -54,6 +58,25 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 
 	#endregion
 
+	public void Hatch ()
+	{
+		GetComponent<ParticleSystem>().Stop ();
+		var clone = Instantiate (hologramPrefab) as HologramScript;
+		clone.transform.SetParent (this.transform);
+		clone.transform.localPosition = new Vector3 (0, 0.5f, 0);
+		foreach (Renderer renderer in clone.GetComponentsInChildren<Renderer>())
+		{
+			foreach (Material material in renderer.materials)
+				material.SetColor ("_RimColor", controller.team.color);
+		}
+		_hologram = clone.controller;
+	}
+
+	public void Die ()
+	{
+		_hologram.Die ();
+	}
+
 	public void OnInitAnimationEnd()
 	{
 		GetComponentInChildren<ParticleSystem>().Play();
@@ -73,7 +96,9 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 
 public interface IEggMotorController
 {
+	void Hatch();
 	void SetTeamColor(Color color);
 	void SetPosition(Vector3 position);
 	void Init ();
+	void Die ();
 }
