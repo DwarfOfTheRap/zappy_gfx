@@ -38,20 +38,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _NoiseTex
-        second:
-          m_Texture: {fileID: 2800000, guid: 8f127a8df03754bb9bc30c6c1cb78d31, type: 3}
-          m_Scale: {x: 5, y: 5}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _MetallicGlossMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _ParallaxMap
         second:
           m_Texture: {fileID: 0}
@@ -87,6 +73,13 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _MetallicGlossMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _Illum
         second:
           m_Texture: {fileID: 2800000, guid: 212624d7e7c13f94bb51e4f64159b4ac, type: 3}
@@ -98,6 +91,13 @@ Material:
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _NoiseTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 07a25d7126230441e8b386ae5298a96a, type: 3}
+          m_Scale: {x: 5, y: 5}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
@@ -118,16 +118,8 @@ Material:
         second: .426026642
       data:
         first:
-          name: _DisintegrateAmount
-        second: 0
-      data:
-        first:
-          name: _DissolveEdge
-        second: .00999999978
-      data:
-        first:
-          name: _TileFactor
-        second: 1
+          name: _Parallax
+        second: .0199999996
       data:
         first:
           name: _ZWrite
@@ -138,16 +130,8 @@ Material:
         second: .672999978
       data:
         first:
-          name: _Metallic
-        second: .404000014
-      data:
-        first:
           name: _BumpScale
         second: 1
-      data:
-        first:
-          name: _Parallax
-        second: .0199999996
       data:
         first:
           name: _OcclusionStrength
@@ -174,12 +158,28 @@ Material:
         second: 0
       data:
         first:
+          name: _Metallic
+        second: .404000014
+      data:
+        first:
           name: _EmissionScaleUI
         second: 0
       data:
         first:
           name: _EmissionLM
         second: 0
+      data:
+        first:
+          name: _DisintegrateAmount
+        second: 0
+      data:
+        first:
+          name: _DissolveEdge
+        second: .0430000015
+      data:
+        first:
+          name: _TileFactor
+        second: .720000029
     m_Colors:
       data:
         first:
@@ -195,17 +195,17 @@ Material:
         second: {r: .568627477, g: .99639523, b: 1, a: 1}
       data:
         first:
-          name: _DissolveColor
-        second: {r: 1, g: .5, b: .200000003, a: 0}
-      data:
-        first:
-          name: _EdgeEmission
-        second: {r: 0, g: 1, b: 1, a: 0}
-      data:
-        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _EmissionColorUI
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _DissolveColor
+        second: {r: 1, g: .5, b: .200000003, a: 0}
+      data:
+        first:
+          name: _EdgeEmission
+        second: {r: 0, g: 1, b: 1, a: 0}

@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	public PlayerController 	controller;
 	public Orientation			orientation;
 	private Material			_material;
+	private Material			_glassMaterial;
 	public Material				disintegrateMaterial;
 	public Material				disintegrateGlassMaterial;
 	private const float			_highlight_width = 0.0025f;
@@ -18,7 +19,8 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		controller.SetGridController(GameManagerScript.instance.grid.controller);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
-		this._material = GetComponentInChildren<Renderer>().material;
+		this._material = GetComponentInChildren<Renderer>().materials[0];
+		this._glassMaterial = GetComponentInChildren<Renderer>().materials[1];
 	}
 
 	private void Start()
@@ -26,6 +28,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		Slider slider = GameObject.Find ("Slider").GetComponent<Slider> ();
 
 		slider.onValueChanged.AddListener (controller.ChangeAnimationSpeed);
+		Rise ();
 	}
 
 	#region IAnimatorController implementation
@@ -189,6 +192,42 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		GetComponent<Beam>().UpdateMaterials();
 		GetComponentInChildren<Light>().enabled = false;
 		GetComponent<Beam>().BeamOut (true);
+	}
+
+	public void Rise()
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			renderer.materials = new Material[] { disintegrateMaterial, disintegrateGlassMaterial };
+			renderer.materials[0].SetFloat ("_DisintegrateAmount", 1.0f);
+			renderer.materials[0].SetColor ("_DissolveColor", controller.team.color);
+			renderer.materials[0].SetColor ("_EdgeEmission", controller.team.color);
+			renderer.materials[1].SetFloat ("_DisintegrateAmount", 1.0f);
+			renderer.materials[1].SetColor ("_DissolveColor", controller.team.color);
+			renderer.materials[1].SetColor ("_EdgeEmission", controller.team.color);
+		}
+		GetComponent<Beam>().UpdateMaterials ();
+		GetComponent<Beam>().BeamIn();
+		StartCoroutine (WaitForEndOfBeamIn());
+	}
+
+	bool HasRisen()
+	{
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+		{
+			if (renderer.materials[0].GetFloat ("_DisintegrateAmount") == 0 && renderer.materials[1].GetFloat ("_DisintegrateAmount") == 0)
+				return true;
+		}
+		return false;
+	}
+
+	IEnumerator WaitForEndOfBeamIn ()
+	{
+		while (!HasRisen ())
+			yield return null;
+		foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+			renderer.materials = new Material[] { _material, _glassMaterial };
+		GetComponentInChildren<Light>().enabled = true;
 	}
 
 	void OnDisable()
