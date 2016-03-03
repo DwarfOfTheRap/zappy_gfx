@@ -170,7 +170,7 @@ public class GridController {
 			return Vector3.zero;
 	}
 	
-	public void Init(int width, int height)
+	public virtual void Init(int width, int height)
 	{
 		float sizex;
 		float sizey;

@@ -52,7 +52,7 @@ public class TeamManager
 		return res;
 	}
 
-	public Team			createTeam(string name)
+	public virtual Team			createTeam(string name)
 	{
 		Team team = new Team(name, _getNewTeamColor ());
 		this.teams.Add (team);
