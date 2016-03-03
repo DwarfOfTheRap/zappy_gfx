@@ -53,7 +53,7 @@ public class InputManager : AInputManager
 		return (Input.GetKeyUp (KeyCode.Space));
 	}
 
-	public override bool OpenMenu ()
+	public override bool MenuKey ()
 	{
 		return (Input.GetKeyUp (KeyCode.Escape));
 	}

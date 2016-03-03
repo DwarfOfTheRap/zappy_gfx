@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class MenuWindow : MonoBehaviour {
@@ -8,11 +7,17 @@ public class MenuWindow : MonoBehaviour {
 
 	void CheckMenuKey()
 	{
-		if (inputManager.OpenMenu())
+		if (inputManager.MenuKey())
 		{
 			gameObject.GetComponent<CanvasGroup>().alpha = (gameObject.GetComponent<CanvasGroup>().alpha > 0) ? 0 : 1;
 			gameObject.GetComponent<CanvasGroup>().blocksRaycasts ^= true;
 		}
+	}
+
+	public void CloseWindow()
+	{
+		gameObject.GetComponent<CanvasGroup>().alpha = 0;
+		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
 	}
 
 	public void ExitGame()
