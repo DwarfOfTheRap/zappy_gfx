@@ -188,11 +188,9 @@ public class ServerCommands {
 	public void SendIncantationStop(string serverMessage)
 	{
 		Match regexMatch;
-		int incantationResult;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + R + "\n$");
-		playerManager.SetPlayersStopIncantate (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value));
-		incantationResult = int.Parse (regexMatch.Groups [4].Value);
+		playerManager.SetPlayersStopIncantate (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value), int.Parse (regexMatch.Groups [4].Value));
 	}
 
 	public void SendLayEgg(string serverMessage)

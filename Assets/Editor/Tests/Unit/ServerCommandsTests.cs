@@ -130,7 +130,7 @@ public class ServerCommandsTests {
 		//Act
 		sc.SendIncantationStop ("pie 5 5 1\n");
 		//Assert
-		sc.playerManager.Received ().SetPlayersStopIncantate (5, 5);
+		sc.playerManager.Received ().SetPlayersStopIncantate (5, 5, 1);
 	}
 
 	[Test]

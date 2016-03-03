@@ -27,10 +27,10 @@ public class GameManagerTester : MonoBehaviourTester {
 		GetComponent<GameManagerScript>().playerManager.SetEggHatch (1);
 		yield return new WaitForSeconds(10);
 		GetComponent<GameManagerScript>().playerManager.SetPlayerToEggConnection (3);
-		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), initVector[0], initVector[1], Orientation.SOUTH, Random.Range (0, 7), GetComponent<GameManagerScript>().teamManager.teams[0].name);
+		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), initVector[0], initVector[1], Orientation.SOUTH, Random.Range (1, 7), GetComponent<GameManagerScript>().teamManager.teams[0].name);
 		GetComponent<GameManagerScript>().playerManager.SetPlayerToEggConnection (2);
-		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), 2, 8, Orientation.SOUTH, Random.Range (0, 7), GetComponent<GameManagerScript>().teamManager.teams[1].name);
+		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), 2, 8, Orientation.SOUTH, Random.Range (1, 7), GetComponent<GameManagerScript>().teamManager.teams[1].name);
 		GetComponent<GameManagerScript>().playerManager.SetPlayerToEggConnection (1);
-		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), 0, 0, Orientation.SOUTH, Random.Range (0, 7), GetComponent<GameManagerScript>().teamManager.teams[2].name);
+		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), 0, 0, Orientation.SOUTH, Random.Range (1, 7), GetComponent<GameManagerScript>().teamManager.teams[2].name);
 	}
 }
