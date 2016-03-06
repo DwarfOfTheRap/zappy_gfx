@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 
-public static class TCPConnection {
+public class TCPConnection {
 	
 	//the name of the connection, not required but better for overview if you have more than 1 connections running
 	//public string conName = "Localhost";
@@ -16,15 +16,15 @@ public static class TCPConnection {
 	//public int conPort = 27015;
 	
 	//a true/false variable for connection status
-	private static bool socketReady = false;
+	private bool socketReady = false;
 
-    private static TcpClient mySocket;
-    private static NetworkStream stream;
-    private static StreamWriter writer;
-    private static StreamReader reader;
+    private TcpClient mySocket;
+    private NetworkStream stream;
+    private StreamWriter writer;
+    private StreamReader reader;
 	
 	//try to initiate connection
-	public static void setupSocket(string conName, string conHost, int conPort) {
+	public void setupSocket(string conName, string conHost, int conPort) {
 		try {
 			mySocket = new TcpClient(conHost, conPort);
 			stream = mySocket.GetStream();
@@ -38,7 +38,7 @@ public static class TCPConnection {
 	}
 	
 	//send message to server
-	public static void writeSocket(string message) {
+	public void writeSocket(string message) {
 		if (!socketReady)
 			return ;
 		writer.Write(message);
@@ -46,7 +46,7 @@ public static class TCPConnection {
 	}
 	
 	//read message from server
-	public static string readSocket() {
+	public string readSocket() {
 		String result = "";
 		if (stream.DataAvailable) {
 			Byte[] inStream = new Byte[mySocket.SendBufferSize];
@@ -57,7 +57,7 @@ public static class TCPConnection {
 	}
 	
 	//disconnect from the socket
-	public static void closeSocket() {
+	public void closeSocket() {
 		if (!socketReady)
 			return ;
 		writer.Close();
@@ -67,12 +67,10 @@ public static class TCPConnection {
 	}
 	
 	//keep connection alive, reconnect if connection lost
-	public static void maintainConnection(string conName, string conHost, int conPort)
+	public void maintainConnection(string conName, string conHost, int conPort)
     {
 		if(!stream.CanRead) {
 			setupSocket(conName, conHost, conPort);
 		}
-	}
-	
-	
+	}	
 }

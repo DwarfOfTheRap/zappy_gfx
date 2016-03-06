@@ -15,25 +15,33 @@ public class ClientScript : MonoBehaviour {
     public string conHost;
     public int conPort;
 
+    private TCPConnection connection;
+
 	void Start () {	
 		instance = this;
+        connection = new TCPConnection();
 	}
 
 	void Update () {
-        TCPConnection.maintainConnection(conName, conHost, conPort);
+        connection.maintainConnection(conName, conHost, conPort);
 	}
+
+    void OnApplicationQuit ()
+    {
+        connection.closeSocket();
+    }
 
     public void SetupConnection(string conName, string conHost, int conPort)
     {
         this.conName = conName;
         this.conHost = conHost;
         this.conPort = conPort;
-        TCPConnection.setupSocket(this.conName, this.conHost, this.conPort);
+        connection.setupSocket(this.conName, this.conHost, this.conPort);
     }
 
 	//socket reading script
 	public string SocketResponse() {
-		string serverSays = TCPConnection.readSocket();
+		string serverSays = connection.readSocket();
 		if (serverSays != "") {
 			Debug.Log("[SERVER]" + serverSays);
 		}
@@ -42,7 +50,7 @@ public class ClientScript : MonoBehaviour {
 
 	//send message to the server
 	public void SendToServer(string str) {	
-		TCPConnection.writeSocket(str);	
+		connection.writeSocket(str);	
 		Debug.Log ("[CLIENT] -> " + str);	
 	}		
 }
