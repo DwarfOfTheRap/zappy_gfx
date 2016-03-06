@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
-public class ClientScript : MonoBehaviour {
-	public static ClientScript	instance;
+public class SocketManager : MonoBehaviour {
+	public static SocketManager	instance;
 
 	//variables
 	private string serverMsg;	
@@ -16,6 +16,11 @@ public class ClientScript : MonoBehaviour {
     public int conPort;
 
     private TCPConnection connection;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
 
 	void Start () {	
 		instance = this;

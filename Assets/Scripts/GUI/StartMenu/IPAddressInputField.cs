@@ -1,12 +1,1 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class IPAddressInputField : MonoBehaviour {
-
-    public GameObject PortInputField;
-
-    public void ActivateNextField()
-    {
-
-    }
-}
+﻿using UnityEngine;using UnityEngine.UI;using UnityEngine.EventSystems;using UnityEngine.Events;using System.Collections;public class IPAddressInputField : MonoBehaviour {    public GameObject PortInputField;    public void ActivateNextField(string arg0)    {        SocketManager.instance.conHost = arg0;        EventSystem.current.SetSelectedGameObject(PortInputField);    }}
