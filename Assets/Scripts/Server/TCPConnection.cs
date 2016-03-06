@@ -4,27 +4,27 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 
-public class TCPConnection : MonoBehaviour {
+public static class TCPConnection {
 	
 	//the name of the connection, not required but better for overview if you have more than 1 connections running
-	public string conName = "Localhost";
+	//public string conName = "Localhost";
 	
 	//ip/address of the server, 127.0.0.1 is for your own computer
-	public string conHost = "127.0.0.1";
+	//public string conHost = "127.0.0.1";
 	
 	//port for the server, make sure to unblock this in your router firewall if you want to allow external connections
-	public int conPort = 27015;
+	//public int conPort = 27015;
 	
 	//a true/false variable for connection status
-	public bool socketReady = false;
-	
-	TcpClient mySocket;
-	NetworkStream stream;
-	StreamWriter writer;
-	StreamReader reader;
+	private static bool socketReady = false;
+
+    private static TcpClient mySocket;
+    private static NetworkStream stream;
+    private static StreamWriter writer;
+    private static StreamReader reader;
 	
 	//try to initiate connection
-	public void setupSocket() {
+	public static void setupSocket(string conName, string conHost, int conPort) {
 		try {
 			mySocket = new TcpClient(conHost, conPort);
 			stream = mySocket.GetStream();
@@ -38,7 +38,7 @@ public class TCPConnection : MonoBehaviour {
 	}
 	
 	//send message to server
-	public void writeSocket(string message) {
+	public static void writeSocket(string message) {
 		if (!socketReady)
 			return ;
 		writer.Write(message);
@@ -46,7 +46,7 @@ public class TCPConnection : MonoBehaviour {
 	}
 	
 	//read message from server
-	public string readSocket() {
+	public static string readSocket() {
 		String result = "";
 		if (stream.DataAvailable) {
 			Byte[] inStream = new Byte[mySocket.SendBufferSize];
@@ -57,7 +57,7 @@ public class TCPConnection : MonoBehaviour {
 	}
 	
 	//disconnect from the socket
-	public void closeSocket() {
+	public static void closeSocket() {
 		if (!socketReady)
 			return ;
 		writer.Close();
@@ -67,9 +67,10 @@ public class TCPConnection : MonoBehaviour {
 	}
 	
 	//keep connection alive, reconnect if connection lost
-	public void maintainConnection(){
+	public static void maintainConnection(string conName, string conHost, int conPort)
+    {
 		if(!stream.CanRead) {
-			setupSocket();
+			setupSocket(conName, conHost, conPort);
 		}
 	}
 	

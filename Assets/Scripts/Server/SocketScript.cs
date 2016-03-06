@@ -8,27 +8,32 @@ public class ClientScript : MonoBehaviour {
 	public static ClientScript	instance;
 
 	//variables
-	private TCPConnection myTCP;
-
 	private string serverMsg;	
 	public string msgToServer;
 
-	void Awake() {	
-		//add a copy of TCPConnection to this game object	
-		myTCP = gameObject.AddComponent<TCPConnection>();	
-	}
-	
+    public string conName;
+    public string conHost;
+    public int conPort;
 
 	void Start () {	
 		instance = this;
 	}
 
 	void Update () {
+        TCPConnection.maintainConnection(conName, conHost, conPort);
 	}
-	
+
+    public void SetupConnection(string conName, string conHost, int conPort)
+    {
+        this.conName = conName;
+        this.conHost = conHost;
+        this.conPort = conPort;
+        TCPConnection.setupSocket(this.conName, this.conHost, this.conPort);
+    }
+
 	//socket reading script
 	public string SocketResponse() {
-		string serverSays = myTCP.readSocket();
+		string serverSays = TCPConnection.readSocket();
 		if (serverSays != "") {
 			Debug.Log("[SERVER]" + serverSays);
 		}
@@ -37,7 +42,7 @@ public class ClientScript : MonoBehaviour {
 
 	//send message to the server
 	public void SendToServer(string str) {	
-		myTCP.writeSocket(str);	
+		TCPConnection.writeSocket(str);	
 		Debug.Log ("[CLIENT] -> " + str);	
 	}		
 }

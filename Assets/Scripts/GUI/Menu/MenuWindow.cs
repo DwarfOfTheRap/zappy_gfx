@@ -28,7 +28,8 @@ public class MenuWindow : MonoBehaviour {
 
 	public void ExitGame()
 	{
-		Application.Quit();
+        TCPConnection.closeSocket();
+        Application.Quit();
 	}
 
 	void Start ()
