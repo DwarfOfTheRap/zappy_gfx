@@ -26,13 +26,11 @@ public class SocketManager : MonoBehaviour
     {
         instance = this;
         connection = new TCPConnection();
-        SetupConnection(conHost, conPort);
     }
 
     void Update()
     {
         connection.maintainConnection(conHost, conPort);
-        SocketResponse();
     }
 
     void OnApplicationQuit()

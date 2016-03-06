@@ -37,7 +37,7 @@ public class TCPConnection
         }
         catch (Exception e)
         {
-            Debug.Log("Socket error:" + e);
+            Debug.Log("Socket error: " + e.Message);
         }
     }
 
