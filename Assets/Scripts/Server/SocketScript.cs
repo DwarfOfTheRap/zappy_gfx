@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
-public class SocketManager : MonoBehaviour {
-	public static SocketManager	instance;
+public class SocketManager : MonoBehaviour
+{
+    public static SocketManager instance;
 
-	//variables
-	private string serverMsg;	
-	public string msgToServer;
+    //variables
+    private string serverMsg;
+    public string msgToServer;
 
-    public string conName;
-    public string conHost;
-    public int conPort;
+    public string conHost { get; private set; }
+    public int conPort { get; private set; }
 
     private TCPConnection connection;
 
@@ -22,40 +22,46 @@ public class SocketManager : MonoBehaviour {
         DontDestroyOnLoad(this);
     }
 
-	void Start () {	
-		instance = this;
+    void Start()
+    {
+        instance = this;
         connection = new TCPConnection();
-	}
+        SetupConnection(conHost, conPort);
+    }
 
-	void Update () {
-        connection.maintainConnection(conName, conHost, conPort);
-	}
+    void Update()
+    {
+        connection.maintainConnection(conHost, conPort);
+        SocketResponse();
+    }
 
-    void OnApplicationQuit ()
+    void OnApplicationQuit()
     {
         connection.closeSocket();
     }
 
-    public void SetupConnection(string conName, string conHost, int conPort)
+    public void SetupConnection(string conHost, int conPort)
     {
-        this.conName = conName;
         this.conHost = conHost;
         this.conPort = conPort;
-        connection.setupSocket(this.conName, this.conHost, this.conPort);
+        connection.setupSocket(this.conHost, this.conPort);
     }
 
-	//socket reading script
-	public string SocketResponse() {
-		string serverSays = connection.readSocket();
-		if (serverSays != "") {
-			Debug.Log("[SERVER]" + serverSays);
-		}
-		return serverSays;
-	}
+    //socket reading script
+    public string SocketResponse()
+    {
+        string serverSays = connection.readSocket();
+        if (serverSays != "")
+        {
+            Debug.Log("[SERVER]" + serverSays);
+        }
+        return serverSays;
+    }
 
-	//send message to the server
-	public void SendToServer(string str) {	
-		connection.writeSocket(str);	
-		Debug.Log ("[CLIENT] -> " + str);	
-	}		
+    //send message to the server
+    public void SendToServer(string str)
+    {
+        connection.writeSocket(str);
+        Debug.Log("[CLIENT] -> " + str);
+    }
 }
