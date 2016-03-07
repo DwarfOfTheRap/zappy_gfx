@@ -68,7 +68,7 @@ public class ResourceController
 	{
 		this.motor = motor;
 		this.color = color;
-		this.count = (uint)Random.Range (0, 2);
+		this.count = 0;
 	}
 
 	public override string ToString()

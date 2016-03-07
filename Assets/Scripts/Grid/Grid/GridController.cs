@@ -46,12 +46,6 @@ public class GridController {
 	{
 		this.squareInstantiationController = squareInstantiationController;
 	}
-
-	public void Start()
-	{
-		if (startHeight != 0 && startWidth != 0)
-			Init (startHeight, startWidth);
-	}
 	
 	public ISquare[] ClearGrid(ISquare[] grid)
 	{

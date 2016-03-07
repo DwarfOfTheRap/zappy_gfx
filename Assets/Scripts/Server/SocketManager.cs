@@ -18,8 +18,9 @@ public class SocketManager : MonoBehaviour
     public string conHost { get; private set; }
     public int conPort { get; private set; }
 
+	public bool wait = false;
+
     private TCPConnection connection;
-	private bool activated = false;
 
     void Awake()
     {
@@ -34,11 +35,11 @@ public class SocketManager : MonoBehaviour
         connection = new TCPConnection();
     }
 
-    void Update()
+    IEnumerator ReadServerMessages()
     {
 		string response;
 
-		if (activated)
+		while (true)
 		{
         	connection.maintainConnection(conHost, conPort);
 			response = SocketResponse ();
@@ -46,11 +47,22 @@ public class SocketManager : MonoBehaviour
 			{
 				foreach (string serverMessage in reader.SplitMessage (response))
 				{
-					Debug.Log (serverMessage);
-					if (reader.IsLegitMessage (serverMessage))
-						commands.PickMethod (serverMessage);
+					while (wait)
+						yield return new WaitForEndOfFrame();
+					if (serverMessage != "" && reader.IsLegitMessage (serverMessage))
+					{
+						try
+						{
+							commands.PickMethod (serverMessage);
+						}
+						catch (Exception e)
+						{
+							Debug.Log (e.Message);
+						}
+					}
 				}
 			}
+			yield return new WaitForEndOfFrame();
 		}
     }
 
@@ -64,7 +76,7 @@ public class SocketManager : MonoBehaviour
         this.conHost = conHost;
         this.conPort = conPort;
         connection.setupSocket(this.conHost, this.conPort);
-			activated = true;
+		StartCoroutine (ReadServerMessages ());
     }
 
     //socket reading script

@@ -273,6 +273,11 @@ public class PlayerController {
 
 	}
 
+	public void Destroy ()
+	{
+		this.playerMovementController.Destroy();
+	}
+
 	public void OnDisable ()
 	{
 		inputManager.OnLeftClicking -= OnLeftClick;

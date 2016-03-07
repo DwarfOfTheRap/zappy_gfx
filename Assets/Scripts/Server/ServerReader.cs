@@ -49,7 +49,8 @@ public class ServerReader {
 			IsGameOverString,
 			IsServerMessageString,
 			IsUnknownCommandString,
-			IsWrongParametersString
+			IsWrongParametersString,
+			IsWelcomeMessageString
 		};
 
 		foreach (methodDelegate md in methodArray)

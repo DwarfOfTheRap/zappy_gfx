@@ -21,5 +21,7 @@ public interface IPlayerMotorController {
 	void EnableHighlight(Color color);
 	void DisableHighlight();
 
+	void Destroy ();
+
 	void SetTeamColor(Color color);
 }

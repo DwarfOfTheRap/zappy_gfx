@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	private void Start()
 	{
-		Slider slider = GameObject.Find ("Slider").GetComponent<Slider> ();
+		var slider = GameObject.Find ("Slider").GetComponent<Slider> ();
 
 		slider.onValueChanged.AddListener (controller.ChangeAnimationSpeed);
 		Rise ();
@@ -156,6 +156,11 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 			renderer.materials[1].color = color;
 		}
 		GetComponentInChildren<Light>().color = color;
+	}
+
+	public void Destroy ()
+	{
+		Destroy (gameObject);
 	}
 
 	#endregion

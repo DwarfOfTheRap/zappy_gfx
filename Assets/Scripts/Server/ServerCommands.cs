@@ -28,15 +28,18 @@ public class ServerCommands {
 	public TeamManager teamManager;
 	public PlayerManagerScript playerManager;
 	public TimeManager timeManager;
+	public ILevelLoader levelLoader;
 
 	ServerCommands () {}
 
-	public ServerCommands(GridController gridController, TeamManager teamManager, PlayerManagerScript playerManager, TimeManager timeManager)
+	public ServerCommands(GridController gridController, TeamManager teamManager, PlayerManagerScript playerManager, TimeManager timeManager, ILevelLoader levelLoader)
 	{
 		this.gridController = gridController;
 		this.teamManager = teamManager;
 		this.playerManager = playerManager;
 		this.timeManager = timeManager;
+		this.serverQuery = new ServerQuery();
+		this.levelLoader = levelLoader;
 
 		methodDictionary = new Dictionary<string, methodDelegate> ()
 		{
@@ -78,16 +81,15 @@ public class ServerCommands {
 
 	public void SendGraphicMessage(string serverMessage)
 	{
-		SocketManager.instance.SendMessage (serverQuery.GetWelcomeMessageString());
+		SocketManager.instance.SendToServer(serverQuery.GetWelcomeMessageString());
 	}
 
 	public void SendMapSize(string serverMessage)
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + "\n$");
-		Application.LoadLevel (1);
-		gridController.Init (int.Parse (regexMatch.Groups[2].Value), int.Parse (regexMatch.Groups[3].Value));
+		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + "$");
+		levelLoader.LoadLevel (int.Parse (regexMatch.Groups[2].Value), int.Parse (regexMatch.Groups[3].Value));
 	}
 
 	public void SendSquareContent(string serverMessage)
@@ -95,7 +97,7 @@ public class ServerCommands {
 		Match regexMatch;
 		ISquare square;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "$");
 		square = gridController.GetSquare (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value));
 		square.SetResources (uint.Parse (regexMatch.Groups [4].Value),
 		                    uint.Parse (regexMatch.Groups [5].Value),
@@ -110,7 +112,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
 		teamManager.createTeam (regexMatch.Groups [2].Value);
 	}
 
@@ -118,7 +120,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + O + " " + L + " " + N + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + O + " " + L + " " + N + "$");
 		playerManager.SetPlayerConnection (int.Parse (regexMatch.Groups[2].Value.Substring(1)),
 		                                                             int.Parse (regexMatch.Groups[3].Value),
 		          													 int.Parse (regexMatch.Groups[4].Value),
@@ -131,7 +133,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + O + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + O + "$");
 		playerManager.SetPlayerPosition (int.Parse (regexMatch.Groups [2].Value.Substring(1)),
 		                                                           int.Parse (regexMatch.Groups [3].Value),
 		                                                           int.Parse (regexMatch.Groups [4].Value),
@@ -142,7 +144,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + L + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + L + "$");
 		playerManager.SetPlayerLevel (int.Parse (regexMatch.Groups [2].Value.Substring(1)),
 		                                                         int.Parse (regexMatch.Groups [3].Value));
 	}
@@ -151,7 +153,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "$");
 		playerManager.SetPlayerInventory (int.Parse (regexMatch.Groups [2].Value.Substring(1)),
 		                                                             int.Parse (regexMatch.Groups [5].Value),
 		                                                             int.Parse (regexMatch.Groups [6].Value),
@@ -166,7 +168,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "$");
 		playerManager.SetPlayerExpulse (int.Parse (regexMatch.Groups [2].Value.Substring(1)));
 	}
 
@@ -174,7 +176,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + M + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + M + "$");
 		playerManager.SetPlayerBroadcast (int.Parse (regexMatch.Groups [2].Value.Substring(1)), regexMatch.Groups [3].Value);
 	}
 
@@ -184,7 +186,7 @@ public class ServerCommands {
 		string secondaryPlayers = @"(( #[0-9]+)+)";
 		string[] split;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + L + " " + n + secondaryPlayers + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + L + " " + n + secondaryPlayers + "$");
 		split = regexMatch.Groups [6].Value.Split (' ');
 		playerManager.SetPlayerIncantatePrimary (int.Parse (regexMatch.Groups [5].Value.Substring(1)));
 		foreach (string player in split) {
@@ -197,7 +199,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + R + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + R + "$");
 		playerManager.SetPlayersStopIncantate (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value), int.Parse (regexMatch.Groups [4].Value));
 	}
 
@@ -205,7 +207,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "$");
 		playerManager.SetPlayerLayEgg (int.Parse (regexMatch.Groups [2].Value.Substring(1)));
 	}
 
@@ -213,7 +215,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + i + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + i + "$");
 		playerManager.SetPlayerThrowResource (int.Parse (regexMatch.Groups [2].Value.Substring(1)), int.Parse (regexMatch.Groups [3].Value));
 	}
 
@@ -221,7 +223,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + i + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + " " + i + "$");
 		playerManager.SetPlayerTakeResource (int.Parse (regexMatch.Groups [2].Value.Substring(1)), int.Parse(regexMatch.Groups [3].Value));
 	}
 
@@ -229,7 +231,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "$");
 		playerManager.SetPlayerDeath (int.Parse (regexMatch.Groups [2].Value.Substring(1)));
 	}
 
@@ -237,7 +239,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + e + " " + n + " " + X + " " + Y + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + e + " " + n + " " + X + " " + Y + "$");
 		playerManager.SetEggCreation (int.Parse (regexMatch.Groups [2].Value.Substring(1)),
 		                              int.Parse (regexMatch.Groups [3].Value.Substring(1)),
 		                                                        int.Parse (regexMatch.Groups [4].Value),
@@ -248,7 +250,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetEggHatch (int.Parse (regexMatch.Groups[2].Value.Substring(1)));
 	}
 
@@ -256,7 +258,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetPlayerToEggConnection (int.Parse (regexMatch.Groups[2].Value.Substring(1)));
 	}
 
@@ -264,7 +266,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetEggDie (int.Parse (regexMatch.Groups[2].Value.Substring(1)));
 	}
 
@@ -272,7 +274,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "$");
 		timeManager.ChangeTimeSpeed (float.Parse(regexMatch.Groups[2].Value));
 	}
 
@@ -280,7 +282,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
 		GameManagerScript.instance.GameOver(teamManager.findTeam (regexMatch.Groups [2].Value));
 	}
 
@@ -288,7 +290,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 		
-		regexMatch = Regex.Match (serverMessage, cmd + " " + M + "\n$");
+		regexMatch = Regex.Match (serverMessage, cmd + " " + M + "$");
 		Debug.Log (regexMatch.Groups [2].Value);
 	}
 

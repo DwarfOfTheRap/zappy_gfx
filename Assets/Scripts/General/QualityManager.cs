@@ -17,7 +17,8 @@ public class QualityManager {
 	{
 		_quality = qualityLevel;
 		QualitySettings.SetQualityLevel (qualityLevel);
-		OnQualityChange(new QualityEventArg { qualityLevel = qualityLevel });
+		if (OnQualityChange != null)
+			OnQualityChange(new QualityEventArg { qualityLevel = qualityLevel });
 	}
 
 	public void Update()

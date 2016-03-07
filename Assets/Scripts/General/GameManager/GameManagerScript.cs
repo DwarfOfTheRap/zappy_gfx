@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, IEggInstantiationController {
+public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, IEggInstantiationController, ILevelLoader {
 	public static GameManagerScript 		instance;
 	public GameObject						playerPrefab;
 	public GameObject						eggPrefab;
@@ -20,6 +20,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 
 	void OnEnable()
 	{
+		DontDestroyOnLoad (this);
 		playerPrefab = Resources.Load ("Prefab/Player") as GameObject;
 		eggPrefab = Resources.Load ("Prefab/Egg(Teleporter)") as GameObject;
 		instance = this;
@@ -29,7 +30,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
-		commandsManager = new ServerCommands(grid.controller, teamManager, playerManager, timeManager);
+		commandsManager = new ServerCommands(grid.controller, teamManager, playerManager, timeManager, this);
 	}
 
 	public virtual void GameOver(Team team)
@@ -55,6 +56,22 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		return clone.GetComponent<PlayerScript>().controller;
 	}
 
+	IEnumerator AsyncLoadLevel(int x, int y)
+	{
+		Debug.Log("Level load start");
+		var async = Application.LoadLevelAsync(1);
+		SocketManager.instance.wait = true;
+		yield return async;
+		SocketManager.instance.wait = false;
+		Debug.Log ("Level load end");
+		grid.controller.Init (x, y);
+	}
+
+	public void LoadLevel(int x, int y)
+	{
+		StartCoroutine (AsyncLoadLevel (x, y));
+	}
+
 	void Update()
 	{
 		qualityManager.Update ();
@@ -65,6 +82,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 public class GameOverEventArgs : System.EventArgs
 {
 	public Team team;
+}
+
+public interface ILevelLoader
+{
+	void LoadLevel(int x, int y);
 }
 
 public interface IEggInstantiationController
