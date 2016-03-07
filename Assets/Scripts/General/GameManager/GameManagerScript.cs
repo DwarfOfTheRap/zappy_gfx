@@ -13,6 +13,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public InputManager 					inputManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public TimeManager						timeManager { get; private set; }
+	public ServerCommands					commandsManager { get; private set; }
 
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
 	public event GameOverEventHandler OnGameOver;
@@ -28,6 +29,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
+		commandsManager = new ServerCommands(grid.controller, teamManager, playerManager, timeManager);
 	}
 
 	public virtual void GameOver(Team team)

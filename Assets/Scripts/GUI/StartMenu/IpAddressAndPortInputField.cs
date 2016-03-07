@@ -14,8 +14,9 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener(ConnectToPortOnAddress);
 	}
 
-	IEnumerator DisplayError ()
+	IEnumerator DisplayError (string error)
 	{
+		errorText.text = error;
 		errorText.color = new Color (errorText.color.r, errorText.color.g, errorText.color.b, 1.0f);
 		yield return new WaitForSeconds(1.0f);
 		while (errorText.color.a > 0.0f)
@@ -27,18 +28,25 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		EventSystem.current.SetSelectedGameObject(this.gameObject, new BaseEventData(EventSystem.current));
 	}
 
-    public void ConnectToPortOnAddress(string arg0)
+    public void ConnectToPortOnAddress(string submit)
     {
 		string regex = @"((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[1-5][0-9][0-9][0-9][0-9]|[2-9][0-9][0-9][0-9]|1[1-9][0-9][0-9]|10[3-9][0-9]|102[5-9])";
 		string[] split;
 
-		Debug.Log(arg0);
-		if (Regex.IsMatch(arg0, regex))
+		if (Regex.IsMatch(submit, regex))
 		{
-			split = arg0.Split(':');
-			SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
+			split = submit.Split(':');
+			try
+			{
+				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
+			}
+			catch (System.Exception e)
+			{
+				Debug.Log (e.Message);
+				StartCoroutine(DisplayError(e.Message));
+			}
 		}
 		else
-			StartCoroutine(DisplayError());
+			StartCoroutine(DisplayError("Wrong Parameters"));
     }
 }
