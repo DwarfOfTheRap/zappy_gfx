@@ -45,6 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 415490}
   - 114: {fileID: 11481216}
+  - 114: {fileID: 11451508}
   m_Layer: 0
   m_Name: GameManagerAndGrid
   m_TagString: Untagged
@@ -335,6 +336,21 @@ MonoBehaviour:
   teleportOrientation: 3
   destination: {fileID: 0}
   disabled: []
+--- !u!114 &11451508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de89dac5de30c46399275b2d17d7a0da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggTest:
+    enabled: 1
+    time: 2
+  initVector: 0700000003000000
 --- !u!114 &11458582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -376,13 +392,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 0}
   eggPrefab: {fileID: 0}
-  timeSpeed: 0
-  timeSpeeds:
-  - 0
-  - .5
-  - 1
-  - 2
-  - 4
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
