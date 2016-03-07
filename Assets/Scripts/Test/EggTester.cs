@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 [RequireComponent(typeof(EggScript))]
 public class EggTester : MonoBehaviourTester {
 	public MonoBehaviourTest eggInitTest;
@@ -17,3 +18,4 @@ public class EggTester : MonoBehaviourTester {
 		GetComponent<EggScript>().controller.Init (initVector[0], initVector[1], 1, GameManagerScript.instance.playerManager.players[0], GameManagerScript.instance.grid.controller);
 	}
 }
+#endif

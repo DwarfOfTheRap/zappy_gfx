@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_EDITOR
 public class GameManagerTester : MonoBehaviourTester {
 	public MonoBehaviourTest eggTest;
 	public int[]			initVector;
@@ -34,3 +35,4 @@ public class GameManagerTester : MonoBehaviourTester {
 		GetComponent<GameManagerScript>().playerManager.SetPlayerConnection (Random.Range (0, 10000), 0, 0, Orientation.SOUTH, Random.Range (1, 7), GetComponent<GameManagerScript>().teamManager.teams[2].name);
 	}
 }
+#endif

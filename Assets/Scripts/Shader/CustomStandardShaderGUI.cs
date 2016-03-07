@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace UnityEditor
 {
 	internal class CustomStandardShaderGUI : ShaderGUI
@@ -442,4 +443,4 @@ namespace UnityEditor
 	}
 	
 } // namespace UnityEditor
-
+#endif
