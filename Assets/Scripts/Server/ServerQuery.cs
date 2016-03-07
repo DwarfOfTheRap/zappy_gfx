@@ -38,7 +38,7 @@ public class ServerQuery {
 
 	public void SendMapSizeQuery()
 	{
-		ClientScript.instance.SendToServer (GetMapSizeString ());
+		SocketManager.instance.SendToServer (GetMapSizeString ());
 	}
 
 	public string GetSquareContentString(int x, int y)
@@ -50,7 +50,7 @@ public class ServerQuery {
 
 	public void SendSquareContentQuery(int x, int y)
 	{
-		ClientScript.instance.SendToServer (GetSquareContentString(x, y));
+		SocketManager.instance.SendToServer (GetSquareContentString(x, y));
 	}
 
 	public string GetAllSquaresString()
@@ -60,7 +60,7 @@ public class ServerQuery {
 
 	public void SendAllSquaresQuery()
 	{
-		ClientScript.instance.SendToServer (GetAllSquaresString ());
+		SocketManager.instance.SendToServer (GetAllSquaresString ());
 	}
 
 	public string GetTeamNamesString()
@@ -70,7 +70,7 @@ public class ServerQuery {
 
 	public void SendTeamNamesQuery()
 	{
-		ClientScript.instance.SendToServer (GetTeamNamesString());
+		SocketManager.instance.SendToServer (GetTeamNamesString());
 	}
 
 	public string GetPlayerPositionString(int n)
@@ -82,7 +82,7 @@ public class ServerQuery {
 
 	public void SendPlayerPositionQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerPositionString(n));
+		SocketManager.instance.SendToServer (GetPlayerPositionString(n));
 	}
 
 	public string GetPlayerLevelString(int n)
@@ -94,7 +94,7 @@ public class ServerQuery {
 
 	public void SendPlayerLevelQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerLevelString(n));
+		SocketManager.instance.SendToServer (GetPlayerLevelString(n));
 	}
 
 	public string GetPlayerInventoryString(int n)
@@ -106,7 +106,7 @@ public class ServerQuery {
 
 	public void SendPlayerInventoryQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerInventoryString (n));
+		SocketManager.instance.SendToServer (GetPlayerInventoryString (n));
 	}
 
 	public string GetCurrentTimeUnitString()
@@ -116,7 +116,7 @@ public class ServerQuery {
 
 	public void SendCurrentTimeUnitQuery()
 	{
-		ClientScript.instance.SendToServer (GetCurrentTimeUnitString ());
+		SocketManager.instance.SendToServer (GetCurrentTimeUnitString ());
 	}
 
 	public string GetTimeUnitChangeString(int t)
@@ -128,7 +128,7 @@ public class ServerQuery {
 
 	public void SendTimeUnitChangeQuery(int t)
 	{
-		ClientScript.instance.SendToServer (GetTimeUnitChangeString (t));
+		SocketManager.instance.SendToServer (GetTimeUnitChangeString (t));
 	}
 
 	public string GetWelcomeMessageString()
@@ -138,6 +138,6 @@ public class ServerQuery {
 
 	public void SendWelcomeMessage()
 	{
-		ClientScript.instance.SendToServer(GetWelcomeMessageString());
+		SocketManager.instance.SendToServer(GetWelcomeMessageString());
 	}
 }
