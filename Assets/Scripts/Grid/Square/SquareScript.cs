@@ -12,7 +12,7 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	public	GameObject		foodPrefab;
 	private float			resourceElevation = 0.63f;
 
-	void Awake ()
+	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
