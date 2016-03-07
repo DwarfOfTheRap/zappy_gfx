@@ -27,18 +27,11 @@ public class TCPConnection
     //try to initiate connection
     public void setupSocket(string conHost, int conPort)
     {
-        try
-        {
-            mySocket = new TcpClient(conHost, conPort);
-            stream = mySocket.GetStream();
-            writer = new StreamWriter(stream);
-            reader = new StreamReader(stream);
-            socketReady = true;
-        }
-        catch (Exception e)
-        {
-            Debug.Log("Socket error: " + e.Message);
-        }
+        mySocket = new TcpClient(conHost, conPort);
+        stream = mySocket.GetStream();
+        writer = new StreamWriter(stream);
+        reader = new StreamReader(stream);
+        socketReady = true;
     }
 
     //send message to server
@@ -54,7 +47,7 @@ public class TCPConnection
     public string readSocket()
     {
         String result = "";
-        if (stream.DataAvailable)
+        while (stream.DataAvailable)
         {
             Byte[] inStream = new Byte[mySocket.SendBufferSize];
             stream.Read(inStream, 0, inStream.Length);

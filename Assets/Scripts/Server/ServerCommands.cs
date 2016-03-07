@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 public class ServerCommands {
 
-	private const string cmd	= @"([a-z]{3})";
+	private const string cmd	= @"([a-z]{3}|BIENVENUE)";
 	private const string X		= @"([0-9]+)";
 	private const string Y		= @"([0-9]+)";
 	private const string q		= @"([0-9]+)";
@@ -24,6 +24,7 @@ public class ServerCommands {
 	private Dictionary<string, methodDelegate> methodDictionary;
 
 	public GridController gridController;
+	public ServerQuery	serverQuery;
 	public TeamManager teamManager;
 	public PlayerManagerScript playerManager;
 	public TimeManager timeManager;
@@ -62,7 +63,8 @@ public class ServerCommands {
 			{"seg", SendGameOver},
 			{"smg", SendServerMessage},
 			{"suc", SendUnknownCommand},
-			{"sbp", SendWrongParameters}
+			{"sbp", SendWrongParameters},
+			{"BIENVENUE", SendGraphicMessage}
 		};
 	}
 
@@ -74,11 +76,17 @@ public class ServerCommands {
 		methodDictionary [regexMatch.Groups [1].Value] (serverMessage);
 	}
 
+	public void SendGraphicMessage(string serverMessage)
+	{
+		SocketManager.instance.SendMessage (serverQuery.GetWelcomeMessageString());
+	}
+
 	public void SendMapSize(string serverMessage)
 	{
 		Match regexMatch;
 
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + "\n$");
+		Application.LoadLevel (1);
 		gridController.Init (int.Parse (regexMatch.Groups[2].Value), int.Parse (regexMatch.Groups[3].Value));
 	}
 

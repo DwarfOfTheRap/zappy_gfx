@@ -6,13 +6,13 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public static GameManagerScript 		instance;
 	public GameObject						playerPrefab;
 	public GameObject						eggPrefab;
+	// TODO replace GridScript by GridController
 	public GridScript						grid { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }
 	public QualityManager					qualityManager { get; private set; }
 	public InputManager 					inputManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public TimeManager						timeManager { get; private set; }
-	public IPlayerInstantiationController	pic { get; private set; }
 
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
 	public event GameOverEventHandler OnGameOver;
@@ -28,7 +28,6 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
 		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
-		GameObject.Find ("Slider").GetComponent<Slider> ().value = 10.0f;
 	}
 
 	public virtual void GameOver(Team team)
