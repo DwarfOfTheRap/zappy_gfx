@@ -8,6 +8,9 @@ public class SocketManager : MonoBehaviour
 {
     public static SocketManager instance;
 
+	public ServerCommands commands;
+	public ServerReader reader;
+
     //variables
     private string serverMsg;
     public string msgToServer;
@@ -31,6 +34,12 @@ public class SocketManager : MonoBehaviour
     void Update()
     {
         connection.maintainConnection(conHost, conPort);
+		var response = SocketResponse ();
+		foreach (string serverMessage in reader.SplitMessage (response))
+		{
+			if (reader.IsLegitMessage (serverMessage))
+				commands.PickMethod (serverMessage);
+		}
     }
 
     void OnApplicationQuit()
