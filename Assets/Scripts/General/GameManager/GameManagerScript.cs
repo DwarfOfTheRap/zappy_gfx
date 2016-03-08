@@ -7,7 +7,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public GameObject						playerPrefab;
 	public GameObject						eggPrefab;
 	// TODO replace GridScript by GridController
-	public GridScript						grid { get; private set; }
+	public GridController					gridController { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }
 	public QualityManager					qualityManager { get; private set; }
 	public InputManager 					inputManager { get; private set; }
@@ -24,13 +24,13 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		playerPrefab = Resources.Load ("Prefab/Player") as GameObject;
 		eggPrefab = Resources.Load ("Prefab/Egg(Teleporter)") as GameObject;
 		instance = this;
-		grid = GetComponentInChildren<GridScript>();
+		gridController = GetComponentInChildren<GridScript>().controller;
 		qualityManager = new QualityManager();
 		timeManager = new TimeManager();
 		teamManager = new TeamManager();
 		inputManager = new InputManager();
-		playerManager = new PlayerManagerScript(grid.controller, teamManager, this, this);
-		commandsManager = new ServerCommands(grid.controller, teamManager, playerManager, timeManager, this);
+		playerManager = new PlayerManagerScript(gridController, teamManager, this, this);
+		commandsManager = new ServerCommands(gridController, teamManager, playerManager, timeManager, this);
 	}
 
 	public virtual void GameOver(Team team)
@@ -64,7 +64,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		yield return async;
 		SocketManager.instance.wait = false;
 		Debug.Log ("Level load end");
-		grid.controller.Init (x, y);
+		gridController.Init (x, y);
 	}
 
 	public void LoadLevel(int x, int y)

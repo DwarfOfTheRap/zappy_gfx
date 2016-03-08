@@ -15,7 +15,7 @@ public class EggTester : MonoBehaviourTester {
 	
 	void TestEggInit ()
 	{
-		GetComponent<EggScript>().controller.Init (initVector[0], initVector[1], 1, GameManagerScript.instance.playerManager.players[0], GameManagerScript.instance.grid.controller);
+		GetComponent<EggScript>().controller.Init (initVector[0], initVector[1], 1, GameManagerScript.instance.playerManager.players[0], GameManagerScript.instance.gridController);
 	}
 }
 #endif

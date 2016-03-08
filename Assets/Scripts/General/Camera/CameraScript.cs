@@ -37,7 +37,7 @@ public class CameraScript : MonoBehaviour, ICameraMovement {
 	#endregion
 
 	void Start () {
-		cameraController = new CameraController(GameManagerScript.instance.inputManager, this, GameManagerScript.instance.grid.controller.startHeight, GameManagerScript.instance.grid.controller.startWidth);
+		cameraController = new CameraController(GameManagerScript.instance.inputManager, this, GameManagerScript.instance.gridController.startHeight, GameManagerScript.instance.gridController.startWidth);
 	}
 
 	void LateUpdate () {

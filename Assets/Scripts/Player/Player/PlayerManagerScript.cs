@@ -158,8 +158,8 @@ public class PlayerManagerScript {
 
 	public virtual List<PlayerController> SetPlayersStopIncantate(int x, int y, int incantationResult)
 	{
-		var players = GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players;
-		foreach (var player in GameManagerScript.instance.grid.controller.GetSquare (x, y).GetResources ().players)
+		var players = GameManagerScript.instance.gridController.GetSquare (x, y).GetResources ().players;
+		foreach (var player in GameManagerScript.instance.gridController.GetSquare (x, y).GetResources ().players)
 		{
 			player.StopIncantating ();
 		}
