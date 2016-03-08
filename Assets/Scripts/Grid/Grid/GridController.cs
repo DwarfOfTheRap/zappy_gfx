@@ -42,6 +42,14 @@ public class GridController {
 
 	private IGrid squareInstantiationController;
 
+	#if UNITY_EDITOR
+	public void Start ()
+	{
+		if (startHeight != 0 && startWidth != 0)
+			Init (startHeight, startWidth);
+	}
+	#endif
+
 	public void SetSquareInstantiationController (IGrid squareInstantiationController)
 	{
 		this.squareInstantiationController = squareInstantiationController;

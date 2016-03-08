@@ -275,7 +275,7 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "$");
-		timeManager.ChangeTimeSpeed (float.Parse(regexMatch.Groups[2].Value));
+		timeManager.ChangeTimeSpeedServer (float.Parse(regexMatch.Groups[2].Value));
 	}
 
 	public void SendGameOver(string serverMessage)

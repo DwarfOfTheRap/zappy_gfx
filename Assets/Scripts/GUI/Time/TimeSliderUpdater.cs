@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class TimeSliderUpdater : MonoBehaviour {
+public class TimeSliderUpdater : MonoBehaviour, IPointerUpHandler {
 
-    public void UpdateSliderOnServerChange(int value)
+	void Start()
+	{
+		var slider = gameObject.GetComponent<Slider>();
+		GameManagerScript.instance.timeManager.SetSlider(slider);
+	}
+
+    void UpdateServerOnEvent(float value)
     {
-        gameObject.GetComponent<Slider>().value = value;
-        GameManagerScript.instance.timeManager.ChangeTimeSpeed(value);
+		GameManagerScript.instance.timeManager.ChangeTimeSpeedClient (value);
     }
 
-    public void UpdateServerOnEvent(float value)
-    {
-        ServerQuery query = new ServerQuery();
-
-        query.SendTimeUnitChangeQuery((int)value);
-    }
+	public void OnPointerUp (PointerEventData eventData)
+	{
+		UpdateServerOnEvent(gameObject.GetComponent<Slider>().value);
+	}
 }

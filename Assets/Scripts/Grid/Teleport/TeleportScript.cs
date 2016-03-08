@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class TeleportScript : MonoBehaviour {
 	public Orientation		teleportOrientation;
 	public GameObject		destination;
-	public List<GameObject>	disabled;
 
 	void Start()
 	{
@@ -30,27 +29,23 @@ public class TeleportScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.tag == "Player" && disabled.Find (x => x == col.gameObject) == null)
+		Debug.Log (gameObject + " " + col.GetComponent<PlayerScript>().controller.dontTeleportMe);
+		if (col.tag == "Player" && col.GetComponent<PlayerScript>().controller.dontTeleportMe == false)
 		{
 			Vector3 distance = col.transform.position - transform.position;
 			switch (teleportOrientation)
 			{
 				case Orientation.EAST: case Orientation.WEST:
+					col.GetComponent<PlayerScript>().controller.dontTeleportMe = true;
 					col.GetComponent<PlayerScript>().controller.teleportDestination = Vector3.zero;
 					col.transform.position = new Vector3(destination.transform.position.x - distance.x, col.transform.position.y, col.transform.position.z);
-					destination.GetComponent<TeleportScript>().disabled.Add(col.gameObject);
 					break;
 				case Orientation.NORTH: case Orientation.SOUTH:
+					col.GetComponent<PlayerScript>().controller.dontTeleportMe = true;
 					col.GetComponent<PlayerScript>().controller.teleportDestination = Vector3.zero;
 					col.transform.position = new Vector3(col.transform.position.x, col.transform.position.y, destination.transform.position.z - distance.z);
-					destination.GetComponent<TeleportScript>().disabled.Add(col.gameObject);
 					break;
 			}
 		}
-	}
-
-	void OnTriggerExit(Collider col)
-	{
-		disabled.Remove (col.gameObject);
 	}
 }

@@ -26,9 +26,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	private void Start()
 	{
-		var slider = GameObject.Find ("Slider").GetComponent<Slider> ();
-
-		slider.onValueChanged.AddListener (controller.ChangeAnimationSpeed);
 		Rise ();
 	}
 

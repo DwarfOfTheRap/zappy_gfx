@@ -159,7 +159,7 @@ public class PlayerTester : MonoBehaviourTester {
 	IEnumerator WalkMore(int x, int y)
 	{
 		while (true) {
-			yield return new WaitForEndOfFrame();
+			yield return new WaitForFixedUpdate();
 			if (GetComponent<PlayerScript>().controller.destination == GetComponent<PlayerScript>().transform.position)
 			{
 				y = (GameManagerScript.instance.gridController.height + (y - 1)) % GameManagerScript.instance.gridController.height;

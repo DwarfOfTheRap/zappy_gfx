@@ -39,11 +39,6 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 			OnGameOver ( new GameOverEventArgs { team = team });
 	}
 
-	public void ChangeTimeSpeed(float timeSpeed)
-	{
-		timeManager.ChangeTimeSpeed (timeSpeed);
-	}
-
 	public EggController InstantiateEgg ()
 	{
 		GameObject clone = Instantiate (eggPrefab);
@@ -56,6 +51,11 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		return clone.GetComponent<PlayerScript>().controller;
 	}
 
+	public void LoadLevel(int x, int y)
+	{
+		StartCoroutine (AsyncLoadLevel (x, y));
+	}
+	
 	IEnumerator AsyncLoadLevel(int x, int y)
 	{
 		Debug.Log("Level load start");
@@ -65,11 +65,6 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		SocketManager.instance.wait = false;
 		Debug.Log ("Level load end");
 		gridController.Init (x, y);
-	}
-
-	public void LoadLevel(int x, int y)
-	{
-		StartCoroutine (AsyncLoadLevel (x, y));
 	}
 
 	void Update()

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -229,7 +229,7 @@ public class ServerCommandsTests {
 		//Act
 		sc.SendTimeUnit("sgt 150\n");
 		//Assert
-		sc.timeManager.Received().ChangeTimeSpeed(150.0f);
+		sc.timeManager.Received().ChangeTimeSpeedClient(150.0f);
 	}
 
 	public GridController GetMockGridController()
