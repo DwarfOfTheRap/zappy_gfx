@@ -17,16 +17,17 @@ public class TimeManager {
 		slider.value = timeSpeed;
 	}
 
-	public void ChangeTimeSpeedClient(float value)
+	public virtual void ChangeTimeSpeedClient(float value)
 	{
 		timeSpeed = value;
 		var query = new ServerQuery();
 		query.SendTimeUnitChangeQuery ((int)value);
 	}
 
-	public void ChangeTimeSpeedServer(float value)
+	public virtual void ChangeTimeSpeedServer(float value)
 	{
 		timeSpeed = value;
-		this.slider.value = value;
+		if (slider)
+			this.slider.value = value;
 	}
 }

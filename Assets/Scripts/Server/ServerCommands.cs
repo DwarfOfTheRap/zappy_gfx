@@ -183,7 +183,7 @@ public class ServerCommands {
 	public void SendIncantationStart(string serverMessage)
 	{
 		Match regexMatch;
-		string secondaryPlayers = @"(( #[0-9]+)+)";
+		string secondaryPlayers = @"(( [0-9]+)+)";
 		string[] split;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + L + " " + n + secondaryPlayers + "$");
