@@ -3582,8 +3582,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 11402222}
-        m_MethodName: UpdateServer
-        m_Mode: 4
+        m_MethodName: UpdateServerOnEvent
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

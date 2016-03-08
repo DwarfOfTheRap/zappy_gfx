@@ -81,7 +81,7 @@ public class ServerCommands {
 
 	public void SendGraphicMessage(string serverMessage)
 	{
-		SocketManager.instance.SendToServer(serverQuery.GetWelcomeMessageString());
+		serverQuery.SendWelcomeMessage();
 	}
 
 	public void SendMapSize(string serverMessage)
