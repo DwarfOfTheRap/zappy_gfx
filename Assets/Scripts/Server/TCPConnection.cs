@@ -56,6 +56,11 @@ public class TCPConnection
         return result;
     }
 
+    public bool socketAvailable()
+    {
+        return (stream.CanRead);
+    }
+
     //disconnect from the socket
     public void closeSocket()
     {

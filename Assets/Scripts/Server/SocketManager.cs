@@ -19,6 +19,7 @@ public class SocketManager : MonoBehaviour
     public int conPort { get; private set; }
 
 	public bool wait = false;
+    public bool connected = false;
 
     private TCPConnection connection;
 
@@ -33,6 +34,11 @@ public class SocketManager : MonoBehaviour
     {
         instance = this;
         connection = new TCPConnection();
+    }
+
+    void Update()
+    {
+        connected = connection.socketAvailable();
     }
 
     IEnumerator ReadServerMessages()
