@@ -68,11 +68,19 @@ public class TCPConnection
     }
 
     //keep connection alive, reconnect if connection lost
-    public void maintainConnection(string conHost, int conPort)
+    public bool maintainConnection(string conHost, int conPort)
     {
         if (!stream.CanRead)
         {
-            setupSocket(conHost, conPort);
+			try
+			{
+            	setupSocket(conHost, conPort);
+			}
+			catch (Exception e)
+			{
+				return (false);
+			}
         }
+		return (stream.CanRead);
     }
 }
