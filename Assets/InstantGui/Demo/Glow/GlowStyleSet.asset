@@ -545,7 +545,7 @@ MonoBehaviour:
       m_Top: 10
       m_Bottom: 10
     blendSpeed: 2
-    font: {fileID: 0}
+    font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     oldFont: {fileID: 0}
     fontSize: 0
     textAligment: 0
@@ -923,7 +923,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: VerticalSlider_DecrementButton
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 1
     fixedHeight: 1
@@ -993,7 +993,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: VerticalSlider_Diamond
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1063,7 +1063,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: List
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1133,7 +1133,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: List_Element
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: Popup
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1273,7 +1273,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: Tab
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1343,7 +1343,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: TabGroup
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
@@ -1385,7 +1385,7 @@ MonoBehaviour:
       m_Top: 10
       m_Bottom: 60
     blendSpeed: 2
-    font: {fileID: 0}
+    font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     oldFont: {fileID: 0}
     fontSize: 0
     textAligment: 0
@@ -1413,7 +1413,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
   - name: Label
-    show: 0
+    show: 1
     fixedSize: 0
     fixedWidth: 0
     fixedHeight: 0
