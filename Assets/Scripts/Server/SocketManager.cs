@@ -23,6 +23,9 @@ public class SocketManager : MonoBehaviour
 
     private TCPConnection connection;
 
+	public bool previousState = true;
+	public bool socketAvailable = false;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -35,11 +38,11 @@ public class SocketManager : MonoBehaviour
         instance = this;
         connection = new TCPConnection();
     }
-
-    void Update()
-    {
-        connected = connection.socketAvailable();
-    }
+		
+	void OnApplicationQuit()
+	{
+		connection.closeSocket();
+	}
 
     IEnumerator ReadServerMessages()
     {
@@ -47,7 +50,9 @@ public class SocketManager : MonoBehaviour
 
 		while (true)
 		{
-        	connection.maintainConnection(conHost, conPort);
+        	socketAvailable = connection.maintainConnection(conHost, conPort);
+			if (socketAvailable != previousState && previousState == false)
+				GetServerInformations();
 			response = SocketResponse ();
 			if (response != "")
 			{
@@ -69,13 +74,27 @@ public class SocketManager : MonoBehaviour
 				}
 			}
 			yield return new WaitForEndOfFrame();
+			previousState = socketAvailable;
 		}
     }
 
-    void OnApplicationQuit()
-    {
-        connection.closeSocket();
-    }
+	public void GetServerInformations ()
+	{
+		ServerQuery query = new ServerQuery();
+		List<PlayerController> players;
+
+		query.GetAllSquaresString();
+		players = GameManagerScript.instance.playerManager.players;
+		foreach (PlayerController player in players)
+		{
+			query.GetPlayerPositionString(player.index);
+			query.GetPlayerInventoryString(player.index);
+			query.GetPlayerLevelString(player.index);
+		}
+		query.GetTeamNamesString();
+		query.GetCurrentTimeUnitString();
+
+	}
 
     public void SetupConnection(string conHost, int conPort)
     {

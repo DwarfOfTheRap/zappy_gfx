@@ -56,11 +56,6 @@ public class TCPConnection
         return result;
     }
 
-    public bool socketAvailable()
-    {
-        return (stream.CanRead);
-    }
-
     //disconnect from the socket
     public void closeSocket()
     {
@@ -73,11 +68,12 @@ public class TCPConnection
     }
 
     //keep connection alive, reconnect if connection lost
-    public void maintainConnection(string conHost, int conPort)
+    public bool maintainConnection(string conHost, int conPort)
     {
         if (!stream.CanRead)
         {
             setupSocket(conHost, conPort);
         }
+		return (stream.CanRead);
     }
 }
