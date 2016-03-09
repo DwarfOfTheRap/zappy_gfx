@@ -106,8 +106,8 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestDestinationLegit()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
-		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.gridController);
+		GetComponent<PlayerScript>().controller.SetPosition (destinationVector[0], destinationVector[1], GameManagerScript.instance.gridController);
 	}
 
 	void TestExpulsed ()
@@ -118,35 +118,35 @@ public class PlayerTester : MonoBehaviourTester {
 
 	void TestTeam()
 	{
-		var controller = GameManagerScript.instance.grid.controller;
+		var controller = GameManagerScript.instance.gridController;
 		GetComponent<PlayerScript>().controller.Init (Random.Range (0, controller.width), Random.Range (0, controller.height), (Orientation)Random.Range (0, 4), Random.Range (1, 7), Random.Range (0, 9999), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), controller);
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestWalk()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, 1, 1, GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.gridController);
 		StartCoroutine (WalkMore(initVector[0], initVector[1]));
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestDoEights()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.gridController);
 		StartCoroutine (DoEight());
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestOneSquare()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.gridController);
 		StartCoroutine (HopASquare());
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
 
 	void TestRotateOnce()
 	{
-		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript>().controller.Init (initVector[0], initVector[1], orientation, Random.Range (1, 7), Random.Range(0, 10000), GameManagerScript.instance.teamManager.createTeam ("test" + Random.Range (0, 2048).ToString ("0000")), GameManagerScript.instance.gridController);
 		StartCoroutine (RotateOnce(Orientation.EAST));
 		GameManagerScript.instance.playerManager.players.Add (GetComponent<PlayerScript>().controller);
 	}
@@ -159,11 +159,11 @@ public class PlayerTester : MonoBehaviourTester {
 	IEnumerator WalkMore(int x, int y)
 	{
 		while (true) {
-			yield return new WaitForEndOfFrame();
+			yield return new WaitForFixedUpdate();
 			if (GetComponent<PlayerScript>().controller.destination == GetComponent<PlayerScript>().transform.position)
 			{
-				y = (GameManagerScript.instance.grid.controller.height + (y - 1)) % GameManagerScript.instance.grid.controller.height;
-				GetComponent<PlayerScript> ().controller.SetDestination (GameManagerScript.instance.grid.controller.GetSquare (x, y), GameManagerScript.instance.grid.controller);
+				y = (GameManagerScript.instance.gridController.height + (y - 1)) % GameManagerScript.instance.gridController.height;
+				GetComponent<PlayerScript> ().controller.SetDestination (GameManagerScript.instance.gridController.GetSquare (x, y), GameManagerScript.instance.gridController);
 			}
 		}
 	}
@@ -202,7 +202,7 @@ public class PlayerTester : MonoBehaviourTester {
 			if (GetComponent<PlayerScript>().controller.destination == GetComponent<PlayerScript>().transform.position && GetComponent<PlayerScript>().controller.rotation == GetComponent<PlayerScript>().transform.rotation)
 			{
 
-				GetComponent<PlayerScript> ().controller.SetDestination (GameManagerScript.instance.grid.controller.GetSquare (tuples[i].First, tuples[i].Second), GameManagerScript.instance.grid.controller);
+				GetComponent<PlayerScript> ().controller.SetDestination (GameManagerScript.instance.gridController.GetSquare (tuples[i].First, tuples[i].Second), GameManagerScript.instance.gridController);
 				GetComponent<PlayerScript> ().controller.SetPlayerOrientation (tuples[i].Third);
 				i++;
 				i %= tuples.Length;
@@ -215,7 +215,7 @@ public class PlayerTester : MonoBehaviourTester {
 	{
 		float startTime = Time.realtimeSinceStartup;
 
-		GetComponent<PlayerScript> ().controller.SetDestination(GameManagerScript.instance.grid.controller.GetSquare (3, 2), GameManagerScript.instance.grid.controller);
+		GetComponent<PlayerScript> ().controller.SetDestination(GameManagerScript.instance.gridController.GetSquare (3, 2), GameManagerScript.instance.gridController);
 		while (GetComponent<PlayerScript>().controller.destination != GetComponent<PlayerScript>().transform.position) {
 			yield return new WaitForEndOfFrame();
 		}

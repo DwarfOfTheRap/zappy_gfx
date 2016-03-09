@@ -81,7 +81,7 @@ public class ServerCommands {
 
 	public void SendGraphicMessage(string serverMessage)
 	{
-		SocketManager.instance.SendToServer(serverQuery.GetWelcomeMessageString());
+		serverQuery.SendWelcomeMessage();
 	}
 
 	public void SendMapSize(string serverMessage)
@@ -183,7 +183,7 @@ public class ServerCommands {
 	public void SendIncantationStart(string serverMessage)
 	{
 		Match regexMatch;
-		string secondaryPlayers = @"(( #[0-9]+)+)";
+		string secondaryPlayers = @"(( [0-9]+)+)";
 		string[] split;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + L + " " + n + secondaryPlayers + "$");
@@ -275,7 +275,7 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "$");
-		timeManager.ChangeTimeSpeed (float.Parse(regexMatch.Groups[2].Value));
+		timeManager.ChangeTimeSpeedServer (float.Parse(regexMatch.Groups[2].Value));
 	}
 
 	public void SendGameOver(string serverMessage)

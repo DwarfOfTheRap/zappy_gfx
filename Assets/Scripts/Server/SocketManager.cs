@@ -54,7 +54,7 @@ public class SocketManager : MonoBehaviour
 				foreach (string serverMessage in reader.SplitMessage (response))
 				{
 					while (wait)
-						yield return new WaitForEndOfFrame();
+						yield return null;
 					if (serverMessage != "" && reader.IsLegitMessage (serverMessage))
 					{
 						try

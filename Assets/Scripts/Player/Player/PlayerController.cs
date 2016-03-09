@@ -35,6 +35,7 @@ public class PlayerController {
 	public bool							dead { get; private set; }
 	public Vector3						destination { get; private set; }
 	public Vector3						teleportDestination;
+	public bool							dontTeleportMe { get; set; }
 	public Orientation					playerOrientation { get; private set; }
 	
 	private IAnimatorController			animatorController;
@@ -55,11 +56,6 @@ public class PlayerController {
 		this.team = team;
 	}
 #endif
-
-	public void ChangeAnimationSpeed(float value)
-	{
-		this.animatorController.SetFloat ("Speed", timeManager.timeSpeed / 10.0f);
-	}
 
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
@@ -265,12 +261,18 @@ public class PlayerController {
 				this.oldSquare.GetResources().players.Remove (this);
 			this.currentSquare.GetResources ().players.Add (this);
 			this.oldSquare = currentSquare;
+			dontTeleportMe = false;
 		}
 		if (playerMovementController.HasHitRotation (this.rotation))
 		{
 			this.oldOrientation = this.playerOrientation;
 		}
 
+	}
+
+	void ChangeAnimationSpeed()
+	{
+		this.animatorController.SetFloat ("Speed", timeManager.timeSpeed / 10.0f);
 	}
 
 	public void Destroy ()
@@ -288,6 +290,7 @@ public class PlayerController {
 	{
 		if (!dead)
 		{
+			ChangeAnimationSpeed();
 			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
 			GoToDestination (animationOrientation);
 			if (!playerMovementController.IsMoving (this.destination))

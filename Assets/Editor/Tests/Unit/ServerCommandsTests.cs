@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -9,11 +9,11 @@ public class ServerCommandsTests {
 	public void SendMapSizeTest()
 	{
 		//Arrange
-		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
+		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), GetMockLevelLoader());
 		//Act
-		sc.SendMapSize ("msz 12 12\n");
+		sc.SendMapSize ("msz 12 12");
 		//Assert
-		sc.gridController.Received ().Init (12, 12);
+		sc.levelLoader.Received ().LoadLevel (12, 12);
 	}
 
 	[Test]
@@ -23,7 +23,7 @@ public class ServerCommandsTests {
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		sc.gridController.GetSquare (3, 3).ReturnsForAnyArgs (GetMockSquare ());
 		//Act
-		sc.SendSquareContent ("bct 3 3 1 1 1 1 1 1 1\n");
+		sc.SendSquareContent ("bct 3 3 1 1 1 1 1 1 1");
 		//Assert
 		sc.gridController.GetSquare (3, 3).Received().SetResources (1, 1, 1, 1, 1, 1, 1);
 	}
@@ -34,7 +34,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendTeamName ("tna trololo\n");
+		sc.SendTeamName ("tna trololo");
 		//Assert
 		sc.teamManager.Received ().createTeam ("trololo");
 	}
@@ -45,7 +45,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerConnection("pnw #3 5 5 1 1 trololo\n");
+		sc.SendPlayerConnection("pnw 3 5 5 1 1 trololo");
 		//Assert
 		sc.playerManager.Received ().SetPlayerConnection (3, 5, 5, (Orientation)1, 1, "trololo");
 	}
@@ -56,7 +56,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerPosition ("ppo #3 5 5 1\n");
+		sc.SendPlayerPosition ("ppo 3 5 5 1");
 		//Assert
 		sc.playerManager.Received ().SetPlayerPosition (3, 5, 5, (Orientation)1);
 	}
@@ -67,7 +67,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerLevel ("plv #3 1\n");
+		sc.SendPlayerLevel ("plv 3 1");
 		//Assert
 		sc.playerManager.Received ().SetPlayerLevel (3, 1);
 	}
@@ -78,7 +78,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerInventory ("pin #3 5 5 1 1 1 1 1 1 1\n");
+		sc.SendPlayerInventory ("pin 3 5 5 1 1 1 1 1 1 1");
 		//Assert
 		sc.playerManager.Received ().SetPlayerInventory (3, 1, 1, 1, 1, 1, 1, 1);
 	}
@@ -89,7 +89,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerExpulsion ("pex #3\n");
+		sc.SendPlayerExpulsion ("pex 3");
 		//Assert
 		sc.playerManager.Received ().SetPlayerExpulse (3);
 	}
@@ -100,7 +100,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendBroadcast ("pbc #3 trololo\n");
+		sc.SendBroadcast ("pbc 3 trololo");
 		//Assert
 		sc.playerManager.Received ().SetPlayerBroadcast (3, "trololo");
 	}
@@ -111,7 +111,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendIncantationStart("pic 5 5 2 #3 #4 #5\n");
+		sc.SendIncantationStart("pic 5 5 2 3 4 5");
 		//Assert
 		sc.playerManager.Received ().SetPlayerIncantatePrimary (3);
 		sc.playerManager.Received ().SetPlayerIncantateSecondary (4);
@@ -128,7 +128,7 @@ public class ServerCommandsTests {
 		sc.gridController.GetSquare (5, 5).ReturnsForAnyArgs (Substitute.For<ISquare> ());
 		sc.gridController.GetSquare (5, 5).GetResources().ReturnsForAnyArgs(squareC);
 		//Act
-		sc.SendIncantationStop ("pie 5 5 1\n");
+		sc.SendIncantationStop ("pie 5 5 1");
 		//Assert
 		sc.playerManager.Received ().SetPlayersStopIncantate (5, 5, 1);
 	}
@@ -139,7 +139,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendLayEgg("pfk #3\n");
+		sc.SendLayEgg("pfk 3");
 		//Assert
 		sc.playerManager.Received().SetPlayerLayEgg(3);
 	}
@@ -150,7 +150,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendThrowResource("pdr #3 3\n");
+		sc.SendThrowResource("pdr 3 3");
 		//Assert
 		sc.playerManager.Received().SetPlayerThrowResource(3, 3);
 	}
@@ -161,7 +161,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendTakeResource("pgt #3 3\n");
+		sc.SendTakeResource("pgt 3 3");
 		//Assert
 		sc.playerManager.Received().SetPlayerTakeResource(3, 3);
 	}
@@ -172,7 +172,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendDeath("pdi #3\n");
+		sc.SendDeath("pdi 3");
 		//Assert
 		sc.playerManager.Received().SetPlayerDeath(3);
 	}
@@ -183,7 +183,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendEndOfFork("enw #4 #3 5 5\n");
+		sc.SendEndOfFork("enw 4 3 5 5");
 		//Assert
 		sc.playerManager.Received().SetEggCreation(4, 3, 5, 5);
 	}
@@ -194,7 +194,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendHatchedEgg("eht #4\n");
+		sc.SendHatchedEgg("eht 4");
 		//Assert
 		sc.playerManager.Received().SetEggHatch(4);
 	}
@@ -205,7 +205,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendPlayerToEggConnection("ebo #4\n");
+		sc.SendPlayerToEggConnection("ebo 4");
 		//Assert
 		sc.playerManager.Received().SetPlayerToEggConnection(4);
 	}
@@ -216,7 +216,7 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendRottenEgg("edi #4\n");
+		sc.SendRottenEgg("edi 4");
 		//Assert
 		sc.playerManager.Received().SetEggDie(4);
 	}
@@ -227,9 +227,9 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null);
 		//Act
-		sc.SendTimeUnit("sgt 150\n");
+		sc.SendTimeUnit("sgt 150");
 		//Assert
-		sc.timeManager.Received().ChangeTimeSpeed(150.0f);
+		sc.timeManager.Received().ChangeTimeSpeedServer(150.0f);
 	}
 
 	public GridController GetMockGridController()
@@ -279,6 +279,11 @@ public class ServerCommandsTests {
 	public IAnimatorController GetMockAnimatorController()
 	{
 		return (Substitute.For<IAnimatorController>());
+	}
+
+	public ILevelLoader GetMockLevelLoader()
+	{
+		return (Substitute.For<ILevelLoader>());
 	}
 
 	public Team GetMockTeam ()

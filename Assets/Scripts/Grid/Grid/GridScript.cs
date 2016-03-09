@@ -12,6 +12,9 @@ public class GridScript : MonoBehaviour, IGrid {
 	{
 		teleporters = GetComponentsInChildren<TeleportScript>();
 		controller.SetSquareInstantiationController (this);
+		#if UNITY_EDITOR
+		controller.Start();
+		#endif
 	}
 
 	#region ISquareInstantiationController implementation

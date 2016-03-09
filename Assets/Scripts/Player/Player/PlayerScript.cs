@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
-		controller.SetGridController(GameManagerScript.instance.grid.controller);
+		controller.SetGridController(GameManagerScript.instance.gridController);
 		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
 		controller.SetTimeManager (GameManagerScript.instance.timeManager);
@@ -26,9 +26,6 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	private void Start()
 	{
-		var slider = GameObject.Find ("Slider").GetComponent<Slider> ();
-
-		slider.onValueChanged.AddListener (controller.ChangeAnimationSpeed);
 		Rise ();
 	}
 

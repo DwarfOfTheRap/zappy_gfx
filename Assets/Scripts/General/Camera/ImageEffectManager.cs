@@ -5,7 +5,7 @@ using UnityStandardAssets.ImageEffects;
 [RequireComponent(typeof(Bloom))]
 [RequireComponent(typeof(VignetteAndChromaticAberration))]
 [RequireComponent(typeof(Antialiasing))]
-[RequireComponent(typeof(CameraMotionBlur))]
+[RequireComponent(typeof(UnityStandardAssets.ImageEffects.PostEffectsBase))]
 public class ImageEffectManager : MonoBehaviour {
 	void OnEnable()
 	{
@@ -24,6 +24,6 @@ public class ImageEffectManager : MonoBehaviour {
 		GetComponent<Bloom>().enabled = qualityLevel > 2;
 		GetComponent<VignetteAndChromaticAberration>().enabled = qualityLevel > 3;
 		GetComponent<Antialiasing>().enabled = qualityLevel > 3;
-		GetComponent<CameraMotionBlur>().enabled = qualityLevel > 4;
+		GetComponent<PostEffectsBase>().enabled = qualityLevel > 2;
 	}
 }
