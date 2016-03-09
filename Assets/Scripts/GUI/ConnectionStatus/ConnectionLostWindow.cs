@@ -16,10 +16,15 @@ public class ConnectionLostWindow : MonoBehaviour {
         this.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
-	void Update () {
-        if (!SocketManager.instance.socketAvailable)
-            DisplayWindow();
-        else
-            HideWindow();
+	void OnEnable ()
+	{
+		SocketManager.instance.OnDisconnection += DisplayWindow;
+		SocketManager.instance.OnReconnection += HideWindow;
+	}
+
+	void OnDisable ()
+	{
+		SocketManager.instance.OnDisconnection -= DisplayWindow;
+		SocketManager.instance.OnReconnection -= HideWindow;
 	}
 }
