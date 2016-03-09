@@ -8,10 +8,19 @@ using System.Text.RegularExpressions;
 public class IpAddressAndPortInputField : MonoBehaviour {
 
 	public Text errorText;
+	public Text connectingToServerText;
+	public Button quitButton;
 
 	void Awake ()
 	{
 		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener(ConnectToPortOnAddress);
+	}
+
+	void OnDisable()
+	{
+		StopAllCoroutines ();
+		errorText.text = "";
+		connectingToServerText.text = "";
 	}
 
 	IEnumerator DisplayError (string error)
@@ -21,11 +30,26 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		yield return new WaitForSeconds(1.0f);
 		while (errorText.color.a > 0.0f)
 		{
-			yield return new WaitForEndOfFrame();
+			yield return null;
 			errorText.color = new Color(errorText.color.r, errorText.color.g, errorText.color.b, errorText.color.a - 0.01f);
 		}
 		this.gameObject.GetComponent<InputField>().OnPointerClick(new PointerEventData(EventSystem.current));
 		EventSystem.current.SetSelectedGameObject(this.gameObject, new BaseEventData(EventSystem.current));
+	}
+
+	IEnumerator WaitForConnection ()
+	{
+		while (true)
+		{
+			connectingToServerText.text = "Connecting to server";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server.";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server..";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server...";
+			yield return new WaitForSeconds(0.5f);
+		}
 	}
 
     public void ConnectToPortOnAddress(string submit)
@@ -39,6 +63,9 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 			try
 			{
 				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
+				quitButton.interactable = false;
+				GetComponent<InputField>().interactable = false;
+				StartCoroutine (WaitForConnection());
 			}
 			catch (System.Exception e)
 			{

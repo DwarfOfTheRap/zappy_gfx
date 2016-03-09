@@ -25,7 +25,7 @@ public class SocketManager : MonoBehaviour
 
 	private float previousTime;
 	private const float timeout = 5.0f;
-	private const float resetGame = 15.0f;
+	private const float resetGame = 30.0f;
 
 	public delegate void DisconnectedEvent ();
 	public event DisconnectedEvent OnDisconnection;
@@ -52,6 +52,15 @@ public class SocketManager : MonoBehaviour
 		StopAllCoroutines ();
 	}
 
+	void ResetLevel()
+	{
+		previousTime = Time.realtimeSinceStartup;
+		Destroy (GameManagerScript.instance);
+		Destroy (gameObject);
+		Debug.Log ("Restarting");
+		Application.LoadLevel(0);
+	}
+
     IEnumerator ReadServerMessages()
     {
 		string response;
@@ -59,10 +68,11 @@ public class SocketManager : MonoBehaviour
 		previousTime = Time.realtimeSinceStartup;
 		while (true)
 		{
+			connection.maintainConnection (conHost, conPort);
 			response = SocketResponse ();
 			if (response != "")
 			{
-				if (Time.realtimeSinceStartup - previousTime > timeout)
+				if (Time.realtimeSinceStartup - previousTime > timeout && Application.loadedLevel == 1)
 				{
 					if (OnReconnection != null)
 						OnReconnection();
@@ -82,15 +92,9 @@ public class SocketManager : MonoBehaviour
 				}
 				previousTime = Time.realtimeSinceStartup;
 			}
-			else if (Time.realtimeSinceStartup - previousTime > resetGame)
-			{
-				previousTime = Time.realtimeSinceStartup;
-				Destroy (GameManagerScript.instance);
-				Destroy (gameObject);
-				Debug.Log ("Restarting");
-				Application.LoadLevel(0);
-			}
-			else if (Time.realtimeSinceStartup - previousTime > timeout)
+			else if (Time.realtimeSinceStartup - previousTime > resetGame && Application.loadedLevel == 1)
+				ResetLevel ();
+			else if (Time.realtimeSinceStartup - previousTime > timeout && Application.loadedLevel == 1)
 			{
 				if (OnDisconnection != null)
 					OnDisconnection();
@@ -127,15 +131,21 @@ public class SocketManager : MonoBehaviour
 		query.SendTeamNamesQuery();
 	}
 
+	public void StartPingServer()
+	{
+		#if !UNITY_EDITOR
+		StartCoroutine (PingServer ());
+		#endif
+	}
+
     public void SetupConnection(string conHost, int conPort)
     {
+		Debug.Log (conHost);
+		Debug.Log (conPort);
         this.conHost = conHost;
         this.conPort = conPort;
         connection.setupSocket(this.conHost, this.conPort);
 		StartCoroutine (ReadServerMessages ());
-		#if !UNITY_EDITOR
-		StartCoroutine (PingServer ());
-		#endif
     }
 
     //socket reading script

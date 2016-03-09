@@ -63,6 +63,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		SocketManager.instance.wait = true;
 		yield return async;
 		SocketManager.instance.wait = false;
+		SocketManager.instance.StartPingServer ();
 		Debug.Log ("Level load end");
 		gridController.Init (x, y);
 	}

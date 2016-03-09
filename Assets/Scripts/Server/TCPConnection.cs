@@ -72,14 +72,7 @@ public class TCPConnection
     {
         if (!stream.CanRead)
         {
-			try
-			{
-            	setupSocket(conHost, conPort);
-			}
-			catch (Exception e)
-			{
-				return (false);
-			}
+            setupSocket(conHost, conPort);
         }
 		return (stream.CanRead);
     }
