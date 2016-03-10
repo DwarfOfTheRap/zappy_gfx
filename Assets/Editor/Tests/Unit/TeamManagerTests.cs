@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using NUnit.Framework;
 using NSubstitute;
 using System.Collections;
@@ -12,10 +12,10 @@ public class TeamManagerTests {
 	{
 		//Arrange
 		TeamManager tm = new TeamManager();
-		tm.createTeam ("Test");
+		tm.CreateTeam ("Test");
 
 		//Act
-		tm.findTeam ("Test2");
+		tm.FindTeam ("Test2");
 	}
 
 	[Test]
@@ -26,7 +26,7 @@ public class TeamManagerTests {
 		TeamManager tm = new TeamManager();
 		
 		//Act
-		tm.findTeam ("Test2");
+		tm.FindTeam ("Test2");
 	}
 
 	[Test]
@@ -34,10 +34,10 @@ public class TeamManagerTests {
 	{
 		//Arrange
 		TeamManager tm = new TeamManager();
-		Team team1 = tm.createTeam ("Test");
+		Team team1 = tm.CreateTeam ("Test");
 		
 		//Act
-		Team team2 = tm.findTeam ("Test");
+		Team team2 = tm.FindTeam ("Test");
 
 		//Assert
 		Assert.AreSame (team1, team2);
@@ -50,9 +50,9 @@ public class TeamManagerTests {
 		TeamManager tm = new TeamManager();
 
 		//Act
-		Team team1 = tm.createTeam ("Test");
-		Team team2 = tm.createTeam ("Test2");
-		Team team3 = tm.createTeam ("Test3");
+		Team team1 = tm.CreateTeam ("Test");
+		Team team2 = tm.CreateTeam ("Test2");
+		Team team3 = tm.CreateTeam ("Test3");
 
 		//Assert
 		Assert.AreNotEqual (team1.color, team2.color);

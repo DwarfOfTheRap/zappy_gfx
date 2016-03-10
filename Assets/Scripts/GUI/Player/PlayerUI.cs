@@ -6,7 +6,7 @@ public class PlayerUI : MonoBehaviour {
 
 	public Text 				playerIndex;
 	public Text 				playerLvl;
-	public PlayerInventoryUI	inventory;
+	public PlayerInventoryUI	inventory { get; private set;}
 
 	[System.Serializable]
 	public class PlayerInventoryUI

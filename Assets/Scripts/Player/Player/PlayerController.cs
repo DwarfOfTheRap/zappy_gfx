@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 [Serializable]
 public class PlayerController {
+	// Game Attributes
 	public class PlayerInventory
 	{
 		public int 						linemate = 0;
@@ -19,30 +20,41 @@ public class PlayerController {
 	public int							level;
 	public int							index { get; private set;}
 	public Team							team { get; private set;}
-	public float						speed = 1.0f;
-	public float						rotSpeed = 1.0f;
-								
-	private ISquare						oldSquare;
-	public	ISquare						currentSquare;
-	private Orientation					oldOrientation;
-	public  Quaternion					rotation { get; private set; }
-	private bool						expulsed;
+	public Orientation					playerOrientation { get; private set; }
 
-	private bool						highlighted = false;
-	private ISquare[]					squareVision = new ISquare[0];
-									
+	// State
 	public bool 						isIncantating { get; private set; }
 	public bool							dead { get; private set; }
 	public Vector3						destination { get; private set; }
+	public bool							expulsed { get; private set; }
+
+	// Speed
+	public float						speed = 1.0f;
+	public float						rotSpeed = 1.0f;
+
+	// Player position + orientation
+	private ISquare						_oldSquare;
+	public	ISquare						currentSquare;
+	private Orientation					_oldOrientation;
+	public  Quaternion					rotation { get; private set; }
+
+	// Vision + Highlight	
+	private bool						_highlighted = false;
+	private ISquare[]					_squareVision = new ISquare[0];
+									
+	// Teleport Attributes
 	public Vector3						teleportDestination;
 	public bool							dontTeleportMe { get; set; }
-	public Orientation					playerOrientation { get; private set; }
-	
-	private IAnimatorController			animatorController;
-	private IPlayerMotorController		playerMovementController;
-	private GridController				gridController;
-	private AInputManager				inputManager;
-	private TimeManager					timeManager;
+
+
+	// Controller
+	private IAnimatorController			_animatorController;
+	private IPlayerMotorController		_playerMotorController;
+	private GridController				_gridController;
+
+	// Managers
+	private AInputManager				_inputManager;
+	private TimeManager					_timeManager;
 		
 #if UNITY_EDITOR
 	public PlayerController()
@@ -57,82 +69,86 @@ public class PlayerController {
 	}
 #endif
 
+
+	// Setters
 	public void SetAnimatorController(IAnimatorController animatorController)
 	{
-		this.animatorController = animatorController;
+		this._animatorController = animatorController;
 	}
 	
 	public void SetPlayerMovementController(IPlayerMotorController playerMovementController)
 	{
-		this.playerMovementController = playerMovementController;
+		this._playerMotorController = playerMovementController;
 	}
 
 	public void SetInputManager (AInputManager inputManager)
 	{
-		this.inputManager = inputManager;
+		this._inputManager = inputManager;
 		inputManager.OnLeftClicking += OnLeftClick;
 		inputManager.OnRightClicking += OnRightClick;
 	}
 
 	public void SetTimeManager (TimeManager timeManager)
 	{
-		this.timeManager = timeManager;
+		this._timeManager = timeManager;
 	}
 
 	public void SetGridController (GridController gridController)
 	{
-		this.gridController = gridController;
+		this._gridController = gridController;
 	}
-	
+
+	// Animations
 	public void IncantatePrimary()
 	{
-		animatorController.SetBool ("Incantate", true);
+		_animatorController.SetBool ("Incantate", true);
 	}
 
 	public void IncantateSecondary ()
 	{
-		animatorController.SetBool ("Incantate", true);
+		_animatorController.SetBool ("Incantate", true);
 	}
 	
 	public void StopIncantating()
 	{
-		animatorController.SetBool("Incantate", false);
+		_animatorController.SetBool("Incantate", false);
 	}
 
 	public void LayEgg()
 	{
-		animatorController.SetBool ("LayEgg", true);
+		_animatorController.SetBool ("LayEgg", true);
 	}
 
 	public void StopLayingEgg()
 	{
-		animatorController.SetBool ("LayEgg", false);
+		_animatorController.SetBool ("LayEgg", false);
 	}
 
 	public void GrabItem()
 	{
-		animatorController.SetTrigger ("Grab");
+		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void ThrowItem()
 	{
-		animatorController.SetTrigger ("Grab");
+		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void Die()
 	{
 		dead = true;
-		animatorController.SetTrigger ("Death");
+		_animatorController.SetTrigger ("Death");
 	}
 
+	// Actions
 	public void Broadcast (string message)
 	{
-		playerMovementController.Broadcast (message);
+		_playerMotorController.Broadcast (message);
 	}
 	
 	public void Expulse()
 	{
-		animatorController.SetTrigger ("Expulse");
+		_animatorController.SetTrigger ("Expulse");
 		foreach (PlayerController player in currentSquare.GetResources().players)
 			player.BeExpulsed (OrientationManager.Opposite (playerOrientation));
 	}
@@ -140,13 +156,13 @@ public class PlayerController {
 	public void BeExpulsed(Orientation direction)
 	{
 		expulsed = true;
-		playerMovementController.Expulsed (direction);
+		_playerMotorController.Expulsed (direction);
 	}
 
 	public void StopExpulsion()
 	{
 		expulsed = false;
-		playerMovementController.StopExpulsion();
+		_playerMotorController.StopExpulsion();
 	}
 
 	public PlayerController Init(int x, int y, Orientation orientation, int level, int index, Team team, GridController gridController)
@@ -155,13 +171,13 @@ public class PlayerController {
 		{
 			ISquare square = gridController.GetSquare (x, y);
 			SetDestination(square, gridController);
-			playerMovementController.SetPosition(square.GetPosition());
+			_playerMotorController.SetPosition(square.GetPosition());
 			this.level = level;
 			this.index = index;
 			this.team = team;
 			this.SetPlayerOrientation (orientation);
-			playerMovementController.SetRotation (OrientationManager.GetRotation (orientation));
-			playerMovementController.SetTeamColor (team.color);
+			_playerMotorController.SetRotation (OrientationManager.GetRotation (orientation));
+			_playerMotorController.SetTeamColor (team.color);
 			return this;
 		}
 		catch (GridController.GridOutOfBoundsException)
@@ -172,13 +188,13 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
-		this.oldSquare = this.currentSquare;
+		this._oldSquare = this.currentSquare;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
-			destination = playerMovementController.SetDestination (square.GetPosition ());
+			destination = _playerMotorController.SetDestination (square.GetPosition ());
 		}
 		currentSquare = square;
 	}
@@ -198,37 +214,37 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
-		this.oldOrientation = this.playerOrientation;
+		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
 	}
 	
 	public void GoToDestination(Orientation animationOrientation)
 	{
-		animatorController.SetBool ("Walk", playerMovementController.IsMoving(this.destination) && !expulsed);
-		animatorController.SetInteger ("Orientation", (int)animationOrientation);
+		_animatorController.SetBool ("Walk", _playerMotorController.IsMoving(this.destination) && !expulsed);
+		_animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		if (teleportDestination != Vector3.zero)
-			playerMovementController.MoveToDestination (teleportDestination, speed);
+			_playerMotorController.MoveToDestination (teleportDestination, speed);
 		else
-			playerMovementController.MoveToDestination (destination, speed);
-		playerMovementController.MoveToRotation(rotation, rotSpeed);
+			_playerMotorController.MoveToDestination (destination, speed);
+		_playerMotorController.MoveToRotation(rotation, rotSpeed);
 	}
 
 	void EnableHighlight()
 	{
-		highlighted = true;
-		playerMovementController.EnableHighlight (this.team.color);
+		_highlighted = true;
+		_playerMotorController.EnableHighlight (this.team.color);
 	}
 
 	public void DisableHighlight()
 	{
-		highlighted = false;
-		playerMovementController.DisableHighlight ();
+		_highlighted = false;
+		_playerMotorController.DisableHighlight ();
 	}
 
 	void OnLeftClick(ClickEventArgs args)
 	{
-		if (args.target.IsPlayer () && args.target == (IClickTarget)playerMovementController)
+		if (args.target.IsPlayer () && args.target == (IClickTarget)_playerMotorController)
 			EnableHighlight ();
 		else
 			DisableHighlight ();
@@ -243,11 +259,11 @@ public class PlayerController {
 	{
 		int x = 0;
 		int y = 0;
-		foreach (ISquare square in squareVision)
+		foreach (ISquare square in _squareVision)
 			square.Standard ();
-		gridController.GetSquarePosition (oldSquare, ref x, ref y);
-		this.squareVision = gridController.GetVision (x, y, oldOrientation, level);
-		foreach (ISquare square in squareVision)
+		_gridController.GetSquarePosition (_oldSquare, ref x, ref y);
+		this._squareVision = _gridController.GetVision (x, y, _oldOrientation, level);
+		foreach (ISquare square in _squareVision)
 		{
 			square.Highlighted (team.color / 4.0f);
 		}
@@ -255,35 +271,35 @@ public class PlayerController {
 
 	void OnDestinationHit()
 	{
-		if (playerMovementController.HasHitDestination (this.destination))
+		if (_playerMotorController.HasReachedDestination (this.destination))
 		{
-			if (this.oldSquare != null)
-				this.oldSquare.GetResources().players.Remove (this);
+			if (this._oldSquare != null)
+				this._oldSquare.GetResources().players.Remove (this);
 			this.currentSquare.GetResources ().players.Add (this);
-			this.oldSquare = currentSquare;
+			this._oldSquare = currentSquare;
 			dontTeleportMe = false;
 		}
-		if (playerMovementController.HasHitRotation (this.rotation))
+		if (_playerMotorController.HasReachedRotation (this.rotation))
 		{
-			this.oldOrientation = this.playerOrientation;
+			this._oldOrientation = this.playerOrientation;
 		}
 
 	}
 
 	void ChangeAnimationSpeed()
 	{
-		this.animatorController.SetFloat ("Speed", timeManager.timeSpeed / 10.0f);
+		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 10.0f);
 	}
 
 	public void Destroy ()
 	{
-		this.playerMovementController.Destroy();
+		this._playerMotorController.Destroy();
 	}
 
 	public void OnDisable ()
 	{
-		inputManager.OnLeftClicking -= OnLeftClick;
-		inputManager.OnRightClicking -= OnRightClick;
+		_inputManager.OnLeftClicking -= OnLeftClick;
+		_inputManager.OnRightClicking -= OnRightClick;
 	}
 
 	public void Update(Vector3 position)
@@ -293,9 +309,9 @@ public class PlayerController {
 			ChangeAnimationSpeed();
 			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
 			GoToDestination (animationOrientation);
-			if (!playerMovementController.IsMoving (this.destination))
+			if (!_playerMotorController.IsMoving (this.destination))
 				StopExpulsion () ;
-			if (highlighted)
+			if (_highlighted)
 				UpdateSquareVision ();
 			OnDestinationHit ();
 		}

@@ -2166,11 +2166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller:
-    level: 1
-    speed: .359699994
+    level: 0
+    speed: 1
     rotSpeed: 6.43499994
     teleportDestination: {x: 0, y: 0, z: 0}
-  orientation: 0
   disintegrateMaterial: {fileID: 2100000, guid: 9247d7c9db54f47a9afe58a995a8bf06,
     type: 2}
   disintegrateGlassMaterial: {fileID: 2100000, guid: d4cc6623a3cda4483b8c57d2bf88d047,

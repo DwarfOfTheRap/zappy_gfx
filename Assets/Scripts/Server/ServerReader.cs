@@ -3,18 +3,18 @@ using System.Collections;
 using System.Text.RegularExpressions;
 
 public class ServerReader {
-	private string X = @"[0-9]+";
-	private string Y = @"[0-9]+";
-	private string q = @"[0-9]+";
-	private string n = @"[0-9]+";
-	private string O = @"[1-4]";
-	private string L = @"[1-8]";
-	private string e = @"[0-9]+";
-	private string T = @"([1-9]|[0-9]{2,})";
-	private string N = @"[\w ]{1,32}";
-	private string R = @"[0-1]";
-	private string M = "[^\n]+";
-	private string i = @"[0-6]";
+	private const string X = @"[0-9]+";
+	private const string Y = @"[0-9]+";
+	private const string q = @"[0-9]+";
+	private const string n = @"[0-9]+";
+	private const string O = @"[1-4]";
+	private const string L = @"[1-8]";
+	private const string e = @"[0-9]+";
+	private const string T = @"([1-9]|[0-9]{2,})";
+	private const string N = @"[\w ]{1,32}";
+	private const string R = @"[0-1]";
+	private const string M = "[^\n]+";
+	private const string i = @"[0-6]";
 
 	private delegate bool methodDelegate(string serverMessage);
 

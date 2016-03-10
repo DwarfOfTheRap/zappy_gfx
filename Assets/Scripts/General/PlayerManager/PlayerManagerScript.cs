@@ -22,8 +22,19 @@ public class PlayerManagerScript {
 		
 		public TwoPlayersWithTheSameIndexException(string message) : base(message) {}
 	}
+	public class TwoEggsWithTheSameIndexException : Exception
+	{
+		public TwoEggsWithTheSameIndexException() {}
+		
+		public TwoEggsWithTheSameIndexException(string message) : base(message) {}
+	}
+#if UNITY_EDITOR
 	public List<PlayerController>			players;
 	public List<EggController>				eggs;
+#else
+	public List<PlayerController>			players { get; private set; }
+	public List<EggController>				eggs { get; private set; }
+#endif
 	public GridController					gridController { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
@@ -81,15 +92,12 @@ public class PlayerManagerScript {
 
 	public virtual PlayerController SetPlayerConnection(int n, int x, int y, Orientation o, int l, string name)
 	{
-		PlayerController controller = pic.InstantiatePlayer();
 		if (players.Find (pl => pl.index == n) != null)
-		{
-			controller.Destroy ();
 			throw new TwoPlayersWithTheSameIndexException();
-		}
+		PlayerController controller = pic.InstantiatePlayer();
 		try
 		{
-			controller.Init (x, y, o, l, n, teamManager.findTeam(name), gridController);
+			controller.Init (x, y, o, l, n, teamManager.FindTeam(name), gridController);
 		}
 		catch (Exception e)
 		{
@@ -197,10 +205,21 @@ public class PlayerManagerScript {
 
 	public virtual EggController SetEggCreation(int e, int n, int x, int y)
 	{
+		if (eggs.Find (eg => eg.index == n) != null)
+			throw new TwoEggsWithTheSameIndexException();
 		EggController egg = this.eic.InstantiateEgg();
 		PlayerController player = GetPlayer (n);
 		player.StopLayingEgg ();
-		eggs.Add (egg.Init (x, y, e, player, gridController));
+		try
+		{
+			egg.Init (x, y, e, player, gridController);
+		}
+		catch (Exception exc)
+		{
+			egg.Destroy();
+			throw exc;
+		}
+		eggs.Add (egg);
 		return egg;
 	}
 

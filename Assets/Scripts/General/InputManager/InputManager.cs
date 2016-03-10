@@ -3,8 +3,8 @@ using System.Collections;
 
 public class InputManager : AInputManager 
 {
-	private float 				lastClickTime = 0.0f;
-	private float 				catchTime = 0.25f;
+	private float 				_lastCatchTime = 0.0f;
+	private float 				_catchTime = 0.25f;
 
 	#region AInputManager implementation
 
@@ -90,7 +90,7 @@ public class InputManager : AInputManager
 
 	public override bool DoubleLeftClick ()
 	{
-		return (Time.time - lastClickTime < catchTime);
+		return (Time.time - _lastCatchTime < _catchTime);
 	}
 
 	public override bool RightClick ()
@@ -110,7 +110,7 @@ public class InputManager : AInputManager
 		if (LeftClick ())
 		{
 			LeftMouseClick ();
-			lastClickTime = Time.time;
+			_lastCatchTime = Time.time;
 		}
 		if (RightClick ())
 			RightMouseClick ();

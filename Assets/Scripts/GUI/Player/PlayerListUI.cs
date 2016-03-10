@@ -48,4 +48,9 @@ public class PlayerListUI : MonoBehaviour {
 	void Start () {
 		GameManagerScript.instance.inputManager.OnRightClicking += DeletePlayers;
 	}
+
+	void OnDisable ()
+	{
+		GameManagerScript.instance.inputManager.OnRightClicking -= DeletePlayers;
+	}
 }

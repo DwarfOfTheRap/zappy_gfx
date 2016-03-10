@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HologramScript : MonoBehaviour, IHologram, IAnimatorController {
-	public HologramController		controller;
+	public HologramController		controller { get; private set; }
 	// Use this for initialization
 	void Awake () {
 		controller = new HologramController(this, this);
@@ -50,6 +50,7 @@ public class HologramScript : MonoBehaviour, IHologram, IAnimatorController {
 
 	#endregion
 
+	// Animation event
 	public void OnDeathAnimationEnd()
 	{
 		Destroy (gameObject);
@@ -58,23 +59,23 @@ public class HologramScript : MonoBehaviour, IHologram, IAnimatorController {
 
 public class HologramController
 {
-	IHologram			motor;
-	IAnimatorController animatorController;
+	IHologram			_motor;
+	IAnimatorController _animatorController;
 
 	public HologramController (IHologram motor, IAnimatorController animatorController)
 	{
-		this.motor = motor;
-		this.animatorController = animatorController;
+		this._motor = motor;
+		this._animatorController = animatorController;
 	}
 
 	public void SetTeamColors (Color color)
 	{
-		motor.SetTeamColors(color);
+		_motor.SetTeamColors(color);
 	}
 
 	public void Die()
 	{
-		animatorController.SetTrigger ("Death");
+		_animatorController.SetTrigger ("Death");
 	}
 }
 

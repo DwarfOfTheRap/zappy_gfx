@@ -2,14 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class QualitySettingsMenu : MonoBehaviour {
+public class QualitySettingsMenu : AWindow {
 
-	private AInputManager inputManager;
 	public GameObject[] buttons;
 	public Sprite defaultButton;
 	public Sprite activatedButton;
 	
-	void CheckMenuKey()
+	protected override void CheckKeyboardShortcut()
 	{
 		if (inputManager.MenuKey())
 		{
@@ -32,26 +31,9 @@ public class QualitySettingsMenu : MonoBehaviour {
 		GameManagerScript.instance.qualityManager.ChangeQuality(quality);
 	}
 
-	public void DisplayWindow()
+	protected override void Start ()
 	{
-		gameObject.GetComponent<CanvasGroup>().alpha = 1;
-		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
-	}
-	
-	public void CloseWindow()
-	{
-		gameObject.GetComponent<CanvasGroup>().alpha = 0;
-		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
-	}
-
-	void Start ()
-	{
+		base.Start ();
 		buttons[QualityManager.GetQualityLevel()].GetComponent<Image>().sprite = activatedButton;
-		inputManager = GameManagerScript.instance.inputManager;
-	}
-	
-	void Update ()
-	{
-		CheckMenuKey();
 	}
 }

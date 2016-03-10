@@ -5,19 +5,21 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorController, IClickTarget {
 	public PlayerController 	controller;
-	public Orientation			orientation;
+
+	// Material
 	private Material			_material;
 	private Material			_glassMaterial;
 	public Material				disintegrateMaterial;
 	public Material				disintegrateGlassMaterial;
+
 	private const float			_highlight_width = 0.0025f;
 	
 	private void Awake()
 	{
+		controller = new PlayerController();
 		controller.SetAnimatorController(this);
 		controller.SetPlayerMovementController(this);
 		controller.SetGridController(GameManagerScript.instance.gridController);
-		controller.SetPlayerOrientation(orientation);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
 		controller.SetTimeManager (GameManagerScript.instance.timeManager);
 		this._material = GetComponentInChildren<Renderer>().materials[0];
@@ -65,7 +67,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		return new Vector3(destination.x, transform.position.y, destination.z);
 	}
 
-	public bool HasHitDestination(Vector3 destination)
+	public bool HasReachedDestination(Vector3 destination)
 	{
 		return (this.transform.position == new Vector3(destination.x, destination.y, destination.z));
 	}
@@ -90,7 +92,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotation, Time.deltaTime * rotSpeed * GameManagerScript.instance.timeManager.timeSpeed);
 	}
 
-	public bool HasHitRotation(Quaternion rotation)
+	public bool HasReachedRotation(Quaternion rotation)
 	{
 		return (this.transform.rotation == rotation);
 	}

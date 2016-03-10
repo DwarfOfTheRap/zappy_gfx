@@ -19,7 +19,8 @@ public class NavigationTests {
 		initPos = camCon.position;
 		//Act
 		camCon.position = new Vector3 (0.0f, 0.0f, 0.0f);
-		camCon.InitCameraPosition();
+		inputM.ResetCamera ().ReturnsForAnyArgs (true);
+		camCon.LateUpdate ();
 		//Assert
 		Assert.AreEqual(initPos, camCon.position);
 	}

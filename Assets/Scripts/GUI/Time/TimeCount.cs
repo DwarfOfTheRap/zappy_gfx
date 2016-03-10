@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TimeCount : MonoBehaviour {
-	private int				totalGameSeconds = 0;
+	private int				_totalGameSeconds = 0;
 
 	IEnumerator TimeUpdate ()
 	{
@@ -11,7 +11,7 @@ public class TimeCount : MonoBehaviour {
 			if (GameManagerScript.instance.timeManager.timeSpeed > 0) {
 				yield return new WaitForSeconds (1.0f / GameManagerScript.instance.timeManager.timeSpeed);
 				if (GameManagerScript.instance.timeManager.timeSpeed > 0)
-					totalGameSeconds += 1;
+					_totalGameSeconds += 1;
 			}
 			else
 				yield return new WaitForEndOfFrame();
@@ -34,10 +34,10 @@ public class TimeCount : MonoBehaviour {
 		int minutes;
 		int hours;
 
-		seconds = totalGameSeconds % 60;
-		minutes = totalGameSeconds / 60;
+		seconds = _totalGameSeconds % 60;
+		minutes = _totalGameSeconds / 60;
 		minutes %= 60;
-		hours = totalGameSeconds / 3600;
+		hours = _totalGameSeconds / 3600;
 	
 		this.gameObject.GetComponent<Text> ().text = hours.ToString("00") + ":" + minutes.ToString ("00") + ":" + seconds.ToString ("00");
 	}

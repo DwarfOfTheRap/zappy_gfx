@@ -17,63 +17,63 @@ public class TCPConnection
     //public int conPort = 27015;
 
     //a true/false variable for connection status
-    private bool socketReady = false;
+    private bool _socketReady = false;
 
-    private TcpClient mySocket;
-    private NetworkStream stream;
-    private StreamWriter writer;
-    private StreamReader reader;
+    private TcpClient _mySocket;
+    private NetworkStream _stream;
+    private StreamWriter _writer;
+    private StreamReader _reader;
 
     //try to initiate connection
-    public void setupSocket(string conHost, int conPort)
+    public void SetupSocket(string conHost, int conPort)
     {
-        mySocket = new TcpClient(conHost, conPort);
-        stream = mySocket.GetStream();
-        writer = new StreamWriter(stream);
-        reader = new StreamReader(stream);
-        socketReady = true;
+        _mySocket = new TcpClient(conHost, conPort);
+        _stream = _mySocket.GetStream();
+        _writer = new StreamWriter(_stream);
+        _reader = new StreamReader(_stream);
+        _socketReady = true;
     }
 
     //send message to server
-    public void writeSocket(string message)
+    public void WriteSocket(string message)
     {
-        if (!socketReady)
+        if (!_socketReady)
             return;
-        writer.Write(message);
-        writer.Flush();
+        _writer.Write(message);
+        _writer.Flush();
     }
 
     //read message from server
-    public string readSocket()
+    public string ReadSocket()
     {
         String result = "";
-        while (stream.DataAvailable)
+        while (_stream.DataAvailable)
         {
-            Byte[] inStream = new Byte[mySocket.SendBufferSize];
-            stream.Read(inStream, 0, inStream.Length);
+            Byte[] inStream = new Byte[_mySocket.SendBufferSize];
+            _stream.Read(inStream, 0, inStream.Length);
             result += System.Text.Encoding.UTF8.GetString(inStream);
         }
         return result;
     }
 
     //disconnect from the socket
-    public void closeSocket()
+    public void CloseSocket()
     {
-        if (!socketReady)
+        if (!_socketReady)
             return;
-        writer.Close();
-        reader.Close();
-        mySocket.Close();
-        socketReady = false;
+        _writer.Close();
+        _reader.Close();
+        _mySocket.Close();
+        _socketReady = false;
     }
 
     //keep connection alive, reconnect if connection lost
-    public bool maintainConnection(string conHost, int conPort)
+    public bool MaintainConnection(string conHost, int conPort)
     {
-        if (!stream.CanRead)
+        if (!_stream.CanRead)
         {
-            setupSocket(conHost, conPort);
+            SetupSocket(conHost, conPort);
         }
-		return (stream.CanRead);
+		return (_stream.CanRead);
     }
 }

@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class QualityManager {
+	// Event
 	public delegate void QualityEventHandler(QualityEventArg arg);
-
 	public static event QualityEventHandler OnQualityChange;
 
 	int					_quality;

@@ -33,14 +33,17 @@ public class GridController {
 		public SquareNotFoundException(string message) : base(message) {}
 	}
 
-	public ISquare[] grid { get ; private set; }
+	public ISquare[]	grid { get ; private set; }
 
 	public int 			height { get; private set; }
 	public int			width { get; private set; }
+
+	#if UNITY_EDITOR
 	public int			startHeight;
 	public int			startWidth;
+	#endif
 
-	private IGrid squareInstantiationController;
+	private IGrid		_gridMotor;
 
 	#if UNITY_EDITOR
 	public void Start ()
@@ -50,9 +53,9 @@ public class GridController {
 	}
 	#endif
 
-	public void SetSquareInstantiationController (IGrid squareInstantiationController)
+	public void SetSquareInstantiationController (IGrid gridMotor)
 	{
-		this.squareInstantiationController = squareInstantiationController;
+		this._gridMotor = gridMotor;
 	}
 	
 	public ISquare[] ClearGrid(ISquare[] grid)
@@ -90,7 +93,7 @@ public class GridController {
 		return false;
 	}
 
-	private void GetVisionNorth(int x, int y, int level, ref List<ISquare> squares)
+	void GetVisionNorth(int x, int y, int level, ref List<ISquare> squares)
 	{
 		for (int i = 0; i <= level; i++)
 		{
@@ -100,7 +103,7 @@ public class GridController {
 		}
 	}
 
-	private void GetVisionSouth(int x, int y, int level, ref List<ISquare> squares)
+	void GetVisionSouth(int x, int y, int level, ref List<ISquare> squares)
 	{
 		for (int i = 0; i <= level; i++)
 		{
@@ -110,7 +113,7 @@ public class GridController {
 		}
 	}
 
-	private void GetVisionEast(int x, int y, int level, ref List<ISquare> squares)
+	void GetVisionEast(int x, int y, int level, ref List<ISquare> squares)
 	{
 		for (int i = 0; i <= level; i++)
 		{
@@ -120,7 +123,7 @@ public class GridController {
 		}
 	}
 
-	private void GetVisionWest(int x, int y, int level, ref List<ISquare> squares)
+	void GetVisionWest(int x, int y, int level, ref List<ISquare> squares)
 	{
 		for (int i = 0; i <= level; i++)
 		{
@@ -161,13 +164,13 @@ public class GridController {
 		float absx = Mathf.Abs (distance.x);
 		float absz = Mathf.Abs (distance.z);
 		if (absx > absz && distance.x > 0)
-			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.WEST).x, currentPosition.y, currentPosition.z);
+			return new Vector3(_gridMotor.GetTeleporterPosition(Orientation.WEST).x, currentPosition.y, currentPosition.z);
 		else if (absx > absz && distance.x <= 0)
-			return new Vector3(squareInstantiationController.GetTeleporterPosition(Orientation.EAST).x, currentPosition.y, currentPosition.z);
+			return new Vector3(_gridMotor.GetTeleporterPosition(Orientation.EAST).x, currentPosition.y, currentPosition.z);
 		else if (absx <= absz && distance.z > 0)
-			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition (Orientation.SOUTH).z);
+			return new Vector3(currentPosition.x, currentPosition.y, _gridMotor.GetTeleporterPosition (Orientation.SOUTH).z);
 		else if (absx <= absz && distance.z <= 0)
-			return new Vector3(currentPosition.x, currentPosition.y, squareInstantiationController.GetTeleporterPosition(Orientation.NORTH).z);
+			return new Vector3(currentPosition.x, currentPosition.y, _gridMotor.GetTeleporterPosition(Orientation.NORTH).z);
 		else
 			return Vector3.zero;
 	}
@@ -187,7 +190,7 @@ public class GridController {
 		this.height = height;
 		grid = new ISquare[width * height];
 		
-		clone = squareInstantiationController.Instantiate (0);
+		clone = _gridMotor.Instantiate (0);
 		sizex = clone.GetBoundX();
 		sizey = clone.GetBoundY();
 		sizez = clone.GetBoundZ();
@@ -198,14 +201,14 @@ public class GridController {
 		{
 			for (int j = 0; j < height; j++)
 			{	
-				clone = squareInstantiationController.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
+				clone = _gridMotor.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
 				switchInt ^= 1;
 				grid[i * height + j] = clone;
 			}
 			if (height % 2 == 0)
 				switchInt ^= 1;
 		}
-		squareInstantiationController.InitTeleporters (sizex, sizey, sizez, width, height);
+		_gridMotor.InitTeleporters (sizex, sizey, sizez, width, height);
 	}
 
 }

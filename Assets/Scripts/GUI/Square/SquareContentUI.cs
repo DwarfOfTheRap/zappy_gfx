@@ -14,7 +14,7 @@ public class SquareContentUI : MonoBehaviour {
     public Text nourritureNumber;
     public Text playersNumber;
 
-    public void DisplayResources (ISquare square)
+    void DisplayResources (ISquare square)
     {
         linemateNumber.text = square.GetResources ().linemate.count.ToString ();
 		linemateNumber.color = ResourceController.linemateColor;
@@ -56,6 +56,12 @@ public class SquareContentUI : MonoBehaviour {
         GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
         GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
     }
+
+	void OnDisable ()
+	{
+		GameManagerScript.instance.inputManager.OnLeftClicking -= DisplayWindow;
+		GameManagerScript.instance.inputManager.OnRightClicking -= HideWindow;
+	}
 
     void Update () {
         if (square != null)

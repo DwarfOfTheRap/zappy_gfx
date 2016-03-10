@@ -8,24 +8,19 @@ public class SocketManager : MonoBehaviour
 {
     public static SocketManager instance;
 
-	public ServerCommands commands;
-	public ServerReader reader;
-
-    //variables
-    private string serverMsg;
-    public string msgToServer;
-
     public string conHost { get; private set; }
     public int conPort { get; private set; }
 
 	public bool wait = false;
     public bool connected = false;
 
-    private TCPConnection connection;
+	private float _previousTime;
+	private const float _timeout = 5.0f;
+	private const float _resetGame = 30.0f;
 
-	private float previousTime;
-	private const float timeout = 5.0f;
-	private const float resetGame = 30.0f;
+	private TCPConnection	_connection;
+	private ServerCommands	_commands;
+	private ServerReader	_reader;
 
 	public delegate void DisconnectedEvent ();
 	public event DisconnectedEvent OnDisconnection;
@@ -35,26 +30,26 @@ public class SocketManager : MonoBehaviour
     {
 		Debug.Log ("Awake");
         DontDestroyOnLoad(this);
-		reader = new ServerReader();
-		commands = GameManagerScript.instance.commandsManager;
+		_reader = new ServerReader();
+		_commands = GameManagerScript.instance.commandsManager;
     }
 
     void Start()
     {
         instance = this;
-        connection = new TCPConnection();
+        _connection = new TCPConnection();
     }
 		
 	void OnDestroy()
 	{
 		Debug.Log ("OnDestroy");
-		connection.closeSocket();
+		_connection.CloseSocket();
 		StopAllCoroutines ();
 	}
 
 	void ResetLevel()
 	{
-		previousTime = Time.realtimeSinceStartup;
+		_previousTime = Time.realtimeSinceStartup;
 		Destroy (GameManagerScript.instance);
 		Destroy (gameObject);
 		Debug.Log ("Restarting");
@@ -65,41 +60,45 @@ public class SocketManager : MonoBehaviour
     {
 		string response;
 
-		previousTime = Time.realtimeSinceStartup;
+		_previousTime = Time.realtimeSinceStartup;
 		while (true)
 		{
-			connection.maintainConnection (conHost, conPort);
+			_connection.MaintainConnection (conHost, conPort);
 			response = SocketResponse ();
 			if (response != "")
 			{
-				if (Time.realtimeSinceStartup - previousTime > timeout && Application.loadedLevel == 1)
+#if !UNITY_EDITOR
+				if (Time.realtimeSinceStartup - _previousTime > _timeout && Application.loadedLevel == 1)
 				{
 					if (OnReconnection != null)
 						OnReconnection();
 					GetServerInformations ();
 				}
-				foreach (string serverMessage in reader.SplitMessage (response)) {
+#endif
+				foreach (string serverMessage in _reader.SplitMessage (response)) {
 					while (wait)
 						yield return null;
-					if (serverMessage != "" && reader.IsLegitMessage (serverMessage)) {
+					if (serverMessage != "" && _reader.IsLegitMessage (serverMessage)) {
 						try {
-							commands.PickMethod (serverMessage);
+							_commands.PickMethod (serverMessage);
 						}
 						catch (Exception e) {
 							Debug.Log (e.Message);
 						}
 					}
 				}
-				previousTime = Time.realtimeSinceStartup;
+				_previousTime = Time.realtimeSinceStartup;
 			}
-			else if (Time.realtimeSinceStartup - previousTime > resetGame && Application.loadedLevel == 1)
+#if !UNITY_EDITOR
+			else if (Time.realtimeSinceStartup - _previousTime > _resetGame && Application.loadedLevel == 1)
 				ResetLevel ();
-			else if (Time.realtimeSinceStartup - previousTime > timeout && Application.loadedLevel == 1)
+			else if (Time.realtimeSinceStartup - _previousTime > _timeout && Application.loadedLevel == 1)
 			{
 				if (OnDisconnection != null)
 					OnDisconnection();
 				Debug.Log ("Disconnected from server.");
 			}
+#endif
 			yield return null;
 		}
     }
@@ -115,7 +114,7 @@ public class SocketManager : MonoBehaviour
 		}
 	}
 
-	public void GetServerInformations ()
+	void GetServerInformations ()
 	{
 		ServerQuery query = new ServerQuery();
 		List<PlayerController> players;
@@ -144,14 +143,14 @@ public class SocketManager : MonoBehaviour
 		Debug.Log (conPort);
         this.conHost = conHost;
         this.conPort = conPort;
-        connection.setupSocket(this.conHost, this.conPort);
+        _connection.SetupSocket(this.conHost, this.conPort);
 		StartCoroutine (ReadServerMessages ());
     }
 
     //socket reading script
-    public string SocketResponse()
+   	string SocketResponse()
     {
-        string serverSays = connection.readSocket();
+        string serverSays = _connection.ReadSocket();
         if (serverSays != "")
         {
             Debug.Log("[SERVER]" + serverSays);
@@ -160,9 +159,9 @@ public class SocketManager : MonoBehaviour
     }
 
     //send message to the server
-    public void SendToServer(string str)
+   	public void SendToServer(string str)
     {
-        connection.writeSocket(str);
+        _connection.WriteSocket(str);
         Debug.Log("[CLIENT] -> " + str);
     }
 }

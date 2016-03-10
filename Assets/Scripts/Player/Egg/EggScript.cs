@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController {
-	public EggController		controller;
+	public EggController		controller { get; private set; }
 	public HologramScript		hologramPrefab;
 
 	private HologramController	_hologram;
@@ -12,6 +12,11 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 		controller = new EggController();
 		controller.SetAnimatorController(this);
 		controller.SetMotorController(this);
+	}
+
+	void Update()
+	{
+		GetComponent<Animator>().SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
 	}
 
 	public void SetBool (string name, bool value)
@@ -34,10 +39,14 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 		GetComponent<Animator>().SetTrigger (name);
 	}
 
-	#region IEggMotorController implementation
-
-	public void Init()
+	public void Hatch ()
 	{
+		GetComponentInChildren<ParticleSystem>().Stop ();
+		var clone = Instantiate (hologramPrefab) as HologramScript;
+		clone.transform.SetParent (this.transform);
+		clone.transform.localPosition = Vector3.zero;
+		clone.controller.SetTeamColors (controller.team.color);
+		_hologram = clone.controller;
 	}
 
 	public void SetTeamColor (Color color)
@@ -56,23 +65,17 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 		this.transform.position = new Vector3(position.x, this.transform.position.y, position.z);
 	}
 
-	#endregion
-
-	public void Hatch ()
-	{
-		GetComponentInChildren<ParticleSystem>().Stop ();
-		var clone = Instantiate (hologramPrefab) as HologramScript;
-		clone.transform.SetParent (this.transform);
-		clone.transform.localPosition = Vector3.zero;
-		clone.controller.SetTeamColors (controller.team.color);
-		_hologram = clone.controller;
-	}
-
 	public void Die ()
 	{
 		_hologram.Die ();
 	}
 
+	public void Destroy ()
+	{
+		Destroy (gameObject);
+	}
+
+	// Animation events
 	public void OnInitAnimationEnd()
 	{
 		GetComponentInChildren<ParticleSystem>().Play();
@@ -82,11 +85,6 @@ public class EggScript : MonoBehaviour, IAnimatorController, IEggMotorController
 	{
 		Destroy (gameObject);
 	}
-
-	public void Update()
-	{
-		GetComponent<Animator>().SetFloat ("Speed", GameManagerScript.instance.timeManager.timeSpeed / 10.0f);
-	}
 }
 
 
@@ -95,6 +93,6 @@ public interface IEggMotorController
 	void Hatch();
 	void SetTeamColor(Color color);
 	void SetPosition(Vector3 position);
-	void Init ();
 	void Die ();
+	void Destroy ();
 }

@@ -15,7 +15,7 @@ public class PlayerStatsUI : MonoBehaviour {
 	public Text levelNumber;
 	public Text teamText;
 	
-	public void DisplayResources (PlayerController player)
+	void DisplayResources (PlayerController player)
 	{
 		linemateNumber.text = player.inventory.linemate.ToString ();
 		linemateNumber.color = ResourceController.linemateColor;
@@ -60,6 +60,12 @@ public class PlayerStatsUI : MonoBehaviour {
 		this.player = null;
 		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
+	}
+
+	void OnDisable ()
+	{
+		GameManagerScript.instance.inputManager.OnLeftClicking -= DisplayWindow;
+		GameManagerScript.instance.inputManager.OnRightClicking -= HideWindow;
 	}
 	
 	void Update () {

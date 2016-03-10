@@ -18,17 +18,18 @@ public class ServerCommands {
 	private const string i 		= @"([0-6])";
 	private const string e		= @"([0-9]+)";
 	private const string T		= @"([1-9]|[0-9]{2,})";
+	private const string secondaryPlayers = @"(( [0-9]+)+)";
 	
-	delegate void methodDelegate(string serverMessage);
+	private delegate void methodDelegate(string serverMessage);
 
-	private Dictionary<string, methodDelegate> methodDictionary;
+	private Dictionary<string, methodDelegate> _methodDictionary;
 
-	public GridController gridController;
-	public ServerQuery	serverQuery;
-	public TeamManager teamManager;
-	public PlayerManagerScript playerManager;
-	public TimeManager timeManager;
-	public ILevelLoader levelLoader;
+	public GridController gridController { get; private set;}
+	public ServerQuery	serverQuery { get; private set;}
+	public TeamManager teamManager { get; private set;}
+	public PlayerManagerScript playerManager { get; private set;}
+	public TimeManager timeManager { get; private set;}
+	public ILevelLoader levelLoader { get; private set;}
 
 	ServerCommands () {}
 
@@ -41,7 +42,7 @@ public class ServerCommands {
 		this.serverQuery = new ServerQuery();
 		this.levelLoader = levelLoader;
 
-		methodDictionary = new Dictionary<string, methodDelegate> ()
+		_methodDictionary = new Dictionary<string, methodDelegate> ()
 		{
 			{"msz", SendMapSize},
 			{"bct", SendSquareContent},
@@ -76,7 +77,7 @@ public class ServerCommands {
 		Match regexMatch;
 
 		regexMatch = Regex.Match (serverMessage, cmd);
-		methodDictionary [regexMatch.Groups [1].Value] (serverMessage);
+		_methodDictionary [regexMatch.Groups [1].Value] (serverMessage);
 	}
 
 	public void SendGraphicMessage(string serverMessage)
@@ -113,7 +114,7 @@ public class ServerCommands {
 		Match regexMatch;
 
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
-		teamManager.createTeam (regexMatch.Groups [2].Value);
+		teamManager.CreateTeam (regexMatch.Groups [2].Value);
 	}
 
 	public void SendPlayerConnection(string serverMessage)
@@ -183,7 +184,6 @@ public class ServerCommands {
 	public void SendIncantationStart(string serverMessage)
 	{
 		Match regexMatch;
-		string secondaryPlayers = @"(( [0-9]+)+)";
 		string[] split;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + L + " " + n + secondaryPlayers + "$");
@@ -283,7 +283,7 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
-		GameManagerScript.instance.GameOver(teamManager.findTeam (regexMatch.Groups [2].Value));
+		GameManagerScript.instance.GameOver(teamManager.FindTeam (regexMatch.Groups [2].Value));
 	}
 
 	public void SendServerMessage(string serverMessage)

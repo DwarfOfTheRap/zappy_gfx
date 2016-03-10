@@ -14,7 +14,7 @@ public class GameOverTester : MonoBehaviourTester {
 	
 	void TestGameOver ()
 	{
-		GameManagerScript.instance.GameOver (GameManagerScript.instance.teamManager.createTeam ("Test Team"));
+		GameManagerScript.instance.GameOver (GameManagerScript.instance.teamManager.CreateTeam ("Test Team"));
 	}
 }
 #endif

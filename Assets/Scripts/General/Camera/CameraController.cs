@@ -3,41 +3,41 @@ using System.Collections;
 
 [System.Serializable]
 public class CameraController {
-	public AInputManager		inputManager;
-	public ICameraMovement		cameraMovement;
+	public AInputManager		inputManager { get; private set;}
+	public ICameraMovement		cameraMovement { get; private set;}
 
+	public IClickTarget			target;
 	public Vector3				position;
-	private const float			doubleClickSpeed = 1.5f;
 
-	private const float			startMoveSpeed = 20f;		
 	public float				moveSpeed { get; private set; }
+	private const float			_doubleClickSpeed = 1.5f;
+	private const float			_startMoveSpeed = 20f;
 	public const float			scrollSpeed = 30f;
 
-	private int					currentHeight;
-	private int					currentWidth;
-	public IClickTarget			target;
+	private int					_currentHeight;
+	private int					_currentWidth;
+	
+	private const float			_squareSide = 5.0f;
+	private const float			_downBoundary = 3.5f;
+	private const float			_upBoundary = 103.5f;
 
-	private const float			squareSide = 5.0f;
-	private const float			downBoundary = 3.5f;
-	private const float			upBoundary = 103.5f;
-
-	private CameraController () {}
+	CameraController () {}
 
 	public CameraController (AInputManager inputManager, ICameraMovement cameraMovement, int currentHeight, int currentWidth)
 	{
-		this.currentHeight = currentHeight;
-		this.currentWidth = currentWidth;
+		this._currentHeight = currentHeight;
+		this._currentWidth = currentWidth;
 		this.inputManager = inputManager;
 		this.cameraMovement = cameraMovement;
 		this.inputManager.OnDoubleClicking += CheckDoubleClick;
 		this.inputManager.OnRightClicking += CheckRightClick;
-		this.moveSpeed = startMoveSpeed;
+		this.moveSpeed = _startMoveSpeed;
 		InitCameraPosition();
 	}
 
-	public void InitCameraPosition()
+	void InitCameraPosition()
 	{
-		position = cameraMovement.GoTo(new Vector3 (0.0f + (squareSide / 2) * (currentHeight - 1), 25.0f + (1.875f * (currentWidth - 10)), -31.5f - (1.675f * (currentWidth - 10))));
+		position = cameraMovement.GoTo(new Vector3 (0.0f + (_squareSide / 2) * (_currentHeight - 1), 25.0f + (1.875f * (_currentWidth - 10)), -31.5f - (1.675f * (_currentWidth - 10))));
 		cameraMovement.Rotate(Quaternion.Euler(new Vector3(28.0f, 0.0f, 0.0f)));
 	}
 
@@ -45,7 +45,7 @@ public class CameraController {
 	{
 		if (target != null)
 		{
-			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 10.89f, target.GetPosition().z - 18.48f), doubleClickSpeed);
+			position = cameraMovement.LerpMove (new Vector3 (target.GetPosition().x, target.GetPosition().y + 10.89f, target.GetPosition().z - 18.48f), _doubleClickSpeed);
 		}
 	}
 
@@ -53,7 +53,7 @@ public class CameraController {
 	{
 		bool mousingOver = inputManager.MousingOverGameObject();
 
-		if (inputManager.ScrollDown() && position.y > downBoundary && mousingOver == false)
+		if (inputManager.ScrollDown() && position.y > _downBoundary && mousingOver == false)
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.down + Vector3.forward, scrollSpeed);
@@ -64,7 +64,7 @@ public class CameraController {
 	{
 		bool mousingOver = inputManager.MousingOverGameObject();
 		
-		if (inputManager.ScrollUp() && position.y < upBoundary && mousingOver == false)
+		if (inputManager.ScrollUp() && position.y < _upBoundary && mousingOver == false)
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.up + Vector3.back, scrollSpeed);
@@ -72,7 +72,7 @@ public class CameraController {
 	}
 
 	void CheckForwardInput() {
-		if (inputManager.MoveForward() && position.z < (40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)))
+		if (inputManager.MoveForward() && position.z < (40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.forward * inputManager.VerticalMovementValue (), moveSpeed);
@@ -80,7 +80,7 @@ public class CameraController {
 	}
 
 	void CheckBackwardInput() {
-		if (inputManager.MoveBackward() && position.z > -10.0f - (position.y - downBoundary))
+		if (inputManager.MoveBackward() && position.z > -10.0f - (position.y - _downBoundary))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.forward * inputManager.VerticalMovementValue (), moveSpeed);
@@ -88,7 +88,7 @@ public class CameraController {
 	}
 
 	void CheckLeftInput() {
-		if (inputManager.MoveLeft() && position.x > -(squareSide / 2))
+		if (inputManager.MoveLeft() && position.x > -(_squareSide / 2))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.left, moveSpeed);
@@ -96,7 +96,7 @@ public class CameraController {
 	}
 
 	void CheckRightInput() {
-		if (inputManager.MoveRight() && position.x < ((currentHeight * squareSide) - (squareSide / 2)))
+		if (inputManager.MoveRight() && position.x < ((_currentHeight * _squareSide) - (_squareSide / 2)))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.right, moveSpeed);
@@ -104,23 +104,23 @@ public class CameraController {
 	}
 
 	void CheckUpwardInput() {
-		if (inputManager.MoveUp() && position.y < upBoundary)
+		if (inputManager.MoveUp() && position.y < _upBoundary)
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.up, moveSpeed);
-			if (position.z > (40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)))
-				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, 40.0f + (squareSide * (currentWidth - 10.0f)) - (position.y - downBoundary)));
+			if (position.z > (40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)))
+				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, 40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)));
 		}
 	}
 
 	void CheckDownwardInput() {
-		if (inputManager.MoveDown () && position.y > downBoundary)
+		if (inputManager.MoveDown () && position.y > _downBoundary)
 		{
 			target = null;
 			
 			position = cameraMovement.Move (Vector3.down, moveSpeed);
-			if (position.z < -10.0f - (position.y - downBoundary))
-				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, -10.0f - (position.y - downBoundary)));
+			if (position.z < -10.0f - (position.y - _downBoundary))
+				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, -10.0f - (position.y - _downBoundary)));
 		}
 	}
 
@@ -135,14 +135,14 @@ public class CameraController {
 	void CheckSpeedUp() {
 		if (inputManager.DoubleMoveSpeed())
 		{
-			moveSpeed = startMoveSpeed * 1.5f;
+			moveSpeed = _startMoveSpeed * 1.5f;
 		}
 	}
 
 	void CheckSlowDown() {
 		if (inputManager.StandardMoveSpeed())
 		{
-			moveSpeed = startMoveSpeed;
+			moveSpeed = _startMoveSpeed;
 		}
 	}
 

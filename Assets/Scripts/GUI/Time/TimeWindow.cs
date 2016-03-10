@@ -10,4 +10,9 @@ public class TimeWindow : MonoBehaviour {
 	void Start () {
 		GameManagerScript.instance.OnGameOver += DeactivateWindow;
 	}
+
+	void OnEnable ()
+	{
+		GameManagerScript.instance.OnGameOver -= DeactivateWindow;
+	}
 }

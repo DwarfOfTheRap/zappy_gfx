@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class ResourceScript : MonoBehaviour, IResource {
-	public ResourceController	controller;
+	public ResourceController	controller { get; private set;}
 
-	int							_minimalQualityLevel = 3;
+	private const int			_minimalQualityLevel = 3;
 
 	void OnEnable()
 	{
@@ -51,8 +51,10 @@ public class ResourceController
 	public static Color	phirasColor { get { return new Color(255/255.0f, 212/255.0f, 53/255.0f); }}
 	public static Color	thystameColor { get { return Color.gray; }}
 	public static Color	foodColor { get { return Color.cyan; }}
+
 	public Color		color { get; private set;}
-	IResource	motor;
+
+	private IResource	_motor;
 	private uint		_count;
 	public uint			count {
 		get {
@@ -66,7 +68,7 @@ public class ResourceController
 
 	public ResourceController(IResource motor, Color color)
 	{
-		this.motor = motor;
+		this._motor = motor;
 		this.color = color;
 		this.count = 0;
 	}
@@ -78,7 +80,7 @@ public class ResourceController
 
 	void Enable(bool state)
 	{
-		motor.Enable (state);
+		_motor.Enable (state);
 	}
 }
 

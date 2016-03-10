@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.UI;
 
 public class TimeManager {
-	public float		timeSpeed;
-	public Slider		slider { get; private set;}
+	public float		timeSpeed { get; private set; }
+
+	private Slider		_slider;
 
 	public TimeManager()
 	{
@@ -14,7 +14,7 @@ public class TimeManager {
 
 	public void SetSlider (Slider slider)
 	{
-		this.slider = slider;
+		this._slider = slider;
 		slider.value = timeSpeed;
 	}
 
@@ -28,7 +28,7 @@ public class TimeManager {
 	public virtual void ChangeTimeSpeedServer(float value)
 	{
 		timeSpeed = value;
-		if (slider)
-			this.slider.value = value;
+		if (_slider)
+			this._slider.value = value;
 	}
 }

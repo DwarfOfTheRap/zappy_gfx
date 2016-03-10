@@ -5,8 +5,8 @@ using System;
 [Serializable]
 public class Team
 {
-	public string	name;
-	public Color	color;
+	public string	name { get; private set; }
+	public Color	color { get; private set; }
 	
 	public Team(string name, Color color)
 	{

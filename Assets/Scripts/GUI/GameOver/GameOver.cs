@@ -18,4 +18,9 @@ public class GameOver : MonoBehaviour {
 	{
 		GameManagerScript.instance.OnGameOver += DisplayWindow;
 	}
+
+	void OnDisable ()
+	{
+		GameManagerScript.instance.OnGameOver -= DisplayWindow;
+	}
 }

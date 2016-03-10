@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(BoxCollider))]
 public class TeleportScript : MonoBehaviour {
 	public Orientation		teleportOrientation;
-	public GameObject		destination;
+	public GameObject		destination { get; private set;}
 
 	void Start()
 	{

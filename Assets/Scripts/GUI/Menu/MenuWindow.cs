@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuWindow : MonoBehaviour {
+public class MenuWindow : AWindow {
 
-	private AInputManager inputManager;
-
-	void CheckMenuKey()
+	protected override void CheckKeyboardShortcut()
 	{
 		if (inputManager.MenuKey())
 		{
@@ -13,30 +11,13 @@ public class MenuWindow : MonoBehaviour {
 			gameObject.GetComponent<CanvasGroup>().blocksRaycasts ^= true;
 		}
 	}
-
-	public void DisplayWindow()
-	{
-		gameObject.GetComponent<CanvasGroup>().alpha = 1;
-		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
-	}
-
-	public void CloseWindow()
-	{
-		gameObject.GetComponent<CanvasGroup>().alpha = 0;
-		gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
-	}
-
+	
 	public void ExitGame()
 	{
-        Application.Quit();
-	}
-
-	void Start ()
-	{
-		inputManager = GameManagerScript.instance.inputManager;
-	}
-
-	void Update () {
-		CheckMenuKey();
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+		#else
+		Application.Quit();
+		#endif
 	}
 }

@@ -5,20 +5,31 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Renderer))]
 public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 {
-    public	SquareContent	resources;
-	private Color			baseColor;
-	public	Color			highlightedColor;
+	// Prefabs
 	public	GameObject		resourcePrefab;
 	public	GameObject		foodPrefab;
-	private float			resourceElevation = 0.63f;
+
+	// Colors
+	private Color			_baseColor;
+	public	Color			highlightedColor;
+
+	// Resources
+	public	SquareContent	resources;
+	private const float		_resourceElevation = 0.63f;
 
 	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
-		baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
+		_baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
 		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
 		GameManagerScript.instance.inputManager.OnRightClicking += Standard;
 		InitResources();
+	}
+
+	void OnDisable()
+	{
+		GameManagerScript.instance.inputManager.OnLeftClicking -= SquareHighlighting;
+		GameManagerScript.instance.inputManager.OnRightClicking -= Standard;
 	}
 
 	void InitResources()
@@ -36,7 +47,7 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	{
 		GameObject clone = Instantiate (prefab);
 		clone.transform.SetParent (this.transform);
-		clone.transform.localPosition = new Vector3(x, resourceElevation, z);
+		clone.transform.localPosition = new Vector3(x, _resourceElevation, z);
 		clone.GetComponentInChildren<Renderer>().material.EnableKeyword ("_EMISSION");
 		clone.GetComponentInChildren<Renderer>().material.color = new Color(color.r, color.g, color.b, clone.GetComponentInChildren<Renderer>().material.color.a);
 		clone.GetComponentInChildren<Renderer>().material.SetColor ("_EmissionColor", new Color(color.r / 4.0f, color.g / 4.0f, color.b / 4.0f, 1));
@@ -92,7 +103,7 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 
 	public void DisableVision ()
 	{
-		GetComponent<MeshRenderer>().material.SetColor ("_EmissionColor", baseColor);
+		GetComponent<MeshRenderer>().material.SetColor ("_EmissionColor", _baseColor);
 	}
 
 	public void DestroyImmediate()
@@ -112,7 +123,7 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 
 	public void Standard()
 	{
-		GetComponent<Renderer>().material.SetColor ("_EmissionColor", baseColor);
+		GetComponent<Renderer>().material.SetColor ("_EmissionColor", _baseColor);
 	}
 
 	void SquareHighlighting (ClickEventArgs args)

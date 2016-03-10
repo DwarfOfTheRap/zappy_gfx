@@ -6,25 +6,22 @@ using System.Diagnostics;
 [Serializable]
 public class EggController
 {
+	// Game attributes
 	public int							index { get; private set; }
-
 	public PlayerController				parent { get; private set; }
-
 	public Team							team {
 		get { return parent.team; }
 		set {}
 	}
-									
-	public	ISquare						currentSquare;
-									
 	public bool							dead { get; private set; }
 
-	public IAnimatorController			animatorController;
-	public IEggMotorController			motorController;
-		
-#if UNITY_EDITOR
+	// Internal attribute
+	public	ISquare						currentSquare { get; private set; }
 
-#endif
+	// Controller
+	public IAnimatorController			animatorController { get; private set; }
+	public IEggMotorController			motorController { get; private set; }
+
 	public void							SetAnimatorController (IAnimatorController animatorController)
 	{
  		this.animatorController = animatorController;
@@ -41,7 +38,6 @@ public class EggController
 		motorController.SetPosition (this.currentSquare.GetPosition ());
 		this.index = index;
 		this.parent = parent;
-		this.motorController.Init ();
 		this.motorController.SetTeamColor (parent.team.color);
 		return this;
 	}
@@ -61,5 +57,10 @@ public class EggController
 	{
 		animatorController.SetTrigger ("Death");
 		motorController.Die ();
+	}
+
+	public void Destroy ()
+	{
+		motorController.Destroy();
 	}
 }

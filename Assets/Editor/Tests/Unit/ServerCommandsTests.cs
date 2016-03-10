@@ -36,7 +36,7 @@ public class ServerCommandsTests {
 		//Act
 		sc.SendTeamName ("tna trololo");
 		//Assert
-		sc.teamManager.Received ().createTeam ("trololo");
+		sc.teamManager.Received ().CreateTeam ("trololo");
 	}
 
 	[Test]
