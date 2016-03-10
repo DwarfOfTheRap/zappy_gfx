@@ -3996,7 +3996,7 @@ GameObject:
   - 114: {fileID: 743497899}
   - 114: {fileID: 743497898}
   m_Layer: 5
-  m_Name: Deraumere
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4064,10 +4064,10 @@ MonoBehaviour:
     m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: der
+  m_Text: plyr
 --- !u!222 &743497900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6112,7 +6112,7 @@ GameObject:
   - 114: {fileID: 1024543173}
   - 114: {fileID: 1024543172}
   m_Layer: 5
-  m_Name: Sibur
+  m_Name: Egg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6180,10 +6180,10 @@ MonoBehaviour:
     m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: sib
+  m_Text: egg
 --- !u!222 &1024543174
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6442,7 +6442,7 @@ GameObject:
   - 114: {fileID: 1044667303}
   - 114: {fileID: 1044667302}
   m_Layer: 5
-  m_Name: PlayerInfo
+  m_Name: FoodInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8242,8 +8242,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .0354749672, y: .752000034}
   m_AnchorMax: {x: .673366606, y: .893831611}
-  m_AnchoredPosition: {x: -6.5999999, y: -.100000001}
-  m_SizeDelta: {x: -24.2999992, y: .300000012}
+  m_AnchoredPosition: {x: -5.4000001, y: -.800000012}
+  m_SizeDelta: {x: -21.7999992, y: 1.60000002}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1330530606
 MonoBehaviour:
@@ -8286,7 +8286,7 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 1
-    m_MaxSize: 12
+    m_MaxSize: 22
     m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -8918,7 +8918,7 @@ GameObject:
   - 114: {fileID: 1521488342}
   - 114: {fileID: 1521488341}
   m_Layer: 5
-  m_Name: SiburInfo
+  m_Name: EggInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9456,7 +9456,7 @@ GameObject:
   - 114: {fileID: 1708647404}
   - 114: {fileID: 1708647403}
   m_Layer: 5
-  m_Name: DeraumereNumber
+  m_Name: PlayerNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9512,7 +9512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .408304483, g: .41147235, b: .867647052, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10393,7 +10393,7 @@ GameObject:
   - 114: {fileID: 1827681221}
   - 114: {fileID: 1827681220}
   m_Layer: 5
-  m_Name: SiburNumber
+  m_Name: EggNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10449,7 +10449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: .132352948, b: .222109646, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -10488,7 +10488,7 @@ GameObject:
   - 114: {fileID: 1833462923}
   - 114: {fileID: 1833462922}
   m_Layer: 5
-  m_Name: Linemate
+  m_Name: Food
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10556,10 +10556,10 @@ MonoBehaviour:
     m_MaxSize: 8
     m_Alignment: 3
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: lin
+  m_Text: food
 --- !u!222 &1833462924
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10778,7 +10778,7 @@ GameObject:
   - 114: {fileID: 1910281034}
   - 114: {fileID: 1910281033}
   m_Layer: 5
-  m_Name: DeraumereInfo
+  m_Name: PlayerInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11546,7 +11546,7 @@ GameObject:
   - 114: {fileID: 2055647286}
   - 114: {fileID: 2055647285}
   m_Layer: 5
-  m_Name: LinemateNumber
+  m_Name: FoodNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11602,7 +11602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .308823526, g: .942799151, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

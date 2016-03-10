@@ -13,6 +13,7 @@ public class SquareContentUI : MonoBehaviour {
     public Text thystameNumber;
     public Text nourritureNumber;
     public Text playersNumber;
+	public Text eggsNumber;
 
     void DisplayResources (ISquare square)
     {
@@ -31,6 +32,7 @@ public class SquareContentUI : MonoBehaviour {
         nourritureNumber.text = square.GetResources ().nourriture.count.ToString ();
 		nourritureNumber.color = ResourceController.foodColor;
         playersNumber.text = square.GetResources ().players.Count.ToString ();
+		eggsNumber.text = square.GetResources ().eggs;
     }
 
     void DisplayWindow (ClickEventArgs args)
