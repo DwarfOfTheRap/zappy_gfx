@@ -13,7 +13,8 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 
 	void Awake ()
 	{
-		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener(ConnectToPortOnAddress);
+		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener (ConnectToPortOnAddress);
+		this.gameObject.GetComponent<InputField>().caretPosition = 0;
 	}
 
 	void OnDisable()
