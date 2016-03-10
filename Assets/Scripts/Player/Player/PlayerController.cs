@@ -222,7 +222,7 @@ public class PlayerController {
 	
 	public void GoToDestination(Orientation animationOrientation)
 	{
-		_animatorController.SetBool ("Walk", _playerMotorController.IsMoving(this.destination) && !expulsed);
+		_animatorController.SetBool ("Walk", _playerMotorController.IsMoving(this.destination, this.rotation) && !expulsed);
 		_animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		if (teleportDestination != Vector3.zero)
 			_playerMotorController.MoveToDestination (teleportDestination, speed);
@@ -310,7 +310,7 @@ public class PlayerController {
 			ChangeAnimationSpeed();
 			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
 			GoToDestination (animationOrientation);
-			if (!_playerMotorController.IsMoving (this.destination))
+			if (!_playerMotorController.IsMoving (this.destination, this.rotation))
 				StopExpulsion () ;
 			if (_highlighted)
 				UpdateSquareVision ();

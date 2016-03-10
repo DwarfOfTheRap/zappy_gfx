@@ -57,9 +57,9 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 
 	#region IPlayerMotorController implementation
 
-	public bool IsMoving (Vector3 destination)
+	public bool IsMoving (Vector3 destination, Quaternion rotation)
 	{
-		return this.transform.position != destination;
+		return this.transform.position != destination || this.transform.rotation != rotation;
 	}
 
 	public Vector3 SetDestination (Vector3 destination)

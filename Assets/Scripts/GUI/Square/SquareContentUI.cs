@@ -32,7 +32,7 @@ public class SquareContentUI : MonoBehaviour {
         nourritureNumber.text = square.GetResources ().nourriture.count.ToString ();
 		nourritureNumber.color = ResourceController.foodColor;
         playersNumber.text = square.GetResources ().players.Count.ToString ();
-		eggsNumber.text = square.GetResources ().eggs;
+		eggsNumber.text = square.GetResources ().eggs.Count.ToString ();
     }
 
     void DisplayWindow (ClickEventArgs args)
