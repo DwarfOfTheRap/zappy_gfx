@@ -18,7 +18,7 @@ public class ServerCommands {
 	private const string i 		= @"([0-6])";
 	private const string e		= @"([0-9]+)";
 	private const string T		= @"([1-9]|[0-9]{2,})";
-	private const string secondaryPlayers = @"(( [0-9]+)+)";
+	private const string secondaryPlayers = @"(( [0-9]+)*)";
 	
 	private delegate void methodDelegate(string serverMessage);
 

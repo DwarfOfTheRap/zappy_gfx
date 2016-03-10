@@ -29,8 +29,8 @@ public class PlayerController {
 	public bool							expulsed { get; private set; }
 
 	// Speed
-	public float						speed = 1.0f;
-	public float						rotSpeed = 1.0f;
+	public float						speed = 0.3597f;
+	public float						rotSpeed = 6.38f;
 
 	// Player position + orientation
 	private ISquare						_oldSquare;

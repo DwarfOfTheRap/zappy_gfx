@@ -22,6 +22,7 @@ public class PlayerUI : MonoBehaviour {
 
 	void Awake()
 	{
+		inventory = new PlayerInventoryUI();
 		inventory.food = transform.FindChild ("PlayerInventory/Food").GetComponent<Text>();
 		inventory.food.color = ResourceController.foodColor;
 		inventory.linemate = transform.FindChild ("PlayerInventory/Linemate").GetComponent<Text>();
