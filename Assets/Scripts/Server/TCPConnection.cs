@@ -4,74 +4,76 @@ using System;
 using System.IO;
 using System.Net.Sockets;
 
-public class TCPConnection : MonoBehaviour {
-	
-	//the name of the connection, not required but better for overview if you have more than 1 connections running
-	public string conName = "Localhost";
-	
-	//ip/address of the server, 127.0.0.1 is for your own computer
-	public string conHost = "127.0.0.1";
-	
-	//port for the server, make sure to unblock this in your router firewall if you want to allow external connections
-	public int conPort = 27015;
-	
-	//a true/false variable for connection status
-	public bool socketReady = false;
-	
-	TcpClient mySocket;
-	NetworkStream stream;
-	StreamWriter writer;
-	StreamReader reader;
-	
-	//try to initiate connection
-	public void setupSocket() {
-		try {
-			mySocket = new TcpClient(conHost, conPort);
-			stream = mySocket.GetStream();
-			writer = new StreamWriter(stream);
-			reader = new StreamReader(stream);
-			socketReady = true;
-		}
-		catch (Exception e) {
-			Debug.Log("Socket error:" + e);
-		}
-	}
-	
-	//send message to server
-	public void writeSocket(string message) {
-		if (!socketReady)
-			return ;
-		writer.Write(message);
-		writer.Flush();
-	}
-	
-	//read message from server
-	public string readSocket() {
-		String result = "";
-		if (stream.DataAvailable) {
-			Byte[] inStream = new Byte[mySocket.SendBufferSize];
-			stream.Read(inStream, 0, inStream.Length);
-			result += System.Text.Encoding.UTF8.GetString(inStream);
-		}
-		return result;
-	}
-	
-	//disconnect from the socket
-	public void closeSocket() {
-		if (!socketReady)
-			return ;
-		writer.Close();
-		reader.Close();
-		mySocket.Close();
-		socketReady = false;
-	}
-	
-	//keep connection alive, reconnect if connection lost
-	public void maintainConnection(){
-		if(!stream.CanRead) {
-			setupSocket();
-		}
-	}
-	
-	
+public class TCPConnection
+{
+
+    //the name of the connection, not required but better for overview if you have more than 1 connections running
+    //public string conName = "Localhost";
+
+    //ip/address of the server, 127.0.0.1 is for your own computer
+    //public string conHost = "127.0.0.1";
+
+    //port for the server, make sure to unblock this in your router firewall if you want to allow external connections
+    //public int conPort = 27015;
+
+    //a true/false variable for connection status
+    private bool _socketReady = false;
+
+    private TcpClient _mySocket;
+    private NetworkStream _stream;
+    private StreamWriter _writer;
+    private StreamReader _reader;
+
+    //try to initiate connection
+    public void SetupSocket(string conHost, int conPort)
+    {
+        _mySocket = new TcpClient(conHost, conPort);
+        _stream = _mySocket.GetStream();
+        _writer = new StreamWriter(_stream);
+        _reader = new StreamReader(_stream);
+        _socketReady = true;
+    }
+
+    //send message to server
+    public void WriteSocket(string message)
+    {
+        if (!_socketReady)
+            return;
+        _writer.Write(message);
+        _writer.Flush();
+    }
+
+    //read message from server
+    public string ReadSocket()
+    {
+        String result = "";
+        while (_stream.DataAvailable)
+        {
+            Byte[] inStream = new Byte[_mySocket.SendBufferSize];
+            _stream.Read(inStream, 0, inStream.Length);
+            result += System.Text.Encoding.UTF8.GetString(inStream);
+        }
+        return result;
+    }
+
+    //disconnect from the socket
+    public void CloseSocket()
+    {
+        if (!_socketReady)
+            return;
+        _writer.Close();
+        _reader.Close();
+        _mySocket.Close();
+        _socketReady = false;
+    }
+
+    //keep connection alive, reconnect if connection lost
+    public bool MaintainConnection(string conHost, int conPort)
+    {
+        if (!_stream.CanRead)
+        {
+            SetupSocket(conHost, conPort);
+        }
+		return (_stream.CanRead);
+    }
 }

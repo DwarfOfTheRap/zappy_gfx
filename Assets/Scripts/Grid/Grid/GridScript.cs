@@ -5,14 +5,16 @@ using System.Collections;
 public class GridScript : MonoBehaviour, IGrid {
 
 	public SquareScript[] prefabs = new SquareScript[2];
-	public TeleportScript[] teleporters;
+	public TeleportScript[] teleporters { get; private set; }
 	public GridController controller;
 	
 	void OnEnable()
 	{
 		teleporters = GetComponentsInChildren<TeleportScript>();
 		controller.SetSquareInstantiationController (this);
-		controller.Start ();
+		#if UNITY_EDITOR
+		controller.Start();
+		#endif
 	}
 
 	#region ISquareInstantiationController implementation

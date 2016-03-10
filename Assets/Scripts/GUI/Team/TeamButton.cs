@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TeamButton : MonoBehaviour {
 
-	public GameObject		teamComposition = null;
+	public GameObject		teamComposition { get; private set; }
 	public Team				team;
 	public Text				teamName;
 	public Text				teamCompletion;

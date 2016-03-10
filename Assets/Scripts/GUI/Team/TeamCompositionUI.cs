@@ -9,7 +9,13 @@ public class TeamCompositionUI : MonoBehaviour {
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 
-	void Start () {
+	void Start ()
+	{
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
+	}
+
+	void OnDisable() 
+	{
+		GameManagerScript.instance.inputManager.OnRightClicking -= HideWindow;
 	}
 }

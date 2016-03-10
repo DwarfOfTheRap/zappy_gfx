@@ -31,17 +31,17 @@ public class ServerQuery {
 		public NegativeTimeUnitException(string message) : base(message) {}
 	}
 
-	public string GetMapSizeString()
+	string GetMapSizeString()
 	{
 		return "msz\n";
 	}
 
 	public void SendMapSizeQuery()
 	{
-		ClientScript.instance.SendToServer (GetMapSizeString ());
+		SocketManager.instance.SendToServer (GetMapSizeString ());
 	}
 
-	public string GetSquareContentString(int x, int y)
+	string GetSquareContentString(int x, int y)
 	{
 		if (x < 0 || y < 0)
 			throw new NegativeSquareCoordException ("Negative Square Coordinates.");
@@ -50,30 +50,30 @@ public class ServerQuery {
 
 	public void SendSquareContentQuery(int x, int y)
 	{
-		ClientScript.instance.SendToServer (GetSquareContentString(x, y));
+		SocketManager.instance.SendToServer (GetSquareContentString(x, y));
 	}
 
-	public string GetAllSquaresString()
+	string GetAllSquaresString()
 	{
 		return "mct\n";
 	}
 
 	public void SendAllSquaresQuery()
 	{
-		ClientScript.instance.SendToServer (GetAllSquaresString ());
+		SocketManager.instance.SendToServer (GetAllSquaresString ());
 	}
 
-	public string GetTeamNamesString()
+	string GetTeamNamesString()
 	{
 		return "tna\n";
 	}
 
 	public void SendTeamNamesQuery()
 	{
-		ClientScript.instance.SendToServer (GetTeamNamesString());
+		SocketManager.instance.SendToServer (GetTeamNamesString());
 	}
 
-	public string GetPlayerPositionString(int n)
+	string GetPlayerPositionString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
@@ -82,10 +82,10 @@ public class ServerQuery {
 
 	public void SendPlayerPositionQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerPositionString(n));
+		SocketManager.instance.SendToServer (GetPlayerPositionString(n));
 	}
 
-	public string GetPlayerLevelString(int n)
+	string GetPlayerLevelString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
@@ -94,10 +94,10 @@ public class ServerQuery {
 
 	public void SendPlayerLevelQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerLevelString(n));
+		SocketManager.instance.SendToServer (GetPlayerLevelString(n));
 	}
 
-	public string GetPlayerInventoryString(int n)
+	string GetPlayerInventoryString(int n)
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
@@ -106,20 +106,20 @@ public class ServerQuery {
 
 	public void SendPlayerInventoryQuery(int n)
 	{
-		ClientScript.instance.SendToServer (GetPlayerInventoryString (n));
+		SocketManager.instance.SendToServer (GetPlayerInventoryString (n));
 	}
 
-	public string GetCurrentTimeUnitString()
+	string GetCurrentTimeUnitString()
 	{
 		return "sgt\n";
 	}
 
 	public void SendCurrentTimeUnitQuery()
 	{
-		ClientScript.instance.SendToServer (GetCurrentTimeUnitString ());
+		SocketManager.instance.SendToServer (GetCurrentTimeUnitString ());
 	}
 
-	public string GetTimeUnitChangeString(int t)
+	string GetTimeUnitChangeString(int t)
 	{
 		if (t < 0)
 			throw new NegativeTimeUnitException("Negative Time Unit.");
@@ -128,16 +128,16 @@ public class ServerQuery {
 
 	public void SendTimeUnitChangeQuery(int t)
 	{
-		ClientScript.instance.SendToServer (GetTimeUnitChangeString (t));
+		SocketManager.instance.SendToServer (GetTimeUnitChangeString (t));
 	}
 
-	public string GetWelcomeMessageString()
+	string GetWelcomeMessageString()
 	{
 		return "GRAPHIC\n";
 	}
 
 	public void SendWelcomeMessage()
 	{
-		ClientScript.instance.SendToServer(GetWelcomeMessageString());
+		SocketManager.instance.SendToServer(GetWelcomeMessageString());
 	}
 }

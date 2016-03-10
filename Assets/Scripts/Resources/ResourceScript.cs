@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ResourceScript : MonoBehaviour, IResource {
-	public ResourceController	controller;
-	
+	public ResourceController	controller { get; private set;}
+
+	private const int			_minimalQualityLevel = 3;
+
 	void OnEnable()
 	{
 		Animation animation = GetComponentInChildren<Animation>();
@@ -12,14 +14,26 @@ public class ResourceScript : MonoBehaviour, IResource {
 			state.time = Random.Range (0, state.length);
 		}
 		animation.Play();
+		QualityManager.OnQualityChange += OnQualityChange;
+		GetComponent<Animation>().enabled = (QualityManager.GetQualityLevel() >= _minimalQualityLevel);
 	}
-	
+
+	void OnDisable()
+	{
+		QualityManager.OnQualityChange -= OnQualityChange;
+	}
+
+	void OnQualityChange(QualityEventArg arg)
+	{
+		GetComponent<Animation>().enabled = (arg.qualityLevel >= _minimalQualityLevel);
+	}
+
 	public void Init()
 	{
 		Color color = GetComponentInChildren<Renderer>().material.color;
 		controller = new ResourceController(this, new Color(color.r, color.g, color.b, 1));
 	}
-	
+
 	public void Enable (bool state)
 	{
 		GetComponentInChildren<Renderer>().enabled = state;
@@ -37,8 +51,10 @@ public class ResourceController
 	public static Color	phirasColor { get { return new Color(255/255.0f, 212/255.0f, 53/255.0f); }}
 	public static Color	thystameColor { get { return Color.gray; }}
 	public static Color	foodColor { get { return Color.cyan; }}
+
 	public Color		color { get; private set;}
-	IResource	motor;
+
+	private IResource	_motor;
 	private uint		_count;
 	public uint			count {
 		get {
@@ -47,24 +63,24 @@ public class ResourceController
 		set { 
 			_count = value;
 			this.Enable (count > 0);
-		}
+			}
 	}
-	
+
 	public ResourceController(IResource motor, Color color)
 	{
-		this.motor = motor;
+		this._motor = motor;
 		this.color = color;
-		this.count = 1;
+		this.count = 0;
 	}
-	
-	void Enable(bool state)
-	{
-		motor.Enable (state);
-	}
-	
+
 	public override string ToString()
 	{
 		return _count.ToString ();
+	}
+
+	void Enable(bool state)
+	{
+		_motor.Enable (state);
 	}
 }
 

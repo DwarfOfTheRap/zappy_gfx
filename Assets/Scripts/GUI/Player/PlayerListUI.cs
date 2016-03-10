@@ -24,16 +24,12 @@ public class PlayerListUI : MonoBehaviour {
 
 				script.playerIndex.text = "Player " + player.index.ToString();
 				script.playerLvl.text = "Lvl " + player.level.ToString();
-
-				/* TO REPLACE BY RELEVENT VALUES */
-				script.inventory.food.text = "0";
-				script.inventory.linemate.text = "1";
-				script.inventory.deraumere.text = "2";
-				script.inventory.sibur.text = "3";
-				script.inventory.mendiane.text = "4";
-				script.inventory.phiras.text = "5";
-				script.inventory.thystame.text = "6";
-				/* TO REPLACE BY RELEVENT VALUES */
+				script.inventory.linemate.text = player.inventory.linemate.ToString();
+				script.inventory.deraumere.text = player.inventory.deraumere.ToString ();
+				script.inventory.sibur.text = player.inventory.sibur.ToString ();
+				script.inventory.mendiane.text = player.inventory.mendiane.ToString ();
+				script.inventory.phiras.text = player.inventory.phiras.ToString ();
+				script.inventory.thystame.text = player.inventory.thystame.ToString ();
 			}
 		}
 	}
@@ -51,5 +47,10 @@ public class PlayerListUI : MonoBehaviour {
 
 	void Start () {
 		GameManagerScript.instance.inputManager.OnRightClicking += DeletePlayers;
+	}
+
+	void OnDisable ()
+	{
+		GameManagerScript.instance.inputManager.OnRightClicking -= DeletePlayers;
 	}
 }

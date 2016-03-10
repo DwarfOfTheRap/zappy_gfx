@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Floor1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &474050
 Transform:
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resources:
     players: []
-  highlightedColor: {r: .5, g: .5, b: .5, a: 0}
+  highlightedColor: {r: .301470578, g: .301470578, b: .301470578, a: 0}
   resourcePrefab: {fileID: 100000, guid: 92ff307084e584caf99ebc59022a8289, type: 2}
   foodPrefab: {fileID: 128496, guid: 3105903552d3e4211be06a5feb42c70d, type: 2}
 --- !u!1001 &100100000
@@ -102,32 +102,16 @@ Prefab:
       value: Floor1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: hightlightedColor.r
-      value: .352941155
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: hightlightedColor.g
-      value: .352941155
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: hightlightedColor.b
-      value: .352941155
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: hightlightedColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
       propertyPath: highlightedColor.r
-      value: .5
+      value: .301470578
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: highlightedColor.g
-      value: .5
+      value: .301470578
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: highlightedColor.b
-      value: .5
+      value: .301470578
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: resourcePrefab
@@ -137,6 +121,10 @@ Prefab:
       propertyPath: foodPrefab
       value: 
       objectReference: {fileID: 128496, guid: 3105903552d3e4211be06a5feb42c70d, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 127272}
