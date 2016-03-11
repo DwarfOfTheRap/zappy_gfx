@@ -15,6 +15,8 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 	{
 		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener (ConnectToPortOnAddress);
 		this.gameObject.GetComponent<InputField>().caretPosition = 0;
+		if (PlayerPrefs.HasKey("IpAddress"))
+			GetComponent<InputField>().text = PlayerPrefs.GetString ("IpAddress");
 	}
 
 	void OnDisable()
@@ -67,6 +69,7 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 				quitButton.interactable = false;
 				GetComponent<InputField>().interactable = false;
 				StartCoroutine (WaitForConnection());
+				PlayerPrefs.SetString ("IpAddress", submit);
 			}
 			catch (System.Exception e)
 			{
