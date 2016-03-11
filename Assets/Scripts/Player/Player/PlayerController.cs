@@ -189,7 +189,6 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
-		this._oldSquare = this.currentSquare;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
@@ -215,7 +214,6 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
-		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
 	}
@@ -272,7 +270,7 @@ public class PlayerController {
 
 	void OnDestinationHit()
 	{
-		if (_playerMotorController.HasReachedDestination (this.destination))
+		if (_playerMotorController.HasReachedDestination (this.destination) && this._oldSquare != this.currentSquare)
 		{
 			if (this._oldSquare != null)
 				this._oldSquare.GetResources().players.Remove (this);

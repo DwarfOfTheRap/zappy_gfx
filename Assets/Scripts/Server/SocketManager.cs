@@ -49,7 +49,6 @@ public class SocketManager : MonoBehaviour
 
 	void ResetLevel()
 	{
-		_previousTime = Time.realtimeSinceStartup;
 		Destroy (GameManagerScript.instance);
 		Destroy (gameObject);
 		Debug.Log ("Restarting");
@@ -59,7 +58,7 @@ public class SocketManager : MonoBehaviour
     IEnumerator ReadServerMessages()
     {
 		string response;
-
+	
 		_previousTime = Time.realtimeSinceStartup;
 		while (true)
 		{
