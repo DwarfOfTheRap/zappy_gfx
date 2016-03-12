@@ -38,4 +38,9 @@ public class PlayerUI : MonoBehaviour {
 		inventory.thystame = transform.FindChild ("PlayerInventory/Thystame").GetComponent<Text>();
 		inventory.thystame.color = ResourceController.thystameColor;
 	}
+
+	public void TargetPlayer()
+	{
+		Camera.main.GetComponent<CameraController>().target = (IClickTarget)GameManagerScript.instance.playerManager.GetPlayer(int.Parse (playerIndex.text));
+	}
 }
