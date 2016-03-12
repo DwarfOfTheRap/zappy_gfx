@@ -18,6 +18,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public InputManager 					inputManager { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }		
 	public ServerCommands					commandsManager { get; private set; }
+	public DebugTextArea					debugTextArea { get; private set; }					
 
 	// Event
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
@@ -75,6 +76,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		SocketManager.instance.StartPingServer ();
 		Debug.Log ("Level load end");
 		gridController.Init (x, y);
+		debugTextArea = GameObject.Find ("DebugTextArea").GetComponent<DebugTextArea>();
 	}
 
 	void Update()

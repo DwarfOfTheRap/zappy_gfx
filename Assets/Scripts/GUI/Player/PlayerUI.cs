@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PlayerUI : MonoBehaviour {
 
+	public int					playerIndexValue;
 	public Text 				playerIndex;
 	public Text 				playerLvl;
 	public PlayerInventoryUI	inventory { get; private set;}
@@ -41,6 +42,9 @@ public class PlayerUI : MonoBehaviour {
 
 	public void TargetPlayer()
 	{
-		Camera.main.GetComponent<CameraController>().target = (IClickTarget)GameManagerScript.instance.playerManager.GetPlayer(int.Parse (playerIndex.text));
+		PlayerController player = GameManagerScript.instance.playerManager.GetPlayer(playerIndexValue);
+
+		GameManagerScript.instance.inputManager.OnLeftClick(player.playerMotorController as IClickTarget);
+		Camera.main.GetComponent<CameraScript>().cameraController.target = player.playerMotorController as IClickTarget;
 	}
 }

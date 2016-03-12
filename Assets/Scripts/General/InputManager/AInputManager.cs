@@ -36,11 +36,12 @@ public abstract class AInputManager
 	// Action
 	public abstract bool ResetCamera();
 	public abstract bool MenuKey();
+	public abstract bool DebugKey();
 
 	// Other
 	public abstract bool MousingOverGameObject();
 
-	protected void OnLeftClick (IClickTarget target)
+	public void OnLeftClick (IClickTarget target)
 	{
 		if (OnLeftClicking != null)
 			OnLeftClicking(new ClickEventArgs { target = target } );

@@ -48,8 +48,8 @@ public class PlayerController {
 
 
 	// Controller
+	public IPlayerMotorController		playerMotorController { get; private set; }
 	private IAnimatorController			_animatorController;
-	private IPlayerMotorController		_playerMotorController;
 	private GridController				_gridController;
 
 	// Managers
@@ -78,7 +78,7 @@ public class PlayerController {
 	
 	public void SetPlayerMovementController(IPlayerMotorController playerMovementController)
 	{
-		this._playerMotorController = playerMovementController;
+		this.playerMotorController = playerMovementController;
 	}
 
 	public void SetInputManager (AInputManager inputManager)
@@ -144,7 +144,7 @@ public class PlayerController {
 	// Actions
 	public void Broadcast (string message)
 	{
-		_playerMotorController.Broadcast (message);
+		playerMotorController.Broadcast (message);
 	}
 	
 	public void Expulse()
@@ -157,13 +157,13 @@ public class PlayerController {
 	public void BeExpulsed(Orientation direction)
 	{
 		expulsed = true;
-		_playerMotorController.Expulsed (direction);
+		playerMotorController.Expulsed (direction);
 	}
 
 	public void StopExpulsion()
 	{
 		expulsed = false;
-		_playerMotorController.StopExpulsion();
+		playerMotorController.StopExpulsion();
 	}
 
 	public PlayerController Init(int x, int y, Orientation orientation, int level, int index, Team team, GridController gridController)
@@ -172,13 +172,13 @@ public class PlayerController {
 		{
 			ISquare square = gridController.GetSquare (x, y);
 			SetDestination(square, gridController);
-			_playerMotorController.SetPosition(square.GetPosition());
+			playerMotorController.SetPosition(square.GetPosition());
 			this.level = level;
 			this.index = index;
 			this.team = team;
 			this.SetPlayerOrientation (orientation);
-			_playerMotorController.SetRotation (OrientationManager.GetRotation (orientation));
-			_playerMotorController.SetTeamColor (team.color);
+			playerMotorController.SetRotation (OrientationManager.GetRotation (orientation));
+			playerMotorController.SetTeamColor (team.color);
 			return this;
 		}
 		catch (GridController.GridOutOfBoundsException)
@@ -194,7 +194,7 @@ public class PlayerController {
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
-			destination = _playerMotorController.SetDestination (square.GetPosition ());
+			destination = playerMotorController.SetDestination (square.GetPosition ());
 		}
 		currentSquare = square;
 	}
@@ -220,30 +220,30 @@ public class PlayerController {
 	
 	public void GoToDestination(Orientation animationOrientation)
 	{
-		_animatorController.SetBool ("Walk", _playerMotorController.IsMoving(this.destination, this.rotation) && !expulsed);
+		_animatorController.SetBool ("Walk", playerMotorController.IsMoving(this.destination, this.rotation) && !expulsed);
 		_animatorController.SetInteger ("Orientation", (int)animationOrientation);
 		if (teleportDestination != Vector3.zero)
-			_playerMotorController.MoveToDestination (teleportDestination, speed);
+			playerMotorController.MoveToDestination (teleportDestination, speed);
 		else
-			_playerMotorController.MoveToDestination (destination, speed);
-		_playerMotorController.MoveToRotation(rotation, rotSpeed);
+			playerMotorController.MoveToDestination (destination, speed);
+		playerMotorController.MoveToRotation(rotation, rotSpeed);
 	}
 
-	void EnableHighlight()
+	public void EnableHighlight()
 	{
 		_highlighted = true;
-		_playerMotorController.EnableHighlight (this.team.color);
+		playerMotorController.EnableHighlight (this.team.color);
 	}
 
 	public void DisableHighlight()
 	{
 		_highlighted = false;
-		_playerMotorController.DisableHighlight ();
+		playerMotorController.DisableHighlight ();
 	}
 
 	void OnLeftClick(ClickEventArgs args)
 	{
-		if (args.target.IsPlayer () && args.target == (IClickTarget)_playerMotorController)
+		if (args.target.IsPlayer () && args.target == (IClickTarget)playerMotorController)
 			EnableHighlight ();
 		else
 			DisableHighlight ();
@@ -270,7 +270,7 @@ public class PlayerController {
 
 	void OnDestinationHit()
 	{
-		if (_playerMotorController.HasReachedDestination (this.destination) && this._oldSquare != this.currentSquare)
+		if (playerMotorController.HasReachedDestination (this.destination) && this._oldSquare != this.currentSquare)
 		{
 			if (this._oldSquare != null)
 				this._oldSquare.GetResources().players.Remove (this);
@@ -278,7 +278,7 @@ public class PlayerController {
 			this._oldSquare = currentSquare;
 			dontTeleportMe = false;
 		}
-		if (_playerMotorController.HasReachedRotation (this.rotation))
+		if (playerMotorController.HasReachedRotation (this.rotation))
 		{
 			this._oldOrientation = this.playerOrientation;
 		}
@@ -292,7 +292,7 @@ public class PlayerController {
 
 	public void Destroy ()
 	{
-		this._playerMotorController.Destroy();
+		this.playerMotorController.Destroy();
 	}
 
 	public void OnDisable ()
@@ -308,7 +308,7 @@ public class PlayerController {
 			ChangeAnimationSpeed();
 			Orientation animationOrientation = OrientationManager.GetAnimationOrientation(OrientationManager.GetDestinationOrientation(position, destination), playerOrientation);
 			GoToDestination (animationOrientation);
-			if (!_playerMotorController.IsMoving (this.destination, this.rotation))
+			if (!playerMotorController.IsMoving (this.destination, this.rotation))
 				StopExpulsion () ;
 			if (_highlighted)
 				UpdateSquareVision ();
