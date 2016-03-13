@@ -77,8 +77,7 @@ public class SocketManager : MonoBehaviour
 				}
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
-					if (GameManagerScript.instance.debugTextArea != null && serverMessage != "")
-						GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[SERVER] -> " + serverMessage);
+
 #if UNITY_EDITOR
 					Debug.Log("[SERVER] -> " + serverMessage);
 #endif
@@ -94,6 +93,8 @@ public class SocketManager : MonoBehaviour
 							Debug.LogError (e.Message);
 						}
 					}
+					else if (GameManagerScript.instance.debugTextArea != null && serverMessage != "")
+						GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[SERVER] -> " + serverMessage);
 				}
 #if !UNITY_EDITOR
 				_previousTime = Time.realtimeSinceStartup;

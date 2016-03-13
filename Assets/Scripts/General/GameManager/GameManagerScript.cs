@@ -18,7 +18,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public InputManager 					inputManager { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }		
 	public ServerCommands					commandsManager { get; private set; }
-	public GameObject						debugTextArea { get; private set; }					
+	public DebugTextArea					debugTextArea { get; private set; }					
 
 	// Event
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
@@ -74,7 +74,9 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 		SocketManager.instance.wait = false;
 		SocketManager.instance.StartPingServer ();
 		gridController.Init (x, y);
-		debugTextArea = GameObject.Find ("DebugTextArea");
+		var obj = GameObject.Find ("DebugTextArea");
+		if (obj != null && obj.GetComponent<DebugTextArea>() != null)
+			debugTextArea = obj.GetComponent<DebugTextArea>();
 	}
 
 	void Update()

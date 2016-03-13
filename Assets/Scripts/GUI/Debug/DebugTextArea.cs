@@ -20,7 +20,7 @@ public class DebugTextArea : MonoBehaviour  {
 		_textObject = gameObject.GetComponent<Text>();
 	}
 
-	void LateUpdate ()
+	void Update ()
 	{
 		_debugObject.sizeDelta = new Vector2(_debugObject.rect.width, _textObject.preferredHeight);
 		if (_debugObject.rect.height > 360)

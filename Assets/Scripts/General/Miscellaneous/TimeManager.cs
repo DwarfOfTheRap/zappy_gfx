@@ -18,7 +18,13 @@ public class TimeManager {
 		slider.value = timeSpeed;
 	}
 
-	public virtual void ChangeTimeSpeedClient(float value)
+	public virtual void ChangeTimeSpeedInput(float value)
+	{
+		ChangeTimeSpeedServer (value);
+		ChangeTimeSpeedSlider (value);
+	}
+
+	public virtual void ChangeTimeSpeedSlider(float value)
 	{
 		timeSpeed = value;
 		var query = new ServerQuery();

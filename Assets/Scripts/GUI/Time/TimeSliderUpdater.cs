@@ -13,7 +13,7 @@ public class TimeSliderUpdater : MonoBehaviour, IPointerUpHandler {
 
     void UpdateServerOnEvent(float value)
     {
-		GameManagerScript.instance.timeManager.ChangeTimeSpeedClient (value);
+		GameManagerScript.instance.timeManager.ChangeTimeSpeedSlider (value);
     }
 
 	public void OnPointerUp (PointerEventData eventData)
