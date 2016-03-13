@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System;
 
 public class SocketManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class SocketManager : MonoBehaviour
 	public bool wait = false;
     public bool connected = false;
 
-#if !UnityEditor
+#if !UNITY_EDITOR
 	private float _previousTime;
 #endif
 
@@ -31,9 +32,6 @@ public class SocketManager : MonoBehaviour
 
     void Awake()
     {
-		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.DisplayNewDebug("Awake");
-		Debug.Log ("Awake");
         DontDestroyOnLoad(this);
 		_reader = new ServerReader();
 		_commands = GameManagerScript.instance.commandsManager;
@@ -47,19 +45,14 @@ public class SocketManager : MonoBehaviour
 		
 	void OnDestroy()
 	{
-		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.DisplayNewDebug("OnDestroy");
-		Debug.Log ("OnDestroy");
 		_connection.CloseSocket();
 		StopAllCoroutines ();
 	}
 
-	void ResetLevel()
+	public void ResetLevel()
 	{
 		Destroy (GameManagerScript.instance);
 		Destroy (gameObject);
-		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.DisplayNewDebug("Restarting");
 		Application.LoadLevel(0);
 	}
 
@@ -84,6 +77,11 @@ public class SocketManager : MonoBehaviour
 				}
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
+					if (GameManagerScript.instance.debugTextArea != null && serverMessage != "")
+						GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[SERVER] -> " + serverMessage);
+#if UNITY_EDITOR
+					Debug.Log("[SERVER] -> " + serverMessage);
+#endif
 					while (wait)
 						yield return null;
 					if (serverMessage != "" && _reader.IsLegitMessage (serverMessage)) {
@@ -92,8 +90,8 @@ public class SocketManager : MonoBehaviour
 						}
 						catch (Exception e) {
 							if (GameManagerScript.instance.debugTextArea != null)
-								GameManagerScript.instance.debugTextArea.DisplayNewDebug(e.Message);
-							Debug.Log (e.Message);
+								GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug(e.Message);
+							Debug.LogError (e.Message);
 						}
 					}
 				}
@@ -144,15 +142,13 @@ public class SocketManager : MonoBehaviour
 
 	public void StartPingServer()
 	{
-		#if !UNITY_EDITOR
 		StartCoroutine (PingServer ());
-		#endif
 	}
 
     public void SetupConnection(string conHost, int conPort)
     {
 		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.DisplayNewDebug("Connecting to IP: " + conHost + " at Port: " + conPort);
+			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("Connecting to IP: " + conHost + " at Port: " + conPort);
 		Debug.Log ("Connecting to IP: " + conHost + " at Port: " + conPort);
         this.conHost = conHost;
         this.conPort = conPort;
@@ -164,12 +160,6 @@ public class SocketManager : MonoBehaviour
    	string SocketResponse()
     {
         string serverSays = _connection.ReadSocket();
-        if (serverSays != "")
-        {
-			if (GameManagerScript.instance.debugTextArea != null)
-				GameManagerScript.instance.debugTextArea.DisplayNewDebug("[SERVER] -> " + serverSays);
-            Debug.Log("[SERVER] -> " + serverSays);
-        }
         return serverSays;
     }
 
@@ -178,7 +168,9 @@ public class SocketManager : MonoBehaviour
     {
         _connection.WriteSocket(str);
 		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.DisplayNewDebug("[CLIENT] -> " + str);
+			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[CLIENT] -> " + str.Replace("\n", ""));
+#if UNITY_EDITOR
         Debug.Log("[CLIENT] -> " + str);
+#endif
     }
 }

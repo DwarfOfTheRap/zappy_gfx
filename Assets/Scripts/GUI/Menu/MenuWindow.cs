@@ -17,7 +17,7 @@ public class MenuWindow : AWindow {
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#else
-		Application.Quit();
+		SocketManager.instance.ResetLevel();
 		#endif
 	}
 }
