@@ -83,10 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc90186828d0d4e87817da12c7016b3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamComposition: {fileID: 0}
-  team:
-    name: 
-    color: {r: 0, g: 0, b: 0, a: 0}
   teamName: {fileID: 11428716}
   teamCompletion: {fileID: 11417972}
 --- !u!114 &11417972
@@ -114,13 +110,13 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 6
-    m_MaxSize: 8
+    m_MaxSize: 16
     m_Alignment: 5
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 2.1%
 --- !u!114 &11428716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -146,13 +142,13 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 6
-    m_MaxSize: 8
+    m_MaxSize: 16
     m_Alignment: 3
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: ' test1461'
 --- !u!114 &11449124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,9 +180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e1aa98c1271462581af53bd4d53749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team:
-    name: 
-    color: {r: 0, g: 0, b: 0, a: 0}
   text: {fileID: 11417972}
 --- !u!114 &11460760
 MonoBehaviour:
@@ -203,7 +196,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 15
+  m_PreferredHeight: 20
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
 --- !u!114 &11482508
@@ -328,7 +321,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 137036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -198.474594}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 22489642}
@@ -337,7 +330,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 172.139862, y: 115.204666}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22489642
@@ -465,6 +458,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_FontData.m_MaxSize
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

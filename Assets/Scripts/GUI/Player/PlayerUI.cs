@@ -4,6 +4,7 @@ using System.Collections;
 
 public class PlayerUI : MonoBehaviour {
 
+	public int					playerIndexValue;
 	public Text 				playerIndex;
 	public Text 				playerLvl;
 	public PlayerInventoryUI	inventory { get; private set;}
@@ -37,5 +38,13 @@ public class PlayerUI : MonoBehaviour {
 		inventory.phiras.color = ResourceController.phirasColor;
 		inventory.thystame = transform.FindChild ("PlayerInventory/Thystame").GetComponent<Text>();
 		inventory.thystame.color = ResourceController.thystameColor;
+	}
+
+	public void TargetPlayer()
+	{
+		PlayerController player = GameManagerScript.instance.playerManager.GetPlayer(playerIndexValue);
+
+		GameManagerScript.instance.inputManager.OnLeftClick(player.playerMotorController as IClickTarget);
+		Camera.main.GetComponent<CameraScript>().cameraController.target = player.playerMotorController as IClickTarget;
 	}
 }

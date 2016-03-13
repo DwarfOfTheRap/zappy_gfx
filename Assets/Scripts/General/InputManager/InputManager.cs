@@ -58,6 +58,11 @@ public class InputManager : AInputManager
 		return (Input.GetKeyUp (KeyCode.Escape));
 	}
 
+	public override bool DebugKey ()
+	{
+		return (Input.GetKeyUp (KeyCode.BackQuote));
+	}
+
 	public override bool ScrollUp ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") < 0);

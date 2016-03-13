@@ -224,7 +224,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		controller.SetAnimatorController(animatorController);
 		controller.SetPlayerMovementController(movementController);
 		controller.SetGridController (gridController);
-		movementController.IsMoving (Vector3.zero).ReturnsForAnyArgs(true);
+		movementController.IsMoving (Vector3.zero, Quaternion.identity).ReturnsForAnyArgs(true);
 		return controller;
 	}
 }

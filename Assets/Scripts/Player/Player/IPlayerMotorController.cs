@@ -6,7 +6,7 @@ public interface IPlayerMotorController {
 	void SetRotation (Quaternion rotation);
 	void SetPosition (Vector3 vector3);
 
-	bool IsMoving(Vector3 destination);
+	bool IsMoving(Vector3 destination, Quaternion rotation);
 	void MoveToDestination(Vector3 destination, float speed);
 	bool HasReachedDestination(Vector3 destination);
 

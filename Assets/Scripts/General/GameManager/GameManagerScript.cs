@@ -18,6 +18,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public InputManager 					inputManager { get; private set; }
 	public PlayerManagerScript				playerManager { get; private set; }		
 	public ServerCommands					commandsManager { get; private set; }
+	public GameObject						debugTextArea { get; private set; }					
 
 	// Event
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
@@ -67,14 +68,13 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	
 	IEnumerator AsyncLoadLevel(int x, int y)
 	{
-		Debug.Log("Level load start");
 		var async = Application.LoadLevelAsync(1);
 		SocketManager.instance.wait = true;
 		yield return async;
 		SocketManager.instance.wait = false;
 		SocketManager.instance.StartPingServer ();
-		Debug.Log ("Level load end");
 		gridController.Init (x, y);
+		debugTextArea = GameObject.Find ("DebugTextArea");
 	}
 
 	void Update()

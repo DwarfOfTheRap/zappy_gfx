@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System;
 
 public class SocketManager : MonoBehaviour
@@ -14,9 +15,12 @@ public class SocketManager : MonoBehaviour
 	public bool wait = false;
     public bool connected = false;
 
+#if !UNITY_EDITOR
 	private float _previousTime;
+#endif
+
 	private const float _timeout = 5.0f;
-	private const float _resetGame = 30.0f;
+	private const float _resetGame = 15.0f;
 
 	private TCPConnection	_connection;
 	private ServerCommands	_commands;
@@ -28,7 +32,6 @@ public class SocketManager : MonoBehaviour
 
     void Awake()
     {
-		Debug.Log ("Awake");
         DontDestroyOnLoad(this);
 		_reader = new ServerReader();
 		_commands = GameManagerScript.instance.commandsManager;
@@ -42,25 +45,23 @@ public class SocketManager : MonoBehaviour
 		
 	void OnDestroy()
 	{
-		Debug.Log ("OnDestroy");
 		_connection.CloseSocket();
 		StopAllCoroutines ();
 	}
 
-	void ResetLevel()
+	public void ResetLevel()
 	{
-		_previousTime = Time.realtimeSinceStartup;
 		Destroy (GameManagerScript.instance);
 		Destroy (gameObject);
-		Debug.Log ("Restarting");
 		Application.LoadLevel(0);
 	}
 
     IEnumerator ReadServerMessages()
     {
 		string response;
-
+#if !UNITY_EDITOR
 		_previousTime = Time.realtimeSinceStartup;
+#endif
 		while (true)
 		{
 			_connection.MaintainConnection (conHost, conPort);
@@ -76,6 +77,11 @@ public class SocketManager : MonoBehaviour
 				}
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
+					if (GameManagerScript.instance.debugTextArea != null && serverMessage != "")
+						GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[SERVER] -> " + serverMessage);
+#if UNITY_EDITOR
+					Debug.Log("[SERVER] -> " + serverMessage);
+#endif
 					while (wait)
 						yield return null;
 					if (serverMessage != "" && _reader.IsLegitMessage (serverMessage)) {
@@ -83,11 +89,15 @@ public class SocketManager : MonoBehaviour
 							_commands.PickMethod (serverMessage);
 						}
 						catch (Exception e) {
-							Debug.Log (e.Message);
+							if (GameManagerScript.instance.debugTextArea != null)
+								GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug(e.Message);
+							Debug.LogError (e.Message);
 						}
 					}
 				}
+#if !UNITY_EDITOR
 				_previousTime = Time.realtimeSinceStartup;
+#endif
 			}
 #if !UNITY_EDITOR
 			else if (Time.realtimeSinceStartup - _previousTime > _resetGame && Application.loadedLevel == 1)
@@ -132,15 +142,14 @@ public class SocketManager : MonoBehaviour
 
 	public void StartPingServer()
 	{
-		#if !UNITY_EDITOR
 		StartCoroutine (PingServer ());
-		#endif
 	}
 
     public void SetupConnection(string conHost, int conPort)
     {
-		Debug.Log (conHost);
-		Debug.Log (conPort);
+		if (GameManagerScript.instance.debugTextArea != null)
+			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("Connecting to IP: " + conHost + " at Port: " + conPort);
+		Debug.Log ("Connecting to IP: " + conHost + " at Port: " + conPort);
         this.conHost = conHost;
         this.conPort = conPort;
         _connection.SetupSocket(this.conHost, this.conPort);
@@ -151,10 +160,6 @@ public class SocketManager : MonoBehaviour
    	string SocketResponse()
     {
         string serverSays = _connection.ReadSocket();
-        if (serverSays != "")
-        {
-            Debug.Log("[SERVER]" + serverSays);
-        }
         return serverSays;
     }
 
@@ -162,6 +167,10 @@ public class SocketManager : MonoBehaviour
    	public void SendToServer(string str)
     {
         _connection.WriteSocket(str);
+		if (GameManagerScript.instance.debugTextArea != null)
+			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[CLIENT] -> " + str.Replace("\n", ""));
+#if UNITY_EDITOR
         Debug.Log("[CLIENT] -> " + str);
+#endif
     }
 }

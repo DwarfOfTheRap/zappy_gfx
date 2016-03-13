@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -29,7 +29,6 @@ public class TeleportScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log (gameObject + " " + col.GetComponent<PlayerScript>().controller.dontTeleportMe);
 		if (col.tag == "Player" && col.GetComponent<PlayerScript>().controller.dontTeleportMe == false)
 		{
 			Vector3 distance = col.transform.position - transform.position;
