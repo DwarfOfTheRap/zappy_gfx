@@ -84,7 +84,7 @@ public class ServerCommands {
 
 	public void SendGraphicMessage(string serverMessage)
 	{
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		serverQuery.SendWelcomeMessage();
 	}
 
@@ -92,7 +92,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + "$");
 		levelLoader.LoadLevel (int.Parse (regexMatch.Groups[2].Value), int.Parse (regexMatch.Groups[3].Value));
 	}
@@ -102,7 +102,7 @@ public class ServerCommands {
 		Match regexMatch;
 		ISquare square;
 
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		regexMatch = Regex.Match (serverMessage, cmd + " " + X + " " + Y + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + " " + q + "$");
 		square = gridController.GetSquare (int.Parse (regexMatch.Groups [2].Value), int.Parse (regexMatch.Groups [3].Value));
 		square.SetResources (uint.Parse (regexMatch.Groups [4].Value),
@@ -118,7 +118,7 @@ public class ServerCommands {
 	{
 		Match regexMatch;
 
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
 		teamManager.CreateTeam (regexMatch.Groups [2].Value);
 	}
@@ -268,7 +268,7 @@ public class ServerCommands {
 		                              int.Parse (regexMatch.Groups [3].Value),
 		                                                        int.Parse (regexMatch.Groups [4].Value),
 		                                                        int.Parse (regexMatch.Groups [5].Value));
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendHatchedEgg(string serverMessage)
@@ -277,7 +277,7 @@ public class ServerCommands {
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetEggHatch (int.Parse (regexMatch.Groups[2].Value));
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendPlayerToEggConnection(string serverMessage)
@@ -286,7 +286,7 @@ public class ServerCommands {
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetPlayerToEggConnection (int.Parse (regexMatch.Groups[2].Value));
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendRottenEgg(string serverMessage)
@@ -295,7 +295,7 @@ public class ServerCommands {
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + e + "$");
 		playerManager.SetEggDie (int.Parse (regexMatch.Groups[2].Value));
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendTimeUnit(string serverMessage)
@@ -304,7 +304,7 @@ public class ServerCommands {
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "$");
 		timeManager.ChangeTimeSpeedServer (float.Parse(regexMatch.Groups[2].Value));
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendGameOver(string serverMessage)
@@ -312,7 +312,7 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		GameManagerScript.instance.GameOver(teamManager.FindTeam (regexMatch.Groups [2].Value));
 	}
 
@@ -321,19 +321,19 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + M + "$");
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		Debug.Log (regexMatch.Groups [2].Value);
 	}
 
 	public void SendUnknownCommand(string serverMessage)
 	{
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		Debug.Log ("Server sends: Unknown Command");
 	}
 
 	public void SendWrongParameters(string serverMessage)
 	{
-		debugManager.AddLog (serverMessage);
+		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		Debug.Log ("Server sends: Wrong Parameters");
 	}
 }

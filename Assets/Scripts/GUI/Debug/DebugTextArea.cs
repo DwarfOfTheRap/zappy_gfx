@@ -7,6 +7,7 @@ public class DebugTextArea : MonoBehaviour  {
 
 	private RectTransform 	_debugObject;
 	private Text			_textObject;
+	private PlayerController	_player = null;
 		
 	void Start ()
 	{
@@ -27,13 +28,13 @@ public class DebugTextArea : MonoBehaviour  {
 	{
 		if (ev.target.IsPlayer ())
 		{
-			_textObject.text = GameManagerScript.instance.debugManager.players_log[((PlayerController)ev.target).index];
+			_player = ((PlayerScript)ev.target).controller;
 		}
 	}
 
 	void OnRightClick ()
 	{
-		_textObject.text = GameManagerScript.instance.debugManager.general_log;
+		_player = null;
 	}
 
 	void Update ()
@@ -51,6 +52,10 @@ public class DebugTextArea : MonoBehaviour  {
 			_debugObject.anchorMin = new Vector2(0.0f, 1.0f);
 			_debugObject.anchorMax = new Vector2(0.0f, 1.0f);
 		}
+		if (_player != null)
+			_textObject.text = GameManagerScript.instance.debugManager.players_log[_player.index];
+		else
+			_textObject.text = GameManagerScript.instance.debugManager.general_log;
 	}
 
 

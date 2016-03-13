@@ -93,7 +93,7 @@ public class SocketManager : MonoBehaviour
 						}
 					}
 					else if (serverMessage != "")
-						GameManagerScript.instance.debugManager.AddLog("[SERVER] -> " + serverMessage);
+						GameManagerScript.instance.debugManager.AddLog("<color=magenta>[SERVER] -></color>" + serverMessage);
 				}
 #if !UNITY_EDITOR
 				_previousTime = Time.realtimeSinceStartup;
@@ -142,7 +142,9 @@ public class SocketManager : MonoBehaviour
 
 	public void StartPingServer()
 	{
+#if !UNITY_EDITOR
 		StartCoroutine (PingServer ());
+#endif
 	}
 
     public void SetupConnection(string conHost, int conPort)
@@ -166,7 +168,7 @@ public class SocketManager : MonoBehaviour
    	public void SendToServer(string str)
     {
         _connection.WriteSocket(str);
-		GameManagerScript.instance.debugManager.AddLog("[CLIENT] -> " + str.Replace("\n", ""));
+		GameManagerScript.instance.debugManager.AddLog("<color=cyan>[CLIENT]</color> -> " + str.Replace("\n", ""));
 #if UNITY_EDITOR
         Debug.Log("[CLIENT] -> " + str);
 #endif
