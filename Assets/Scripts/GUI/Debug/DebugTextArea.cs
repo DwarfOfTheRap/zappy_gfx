@@ -7,17 +7,33 @@ public class DebugTextArea : MonoBehaviour  {
 
 	private RectTransform 	_debugObject;
 	private Text			_textObject;
-
-	public void DisplayNewDebug (string debug)
-	{
-		_textObject.text += debug + "\n";
-	}
-
-
+		
 	void Start ()
 	{
 		_debugObject = gameObject.GetComponent<RectTransform>();
 		_textObject = gameObject.GetComponent<Text>();
+		_textObject.text = GameManagerScript.instance.debugManager.general_log;
+		GameManagerScript.instance.inputManager.OnLeftClicking += OnLeftClick;
+		GameManagerScript.instance.inputManager.OnRightClicking += OnRightClick;
+	}
+
+	void OnDisable()
+	{
+		GameManagerScript.instance.inputManager.OnLeftClicking -= OnLeftClick;
+		GameManagerScript.instance.inputManager.OnRightClicking -= OnRightClick;
+	}
+
+	void OnLeftClick (ClickEventArgs ev)
+	{
+		if (ev.target.IsPlayer ())
+		{
+			_textObject.text = GameManagerScript.instance.debugManager.players_log[((PlayerController)ev.target).index];
+		}
+	}
+
+	void OnRightClick ()
+	{
+		_textObject.text = GameManagerScript.instance.debugManager.general_log;
 	}
 
 	void Update ()
@@ -36,4 +52,6 @@ public class DebugTextArea : MonoBehaviour  {
 			_debugObject.anchorMax = new Vector2(0.0f, 1.0f);
 		}
 	}
+
+
 }
