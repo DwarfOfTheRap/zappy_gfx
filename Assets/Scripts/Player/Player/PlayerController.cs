@@ -241,6 +241,8 @@ public class PlayerController {
 	{
 		_highlighted = false;
 		playerMotorController.DisableHighlight ();
+		foreach (ISquare square in _squareVision)
+			square.Standard ();
 	}
 
 	void OnLeftClick(ClickEventArgs args)

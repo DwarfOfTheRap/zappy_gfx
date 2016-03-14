@@ -34,7 +34,7 @@ public class TimeManager {
 	public virtual void ChangeTimeSpeedServer(float value)
 	{
 		timeSpeed = value;
-		if (_slider)
+		if (_slider && !_slider.GetComponent<TimeSliderUpdater>().drag)
 			this._slider.value = value;
 	}
 }

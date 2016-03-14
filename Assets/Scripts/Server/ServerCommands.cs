@@ -255,8 +255,8 @@ public class ServerCommands {
 		Match regexMatch;
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + n + "$");
-		var player = playerManager.SetPlayerDeath (int.Parse (regexMatch.Groups [2].Value));
-		debugManager.AddPlayerLog (player.index, serverMessage);
+		debugManager.AddPlayerLog (int.Parse(regexMatch.Groups[2].Value), serverMessage);
+		playerManager.SetPlayerDeath (int.Parse (regexMatch.Groups [2].Value));
 	}
 
 	public void SendEndOfFork(string serverMessage)
