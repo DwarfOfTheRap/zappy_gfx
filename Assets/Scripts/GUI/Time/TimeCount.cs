@@ -25,20 +25,11 @@ public class TimeCount : MonoBehaviour {
 
 	void Start () {
 		GameManagerScript.instance.OnGameOver += StopTimeCount;
-		this.gameObject.GetComponent<Text> ().text = "00:00";
+		this.gameObject.GetComponent<Text> ().text = "0";
 		StartCoroutine (TimeUpdate());
 	}
 	
 	void Update () {
-		int seconds;
-		int minutes;
-		int hours;
-
-		seconds = _totalGameSeconds % 60;
-		minutes = _totalGameSeconds / 60;
-		minutes %= 60;
-		hours = _totalGameSeconds / 3600;
-	
-		this.gameObject.GetComponent<Text> ().text = hours.ToString("00") + ":" + minutes.ToString ("00") + ":" + seconds.ToString ("00");
+		this.gameObject.GetComponent<Text> ().text = _totalGameSeconds.ToString ();
 	}
 }

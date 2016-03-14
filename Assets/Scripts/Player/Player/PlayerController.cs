@@ -51,6 +51,7 @@ public class PlayerController {
 	public IPlayerMotorController		playerMotorController { get; private set; }
 	private IAnimatorController			_animatorController;
 	private GridController				_gridController;
+	private DebugManager				_debugManager;
 
 	// Managers
 	private AInputManager				_inputManager;
@@ -98,6 +99,11 @@ public class PlayerController {
 		this._gridController = gridController;
 	}
 
+	public void SetDebugManager (DebugManager debugManager)
+	{
+		this._debugManager = debugManager;
+	}
+
 	// Animations
 	public void IncantatePrimary()
 	{
@@ -136,15 +142,18 @@ public class PlayerController {
 
 	public void Die()
 	{
+		StopAllAnimations ();
 		dead = true;
 		_animatorController.SetTrigger ("Death");
 		currentSquare.GetResources ().players.Remove (this);
+		_oldSquare.GetResources  ().players.Remove (this);
 	}
 
 	// Actions
 	public void Broadcast (string message)
 	{
 		playerMotorController.Broadcast (message);
+		_debugManager.AddPlayerLog (this, "\"" + message + "\"");
 	}
 	
 	public void Expulse()
@@ -189,6 +198,7 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
+		StopAllAnimations ();
 		this._oldSquare = (this._oldSquare != null) ? this.currentSquare : null;
 		if (this.currentSquare != square)
 		{
@@ -215,6 +225,7 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
+		StopAllAnimations ();
 		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
@@ -241,6 +252,8 @@ public class PlayerController {
 	{
 		_highlighted = false;
 		playerMotorController.DisableHighlight ();
+		foreach (ISquare square in _squareVision)
+			square.Standard ();
 	}
 
 	void OnLeftClick(ClickEventArgs args)
@@ -290,6 +303,12 @@ public class PlayerController {
 	void ChangeAnimationSpeed()
 	{
 		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 5.0f);
+	}
+
+	void StopAllAnimations()
+	{
+		this.StopIncantating ();
+		this.StopLayingEgg ();
 	}
 
 	public void Destroy ()

@@ -86,8 +86,7 @@ public class SocketManager : MonoBehaviour
 				}
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
-					if (GameManagerScript.instance.debugTextArea != null && serverMessage != "")
-						GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[SERVER] -> " + serverMessage);
+
 #if UNITY_EDITOR
 					Debug.Log("[SERVER] -> " + serverMessage);
 #endif
@@ -98,11 +97,12 @@ public class SocketManager : MonoBehaviour
 							_commands.PickMethod (serverMessage);
 						}
 						catch (Exception e) {
-							if (GameManagerScript.instance.debugTextArea != null)
-								GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug(e.Message);
+								GameManagerScript.instance.debugManager.AddLog(e.Message);
 							Debug.LogError (e.Message);
 						}
 					}
+					else if (serverMessage != "")
+						GameManagerScript.instance.debugManager.AddLog("<color=magenta>[SERVER] -></color>" + serverMessage);
 				}
 #if !UNITY_EDITOR
 				_previousTime = Time.realtimeSinceStartup;
@@ -151,13 +151,14 @@ public class SocketManager : MonoBehaviour
 
 	public void StartPingServer()
 	{
+#if !UNITY_EDITOR
 		StartCoroutine (PingServer ());
+#endif
 	}
 
     public void SetupConnection(string conHost, int conPort)
     {
-		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("Connecting to IP: " + conHost + " at Port: " + conPort);
+		GameManagerScript.instance.debugManager.AddLog("Connecting to IP: " + conHost + " at Port: " + conPort);
 		Debug.Log ("Connecting to IP: " + conHost + " at Port: " + conPort);
         this.conHost = conHost;
         this.conPort = conPort;
@@ -178,8 +179,7 @@ public class SocketManager : MonoBehaviour
    	public void SendToServer(string str)
     {
         _connection.WriteSocket(str);
-		if (GameManagerScript.instance.debugTextArea != null)
-			GameManagerScript.instance.debugTextArea.GetComponent<DebugTextArea>().DisplayNewDebug("[CLIENT] -> " + str.Replace("\n", ""));
+		GameManagerScript.instance.debugManager.AddLog("<color=cyan>[CLIENT]</color> -> " + str.Replace("\n", ""));
 #if UNITY_EDITOR
         Debug.Log("[CLIENT] -> " + str);
 #endif

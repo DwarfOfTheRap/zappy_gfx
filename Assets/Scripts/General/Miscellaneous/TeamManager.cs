@@ -25,21 +25,32 @@ public class TeamManager
 	public	List<Team>		teams;
 	private Stack<Color>	colors;
 
+	public Dictionary<Color, Color[]> triad;
+
 	public TeamManager()
 	{
 		this.colors = new Stack<Color>();
 		this.teams = new List<Team>();
+		this.triad = new Dictionary<Color, Color[]>();
 
 		this.colors.Push (new Vector4(1, 0.5f, 1, 1));
 		this.colors.Push (new Vector4(0.5f, 1, 0.5f, 1));
 		this.colors.Push (new Vector4(1, 0.5f, 0, 1));
 		this.colors.Push (Color.white);
-		this.colors.Push (Color.red);
 		this.colors.Push (Color.blue);
+		this.colors.Push (Color.red);
 		this.colors.Push (Color.green);
 		this.colors.Push (Color.yellow);
 		this.colors.Push (Color.magenta);
 		this.colors.Push (Color.cyan);
+
+		this.triad.Add (Color.cyan, new Color[]{Color.magenta, Color.yellow});
+		this.triad.Add (Color.magenta, new Color[]{Color.yellow, Color.cyan});
+		this.triad.Add (Color.yellow, new Color[]{Color.cyan, Color.magenta});
+		this.triad.Add (Color.green, new Color[]{Color.blue, Color.red});
+		this.triad.Add (Color.blue, new Color[]{Color.red, Color.green});
+		this.triad.Add (Color.red, new Color[]{Color.green, Color.blue});
+		this.triad.Add (Color.white, new Color[]{Color.white, Color.white});
 	}
 
 	public virtual Team			FindTeam(string name)

@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerUI : MonoBehaviour {
 
-	public int					playerIndexValue;
+	public PlayerController		player;
 	public Text 				playerIndex;
 	public Text 				playerLvl;
 	public PlayerInventoryUI	inventory { get; private set;}
@@ -42,22 +42,21 @@ public class PlayerUI : MonoBehaviour {
 
 	public void TargetPlayer()
 	{
-		PlayerController player = GameManagerScript.instance.playerManager.GetPlayer(playerIndexValue);
-
 		GameManagerScript.instance.inputManager.OnLeftClick(player.playerMotorController as IClickTarget);
 		Camera.main.GetComponent<CameraScript>().cameraController.target = player.playerMotorController as IClickTarget;
 	}
 
 	void Update()
 	{
-		PlayerController player = GameManagerScript.instance.playerManager.GetPlayer(playerIndexValue);
-
-		inventory.food.text = player.inventory.nourriture.ToString();
-		inventory.linemate.text = player.inventory.linemate.ToString();
-		inventory.deraumere.text = player.inventory.deraumere.ToString();
-		inventory.sibur.text = player.inventory.sibur.ToString();
-		inventory.mendiane.text = player.inventory.mendiane.ToString();
-		inventory.phiras.text = player.inventory.phiras.ToString();
-		inventory.thystame.text = player.inventory.thystame.ToString();
+		if (player != null)
+		{
+			inventory.food.text = player.inventory.nourriture.ToString();
+			inventory.linemate.text = player.inventory.linemate.ToString();
+			inventory.deraumere.text = player.inventory.deraumere.ToString();
+			inventory.sibur.text = player.inventory.sibur.ToString();
+			inventory.mendiane.text = player.inventory.mendiane.ToString();
+			inventory.phiras.text = player.inventory.phiras.ToString();
+			inventory.thystame.text = player.inventory.thystame.ToString();
+		}
 	}
 }

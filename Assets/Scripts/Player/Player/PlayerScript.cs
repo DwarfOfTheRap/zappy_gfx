@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 		controller.SetGridController(GameManagerScript.instance.gridController);
 		controller.SetInputManager(GameManagerScript.instance.inputManager);
 		controller.SetTimeManager (GameManagerScript.instance.timeManager);
+		controller.SetDebugManager (GameManagerScript.instance.debugManager);
 		this._material = GetComponentInChildren<Renderer>().materials[0];
 		this._glassMaterial = GetComponentInChildren<Renderer>().materials[1];
 	}
@@ -252,6 +253,9 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	void OnDisable()
 	{
 		controller.OnDisable();
+		var target = Camera.main.GetComponent<CameraScript>().cameraController.target;
+		if (target != null && target.IsPlayer () && (PlayerScript)target == this)
+			Camera.main.GetComponent<CameraScript>().cameraController.target = null;
 	}
 
 	void Update()
