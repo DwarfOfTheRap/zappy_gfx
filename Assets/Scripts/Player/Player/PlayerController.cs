@@ -122,6 +122,7 @@ public class PlayerController {
 
 	public void LayEgg()
 	{
+		CorrectPlayerState();
 		_animatorController.SetBool ("LayEgg", true);
 	}
 
@@ -132,17 +133,19 @@ public class PlayerController {
 
 	public void GrabItem()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void ThrowItem()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void Die()
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		dead = true;
 		_animatorController.SetTrigger ("Death");
 		currentSquare.GetResources ().players.Remove (this);
@@ -152,12 +155,14 @@ public class PlayerController {
 	// Actions
 	public void Broadcast (string message)
 	{
+		CorrectPlayerState();
 		playerMotorController.Broadcast (message);
 		_debugManager.AddPlayerLog (this, "\"" + message + "\"");
 	}
 	
 	public void Expulse()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Expulse");
 		foreach (PlayerController player in currentSquare.GetResources().players)
 			player.BeExpulsed (OrientationManager.Opposite (playerOrientation));
@@ -198,13 +203,15 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		this._oldSquare = (this._oldSquare != null) ? this.currentSquare : null;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
+			{
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
+			}
 			destination = playerMotorController.SetDestination (square.GetPosition ());
 		}
 		currentSquare = square;
@@ -225,7 +232,7 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
@@ -305,10 +312,15 @@ public class PlayerController {
 		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 5.0f);
 	}
 
-	void StopAllAnimations()
+	void CorrectPlayerState()
 	{
 		this.StopIncantating ();
 		this.StopLayingEgg ();
+		if (dontTeleportMe)
+		{
+			playerMotorController.SetPosition (currentSquare.GetPosition ());
+			dontTeleportMe = false;
+		}
 	}
 
 	public void Destroy ()
