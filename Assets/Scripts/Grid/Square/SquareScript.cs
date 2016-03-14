@@ -59,6 +59,33 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	{
 		return transform.position;
 	}
+
+	public Vector3 GetSubPosition(int index)
+	{
+		switch (index)
+		{
+		case 0 : 
+			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z - GetBoundZ() / 2);
+		case 1 :
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z - GetBoundZ() / 2);
+		case 2 :
+			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z - GetBoundZ() / 2);
+		case 3 :
+			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z);
+		case 4:
+			return transform.position;
+		case 5:
+			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z);
+		case 6:
+			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z + GetBoundZ () / 2);
+		case 7:
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z + GetBoundZ () / 2);
+		case 8:
+			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z + GetBoundZ () / 2);
+		default:
+			return transform.position;
+		}
+	}
 	
 	public float GetBoundX ()
 	{
@@ -177,6 +204,7 @@ public enum SquareResources
 public interface ISquare
 {
     Vector3 GetPosition();
+	Vector3 GetSubPosition (int subPositionIndex);
     float GetBoundX();
     float GetBoundY();
     float GetBoundZ();

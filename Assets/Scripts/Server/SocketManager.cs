@@ -128,7 +128,7 @@ public class SocketManager : MonoBehaviour
 
 		while (true)
 		{
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(2.5f);
 			query.SendCurrentTimeUnitQuery();
 		}
 	}
