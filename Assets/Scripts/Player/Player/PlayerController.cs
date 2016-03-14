@@ -146,6 +146,7 @@ public class PlayerController {
 		dead = true;
 		_animatorController.SetTrigger ("Death");
 		currentSquare.GetResources ().players.Remove (this);
+		_oldSquare.GetResources  ().players.Remove (this);
 	}
 
 	// Actions

@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerStatsUI : MonoBehaviour {
 	
-	public PlayerController player = null;
+	private PlayerController _player = null;
+	public Text title;
 	public Text linemateNumber;
 	public Text deraumereNumber;
 	public Text siburNumber;
@@ -17,6 +18,7 @@ public class PlayerStatsUI : MonoBehaviour {
 	
 	void DisplayResources (PlayerController player)
 	{
+		title.text = "Player " + player.index + " Stats";
 		linemateNumber.text = player.inventory.linemate.ToString ();
 		linemateNumber.color = ResourceController.linemateColor;
 		deraumereNumber.text = player.inventory.deraumere.ToString ();
@@ -48,20 +50,20 @@ public class PlayerStatsUI : MonoBehaviour {
 			HideWindow ();
 			return ;
 		}
-		this.player = ((PlayerScript)args.target).controller;
+		this._player = ((PlayerScript)args.target).controller;
 		this.GetComponent<CanvasGroup> ().alpha = 1;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 	}
 	
 	void HideWindow ()
 	{
-		this.player = null;
+		this._player = null;
 		this.GetComponent<CanvasGroup> ().alpha = 0;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 	
 	void Start () {
-		this.player = null;
+		this._player = null;
 		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
 	}
@@ -73,7 +75,7 @@ public class PlayerStatsUI : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (this.player != null)
-			DisplayResources(player);
+		if (this._player != null)
+			DisplayResources(_player);
 	}
 }

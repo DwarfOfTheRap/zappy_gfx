@@ -22,7 +22,7 @@ public class PlayerListUI : MonoBehaviour {
 
 				PlayerUI script = aPlayer.gameObject.GetComponent<PlayerUI> ();
 
-				script.playerIndexValue = player.index;
+				script.player = player;
 				script.playerIndex.text = "Player " + player.index.ToString();
 				script.playerLvl.text = "Lvl " + player.level.ToString();
 				script.inventory.linemate.text = player.inventory.linemate.ToString();
