@@ -7,13 +7,13 @@ public class DebugManager
 {
 	public string general_log { get; private set;}
 
-	public Dictionary<int, string> players_log { get; private set;}
+	public Dictionary<PlayerController, string> players_log { get; private set;}
 
 	private const int maxNumberOfLines = 200;
 
 	public DebugManager()
 	{
-		players_log = new Dictionary<int, string>();
+		players_log = new Dictionary<PlayerController, string>();
 		general_log = "";
 	}
 
@@ -33,13 +33,13 @@ public class DebugManager
 		return "<color=#" + ((int)(color.r * 255.0f)).ToString ("X2") + ((int)(color.g * 255.0f)).ToString ("X2") + ((int)(color.b * 255.0f)).ToString ("X2") + ">" + str + "</color>";
 	}
 
-	public void AddPlayerLog(int index, string str)
+	public void AddPlayerLog(PlayerController player, string str)
 	{
-		var color = GameManagerScript.instance.playerManager.GetPlayer(index).team.color;
-		if (players_log.ContainsKey(index))
-			players_log[index] = ConcatLineToLog(players_log[index], ColoredString(str, color));
+		var color = player.team.color;
+		if (players_log.ContainsKey(player))
+			players_log[player] = ConcatLineToLog(players_log[player], str);
 		else
-			players_log.Add (index, ConcatLineToLog("", ColoredString(str, color)));
+			players_log.Add (player, ConcatLineToLog("", str));
 		AddLog ("<color=magenta>[SERVER]</color> -> " + ColoredString(str, color));
 	}
 
@@ -48,11 +48,3 @@ public class DebugManager
 		general_log = ConcatLineToLog (general_log, str);
 	}
 }
-
-
-
-
-
-
-
-

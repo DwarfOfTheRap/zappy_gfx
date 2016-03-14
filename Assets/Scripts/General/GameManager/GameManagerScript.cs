@@ -79,7 +79,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 
 	void Update()
 	{
-		if (SocketManager.instance.wait == false && SocketManager.instance.connected == true && inputManager.MenuKey())
+		if (Application.loadedLevel == 0 && SocketManager.instance.wait == false && SocketManager.instance.connected == true && inputManager.MenuKey())
 			SocketManager.instance.CloseSocket ();
 		qualityManager.Update ();
 		inputManager.CheckInput ();

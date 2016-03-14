@@ -49,8 +49,8 @@ public class DebugTextArea : MonoBehaviour  {
 			_debugObject.anchorMin = new Vector2(0.0f, 1.0f);
 			_debugObject.anchorMax = new Vector2(0.0f, 1.0f);
 		}
-		if (_player != null && GameManagerScript.instance.debugManager.players_log.ContainsKey (_player.index))
-			_textObject.text = GameManagerScript.instance.debugManager.players_log[_player.index];
+		if (_player != null && GameManagerScript.instance.debugManager.players_log.ContainsKey (_player))
+			_textObject.text = GameManagerScript.instance.debugManager.players_log[_player];
 		else
 			_textObject.text = GameManagerScript.instance.debugManager.general_log;
 	}
