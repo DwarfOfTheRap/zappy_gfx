@@ -65,23 +65,23 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 		switch (index)
 		{
 		case 0 : 
-			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z - GetBoundZ() / 2);
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
 		case 1 :
-			return new Vector3(transform.position.x, transform.position.y, transform.position.z - GetBoundZ() / 2);
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
 		case 2 :
-			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z - GetBoundZ() / 2);
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
 		case 3 :
-			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z);
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z);
 		case 4:
 			return transform.position;
 		case 5:
-			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z);
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z);
 		case 6:
-			return new Vector3(transform.position.x - GetBoundX() / 2, transform.position.y, transform.position.z + GetBoundZ () / 2);
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
 		case 7:
-			return new Vector3(transform.position.x, transform.position.y, transform.position.z + GetBoundZ () / 2);
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
 		case 8:
-			return new Vector3(transform.position.x + GetBoundX() / 2, transform.position.y, transform.position.z + GetBoundZ () / 2);
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
 		default:
 			return transform.position;
 		}
