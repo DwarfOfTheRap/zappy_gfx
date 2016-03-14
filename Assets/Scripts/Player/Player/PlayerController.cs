@@ -29,8 +29,8 @@ public class PlayerController {
 	public bool							expulsed { get; private set; }
 
 	// Speed
-	public float						speed = 0.3597f;
-	public float						rotSpeed = 6.38f;
+	public float						speed = 0.3597f * 2.5f;
+	public float						rotSpeed = 6.38f * 2.25f;
 
 	// Player position + orientation
 	private ISquare						_oldSquare;
@@ -289,7 +289,7 @@ public class PlayerController {
 
 	void ChangeAnimationSpeed()
 	{
-		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 10.0f);
+		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 5.0f);
 	}
 
 	public void Destroy ()

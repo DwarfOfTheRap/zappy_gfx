@@ -29,6 +29,7 @@ public class SocketManager : MonoBehaviour
 	public delegate void DisconnectedEvent ();
 	public event DisconnectedEvent OnDisconnection;
 	public event DisconnectedEvent OnReconnection;
+	public event DisconnectedEvent OnConnectionCanceled;
 
     void Awake()
     {
@@ -42,11 +43,19 @@ public class SocketManager : MonoBehaviour
         instance = this;
         _connection = new TCPConnection();
     }
+
+	public void CloseSocket()
+	{
+		_connection.CloseSocket ();
+		StopAllCoroutines ();
+		connected = false;
+		if (OnConnectionCanceled != null)
+			OnConnectionCanceled();
+	}
 		
 	void OnDestroy()
 	{
-		_connection.CloseSocket();
-		StopAllCoroutines ();
+		CloseSocket ();
 	}
 
 	public void ResetLevel()
@@ -153,6 +162,7 @@ public class SocketManager : MonoBehaviour
         this.conHost = conHost;
         this.conPort = conPort;
         _connection.SetupSocket(this.conHost, this.conPort);
+		connected = true;
 		StartCoroutine (ReadServerMessages ());
     }
 
@@ -160,6 +170,7 @@ public class SocketManager : MonoBehaviour
    	string SocketResponse()
     {
         string serverSays = _connection.ReadSocket();
+		Debug.Log (serverSays);
         return serverSays;
     }
 
