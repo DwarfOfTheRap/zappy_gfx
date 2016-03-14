@@ -39,7 +39,7 @@ public class DebugManager
 		if (players_log.ContainsKey(index))
 			players_log[index] = ConcatLineToLog(players_log[index], ColoredString(str, color));
 		else
-			players_log.Add (index, ColoredString(str, color));
+			players_log.Add (index, ConcatLineToLog(players_log[index], ColoredString(str, color)));
 		AddLog ("<color=magenta>[SERVER]</color> -> " + ColoredString(str, color));
 	}
 
