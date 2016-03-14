@@ -35,6 +35,10 @@ public class PlayerStatsUI : MonoBehaviour {
 		teamText.text = player.team.name;
 		teamText.color = player.team.color;
 		teamText.GetComponent<Outline>().effectColor = new Color(player.team.color.r / 2, player.team.color.g / 2, player.team.color.b / 2, 0.2f);
+		foreach (var image in GetComponentsInChildren<Image>())
+		{
+			image.color = new Color(player.team.color.r, player.team.color.g, player.team.color.b, image.color.a);
+		}
 	}
 	
 	void DisplayWindow (ClickEventArgs args)

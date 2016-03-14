@@ -34,8 +34,8 @@ public class TeamManager
 		this.colors.Push (new Vector4(0.5f, 1, 0.5f, 1));
 		this.colors.Push (new Vector4(1, 0.5f, 0, 1));
 		this.colors.Push (Color.white);
-		this.colors.Push (Color.red);
 		this.colors.Push (Color.blue);
+		this.colors.Push (Color.red);
 		this.colors.Push (Color.green);
 		this.colors.Push (Color.yellow);
 		this.colors.Push (Color.magenta);

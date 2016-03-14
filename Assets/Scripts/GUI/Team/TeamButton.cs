@@ -27,5 +27,9 @@ public class TeamButton : MonoBehaviour {
 		playerList.DisplayDetails(team);
 		teamComposition.GetComponent<CanvasGroup> ().alpha = 1;
 		teamComposition.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		foreach (var image in teamComposition.GetComponentsInChildren<Image>())
+		{
+			image.color = new Color(team.color.r, team.color.g, team.color.b, image.color.a);
+		}
 	}
 }

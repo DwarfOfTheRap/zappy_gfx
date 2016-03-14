@@ -2879,6 +2879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999183bf692349f45ba91fb5354ad594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drag: 0
 --- !u!114 &11402834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3711,7 +3712,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11460870}
   m_HandleRect: {fileID: 22496520}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6560,7 +6561,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 332466d1f23534cb3890aca06a0ddc24, type: 3}
-    m_FontSize: 12
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -7209,7 +7210,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11411888}
   m_HandleRect: {fileID: 22469530}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9351,7 +9352,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11467444}
   m_HandleRect: {fileID: 22438198}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -10375,7 +10376,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -.00358581543, y: 1.90734863e-05}
+  m_AnchoredPosition: {x: -.00358581543, y: -2.28881836e-05}
   m_SizeDelta: {x: .00364689995, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &22401364
@@ -13117,7 +13118,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 198006}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
