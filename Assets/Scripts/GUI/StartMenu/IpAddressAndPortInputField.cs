@@ -17,13 +17,13 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		this.gameObject.GetComponent<InputField>().caretPosition = 0;
 		if (PlayerPrefs.HasKey("IpAddress"))
 			GetComponent<InputField>().text = PlayerPrefs.GetString ("IpAddress");
+		SocketManager.instance.OnConnectionCanceled += ConnectionCanceled;
 	}
 
 	void OnDisable()
 	{
-		StopAllCoroutines ();
-		errorText.text = "";
-		connectingToServerText.text = "";
+		SocketManager.instance.OnConnectionCanceled -= ConnectionCanceled;
+		ConnectionCanceled ();
 	}
 
 	IEnumerator DisplayError (string error)
@@ -55,6 +55,15 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		}
 	}
 
+	void ConnectionCanceled()
+	{
+		StopAllCoroutines();
+		quitButton.interactable = true;
+		GetComponent<InputField>().interactable = true;
+		connectingToServerText.text = "";
+		errorText.text = "";
+	}
+
     public void ConnectToPortOnAddress(string submit)
     {
 		string regex = @"(([^:]+):(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[1-5][0-9][0-9][0-9][0-9]|[2-9][0-9][0-9][0-9]|1[1-9][0-9][0-9]|10[3-9][0-9]|102[5-9]))";
@@ -68,7 +77,7 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
 				quitButton.interactable = false;
 				GetComponent<InputField>().interactable = false;
-				StartCoroutine (WaitForConnection());
+				StartCoroutine ("WaitForConnection", WaitForConnection());
 				PlayerPrefs.SetString ("IpAddress", submit);
 			}
 			catch (System.Exception e)
@@ -80,4 +89,14 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		else
 			StartCoroutine(DisplayError("Wrong Parameters"));
     }
+
+	void Update()
+	{
+		if (!SocketManager.instance.connected)
+		{
+			StopCoroutine ("WaitForConnection");
+			quitButton.interactable = true;
+			GetComponent<InputField>().interactable = true;
+		}
+	}
 }

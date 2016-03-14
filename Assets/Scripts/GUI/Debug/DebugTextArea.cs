@@ -26,10 +26,7 @@ public class DebugTextArea : MonoBehaviour  {
 
 	void OnLeftClick (ClickEventArgs ev)
 	{
-		if (ev.target.IsPlayer ())
-		{
-			_player = ((PlayerScript)ev.target).controller;
-		}
+		_player = ev.target.IsPlayer () ? ((PlayerScript)ev.target).controller : null;
 	}
 
 	void OnRightClick ()
@@ -52,10 +49,7 @@ public class DebugTextArea : MonoBehaviour  {
 			_debugObject.anchorMin = new Vector2(0.0f, 1.0f);
 			_debugObject.anchorMax = new Vector2(0.0f, 1.0f);
 		}
-		if (_player != null)
-			_textObject.text = GameManagerScript.instance.debugManager.players_log[_player.index];
-		else
-			_textObject.text = GameManagerScript.instance.debugManager.general_log;
+		_textObject.text = (_player != null) ? GameManagerScript.instance.debugManager.players_log[_player.index] : _textObject.text = GameManagerScript.instance.debugManager.general_log;
 	}
 
 

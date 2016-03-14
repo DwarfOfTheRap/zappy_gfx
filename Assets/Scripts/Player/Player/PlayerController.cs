@@ -29,8 +29,8 @@ public class PlayerController {
 	public bool							expulsed { get; private set; }
 
 	// Speed
-	public float						speed = 0.3597f;
-	public float						rotSpeed = 6.38f;
+	public float						speed = 0.3597f * 2.5f;
+	public float						rotSpeed = 6.38f * 2.25f;
 
 	// Player position + orientation
 	private ISquare						_oldSquare;
@@ -189,6 +189,7 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
+		this._oldSquare = (this._oldSquare != null) ? this.currentSquare : null;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
@@ -214,6 +215,7 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
+		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
 	}
@@ -287,7 +289,7 @@ public class PlayerController {
 
 	void ChangeAnimationSpeed()
 	{
-		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 10.0f);
+		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 5.0f);
 	}
 
 	public void Destroy ()

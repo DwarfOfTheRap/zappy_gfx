@@ -304,7 +304,6 @@ public class ServerCommands {
 		
 		regexMatch = Regex.Match (serverMessage, cmd + " " + T + "$");
 		timeManager.ChangeTimeSpeedServer (float.Parse(regexMatch.Groups[2].Value));
-		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 	}
 
 	public void SendGameOver(string serverMessage)
