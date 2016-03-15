@@ -77,7 +77,7 @@ public class ServerQuery {
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
-		return "ppo #" + n + "\n";
+		return "ppo " + n + "\n";
 	}
 
 	public void SendPlayerPositionQuery(int n)
@@ -89,7 +89,7 @@ public class ServerQuery {
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
-		return "plv #" + n + "\n";
+		return "plv " + n + "\n";
 	}
 
 	public void SendPlayerLevelQuery(int n)
@@ -101,7 +101,7 @@ public class ServerQuery {
 	{
 		if (n < 0)
 			throw new NegativePlayerIndexException("Negative Player Index.");
-		return "pin #" + n + "\n";
+		return "pin " + n + "\n";
 	}
 
 	public void SendPlayerInventoryQuery(int n)
