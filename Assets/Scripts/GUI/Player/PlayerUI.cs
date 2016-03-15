@@ -57,6 +57,7 @@ public class PlayerUI : MonoBehaviour {
 			inventory.mendiane.text = player.inventory.mendiane.ToString();
 			inventory.phiras.text = player.inventory.phiras.ToString();
 			inventory.thystame.text = player.inventory.thystame.ToString();
+			playerLvl.text = player.level.ToString();
 		}
 	}
 }
