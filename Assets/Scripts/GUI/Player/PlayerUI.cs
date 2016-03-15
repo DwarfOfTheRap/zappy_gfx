@@ -59,5 +59,7 @@ public class PlayerUI : MonoBehaviour {
 			inventory.thystame.text = player.inventory.thystame.ToString();
 			playerLvl.text = player.level.ToString();
 		}
+		if (player.dead)
+			Destroy (gameObject);
 	}
 }
