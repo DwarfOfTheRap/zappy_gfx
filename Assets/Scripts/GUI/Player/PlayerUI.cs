@@ -8,6 +8,7 @@ public class PlayerUI : MonoBehaviour {
 	public Text 				playerIndex;
 	public Text 				playerLvl;
 	public PlayerInventoryUI	inventory { get; private set;}
+    public Scrollbar            scrollbar;
 
 	[System.Serializable]
 	public class PlayerInventoryUI
@@ -38,6 +39,7 @@ public class PlayerUI : MonoBehaviour {
 		inventory.phiras.color = ResourceController.phirasColor;
 		inventory.thystame = transform.FindChild ("PlayerInventory/Thystame").GetComponent<Text>();
 		inventory.thystame.color = ResourceController.thystameColor;
+        scrollbar = GameObject.Find("TeamScrollbar").GetComponent<Scrollbar>();
 	}
 
 	public void TargetPlayer()
@@ -59,7 +61,10 @@ public class PlayerUI : MonoBehaviour {
 			inventory.thystame.text = player.inventory.thystame.ToString();
 			playerLvl.text = "Lvl " + player.level.ToString();
 		}
-		if (player.dead)
-			Destroy (gameObject);
+        if (player.dead)
+        {
+            Destroy(gameObject);
+            scrollbar.value = 1.0f;
+        }
 	}
 }
