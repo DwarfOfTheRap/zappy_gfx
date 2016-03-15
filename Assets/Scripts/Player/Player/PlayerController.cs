@@ -158,7 +158,8 @@ public class PlayerController {
 	{
 		CorrectPlayerState();
 		playerMotorController.Broadcast (message);
-		_debugManager.AddPlayerLog (this, "\"" + message + "\"");
+		var colorhex = string.Format("#{0}{1}{2}", ((int)(team.color.r * 255.0f)).ToString("X2"), ((int)(team.color.g * 255)).ToString("X2"), ((int)(team.color.b * 255)).ToString("X2"));
+		_debugManager.AddPlayerLog (this, "<color=" + colorhex + "><size=18>[" + message + "]</size></color>");
 	}
 	
 	public void Expulse()
@@ -257,10 +258,12 @@ public class PlayerController {
 
 	public void DisableHighlight()
 	{
+		if (_highlighted)
+			foreach (ISquare square in _squareVision)
+				square.Standard ();
 		_highlighted = false;
 		playerMotorController.DisableHighlight ();
-		foreach (ISquare square in _squareVision)
-			square.Standard ();
+
 	}
 
 	void OnLeftClick(ClickEventArgs args)

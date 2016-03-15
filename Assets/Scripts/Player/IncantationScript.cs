@@ -10,6 +10,7 @@ public class IncantationScript : MonoBehaviour {
 	void Start () {
 		this._ps = GetComponent<ParticleSystem>();
 		_ps.playbackSpeed = (GameManagerScript.instance.timeManager.timeSpeed / 10);
+		_ps.startColor = startColor;
 	}
 	
 	// Update is called once per frame
@@ -18,6 +19,7 @@ public class IncantationScript : MonoBehaviour {
 		_ps.GetParticles (list);
 		for (int i = 0; i < list.Length; i++)
 			list[i].color = Color.Lerp (Color.clear, startColor, list[i].lifetime / list[i].startLifetime);
+		_ps.SetParticles (list, _ps.particleCount);
 		if (!_ps.IsAlive())
 		{
 			Destroy (gameObject);
