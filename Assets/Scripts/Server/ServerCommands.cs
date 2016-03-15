@@ -27,14 +27,14 @@ public class ServerCommands {
 	public GridController gridController { get; private set;}
 	public ServerQuery	serverQuery { get; private set;}
 	public TeamManager teamManager { get; private set;}
-	public PlayerManagerScript playerManager { get; private set;}
+	public PlayerManager playerManager { get; private set;}
 	public TimeManager timeManager { get; private set;}
 	public DebugManager debugManager { get; private set;}
 	public ILevelLoader levelLoader { get; private set;}
 
 	ServerCommands () {}
 
-	public ServerCommands(GridController gridController, TeamManager teamManager, PlayerManagerScript playerManager, TimeManager timeManager, DebugManager debugManager, ILevelLoader levelLoader)
+	public ServerCommands(GridController gridController, TeamManager teamManager, PlayerManager playerManager, TimeManager timeManager, DebugManager debugManager, ILevelLoader levelLoader)
 	{
 		this.gridController = gridController;
 		this.teamManager = teamManager;
