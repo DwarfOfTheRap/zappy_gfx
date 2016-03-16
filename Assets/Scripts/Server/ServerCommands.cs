@@ -120,7 +120,14 @@ public class ServerCommands {
 
 		debugManager.AddLog ("<color=magenta>[SERVER]</color> -> " + serverMessage);
 		regexMatch = Regex.Match (serverMessage, cmd + " " + N + "$");
-		teamManager.CreateTeam (regexMatch.Groups [2].Value);
+		try
+		{
+			teamManager.CreateTeam (regexMatch.Groups [2].Value);
+		}
+		catch (TeamManager.DuplicateTeamException)
+		{
+			debugManager.AddLog ("The team " + serverMessage + " already exists.");
+		}
 	}
 
 	public void SendPlayerConnection(string serverMessage)
