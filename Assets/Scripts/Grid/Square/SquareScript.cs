@@ -17,13 +17,17 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	public	SquareContent	resources;
 	private const float		_resourceElevation = 0.63f;
 
+	void Awake ()
+	{
+		InitResources();
+	}
+
 	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		_baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
 		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
 		GameManagerScript.instance.inputManager.OnRightClicking += Standard;
-		InitResources();
 	}
 
 	void OnDisable()

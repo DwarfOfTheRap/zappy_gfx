@@ -17,7 +17,7 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	public TimeManager						timeManager { get; private set; }
 	public TeamManager						teamManager { get; private set; }
 	public InputManager 					inputManager { get; private set; }
-	public PlayerManager				playerManager { get; private set; }
+	public PlayerManager					playerManager { get; private set; }
 	public DebugManager						debugManager { get; private set; }	
 	public ServerCommands					commandsManager { get; private set; }
 
@@ -79,12 +79,19 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	
 	IEnumerator AsyncLoadLevel(int x, int y)
 	{
+		gridController.Init (x, y);
 		var async = Application.LoadLevelAsync(1);
 		SocketManager.instance.wait = true;
-		yield return async;
+		async.allowSceneActivation = false;
+		while (!async.isDone)
+		{
+			Debug.Log (gridController.GetInitProgress ());
+			yield return null;
+			if (async.progress == 0.9f && gridController.GetInitProgress () == 1.0f)
+				async.allowSceneActivation = true;
+		}
 		SocketManager.instance.wait = false;
 		SocketManager.instance.StartPingServer ();
-		gridController.Init (x, y);
 	}
 
 	void Update()

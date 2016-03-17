@@ -7,6 +7,7 @@ public class GridScript : MonoBehaviour, IGrid {
 	public SquareScript[] prefabs = new SquareScript[2];
 	public TeleportScript[] teleporters { get; private set; }
 	public GridController controller;
+	public float	_initProgress = 0.0f;
 	
 	void OnEnable()
 	{
@@ -42,7 +43,52 @@ public class GridScript : MonoBehaviour, IGrid {
 		return Vector3.zero;
 	}
 
-	public void InitTeleporters (float sizex, float sizey, float sizez, int width, int height)
+	public void Init(int width, int height)
+	{
+		StartCoroutine (InitCoroutine (width, height));
+	}
+
+	public float GetInitProgress()
+	{
+		return _initProgress;
+	}
+
+	IEnumerator InitCoroutine(int width, int height)
+	{
+		int switchInt = 0;
+		var clone = this.Instantiate(0);
+		var sizex = clone.GetBoundX();
+		var sizey = clone.GetBoundY();
+		var sizez = clone.GetBoundZ();
+		var grid = new ISquare[width * height];
+		clone.DestroyImmediate ();
+		_initProgress = 0.0f;
+		
+		var time = Time.realtimeSinceStartup;
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				clone = this.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
+				switchInt ^= 1;
+				grid[i * height + j] = clone;
+				_initProgress = Mathf.Clamp (_initProgress + 1.0f / (width * height), 0.0f, 1.0f);
+				if (Time.realtimeSinceStartup - time > Time.deltaTime)
+				{
+					Debug.Log ("timeout");
+					Debug.Log (_initProgress);
+					yield return null;
+					time = Time.realtimeSinceStartup;
+				}
+			}
+			if (height % 2 == 0)
+				switchInt ^= 1;
+		}
+		InitTeleporters(sizex, sizey, sizez, width, height);
+		controller.SetGrid (grid);
+	}
+
+	void InitTeleporters (float sizex, float sizey, float sizez, int width, int height)
 	{
 		float maxX = width * sizex;
 		float minX = -1.0f * sizex;

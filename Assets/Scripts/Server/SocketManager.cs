@@ -54,7 +54,6 @@ public class SocketManager : MonoBehaviour
 	{
 		CloseSocket ();
 	}
-
 	
 	public void CloseSocket()
 	{
@@ -89,7 +88,6 @@ public class SocketManager : MonoBehaviour
 					Refresh ();
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
-
 #if UNITY_EDITOR
 					Debug.Log("[SERVER] -> " + serverMessage);
 #endif
@@ -176,7 +174,6 @@ public class SocketManager : MonoBehaviour
    	string SocketResponse()
     {
         string serverSays = _connection.ReadSocket();
-		Debug.Log (serverSays);
         return serverSays;
     }
 
