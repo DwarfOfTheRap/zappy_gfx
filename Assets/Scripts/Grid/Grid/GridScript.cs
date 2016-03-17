@@ -72,11 +72,9 @@ public class GridScript : MonoBehaviour, IGrid {
 				clone = this.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
 				switchInt ^= 1;
 				grid[i * height + j] = clone;
-				_initProgress = Mathf.Clamp (_initProgress + 1.0f / (width * height), 0.0f, 1.0f);
-				if (Time.realtimeSinceStartup - time > Time.deltaTime)
+				_initProgress = Mathf.Clamp (_initProgress + (1.0f / (width * height)), 0.0f, 1.0f);
+				if (Time.realtimeSinceStartup - time >= Time.smoothDeltaTime)
 				{
-					Debug.Log ("timeout");
-					Debug.Log (_initProgress);
 					yield return null;
 					time = Time.realtimeSinceStartup;
 				}
@@ -84,6 +82,7 @@ public class GridScript : MonoBehaviour, IGrid {
 			if (height % 2 == 0)
 				switchInt ^= 1;
 		}
+		_initProgress = 1.0f;
 		InitTeleporters(sizex, sizey, sizez, width, height);
 		controller.SetGrid (grid);
 	}

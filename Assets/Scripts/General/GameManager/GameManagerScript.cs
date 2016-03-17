@@ -23,7 +23,9 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 
 	// Event
 	public delegate void GameOverEventHandler(GameOverEventArgs ev);
+	public delegate void LevelLoadHandler();
 	public event GameOverEventHandler OnGameOver;
+	public event LevelLoadHandler OnLevelLoad;
 
 	void OnEnable()
 	{
@@ -81,6 +83,8 @@ public class GameManagerScript : MonoBehaviour, IPlayerInstantiationController, 
 	{
 		gridController.Init (x, y);
 		var async = Application.LoadLevelAsync(1);
+		if (OnLevelLoad != null)
+			OnLevelLoad();
 		SocketManager.instance.wait = true;
 		async.allowSceneActivation = false;
 		while (!async.isDone)
