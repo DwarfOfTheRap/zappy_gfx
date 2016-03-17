@@ -33,7 +33,7 @@ public class DebugManager
 		return "<color=#" + ((int)(color.r * 255.0f)).ToString ("X2") + ((int)(color.g * 255.0f)).ToString ("X2") + ((int)(color.b * 255.0f)).ToString ("X2") + ">" + str + "</color>";
 	}
 
-	public void AddPlayerLog(PlayerController player, string str)
+	public virtual void AddPlayerLog(PlayerController player, string str)
 	{
 		var color = player.team.color;
 		if (players_log.ContainsKey(player))
@@ -43,7 +43,7 @@ public class DebugManager
 		AddLog ("<color=magenta>[SERVER]</color> -> " + ColoredString(str, color));
 	}
 
-	public void AddLog(string str)
+	public virtual void AddLog(string str)
 	{
 		general_log = ConcatLineToLog (general_log, str);
 	}

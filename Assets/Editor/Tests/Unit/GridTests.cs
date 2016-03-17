@@ -58,10 +58,11 @@ public class GridTests {
 		sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
 		gc.Init (width, height);
+		gc.SetGrid (GetGrid (width, height));
 		expected_result = gc.grid [33];
 		result = gc.GetSquare (3, 3);
 		//Assert
-		Assert.AreEqual (expected_result, result);
+		Assert.AreSame (expected_result, result);
 	}
 	
 	[Test]
@@ -86,6 +87,7 @@ public class GridTests {
 		sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController (sic);
 		gc.Init (width, height);
+		gc.SetGrid (GetGrid (width, height));
 		gc.GetSquare (12, 12);
 	}
 
@@ -100,6 +102,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
+		gc.SetGrid (GetGrid (width, height));
 		//Assert
 		Assert.IsNotEmpty (gc.grid);
 		int i = 0;
@@ -119,6 +122,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
+		gc.SetGrid (GetGrid (width, height));
 		//Assert
 		Assert.IsNotEmpty (gc.grid);
 		int i = 0;
@@ -139,6 +143,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController (sic);
 		//Act
 		gc.Init (width, height);
+		gc.SetGrid (GetGrid (width, height));
 		//Assert
 	}
 
@@ -151,6 +156,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController(sic);
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
 
 		// Assert
 		Assert.AreSame(gc.GetVision (5, 5, Orientation.EAST, 1)[0], gc.GetSquare (5, 5));
@@ -166,18 +172,18 @@ public class GridTests {
 		GridController gc = new GridController();
 		IGrid sic = GetMockSquareInstantiationController ();
 		gc.SetSquareInstantiationController(sic);
-		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
 
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.EAST, 1)[2], gc.GetSquare (0, 1));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.WEST, 1)[2], gc.GetSquare (0, 9));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.SOUTH, 1)[2], gc.GetSquare (9, 0));
-		Assert.AreSame(gc.GetVision (0, 0, Orientation.NORTH, 1)[2], gc.GetSquare (1, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.EAST, 1)[2], gc.GetSquare (1, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.WEST, 1)[2], gc.GetSquare (9, 0));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.SOUTH, 1)[2], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (0, 0, Orientation.NORTH, 1)[2], gc.GetSquare (0, 1));
 			
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.EAST, 1)[2], gc.GetSquare (9, 0));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.WEST, 1)[2], gc.GetSquare (9, 8));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.SOUTH, 1)[2], gc.GetSquare (0, 9));
-		Assert.AreSame(gc.GetVision (9, 9, Orientation.NORTH, 1)[2], gc.GetSquare (8, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.EAST, 1)[2], gc.GetSquare (0, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.WEST, 1)[2], gc.GetSquare (8, 9));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.SOUTH, 1)[2], gc.GetSquare (9, 8));
+		Assert.AreSame(gc.GetVision (9, 9, Orientation.NORTH, 1)[2], gc.GetSquare (9, 0));
 	}
 
 	[Test]
@@ -189,6 +195,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController(sic);
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
 
 		// Act
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.NORTH, 3));
@@ -215,6 +222,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController(sic);
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
 		
 		// Act
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.SOUTH, 3));
@@ -241,6 +249,8 @@ public class GridTests {
 		gc.SetSquareInstantiationController(sic);
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
+
 		
 		// Act
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.EAST, 3));
@@ -267,6 +277,7 @@ public class GridTests {
 		gc.SetSquareInstantiationController(sic);
 		sic.Instantiate(0).ReturnsForAnyArgs (GetMockSquare());
 		gc.Init (10, 10);
+		gc.SetGrid (GetGrid (10, 10));
 		
 		// Act
 		List<ISquare> lst = new List<ISquare>(gc.GetVision (0, 0, Orientation.WEST, 3));
@@ -282,6 +293,19 @@ public class GridTests {
 		Assert.AreSame (gc.GetSquare (7, 0), lst.Find(x => x == gc.GetSquare (7, 0)));
 		Assert.AreSame (gc.GetSquare (7, 1), lst.Find(x => x == gc.GetSquare (7, 1)));
 		Assert.AreSame (gc.GetSquare (7, 2), lst.Find(x => x == gc.GetSquare (7, 2)));
+	}
+
+	private ISquare[] GetGrid(int width, int height)
+	{
+		var grid = new ISquare[width * height];
+		for (int i = 0; i < width; i++)
+		{
+			for (int j = 0; j < height; j++)
+			{
+				grid[i * height + j] = GetMockSquare ();
+			}
+		}
+		return grid;
 	}
 
 	private ISquare GetMockSquare ()

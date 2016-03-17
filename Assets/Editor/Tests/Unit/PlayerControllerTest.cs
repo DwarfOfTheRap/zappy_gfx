@@ -38,7 +38,7 @@ public class PlayerControllerTest : MonoBehaviour {
 		var gridcontroller = GetGridControllerMock ();
 		var controller = GetPlayerControllerMock (animatorController, movementController, gridcontroller);
 		var square = GetSquareMock ();
-		square.GetPosition ().Returns (new Vector3(0, 0, 0));
+		square.GetSubPosition (0).ReturnsForAnyArgs (new Vector3(0, 0, 0));
 		square.GetResources ().Returns (new SquareContent());
 		gridcontroller.GetSquare (0, 0).Returns(square);
 		// Act
@@ -52,11 +52,11 @@ public class PlayerControllerTest : MonoBehaviour {
 	{
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
-		var controller = GetPlayerControllerMock (movementController);
+		var animatorController = GetAnimatorControllerMock();
 		var gridcontroller = GetGridControllerMock ();
-		controller.SetGridController (gridcontroller);
+		var controller = GetPlayerControllerMock (animatorController, movementController, gridcontroller);
 		var square = GetSquareMock ();
-		square.GetPosition ().Returns (new Vector3(3, 3, 3));
+		square.GetSubPosition (0).ReturnsForAnyArgs (new Vector3(3, 3, 3));
 		gridcontroller.GetSquare (3, 3).Returns(square);
 		// Act
 		controller.SetPosition (3, 3, gridcontroller);
