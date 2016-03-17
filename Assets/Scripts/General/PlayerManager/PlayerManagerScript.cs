@@ -39,6 +39,9 @@ public class PlayerManagerScript {
 	public TeamManager						teamManager { get; private set; }
 	public IPlayerInstantiationController	pic { get; private set; }
 	public IEggInstantiationController		eic { get; private set; }
+	public delegate void 					OnAPlayerEventHandler(OnAPlayerEventArgs ev);
+	public event OnAPlayerEventHandler 		OnNewPlayer;
+	public event OnAPlayerEventHandler 		OnAPlayerDying;
 
 	PlayerManagerScript(){}
 
@@ -94,18 +97,20 @@ public class PlayerManagerScript {
 	{
 		if (players.Find (pl => pl.index == n) != null)
 			throw new TwoPlayersWithTheSameIndexException();
-		PlayerController controller = pic.InstantiatePlayer();
+		PlayerController player = pic.InstantiatePlayer();
 		try
 		{
-			controller.Init (x, y, o, l, n, teamManager.FindTeam(name), gridController);
+			player.Init (x, y, o, l, n, teamManager.FindTeam(name), gridController);
 		}
 		catch (Exception e)
 		{
-			controller.Destroy ();
+			player.Destroy ();
 			throw e;
 		}
-		players.Add (controller);
-		return controller;
+		players.Add (player);
+		if (OnNewPlayer != null)
+			OnNewPlayer( new OnAPlayerEventArgs {player = player});
+		return player;
 	}
 
 	public virtual PlayerController SetPlayerPosition(int n, int x, int y, Orientation o)
@@ -200,6 +205,8 @@ public class PlayerManagerScript {
 		PlayerController player = GetPlayer (n);
 		player.Die ();
 		players.Remove (player);
+		if (OnAPlayerDying != null)
+			OnAPlayerDying( new OnAPlayerEventArgs {player = player});
 		return player;
 	}
 
@@ -244,4 +251,9 @@ public class PlayerManagerScript {
 		eggs.Remove (egg);
 		return egg;
 	}
+}
+
+public class OnAPlayerEventArgs : System.EventArgs
+{
+	public PlayerController player;
 }

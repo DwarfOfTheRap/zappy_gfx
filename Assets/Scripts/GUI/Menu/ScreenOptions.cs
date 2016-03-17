@@ -72,7 +72,7 @@ public class ScreenOptions : AWindow {
 			resolutionWidth = PlayerPrefs.GetInt("Resolution");
 		else
 			resolutionWidth = Screen.width;
-		while (i < _resolutions.Length)
+		while (_resolutions != null && i < _resolutions.Length)
 		{
 			if (_resolutions[i].width == resolutionWidth)
 				break ;

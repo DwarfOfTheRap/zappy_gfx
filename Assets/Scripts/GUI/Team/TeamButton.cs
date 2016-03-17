@@ -12,18 +12,23 @@ public class TeamButton : MonoBehaviour {
 	void Start ()
 	{
 		teamComposition = GameObject.FindGameObjectWithTag("TeamCompositionWindow");
+		GameManagerScript.instance.playerManager.OnNewPlayer += RefreshScrollableArea;
+		GameManagerScript.instance.playerManager.OnAPlayerDying += RefreshScrollableArea;
+	}
+
+	void RefreshScrollableArea (OnAPlayerEventArgs ev)
+	{
+		if (ev.player.team == this.team)
+			ActivateTeamDetails();
 	}
 
 	public void ActivateTeamDetails ()
 	{
 		PlayerListUI playerList = teamComposition.GetComponentInChildren<PlayerListUI> ();
-		Transform[] children = playerList.gameObject.GetComponentsInChildren<Transform>();
+		PlayerUI[] children = playerList.gameObject.GetComponentsInChildren<PlayerUI>();
 		
-		foreach(Transform trans in children)
-		{
-			if (trans != playerList.transform)
-				Destroy(trans.gameObject);
-		}
+		foreach(PlayerUI pUI in children)
+			DestroyImmediate(pUI.gameObject);
 		playerList.DisplayDetails(team);
 		teamComposition.GetComponent<CanvasGroup> ().alpha = 1;
 		teamComposition.GetComponent<CanvasGroup> ().blocksRaycasts = true;

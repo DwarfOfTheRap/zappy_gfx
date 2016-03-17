@@ -37,7 +37,7 @@ public class CameraController {
 
 	void InitCameraPosition()
 	{
-		position = cameraMovement.GoTo(new Vector3 (0.0f + (_squareSide / 2) * (_currentHeight - 1), 25.0f + (1.875f * (_currentWidth - 10)), -31.5f - (1.675f * (_currentWidth - 10))));
+		position = cameraMovement.GoTo(new Vector3 (0.0f + (_squareSide / 2) * (_currentWidth - 1), 25.0f + (1.875f * (_currentHeight - 10)), -31.5f - (1.675f * (_currentHeight - 10))));
 		cameraMovement.Rotate(Quaternion.Euler(new Vector3(28.0f, 0.0f, 0.0f)));
 	}
 
@@ -72,7 +72,7 @@ public class CameraController {
 	}
 
 	void CheckForwardInput() {
-		if (inputManager.MoveForward() && position.z < (40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)))
+		if (inputManager.MoveForward() && position.z < (40.0f + (_squareSide * (_currentHeight - 10.0f)) - (position.y - _downBoundary)))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.forward * inputManager.VerticalMovementValue (), moveSpeed);
@@ -96,7 +96,7 @@ public class CameraController {
 	}
 
 	void CheckRightInput() {
-		if (inputManager.MoveRight() && position.x < ((_currentHeight * _squareSide) - (_squareSide / 2)))
+		if (inputManager.MoveRight() && position.x < ((_currentWidth * _squareSide) - (_squareSide / 2)))
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.right, moveSpeed);
@@ -108,8 +108,8 @@ public class CameraController {
 		{
 			target = null;
 			position = cameraMovement.Move (Vector3.up, moveSpeed);
-			if (position.z > (40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)))
-				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, 40.0f + (_squareSide * (_currentWidth - 10.0f)) - (position.y - _downBoundary)));
+			if (position.z > (40.0f + (_squareSide * (_currentHeight - 10.0f)) - (position.y - _downBoundary)))
+				position = cameraMovement.GoTo (new Vector3 (position.x, position.y, 40.0f + (_squareSide * (_currentHeight - 10.0f)) - (position.y - _downBoundary)));
 		}
 	}
 
