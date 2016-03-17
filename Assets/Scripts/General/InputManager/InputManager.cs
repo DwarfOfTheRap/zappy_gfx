@@ -63,6 +63,11 @@ public class InputManager : AInputManager
 		return (Input.GetKeyUp (KeyCode.BackQuote));
 	}
 
+	public override bool RefreshKey ()
+	{
+		return (Input.GetKeyUp (KeyCode.F5));
+	}
+
 	public override bool ScrollUp ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") < 0);
@@ -119,6 +124,8 @@ public class InputManager : AInputManager
 		}
 		if (RightClick ())
 			RightMouseClick ();
+		if (RefreshKey())
+			OnRefreshKey ();
 	}
 
 	void LeftMouseClick ()

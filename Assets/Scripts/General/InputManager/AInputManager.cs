@@ -6,9 +6,11 @@ public abstract class AInputManager
 	// Click Events
 	public delegate void SquareClickEventHandler (ClickEventArgs ev);
 	public delegate void ClickEventHandler ();
+	public delegate void KeyUpEventHandler ();
 	public event SquareClickEventHandler OnLeftClicking;
 	public event ClickEventHandler OnRightClicking;
 	public event SquareClickEventHandler OnDoubleClicking;
+	public event KeyUpEventHandler OnRefreshKeyUp;
 
 	// Move
 	public abstract bool MoveLeft();
@@ -37,6 +39,7 @@ public abstract class AInputManager
 	public abstract bool ResetCamera();
 	public abstract bool MenuKey();
 	public abstract bool DebugKey();
+	public abstract bool RefreshKey();
 
 	// Other
 	public abstract bool MousingOverGameObject();
@@ -57,6 +60,12 @@ public abstract class AInputManager
 	{
 		if (OnRightClicking != null)
 			OnRightClicking();
+	}
+
+	protected void OnRefreshKey ()
+	{
+		if (OnRefreshKeyUp != null)
+			OnRefreshKeyUp();
 	}
 }
 

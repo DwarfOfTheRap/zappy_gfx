@@ -9,7 +9,7 @@ public class DebugManager
 
 	public Dictionary<PlayerController, string> players_log { get; private set;}
 
-	private const int maxNumberOfLines = 200;
+	private const int maxNumberOfLines = 100;
 
 	public DebugManager()
 	{
@@ -19,8 +19,8 @@ public class DebugManager
 
 	string ConcatLineToLog(string log, string line)
 	{
-		log += line + System.Environment.NewLine;
-		while (log.Split ('\n').Length > maxNumberOfLines)
+		log += string.Format("[{0}] ", System.DateTime.Now.ToString ("hh:mm:ss.fff")) + line + System.Environment.NewLine;
+		if (log.Split ('\n').Length > maxNumberOfLines)
 		{
 			var index = log.IndexOf (System.Environment.NewLine);
 			log = log.Substring (index + System.Environment.NewLine.Length);

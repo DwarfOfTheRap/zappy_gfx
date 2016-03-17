@@ -15,6 +15,18 @@ public class SquareContentUI : MonoBehaviour {
     public Text playersNumber;
 	public Text eggsNumber;
 
+	public void RefreshSquare()
+	{
+		if (square != null)
+		{
+			var query = new ServerQuery();
+			int x = 0;
+			int y = 0;
+			GameManagerScript.instance.gridController.GetSquarePosition (square, ref x, ref y);
+			query.SendSquareContentQuery (x, y);
+		}
+	}
+
     void DisplayResources (ISquare square)
     {
         linemateNumber.text = square.GetResources ().linemate.count.ToString ();

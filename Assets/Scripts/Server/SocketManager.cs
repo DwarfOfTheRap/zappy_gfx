@@ -36,6 +36,7 @@ public class SocketManager : MonoBehaviour
         DontDestroyOnLoad(this);
 		_reader = new ServerReader();
 		_commands = GameManagerScript.instance.commandsManager;
+		GameManagerScript.instance.inputManager.OnRefreshKeyUp += Refresh;
     }
 
     void Start()
@@ -44,6 +45,16 @@ public class SocketManager : MonoBehaviour
         _connection = new TCPConnection();
     }
 
+	void OnDisable()
+	{
+		GameManagerScript.instance.inputManager.OnRefreshKeyUp -= Refresh;
+	}
+		
+	void OnDestroy()
+	{
+		CloseSocket ();
+	}
+	
 	public void CloseSocket()
 	{
 		_connection.CloseSocket ();
@@ -51,11 +62,6 @@ public class SocketManager : MonoBehaviour
 		connected = false;
 		if (OnConnectionCanceled != null)
 			OnConnectionCanceled();
-	}
-		
-	void OnDestroy()
-	{
-		CloseSocket ();
 	}
 
 	public void ResetLevel()
@@ -79,14 +85,9 @@ public class SocketManager : MonoBehaviour
 			{
 #if !UNITY_EDITOR
 				if (Time.realtimeSinceStartup - _previousTime > _timeout && Application.loadedLevel == 1)
-				{
-					if (OnReconnection != null)
-						OnReconnection();
-					GetServerInformations ();
-				}
+					Refresh ();
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
-
 #if UNITY_EDITOR
 					Debug.Log("[SERVER] -> " + serverMessage);
 #endif
@@ -128,12 +129,12 @@ public class SocketManager : MonoBehaviour
 
 		while (true)
 		{
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(2.5f);
 			query.SendCurrentTimeUnitQuery();
 		}
 	}
 
-	void GetServerInformations ()
+	void Refresh ()
 	{
 		ServerQuery query = new ServerQuery();
 		List<PlayerController> players;
@@ -147,6 +148,8 @@ public class SocketManager : MonoBehaviour
 			query.SendPlayerLevelQuery(player.index);
 		}
 		query.SendTeamNamesQuery();
+		if (OnReconnection != null)
+			OnReconnection();
 	}
 
 	public void StartPingServer()
@@ -171,7 +174,6 @@ public class SocketManager : MonoBehaviour
    	string SocketResponse()
     {
         string serverSays = _connection.ReadSocket();
-		Debug.Log (serverSays);
         return serverSays;
     }
 
@@ -179,7 +181,6 @@ public class SocketManager : MonoBehaviour
    	public void SendToServer(string str)
     {
         _connection.WriteSocket(str);
-		GameManagerScript.instance.debugManager.AddLog("<color=cyan>[CLIENT]</color> -> " + str.Replace("\n", ""));
 #if UNITY_EDITOR
         Debug.Log("[CLIENT] -> " + str);
 #endif

@@ -37,6 +37,7 @@ public class PlayerController {
 	public	ISquare						currentSquare;
 	private Orientation					_oldOrientation;
 	public  Quaternion					rotation { get; private set; }
+	private int							_subPositionIndex;
 
 	// Vision + Highlight	
 	private bool						_highlighted = false;
@@ -157,7 +158,8 @@ public class PlayerController {
 	{
 		CorrectPlayerState();
 		playerMotorController.Broadcast (message);
-		_debugManager.AddPlayerLog (this, "\"" + message + "\"");
+		var colorhex = string.Format("#{0}{1}{2}", ((int)(team.color.r * 255.0f)).ToString("X2"), ((int)(team.color.g * 255)).ToString("X2"), ((int)(team.color.b * 255)).ToString("X2"));
+		_debugManager.AddPlayerLog (this, "<color=" + colorhex + "><size=18>[" + message + "]</size></color>");
 	}
 	
 	public void Expulse()
@@ -184,9 +186,10 @@ public class PlayerController {
 	{
 		try
 		{
+			_subPositionIndex = UnityEngine.Random.Range (0, 9);
 			ISquare square = gridController.GetSquare (x, y);
 			SetDestination(square, gridController);
-			playerMotorController.SetPosition(square.GetPosition());
+			playerMotorController.SetPosition(square.GetSubPosition(_subPositionIndex));
 			this.level = level;
 			this.index = index;
 			this.team = team;
@@ -209,10 +212,8 @@ public class PlayerController {
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
-			{
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
-			}
-			destination = playerMotorController.SetDestination (square.GetPosition ());
+			destination = playerMotorController.SetDestination (square.GetSubPosition (_subPositionIndex));
 		}
 		currentSquare = square;
 	}
@@ -257,10 +258,12 @@ public class PlayerController {
 
 	public void DisableHighlight()
 	{
+		if (_highlighted)
+			foreach (ISquare square in _squareVision)
+				square.Standard ();
 		_highlighted = false;
 		playerMotorController.DisableHighlight ();
-		foreach (ISquare square in _squareVision)
-			square.Standard ();
+
 	}
 
 	void OnLeftClick(ClickEventArgs args)
@@ -318,7 +321,7 @@ public class PlayerController {
 		this.StopLayingEgg ();
 		if (dontTeleportMe)
 		{
-			playerMotorController.SetPosition (currentSquare.GetPosition ());
+			playerMotorController.SetPosition (currentSquare.GetSubPosition (_subPositionIndex));
 			dontTeleportMe = false;
 		}
 	}

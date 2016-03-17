@@ -34,9 +34,9 @@ public class PlayerControllerTest : MonoBehaviour {
 	{
 		// Arrange
 		var movementController = GetPlayerMovementControllerMock();
-		var controller = GetPlayerControllerMock (movementController);
+		var animatorController = GetAnimatorControllerMock();
 		var gridcontroller = GetGridControllerMock ();
-		controller.SetGridController (gridcontroller);
+		var controller = GetPlayerControllerMock (animatorController, movementController, gridcontroller);
 		var square = GetSquareMock ();
 		square.GetPosition ().Returns (new Vector3(0, 0, 0));
 		square.GetResources ().Returns (new SquareContent());

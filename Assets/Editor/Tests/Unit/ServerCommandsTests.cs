@@ -244,9 +244,9 @@ public class ServerCommandsTests {
 		return (Substitute.For<TeamManager> ());
 	}
 
-	public PlayerManagerScript GetMockPlayerManager()
+	public PlayerManager GetMockPlayerManager()
 	{
-		return (Substitute.For<PlayerManagerScript> (GetMockGridController(), GetMockTeamManager(), GetMockPlayerInstantiation(), GetMockEggInstantiation()));
+		return (Substitute.For<PlayerManager> (GetMockGridController(), GetMockTeamManager(), GetMockPlayerInstantiation(), GetMockEggInstantiation()));
 	}
 
 	public TimeManager GetMockTimeManager()

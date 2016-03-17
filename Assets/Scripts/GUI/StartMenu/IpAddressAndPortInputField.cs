@@ -40,21 +40,6 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		EventSystem.current.SetSelectedGameObject(this.gameObject, new BaseEventData(EventSystem.current));
 	}
 
-	IEnumerator WaitForConnection ()
-	{
-		while (true)
-		{
-			connectingToServerText.text = "Connecting to server";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server.";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server..";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server...";
-			yield return new WaitForSeconds(0.5f);
-		}
-	}
-
 	void ConnectionCanceled()
 	{
 		StopAllCoroutines();
@@ -77,7 +62,6 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
 				quitButton.interactable = false;
 				GetComponent<InputField>().interactable = false;
-				StartCoroutine ("WaitForConnection", WaitForConnection());
 				PlayerPrefs.SetString ("IpAddress", submit);
 			}
 			catch (System.Exception e)

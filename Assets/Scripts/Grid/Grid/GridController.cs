@@ -57,6 +57,11 @@ public class GridController {
 	{
 		this._gridMotor = gridMotor;
 	}
+
+	public void SetGrid(ISquare[] grid)
+	{
+		this.grid = grid;
+	}
 	
 	public ISquare[] ClearGrid(ISquare[] grid)
 	{
@@ -159,6 +164,11 @@ public class GridController {
 		return squares.ToArray ();
 	}
 
+	public float GetInitProgress()
+	{
+		return _gridMotor.GetInitProgress();
+	}
+
 	public Vector3 GetNearestTeleport (Vector3 distance, Vector3 currentPosition)
 	{
 		float absx = Mathf.Abs (distance.x);
@@ -177,38 +187,12 @@ public class GridController {
 	
 	public virtual void Init(int width, int height)
 	{
-		float sizex;
-		float sizey;
-		float sizez;
-		ISquare clone;
-		int switchInt = 0;
-
 		if (width < 10 || height < 10 || width > 50 || height > 50)
 			throw new GridIllegalSizeException ("Incorrect grid size with width = " + width + " and height = " + height + ".");
 		grid = ClearGrid (grid);
 		this.width = width;
 		this.height = height;
-		grid = new ISquare[width * height];
-		
-		clone = _gridMotor.Instantiate (0);
-		sizex = clone.GetBoundX();
-		sizey = clone.GetBoundY();
-		sizez = clone.GetBoundZ();
-		clone.DestroyImmediate ();
-
-
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{	
-				clone = _gridMotor.Instantiate (switchInt, new Vector3(i * sizex, -sizey / 2.0f, j * sizez));
-				switchInt ^= 1;
-				grid[i * height + j] = clone;
-			}
-			if (height % 2 == 0)
-				switchInt ^= 1;
-		}
-		_gridMotor.InitTeleporters (sizex, sizey, sizez, width, height);
+		_gridMotor.Init (width, height);
 	}
 
 }

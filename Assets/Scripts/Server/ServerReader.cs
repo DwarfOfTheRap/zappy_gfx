@@ -26,37 +26,39 @@ public class ServerReader {
 
 	public bool IsLegitMessage(string serverMessage)
 	{
-		var methodArray = new methodDelegate[] {
-			IsMapSizeString,
-			IsSquareContentString,
-			IsTeamNamesString,
-			IsPlayerConnectionString,
-			IsPlayerPositionString,
-			IsPlayerLevelString,
-			IsPlayerInventoryString,
-			IsPlayerExpulseString,
-			IsPlayerBroadcastString,
-			IsPlayerIncantationString,
-			IsEndOfIncantationString,
-			IsPlayerForkString,
-			IsPlayerThrowResourceString,
-			IsPlayerTakeResourceString,
-			IsPlayerDeathString,
-			IsEndOfForkString,
-			IsHatchedEggString,
-			IsPlayerToEggConnectionString,
-			IsRottenEggString,
-			IsTimeUnitString,
-			IsGameOverString,
-			IsServerMessageString,
-			IsUnknownCommandString,
-			IsWrongParametersString,
-			IsWelcomeMessageString
+		var methodDictionary = new Dictionary<string, methodDelegate>() {
+			{ "msz", IsMapSizeString},
+			{ "bct", IsSquareContentString},
+			{ "tna", IsTeamNamesString},
+			{ "pnw", IsPlayerConnectionString},
+			{ "ppo", IsPlayerPositionString},
+			{ "plv", IsPlayerLevelString},
+			{ "pin", IsPlayerInventoryString},
+			{ "pex", IsPlayerExpulseString},
+			{ "pbc", IsPlayerBroadcastString},
+			{ "pic", IsPlayerIncantationString},
+			{ "pie", IsEndOfIncantationString},
+			{ "pfk", IsPlayerForkString},
+			{ "pdr", IsPlayerThrowResourceString},
+			{ "pgt", IsPlayerTakeResourceString},
+			{ "pdi", IsPlayerDeathString},
+			{ "enw", IsEndOfForkString},
+			{ "eht", IsHatchedEggString},
+			{ "ebo", IsPlayerToEggConnectionString},
+			{ "edi", IsRottenEggString},
+			{ "sgt", IsTimeUnitString},
+			{ "seg", IsGameOverString},
+			{ "smg", IsServerMessageString},
+			{ "suc", IsUnknownCommandString},
+			{ "sbp", IsWrongParametersString},
+			{ "BIE", IsWelcomeMessageString}
 		};
-
-		foreach (methodDelegate md in methodArray)
-			if (md(serverMessage))
+		var sub = serverMessage.Substring (0, 3);
+		foreach (var kv in methodDictionary)
+		{
+			if (kv.Key == sub && kv.Value(serverMessage))
 				return true;
+		}
 		return false;
 	}
 
