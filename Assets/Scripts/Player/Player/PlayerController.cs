@@ -59,6 +59,9 @@ public class PlayerController {
 	// Managers
 	private AInputManager				_inputManager;
 	private TimeManager					_timeManager;
+
+	public delegate void				OnRefreshHandler();
+	public event OnRefreshHandler		OnRefresh;
 		
 #if UNITY_EDITOR
 	public PlayerController()
@@ -256,6 +259,8 @@ public class PlayerController {
 	void RefreshInventory()
 	{
 		new ServerQuery().SendPlayerInventoryQuery(this.index);
+		if (OnRefresh != null)
+			OnRefresh();
 	}
 	
 	public void GoToDestination(Orientation animationOrientation)

@@ -605,7 +605,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: v1.2.1
+  m_Text: v1.2.1a
 --- !u!114 &264187689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4377,9 +4377,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 7cb2912222469634ba17a77055919ea8, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 24
     m_Alignment: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -7129,7 +7129,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: 1, y: .5}
-  m_AnchoredPosition: {x: 129, y: -10}
+  m_AnchoredPosition: {x: 128.999756, y: -10}
   m_SizeDelta: {x: -353, y: 436}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1821628345
@@ -7397,6 +7397,14 @@ Prefab:
     - target: {fileID: 22400002, guid: 05a81c3d5091440058129444d28322f3, type: 2}
       propertyPath: m_SizeDelta.y
       value: -23.8999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 2}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 05a81c3d5091440058129444d28322f3, type: 2}
+      propertyPath: m_FontData.m_MaxSize
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400004, guid: 05a81c3d5091440058129444d28322f3, type: 2}

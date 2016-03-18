@@ -15,6 +15,7 @@ public class PlayerStatsUI : MonoBehaviour {
 	public Text nourritureNumber;
 	public Text levelNumber;
 	public Text teamText;
+	private Button _refreshButton;
 
 	public void RefreshPlayer()
 	{
@@ -24,6 +25,11 @@ public class PlayerStatsUI : MonoBehaviour {
 			query.SendPlayerInventoryQuery(this._player.index);
 			query.SendPlayerLevelQuery (this._player.index);
 		}
+	}
+
+	void AnimateRefresh()
+	{
+		_refreshButton.animator.SetTrigger ("Pressed");
 	}
 	
 	void DisplayResources (PlayerController player)
@@ -61,6 +67,7 @@ public class PlayerStatsUI : MonoBehaviour {
 			return ;
 		}
 		this._player = ((PlayerScript)args.target).controller;
+		_player.OnRefresh += AnimateRefresh;
 		this.GetComponent<CanvasGroup> ().alpha = 1;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = true;
 	}
@@ -68,11 +75,13 @@ public class PlayerStatsUI : MonoBehaviour {
 	void HideWindow ()
 	{
 		this._player = null;
+		_player.OnRefresh -= AnimateRefresh;
 		this.GetComponent<CanvasGroup> ().alpha = 0;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
 	
 	void Start () {
+		_refreshButton = GetComponentInChildren<Button>();
 		this._player = null;
 		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
