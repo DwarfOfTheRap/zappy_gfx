@@ -80,18 +80,30 @@ public class PlayerStatsUI : MonoBehaviour {
 		this.GetComponent<CanvasGroup> ().alpha = 0;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}
+
+	void CheckPlayerDeath (OnAPlayerEventArgs ev)
+	{
+		if (ev.player == _player)
+			HideWindow ();
+	}
 	
 	void Start () {
 		_refreshButton = GetComponentInChildren<Button>();
 		this._player = null;
+	}
+
+	void OnEnable ()
+	{
 		GameManagerScript.instance.inputManager.OnLeftClicking += DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking += HideWindow;
+		GameManagerScript.instance.playerManager.OnAPlayerDying += CheckPlayerDeath;
 	}
 
 	void OnDisable ()
 	{
 		GameManagerScript.instance.inputManager.OnLeftClicking -= DisplayWindow;
 		GameManagerScript.instance.inputManager.OnRightClicking -= HideWindow;
+		GameManagerScript.instance.playerManager.OnAPlayerDying -= CheckPlayerDeath;
 	}
 	
 	void Update () {

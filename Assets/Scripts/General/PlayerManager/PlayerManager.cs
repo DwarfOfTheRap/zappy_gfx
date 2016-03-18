@@ -214,7 +214,7 @@ public class PlayerManager {
 
 	public virtual EggController SetEggCreation(int e, int n, int x, int y)
 	{
-		if (eggs.Find (eg => eg.index == n) != null)
+		if (eggs.Find (eg => eg.index == e) != null)
 			throw new TwoEggsWithTheSameIndexException();
 		EggController egg = this.eic.InstantiateEgg();
 		PlayerController player = GetPlayer (n);
@@ -243,6 +243,7 @@ public class PlayerManager {
 	{
 		EggController egg = GetEgg (e);
 		egg.PlayerConnection();
+		eggs.Remove (egg);
 		return egg;
 	}
 
