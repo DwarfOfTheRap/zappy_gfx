@@ -40,7 +40,7 @@ public class ServerQuery {
 	{
 		SocketManager.instance.SendToServer (query);
 		if (log)
-			GameManagerScript.instance.debugManager.AddLog("<color=cyan>[CLIENT]</color> -> " + query);
+			GameManagerScript.instance.debugManager.AddLog("<color=cyan>[CLIENT]</color> -> " + query.Replace ("\n", ""));
 	}
 
 	string GetMapSizeString()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 
 public class DebugManager
@@ -9,7 +10,7 @@ public class DebugManager
 
 	public Dictionary<PlayerController, string> players_log { get; private set;}
 
-	private const int maxNumberOfLines = 100;
+	private const int maxNumberOfLines = 150;
 
 	public DebugManager()
 	{
@@ -20,12 +21,7 @@ public class DebugManager
 	string ConcatLineToLog(string log, string line)
 	{
 		log += string.Format("[{0}] ", System.DateTime.Now.ToString ("hh:mm:ss.fff")) + line + System.Environment.NewLine;
-		if (log.Split ('\n').Length > maxNumberOfLines)
-		{
-			var index = log.IndexOf (System.Environment.NewLine);
-			log = log.Substring (index + System.Environment.NewLine.Length);
-		}
-		return log;
+		return string.Join(System.Environment.NewLine, log.Split (System.Environment.NewLine.ToCharArray ()).Reverse ().Take (maxNumberOfLines).Reverse ().ToArray ());
 	}
 
 	string ColoredString(string str, Color color)

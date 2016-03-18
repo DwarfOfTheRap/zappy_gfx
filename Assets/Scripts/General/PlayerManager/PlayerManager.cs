@@ -131,6 +131,7 @@ public class PlayerManager {
 	public virtual PlayerController SetPlayerInventory(int n, int nourriture, int linemate, int deraumere, int sibur, int mendiane, int phiras, int thystame)
 	{
 		PlayerController player = GetPlayer (n);
+		player.SetInventory(nourriture, linemate, deraumere, sibur, mendiane, phiras, thystame);
 		player.inventory.nourriture = nourriture;
 		player.inventory.linemate = linemate;
 		player.inventory.deraumere = deraumere;

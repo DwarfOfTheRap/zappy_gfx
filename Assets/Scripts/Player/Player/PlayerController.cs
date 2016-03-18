@@ -47,7 +47,9 @@ public class PlayerController {
 	public Vector3						teleportDestination;
 	public bool							dontTeleportMe { get; set; }
 
-
+	// Time Attributes
+	private float						_timeSinceLastInventoryUpdate;
+	
 	// Controller
 	public IPlayerMotorController		playerMotorController { get; private set; }
 	private IAnimatorController			_animatorController;
@@ -238,6 +240,23 @@ public class PlayerController {
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
 	}
+
+	public void SetInventory (int nourriture, int linemate, int deraumere, int sibur, int mendiane, int phiras, int thystame)
+	{
+		_timeSinceLastInventoryUpdate = Time.realtimeSinceStartup;
+		this.inventory.nourriture = nourriture;
+		this.inventory.linemate = linemate;
+		this.inventory.deraumere = deraumere;
+		this.inventory.sibur = sibur;
+		this.inventory.mendiane = mendiane;
+		this.inventory.phiras = phiras;
+		this.inventory.thystame = thystame;
+	}
+
+	void RefreshInventory()
+	{
+		new ServerQuery().SendPlayerInventoryQuery(this.index);
+	}
 	
 	public void GoToDestination(Orientation animationOrientation)
 	{
@@ -349,6 +368,8 @@ public class PlayerController {
 			if (_highlighted)
 				UpdateSquareVision ();
 			OnDestinationHit ();
+			if (Time.realtimeSinceStartup - this._timeSinceLastInventoryUpdate > 1.0f / (_timeManager.timeSpeed / 100.0f))
+				RefreshInventory ();
 		}
 	}
 }
