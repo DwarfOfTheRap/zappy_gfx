@@ -40,6 +40,7 @@ public abstract class AInputManager
 	public abstract bool MenuKey();
 	public abstract bool DebugKey();
 	public abstract bool RefreshKey();
+	public abstract bool ValidateKey();
 
 	// Other
 	public abstract bool MousingOverGameObject();

@@ -68,6 +68,11 @@ public class InputManager : AInputManager
 		return (Input.GetKeyUp (KeyCode.F5));
 	}
 
+	public override bool ValidateKey ()
+	{
+		return (Input.GetKeyDown (KeyCode.KeypadEnter) || Input.GetKeyDown (KeyCode.Return));
+	}
+
 	public override bool ScrollUp ()
 	{
 		return (Input.GetAxis ("Mouse ScrollWheel") < 0);

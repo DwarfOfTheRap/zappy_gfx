@@ -39,7 +39,7 @@ public class PlayerUI : MonoBehaviour {
 		inventory.thystame = transform.FindChild ("PlayerInventory/Thystame").GetComponent<Text>();
 		inventory.thystame.color = ResourceController.thystameColor;
 	}
-
+	
 	public void TargetPlayer()
 	{
 		GameManagerScript.instance.inputManager.OnLeftClick(player.playerMotorController as IClickTarget);
@@ -57,6 +57,9 @@ public class PlayerUI : MonoBehaviour {
 			inventory.mendiane.text = player.inventory.mendiane.ToString();
 			inventory.phiras.text = player.inventory.phiras.ToString();
 			inventory.thystame.text = player.inventory.thystame.ToString();
+			playerLvl.text = "Lvl " + player.level.ToString();
 		}
+      /*  if (player.dead)
+            Destroy(gameObject);*/
 	}
 }

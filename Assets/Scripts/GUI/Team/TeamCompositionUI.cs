@@ -1,8 +1,8 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TeamCompositionUI : MonoBehaviour {
-	
 	void HideWindow ()
 	{
 		this.GetComponent<CanvasGroup> ().alpha = 0;

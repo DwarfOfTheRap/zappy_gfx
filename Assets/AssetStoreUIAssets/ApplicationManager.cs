@@ -9,7 +9,7 @@ public class ApplicationManager : MonoBehaviour {
 		#if UNITY_EDITOR
 		UnityEditor.EditorApplication.isPlaying = false;
 		#else
-		Application.Quit();
+		System.Diagnostics.Process.GetCurrentProcess().Kill();
 		#endif
 	}
 }

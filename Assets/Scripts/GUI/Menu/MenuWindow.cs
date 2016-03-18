@@ -14,10 +14,6 @@ public class MenuWindow : AWindow {
 	
 	public void ExitGame()
 	{
-		#if UNITY_EDITOR
-		UnityEditor.EditorApplication.isPlaying = false;
-		#else
 		SocketManager.instance.ResetLevel();
-		#endif
 	}
 }
