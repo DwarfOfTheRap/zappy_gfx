@@ -37,6 +37,7 @@ public class PlayerController {
 	public	ISquare						currentSquare;
 	private Orientation					_oldOrientation;
 	public  Quaternion					rotation { get; private set; }
+	private int							_subPositionIndex;
 
 	// Vision + Highlight	
 	private bool						_highlighted = false;
@@ -122,6 +123,7 @@ public class PlayerController {
 
 	public void LayEgg()
 	{
+		CorrectPlayerState();
 		_animatorController.SetBool ("LayEgg", true);
 	}
 
@@ -132,17 +134,19 @@ public class PlayerController {
 
 	public void GrabItem()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void ThrowItem()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Grab");
 	}
 
 	public void Die()
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		dead = true;
 		_animatorController.SetTrigger ("Death");
 		currentSquare.GetResources ().players.Remove (this);
@@ -152,12 +156,15 @@ public class PlayerController {
 	// Actions
 	public void Broadcast (string message)
 	{
+		CorrectPlayerState();
 		playerMotorController.Broadcast (message);
-		_debugManager.AddPlayerLog (this, "\"" + message + "\"");
+		var colorhex = string.Format("#{0}{1}{2}", ((int)(team.color.r * 255.0f)).ToString("X2"), ((int)(team.color.g * 255)).ToString("X2"), ((int)(team.color.b * 255)).ToString("X2"));
+		_debugManager.AddPlayerLog (this, "<color=" + colorhex + "><size=18>[" + message + "]</size></color>");
 	}
 	
 	public void Expulse()
 	{
+		CorrectPlayerState();
 		_animatorController.SetTrigger ("Expulse");
 		foreach (PlayerController player in currentSquare.GetResources().players)
 			player.BeExpulsed (OrientationManager.Opposite (playerOrientation));
@@ -179,9 +186,10 @@ public class PlayerController {
 	{
 		try
 		{
+			_subPositionIndex = UnityEngine.Random.Range (0, 9);
 			ISquare square = gridController.GetSquare (x, y);
 			SetDestination(square, gridController);
-			playerMotorController.SetPosition(square.GetPosition());
+			playerMotorController.SetPosition(square.GetSubPosition(_subPositionIndex));
 			this.level = level;
 			this.index = index;
 			this.team = team;
@@ -198,14 +206,14 @@ public class PlayerController {
 
 	public void SetDestination(ISquare square, GridController gridController)
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		this._oldSquare = (this._oldSquare != null) ? this.currentSquare : null;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
 			if (gridController != null && (Mathf.Abs (distance.x) > (gridController.width * square.GetBoundX ()) / 2.0f || Mathf.Abs (distance.z) > (gridController.height * square.GetBoundZ ()) / 2.0f))
 				teleportDestination = gridController.GetNearestTeleport(distance, destination);
-			destination = playerMotorController.SetDestination (square.GetPosition ());
+			destination = playerMotorController.SetDestination (square.GetSubPosition (_subPositionIndex));
 		}
 		currentSquare = square;
 	}
@@ -225,7 +233,7 @@ public class PlayerController {
 
 	public void SetPlayerOrientation(Orientation playerOrientation)
 	{
-		StopAllAnimations ();
+		CorrectPlayerState ();
 		this._oldOrientation = this.playerOrientation;
 		this.playerOrientation = playerOrientation;
 		this.rotation = OrientationManager.GetRotation(playerOrientation);
@@ -250,10 +258,12 @@ public class PlayerController {
 
 	public void DisableHighlight()
 	{
+		if (_highlighted)
+			foreach (ISquare square in _squareVision)
+				square.Standard ();
 		_highlighted = false;
 		playerMotorController.DisableHighlight ();
-		foreach (ISquare square in _squareVision)
-			square.Standard ();
+
 	}
 
 	void OnLeftClick(ClickEventArgs args)
@@ -305,10 +315,15 @@ public class PlayerController {
 		this._animatorController.SetFloat ("Speed", _timeManager.timeSpeed / 5.0f);
 	}
 
-	void StopAllAnimations()
+	void CorrectPlayerState()
 	{
 		this.StopIncantating ();
 		this.StopLayingEgg ();
+		if (dontTeleportMe)
+		{
+			playerMotorController.SetPosition (currentSquare.GetSubPosition (_subPositionIndex));
+			dontTeleportMe = false;
+		}
 	}
 
 	public void Destroy ()

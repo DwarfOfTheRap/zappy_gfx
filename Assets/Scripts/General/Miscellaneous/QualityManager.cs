@@ -8,6 +8,27 @@ public class QualityManager {
 
 	int					_quality;
 
+	public QualityManager()
+	{
+		InitResolutionSettings();
+	}
+
+	void InitResolutionSettings()
+	{
+		if (PlayerPrefs.HasKey ("FullScreen"))
+			Screen.fullScreen = PlayerPrefs.GetInt ("FullScreen") != 0;
+		if (PlayerPrefs.HasKey ("Resolution"))
+		{
+			foreach (var res in Screen.resolutions)
+			{
+				if (res.width == PlayerPrefs.GetInt ("Resolution"))
+					Screen.SetResolution (res.width, res.height, Screen.fullScreen);
+			}
+		}
+		if (PlayerPrefs.HasKey ("Quality"))
+			ChangeQuality (PlayerPrefs.GetInt ("Quality"));
+	}
+
 	public static int GetQualityLevel()
 	{
 		return QualitySettings.GetQualityLevel ();

@@ -3,9 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TeamCompositionUI : MonoBehaviour {
-
-	public GameObject		scrollbar;
-
 	void HideWindow ()
 	{
 		this.GetComponent<CanvasGroup> ().alpha = 0;

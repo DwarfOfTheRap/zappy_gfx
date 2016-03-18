@@ -17,13 +17,17 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	public	SquareContent	resources;
 	private const float		_resourceElevation = 0.63f;
 
+	void Awake ()
+	{
+		InitResources();
+	}
+
 	void Start ()
 	{
 		GetComponent<Renderer>().material.EnableKeyword ("_EMISSION");
 		_baseColor = GetComponent<Renderer>().material.GetColor ("_EmissionColor");
 		GameManagerScript.instance.inputManager.OnLeftClicking += SquareHighlighting;
 		GameManagerScript.instance.inputManager.OnRightClicking += Standard;
-		InitResources();
 	}
 
 	void OnDisable()
@@ -58,6 +62,33 @@ public class SquareScript : MonoBehaviour, ISquare, IClickTarget
 	public Vector3 GetPosition ()
 	{
 		return transform.position;
+	}
+
+	public Vector3 GetSubPosition(int index)
+	{
+		switch (index)
+		{
+		case 0 : 
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
+		case 1 :
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
+		case 2 :
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z - GetBoundZ() / 3.5f);
+		case 3 :
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z);
+		case 4:
+			return transform.position;
+		case 5:
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z);
+		case 6:
+			return new Vector3(transform.position.x - GetBoundX() / 3.5f, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
+		case 7:
+			return new Vector3(transform.position.x, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
+		case 8:
+			return new Vector3(transform.position.x + GetBoundX() / 3.5f, transform.position.y, transform.position.z + GetBoundZ() / 3.5f);
+		default:
+			return transform.position;
+		}
 	}
 	
 	public float GetBoundX ()
@@ -177,6 +208,7 @@ public enum SquareResources
 public interface ISquare
 {
     Vector3 GetPosition();
+	Vector3 GetSubPosition (int subPositionIndex);
     float GetBoundX();
     float GetBoundY();
     float GetBoundZ();

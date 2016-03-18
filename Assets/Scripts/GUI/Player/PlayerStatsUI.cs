@@ -15,6 +15,16 @@ public class PlayerStatsUI : MonoBehaviour {
 	public Text nourritureNumber;
 	public Text levelNumber;
 	public Text teamText;
+
+	public void RefreshPlayer()
+	{
+		if (this._player != null)
+		{
+			var query = new ServerQuery();
+			query.SendPlayerInventoryQuery(this._player.index);
+			query.SendPlayerLevelQuery (this._player.index);
+		}
+	}
 	
 	void DisplayResources (PlayerController player)
 	{

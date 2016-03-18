@@ -9,7 +9,7 @@ public class DebugManager
 
 	public Dictionary<PlayerController, string> players_log { get; private set;}
 
-	private const int maxNumberOfLines = 200;
+	private const int maxNumberOfLines = 100;
 
 	public DebugManager()
 	{
@@ -19,8 +19,8 @@ public class DebugManager
 
 	string ConcatLineToLog(string log, string line)
 	{
-		log += line + System.Environment.NewLine;
-		while (log.Split ('\n').Length > maxNumberOfLines)
+		log += string.Format("[{0}] ", System.DateTime.Now.ToString ("hh:mm:ss.fff")) + line + System.Environment.NewLine;
+		if (log.Split ('\n').Length > maxNumberOfLines)
 		{
 			var index = log.IndexOf (System.Environment.NewLine);
 			log = log.Substring (index + System.Environment.NewLine.Length);
@@ -33,7 +33,7 @@ public class DebugManager
 		return "<color=#" + ((int)(color.r * 255.0f)).ToString ("X2") + ((int)(color.g * 255.0f)).ToString ("X2") + ((int)(color.b * 255.0f)).ToString ("X2") + ">" + str + "</color>";
 	}
 
-	public void AddPlayerLog(PlayerController player, string str)
+	public virtual void AddPlayerLog(PlayerController player, string str)
 	{
 		var color = player.team.color;
 		if (players_log.ContainsKey(player))
@@ -43,7 +43,7 @@ public class DebugManager
 		AddLog ("<color=magenta>[SERVER]</color> -> " + ColoredString(str, color));
 	}
 
-	public void AddLog(string str)
+	public virtual void AddLog(string str)
 	{
 		general_log = ConcatLineToLog (general_log, str);
 	}

@@ -21,8 +21,11 @@ public class ScreenOptions : AWindow {
 
 	public void OnScreenResolutionChangeEvent (int value)
 	{
-		Screen.SetResolution(_resolutions[value].width, _resolutions[value].height, false);
-		PlayerPrefs.SetInt("Resolution", _resolutions[value].width);
+		if (Screen.width != _resolutions[value].width || Screen.height != _resolutions[value].height)
+		{
+			Screen.SetResolution(_resolutions[value].width, _resolutions[value].height, Screen.fullScreen);
+			PlayerPrefs.SetInt("Resolution", _resolutions[value].width);
+		}
 	}
 
 	public void OnQualityChangeEvent (int value)
@@ -34,27 +37,19 @@ public class ScreenOptions : AWindow {
 	public void OnFullScreenToggle (bool value)
 	{
 		Screen.fullScreen = value;
-		_resolutionDropdown.interactable = !value;
-		if (value)
-			PlayerPrefs.SetInt ("FullScreen", 1);
-		else
-			PlayerPrefs.SetInt ("FullScreen", 0);
+		PlayerPrefs.SetInt ("FullScreen", value ? 1 : 0);
 	}
 
-	protected override void Start ()
+	protected void Awake ()
 	{
 		int i = 0;
 		int resolutionWidth;
+		_resolutions = Screen.resolutions;
 		_toggle = gameObject.GetComponentInChildren<Toggle>();
 		_qualityDropdown = GameObject.Find("QualitySettingsDropdown").GetComponent<Dropdown>();
 		_resolutionDropdown = GameObject.Find("ResolutionsDropdown").GetComponent<Dropdown>();
 
-		base.Start();
-
-		if (PlayerPrefs.HasKey("FullScreen"))
-			_toggle.isOn = PlayerPrefs.GetInt("FullScreen") > 0 ? true : false;
-		else
-			_toggle.isOn = Screen.fullScreen;
+		_toggle.isOn = Screen.fullScreen;
 
 		if (PlayerPrefs.HasKey("Quality"))
 		{
@@ -67,7 +62,6 @@ public class ScreenOptions : AWindow {
 			_qualityDropdown.captionText.text = _qualities[QualityManager.GetQualityLevel()];
 		}
 
-		_resolutionDropdown.interactable = !_toggle.isOn;
 		if (PlayerPrefs.HasKey("Resolution"))
 			resolutionWidth = PlayerPrefs.GetInt("Resolution");
 		else

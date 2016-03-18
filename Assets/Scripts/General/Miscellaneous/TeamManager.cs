@@ -20,6 +20,11 @@ public class TeamManager
 		public NoTeamException() : base() {}
 		public NoTeamException(string message) : base(message) {}
 	}
+	public class DuplicateTeamException : TeamManagerException
+	{
+		public DuplicateTeamException() : base() {}
+		public DuplicateTeamException(string message) : base(message) {}
+	}
 	public delegate void TeamMethod(Team team);
 	public static event TeamMethod OnTeamAdded;
 	public	List<Team>		teams;
@@ -65,6 +70,8 @@ public class TeamManager
 
 	public virtual Team			CreateTeam(string name)
 	{
+		if (teams.Find (x => x.name == name) != null)
+			throw new DuplicateTeamException();
 		Team team = new Team(name, GetNewTeamColor ());
 		this.teams.Add (team);
 		if (OnTeamAdded != null)

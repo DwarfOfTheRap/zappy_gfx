@@ -40,25 +40,9 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		EventSystem.current.SetSelectedGameObject(this.gameObject, new BaseEventData(EventSystem.current));
 	}
 
-	IEnumerator WaitForConnection ()
-	{
-		while (true)
-		{
-			connectingToServerText.text = "Connecting to server";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server.";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server..";
-			yield return new WaitForSeconds(0.5f);
-			connectingToServerText.text = "Connecting to server...";
-			yield return new WaitForSeconds(0.5f);
-		}
-	}
-
 	void ConnectionCanceled()
 	{
 		StopAllCoroutines();
-		quitButton.interactable = true;
 		GetComponent<InputField>().interactable = true;
 		connectingToServerText.text = "";
 		errorText.text = "";
@@ -69,15 +53,13 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		string regex = @"(([^:]+):(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[1-5][0-9][0-9][0-9][0-9]|[2-9][0-9][0-9][0-9]|1[1-9][0-9][0-9]|10[3-9][0-9]|102[5-9]))";
 		string[] split;
 
-		if (Regex.IsMatch(submit, regex))
+		if (GameManagerScript.instance.inputManager.ValidateKey () && Regex.IsMatch(submit, regex))
 		{
 			split = submit.Split(':');
 			try
 			{
 				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
-				quitButton.interactable = false;
 				GetComponent<InputField>().interactable = false;
-				StartCoroutine ("WaitForConnection", WaitForConnection());
 				PlayerPrefs.SetString ("IpAddress", submit);
 			}
 			catch (System.Exception e)
