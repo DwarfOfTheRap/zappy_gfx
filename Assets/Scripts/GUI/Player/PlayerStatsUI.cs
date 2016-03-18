@@ -74,8 +74,9 @@ public class PlayerStatsUI : MonoBehaviour {
 	
 	void HideWindow ()
 	{
+		if (_player != null)
+			_player.OnRefresh -= AnimateRefresh;
 		this._player = null;
-		_player.OnRefresh -= AnimateRefresh;
 		this.GetComponent<CanvasGroup> ().alpha = 0;
 		this.GetComponent<CanvasGroup> ().blocksRaycasts = false;
 	}

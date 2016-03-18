@@ -61,6 +61,7 @@ public class GridScript : MonoBehaviour, IGrid {
 		var sizey = clone.GetBoundY();
 		var sizez = clone.GetBoundZ();
 		var grid = new ISquare[width * height];
+		var timeout = Time.smoothDeltaTime;
 		clone.DestroyImmediate ();
 		_initProgress = 0.0f;
 		
@@ -73,7 +74,7 @@ public class GridScript : MonoBehaviour, IGrid {
 				switchInt ^= 1;
 				grid[i * height + j] = clone;
 				_initProgress = Mathf.Clamp (_initProgress + (1.0f / (width * height)), 0.0f, 1.0f);
-				if (Time.realtimeSinceStartup - time >= Time.smoothDeltaTime)
+				if (Time.realtimeSinceStartup - time >= timeout)
 				{
 					yield return null;
 					time = Time.realtimeSinceStartup;
