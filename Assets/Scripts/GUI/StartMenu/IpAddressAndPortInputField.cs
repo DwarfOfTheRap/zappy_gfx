@@ -16,7 +16,7 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		this.gameObject.GetComponent<InputField>().onEndEdit.AddListener (ConnectToPortOnAddress);
 		this.gameObject.GetComponent<InputField>().caretPosition = 0;
 		if (PlayerPrefs.HasKey("IpAddress"))
-			GetComponent<InputField>().text = PlayerPrefs.GetString ("IpAddress");
+			GetComponent<InputField>().text = PlayerPrefs.GetString ("IpAddress").Replace (System.Environment.NewLine, "");
 		SocketManager.instance.OnConnectionCanceled += ConnectionCanceled;
 	}
 
@@ -48,6 +48,21 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 		errorText.text = "";
 	}
 
+	IEnumerator WaitForConnection ()
+	{
+		while (true)
+		{
+			connectingToServerText.text = "Connecting to server";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server.";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server..";
+			yield return new WaitForSeconds(0.5f);
+			connectingToServerText.text = "Connecting to server...";
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
+
     public void ConnectToPortOnAddress(string submit)
     {
 		string regex = @"(([^:]+):(6553[0-5]|655[0-2][0-9]|65[0-4][0-9][0-9]|6[0-4][0-9][0-9][0-9]|[1-5][0-9][0-9][0-9][0-9]|[2-9][0-9][0-9][0-9]|1[1-9][0-9][0-9]|10[3-9][0-9]|102[5-9]))";
@@ -60,7 +75,8 @@ public class IpAddressAndPortInputField : MonoBehaviour {
 			{
 				SocketManager.instance.SetupConnection(split[0], int.Parse(split[1]));
 				GetComponent<InputField>().interactable = false;
-				PlayerPrefs.SetString ("IpAddress", submit);
+				StartCoroutine ("WaitForConnection", WaitForConnection());
+				PlayerPrefs.SetString ("IpAddress", submit.Replace (System.Environment.NewLine, ""));
 			}
 			catch (System.Exception e)
 			{
