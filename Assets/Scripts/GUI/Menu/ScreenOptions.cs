@@ -9,7 +9,7 @@ public class ScreenOptions : AWindow {
 	private Dropdown		_qualityDropdown;
 	private string[]		_qualities = {"Fastest", "Fast", "Simple", "Good", "Beautiful", "Outrageous"};
 	private Dropdown		_resolutionDropdown;
-	private Resolution[] 	_resolutions = Screen.resolutions;
+	private Resolution[] 	_resolutions;
 
 	protected override void CheckKeyboardShortcut ()
 	{

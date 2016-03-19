@@ -253,9 +253,12 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	void OnDisable()
 	{
 		controller.OnDisable();
-		var target = Camera.main.GetComponent<CameraScript>().cameraController.target;
-		if (target != null && target.IsPlayer () && (PlayerScript)target == this)
-			Camera.main.GetComponent<CameraScript>().cameraController.target = null;
+		if (Camera.main != null && Camera.main.GetComponent<CameraScript>() != null)
+		{
+			var target = Camera.main.GetComponent<CameraScript>().cameraController.target;
+			if (target != null && target.IsPlayer () && (PlayerScript)target == this)
+				Camera.main.GetComponent<CameraScript>().cameraController.target = null;
+		}
 	}
 
 	void Update()
