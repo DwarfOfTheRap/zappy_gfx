@@ -33,7 +33,7 @@ public class PlayerController {
 	public float						rotSpeed = 6.38f * 2.25f;
 
 	// Player position + orientation
-	private ISquare						_oldSquare;
+	public	ISquare						oldSquare { get; private set; }
 	public	ISquare						currentSquare;
 	private Orientation					_oldOrientation;
 	public  Quaternion					rotation { get; private set; }
@@ -154,8 +154,6 @@ public class PlayerController {
 		CorrectPlayerState ();
 		dead = true;
 		_animatorController.SetTrigger ("Death");
-		currentSquare.GetResources ().players.Remove (this);
-		_oldSquare.GetResources  ().players.Remove (this);
 	}
 
 	// Actions
@@ -171,7 +169,7 @@ public class PlayerController {
 	{
 		CorrectPlayerState();
 		_animatorController.SetTrigger ("Expulse");
-		foreach (PlayerController player in currentSquare.GetResources().players)
+		foreach (PlayerController player in GameManagerScript.instance.playerManager.GetPlayersInSquare(this.oldSquare))
 			player.BeExpulsed (OrientationManager.Opposite (playerOrientation));
 	}
 
@@ -212,7 +210,7 @@ public class PlayerController {
 	public void SetDestination(ISquare square, GridController gridController)
 	{
 		CorrectPlayerState ();
-		this._oldSquare = (this._oldSquare != null) ? this.currentSquare : null;
+		this.oldSquare = (this.oldSquare != null) ? this.currentSquare : null;
 		if (this.currentSquare != square)
 		{
 			Vector3 distance = currentSquare != null ? square.GetPosition () - currentSquare.GetPosition () : Vector3.zero;
@@ -309,7 +307,7 @@ public class PlayerController {
 		int y = 0;
 		foreach (ISquare square in _squareVision)
 			square.Standard ();
-		_gridController.GetSquarePosition (_oldSquare, ref x, ref y);
+		_gridController.GetSquarePosition (oldSquare, ref x, ref y);
 		this._squareVision = _gridController.GetVision (x, y, _oldOrientation, level);
 		foreach (ISquare square in _squareVision)
 		{
@@ -319,12 +317,9 @@ public class PlayerController {
 
 	void OnDestinationHit()
 	{
-		if (playerMotorController.HasReachedDestination (this.destination) && this._oldSquare != this.currentSquare)
+		if (playerMotorController.HasReachedDestination (this.destination) && this.oldSquare != this.currentSquare)
 		{
-			if (this._oldSquare != null)
-				this._oldSquare.GetResources().players.Remove (this);
-			this.currentSquare.GetResources ().players.Add (this);
-			this._oldSquare = currentSquare;
+			this.oldSquare = currentSquare;
 			dontTeleportMe = false;
 		}
 		if (playerMotorController.HasReachedRotation (this.rotation))
@@ -345,8 +340,9 @@ public class PlayerController {
 		this.StopLayingEgg ();
 		if (dontTeleportMe)
 		{
-			playerMotorController.SetPosition (currentSquare.GetSubPosition (_subPositionIndex));
+			playerMotorController.SetPosition (destination);
 			dontTeleportMe = false;
+			OnDestinationHit();
 		}
 	}
 
@@ -376,5 +372,9 @@ public class PlayerController {
 			if (Time.realtimeSinceStartup - this._timeSinceLastInventoryUpdate > 1.0f / (_timeManager.timeSpeed / 100.0f))
 				RefreshInventory ();
 		}
+	}
+
+	public void LateUpdate()
+	{
 	}
 }

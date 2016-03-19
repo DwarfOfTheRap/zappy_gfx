@@ -39,7 +39,6 @@ public class EggController
 		this.index = index;
 		this.parent = parent;
 		this.motorController.SetTeamColor (parent.team.color);
-		this.currentSquare.GetResources ().eggs.Add (this);
 		return this;
 	}
 
@@ -50,16 +49,16 @@ public class EggController
 
 	public void Die ()
 	{
+		this.dead = true;
 		animatorController.SetTrigger ("Death");
 		motorController.Die ();
-		this.currentSquare.GetResources ().eggs.Remove (this);
 	}
 
 	public void PlayerConnection ()
 	{
+		this.dead = true;
 		animatorController.SetTrigger ("Death");
 		motorController.Die ();
-		this.currentSquare.GetResources ().eggs.Remove (this);
 	}
 
 	public void Destroy ()

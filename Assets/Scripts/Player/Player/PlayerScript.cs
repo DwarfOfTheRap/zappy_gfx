@@ -262,4 +262,9 @@ public class PlayerScript : MonoBehaviour, IAnimatorController, IPlayerMotorCont
 	{
 		controller.Update (this.transform.position);
 	}
+
+	void LateUpdate()
+	{
+		controller.LateUpdate ();
+	}
 }

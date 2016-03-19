@@ -190,8 +190,6 @@ public class SquareContent
 	public ResourceController mendiane;
 	public ResourceController phiras;
 	public ResourceController thystame;
-	public List<PlayerController> players = new List<PlayerController>();
-	public List<EggController> eggs = new List<EggController>();
 }
 
 public enum SquareResources

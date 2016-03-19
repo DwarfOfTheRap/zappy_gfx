@@ -124,7 +124,6 @@ public class ServerCommandsTests {
 		//Arrange
 		ServerCommands sc = new ServerCommands (GetMockGridController (), GetMockTeamManager (), GetMockPlayerManager (), GetMockTimeManager (), null, null);
 		SquareContent squareC = new SquareContent ();
-		squareC.players.Add (GetMockPlayerController (GetMockAnimatorController ()));
 		sc.gridController.GetSquare (5, 5).ReturnsForAnyArgs (Substitute.For<ISquare> ());
 		sc.gridController.GetSquare (5, 5).GetResources().ReturnsForAnyArgs(squareC);
 		sc.playerManager.SetPlayersStopIncantate(0, 0, 0).ReturnsForAnyArgs(new System.Collections.Generic.List<PlayerController>());

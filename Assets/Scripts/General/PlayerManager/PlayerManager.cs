@@ -81,7 +81,7 @@ public class PlayerManager {
 
 	public PlayerController[] GetPlayersInTeam(Team team)
 	{
-		List<PlayerController> tmp = new List<PlayerController>();
+		var tmp = new List<PlayerController>();
 
 		foreach (PlayerController player in players)
 		{
@@ -90,6 +90,30 @@ public class PlayerManager {
 		}
 		if (tmp.Count == 0)
 			return null;
+		return tmp.ToArray ();
+	}
+
+	public PlayerController[] GetPlayersInSquare(ISquare square)
+	{
+		var tmp = new List<PlayerController>();
+		
+		foreach (PlayerController player in players)
+		{
+			if (player.oldSquare == square && !player.dead)
+				tmp.Add (player);
+		}
+		return tmp.ToArray ();
+	}
+
+	public EggController[] GetEggsInSquare(ISquare square)
+	{
+		var tmp = new List<EggController>();
+
+		foreach (var egg in eggs)
+		{
+			if (egg.currentSquare == square && !egg.dead)
+				tmp.Add (egg);
+		}
 		return tmp.ToArray ();
 	}
 
@@ -173,12 +197,12 @@ public class PlayerManager {
 	public virtual List<PlayerController> SetPlayersStopIncantate(int x, int y, int incantationResult)
 	{
 		var square = GameManagerScript.instance.gridController.GetSquare (x, y);
-		var players = square.GetResources ().players;
-		foreach (var player in GameManagerScript.instance.gridController.GetSquare (x, y).GetResources ().players)
+		var players = GetPlayersInSquare (square);
+		foreach (var player in players)
 			player.StopIncantating ();
 		if (incantationResult == 1 && (players[0] != null))
 			GameManagerScript.instance.InstantiateIncantation (new Vector3(square.GetPosition ().x, 0, square.GetPosition ().z), players[0].team.color);
-		return players;
+		return players.ToList ();
 	}
 
 	public virtual PlayerController SetPlayerLayEgg(int n)
