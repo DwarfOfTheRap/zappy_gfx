@@ -49,7 +49,7 @@ public class ResourceController
 	public static Color	siburColor { get { return new Color(242/255.0f, 29/255.0f, 68/255.0f); }}
 	public static Color	mendianeColor { get { return new Color(255/255.0f, 137/255.0f, 48/255.0f); }}
 	public static Color	phirasColor { get { return new Color(255/255.0f, 212/255.0f, 53/255.0f); }}
-	public static Color	thystameColor { get { return Color.gray; }}
+	public static Color	thystameColor { get { return new Color(255/255.0f, 75/255.0f, 255/255.0f); }}
 	public static Color	foodColor { get { return Color.cyan; }}
 
 	public Color		color { get; private set;}
