@@ -14,8 +14,6 @@ if [[ ${TRAVIS_OS_NAME} == "osx" ]]; then
         -logFile `pwd`/unity.log \
         -projectPath `pwd` \
         -executeMethod UnityTest.Batch.RunUnitTests \
-        -executeMethod UnityTest.Batch.RunIntegrationTests \
-        -testscenes=PlayerTestScene \
         -quit
     fail=$?
 elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
@@ -27,8 +25,6 @@ elif [[ ${TRAVIS_OS_NAME} == "linux" ]]; then
         -logFile `pwd`/unity.log \
         -projectPath `pwd` \
         -executeMethod UnityTest.Batch.RunUnitTests \
-        -executeMethod UnityTest.Batch.RunIntegrationTests \
-        -testscenes=PlayerTestScene \
         -quit
     fail=$?
 fi
