@@ -21,8 +21,8 @@ public abstract class AWindow : MonoBehaviour {
 	protected virtual void Start () {
 		inputManager = GameManagerScript.instance.inputManager;
 	}
-	
-	void Update () {
+
+	protected void Update () {
 		CheckKeyboardShortcut();
 	}
 }

@@ -13,7 +13,7 @@ public class GameOver : MonoBehaviour {
 		gameObject.GetComponentInChildren<Text> ().text = "Game Over\nTeam " + "<color=" + colorhex + ">" + ev.team.name + "</color>" + "\nWins!";
 	}
 
-	void Start ()
+	void OnEnable ()
 	{
 		GameManagerScript.instance.OnGameOver += DisplayWindow;
 	}

@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TeamCompositionUI : MonoBehaviour {
+	public Team 		team;
+
 	void HideWindow ()
 	{
 		this.GetComponent<CanvasGroup> ().alpha = 0;

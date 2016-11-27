@@ -3,18 +3,19 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TimeCount : MonoBehaviour {
-	private int				_totalGameSeconds = 0;
+	private float			_totalGameSeconds = 0;
 
 	IEnumerator TimeUpdate ()
 	{
+		var time = Time.realtimeSinceStartup;
 		while (true) {
-			if (GameManagerScript.instance.timeManager.timeSpeed > 0) {
-				yield return new WaitForSeconds (1.0f / GameManagerScript.instance.timeManager.timeSpeed);
-				if (GameManagerScript.instance.timeManager.timeSpeed > 0)
-					_totalGameSeconds += 1;
+			var tmp = Time.realtimeSinceStartup - time;
+			if (tmp >= (1.0f / GameManagerScript.instance.timeManager.timeSpeed))
+			{
+				_totalGameSeconds += tmp / (1.0f / GameManagerScript.instance.timeManager.timeSpeed);
+				time = Time.realtimeSinceStartup;
 			}
-			else
-				yield return new WaitForEndOfFrame();
+			yield return null;
 		}
 	}
 
@@ -30,6 +31,6 @@ public class TimeCount : MonoBehaviour {
 	}
 	
 	void Update () {
-		this.gameObject.GetComponent<Text> ().text = _totalGameSeconds.ToString ();
+		this.gameObject.GetComponent<Text> ().text = ((int)_totalGameSeconds).ToString ();
 	}
 }

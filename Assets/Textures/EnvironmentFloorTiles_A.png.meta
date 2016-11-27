@@ -24,7 +24,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
@@ -44,27 +44,27 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
-  textureType: 0
+  textureType: 5
   buildTargetSettings:
   - buildTarget: iPhone
     maxTextureSize: 1024
-    textureFormat: -1
-    compressionQuality: -1
+    textureFormat: 33
+    compressionQuality: 0
     allowsAlphaSplitting: 0
   - buildTarget: Android
     maxTextureSize: 1024
-    textureFormat: -1
-    compressionQuality: -1
+    textureFormat: 47
+    compressionQuality: 0
     allowsAlphaSplitting: 0
   - buildTarget: Web
     maxTextureSize: 1024
-    textureFormat: -1
-    compressionQuality: -1
+    textureFormat: 12
+    compressionQuality: 0
     allowsAlphaSplitting: 0
   - buildTarget: Standalone
     maxTextureSize: 1024
-    textureFormat: -1
-    compressionQuality: -1
+    textureFormat: 12
+    compressionQuality: 0
     allowsAlphaSplitting: 0
   - buildTarget: FlashPlayer
     maxTextureSize: 1024

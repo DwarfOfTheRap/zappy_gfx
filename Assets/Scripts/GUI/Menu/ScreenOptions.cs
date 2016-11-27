@@ -75,5 +75,4 @@ public class ScreenOptions : AWindow {
 		_resolutionDropdown.value = i;
 		_resolutionDropdown.captionText.text = _resolutions[i].width.ToString() + " x " + _resolutions[i].height.ToString();
 	}
-
 }

@@ -88,9 +88,6 @@ public class SocketManager : MonoBehaviour
 					Refresh ();
 #endif
 				foreach (string serverMessage in _reader.SplitMessage (response)) {
-#if UNITY_EDITOR
-					Debug.Log("[SERVER] -> " + serverMessage);
-#endif
 					while (wait)
 						yield return null;
 					if (serverMessage != "" && _reader.IsLegitMessage (serverMessage)) {
@@ -181,8 +178,5 @@ public class SocketManager : MonoBehaviour
    	public void SendToServer(string str)
     {
         _connection.WriteSocket(str);
-#if UNITY_EDITOR
-        Debug.Log("[CLIENT] -> " + str);
-#endif
     }
 }

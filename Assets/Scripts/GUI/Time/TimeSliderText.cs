@@ -15,6 +15,8 @@ public class TimeSliderText : MonoBehaviour {
 	{
 		int value = int.Parse(input);
 		GameManagerScript.instance.timeManager.ChangeTimeSpeedInput (Mathf.Clamp (value, slider.minValue, slider.maxValue));
+		if (value > this.slider.maxValue || value < this.slider.minValue)
+			OnSliderValueChange(slider.gameObject);
 	}
 
 	void Start()

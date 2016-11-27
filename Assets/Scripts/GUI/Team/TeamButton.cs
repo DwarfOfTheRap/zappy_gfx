@@ -18,7 +18,8 @@ public class TeamButton : MonoBehaviour {
 
 	void RefreshScrollableArea (OnAPlayerEventArgs ev)
 	{
-		if (ev.player.team == this.team)
+		Debug.Log ("refresh: " + team.name);
+		if (ev.player.team == this.team && ev.player.team == teamComposition.GetComponent<TeamCompositionUI>().team && teamComposition.GetComponent<CanvasGroup>().alpha == 1)
 			ActivateTeamDetails();
 	}
 
@@ -26,12 +27,15 @@ public class TeamButton : MonoBehaviour {
 	{
 		PlayerListUI playerList = teamComposition.GetComponentInChildren<PlayerListUI> ();
 		PlayerUI[] children = playerList.gameObject.GetComponentsInChildren<PlayerUI>();
-		
+
+		Debug.Log ("activate: " + team.name);
+
 		foreach(PlayerUI pUI in children)
 			DestroyImmediate(pUI.gameObject);
 		playerList.DisplayDetails(team);
 		teamComposition.GetComponent<CanvasGroup> ().alpha = 1;
 		teamComposition.GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		teamComposition.GetComponent<TeamCompositionUI>().team = team;
 		foreach (var image in teamComposition.GetComponentsInChildren<Image>(true))
 		{
 			if (image.name == "BackgroundImage")
